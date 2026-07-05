@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Domaine Personnalisé</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .fano-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fbf9f4;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#ffbb16",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-highest": "#e4e2dd",
+                    "surface-dim": "#dbdad5",
+                    "inverse-primary": "#60df81",
+                    "on-primary-fixed": "#00210a",
+                    "on-tertiary-container": "#fffbff",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface": "#fbf9f4",
+                    "burkina-green-deep": "#007A38",
+                    "secondary": "#7c5800",
+                    "tertiary": "#bb0014",
+                    "inverse-surface": "#30312e",
+                    "on-primary-fixed-variant": "#005323",
+                    "on-background": "#1b1c19",
+                    "secondary-fixed": "#ffdea6",
+                    "primary-container": "#00873d",
+                    "surface-container": "#f0eee9",
+                    "tertiary-container": "#e32126",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "burkina-green-light": "#E6F5ED",
+                    "on-error": "#ffffff",
+                    "text-muted": "#5C5F5A",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#60df81",
+                    "on-secondary-container": "#6c4d00",
+                    "surface-container-low": "#f5f3ee",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "surface-tint": "#006d30",
+                    "outline": "#6d7a6d",
+                    "surface-container-high": "#eae8e3",
+                    "tertiary-fixed": "#ffdad6",
+                    "inverse-on-surface": "#f2f1ec",
+                    "outline-variant": "#bdcaba",
+                    "saffron-glow": "#FFF8E6",
+                    "primary-fixed": "#7efc9a",
+                    "background": "#fbf9f4",
+                    "on-secondary-fixed": "#271900",
+                    "on-tertiary-fixed": "#410002",
+                    "text-main": "#1A1C19",
+                    "primary": "#006b2f",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#f7fff3",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fbf9f4",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "surface-off-white": "#F9F7F2",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1b1c19",
+                    "on-surface-variant": "#3e4a3e",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "1.5rem",
+                    "sm": "1rem",
+                    "xl": "4rem",
+                    "container-max": "1280px",
+                    "baseline": "4px",
+                    "gutter": "1.5rem",
+                    "lg": "2.5rem",
+                    "xs": "0.5rem"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="flex overflow-hidden">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen border-r border-outline-variant/30 dark:border-outline-variant/10 h-full w-64 fixed left-0 top-0 bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="px-6 py-8">
+<span class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</span>
+<p class="text-label-sm text-text-muted mt-1 uppercase tracking-widest">Burkinabé Merchant</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="mt-auto p-4 fano-pattern border-t border-outline-variant/10">
+<div class="bg-secondary-container/10 p-4 rounded-xl border border-secondary-container/20">
+<p class="text-label-sm text-secondary font-bold mb-2">Plan Business Actif</p>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-burkina-green-deep w-3/4"></div>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-4 flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-full text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Rechercher des paramètres..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-8 w-px bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-label-lg font-bold text-main leading-none">Ibrahim Traoré</p>
+<p class="text-label-sm text-text-muted">Boutique Faso Art</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover" data-alt="A professional close-up portrait of a West African merchant, smiling confidently. The lighting is soft and golden, highlighting rich skin tones and a modern aesthetic. The background is a clean, minimal office environment with a subtle touch of green, reflecting the Shopizi brand identity. High-quality corporate photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnAA03MiFbfICKI5tdUWGadHLe_C6q1mi29IJYz9EBWeCGCW2VXcXmkUmbzSW_OJcPLwztfjPsXn04Opbq-Pe1bvdVUpDXu-84JTplE-eHEige6F6QmGHYHpjL5wcdv55GpmOHuVf0ixvHaHEk3L21fV9r31a0rLi7ocROmEy8AP3MtbL5XFaQX0x_470J-go9kGuhnUTzRGDWIjpCp6WMD-u9KK5bjwUy_j4UHzJVdpyYQX8c9A2vBkuvPXHTC4bqC7Fq8xJ-bYQ"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 flex-grow h-[calc(100vh-4rem)] overflow-y-auto bg-surface-off-white">
+<div class="max-w-5xl mx-auto px-gutter py-lg">
+<!-- Page Header -->
+<div class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex items-center gap-2 text-label-sm text-text-muted mb-2">
+<span>Paramètres</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-burkina-green-deep font-semibold">Domaine Personnalisé</span>
+</nav>
+<h1 class="text-headline-lg font-headline-lg text-main">Propulsez votre marque</h1>
+<p class="text-body-md text-text-muted max-w-2xl mt-2">Reliez votre propre nom de domaine (ex: www.matieredore.bf) pour offrir une expérience professionnelle et mémorable à vos clients burkinabés et internationaux.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-2 px-4 py-2 bg-saffron-glow border border-secondary-container/30 text-secondary font-bold text-label-lg rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                        PLAN BUSINESS
+                    </span>
+</div>
+</div>
+<!-- Bento Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Configuration Card -->
+<div class="md:col-span-7 bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-8 border-l-4 border-burkina-green-deep flex flex-col">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 rounded-full bg-burkina-green-light flex items-center justify-center text-burkina-green-deep">
+<span class="material-symbols-outlined">language</span>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm">Connecter un domaine</h3>
+<p class="text-label-md text-text-muted">Ajoutez l'URL que vous avez achetée.</p>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<label class="block text-label-lg text-main mb-2">Nom de domaine</label>
+<div class="flex gap-2">
+<div class="relative flex-grow">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted font-medium">https://</span>
+<input class="w-full pl-[72px] pr-4 py-3 border border-outline-variant/60 rounded-lg text-body-md focus:border-burkina-green-deep focus:ring-2 focus:ring-burkina-green-light outline-none transition-all" placeholder="ma-boutique.com" type="text"/>
+</div>
+<button class="px-6 py-3 bg-secondary-container text-main font-bold rounded-lg hover:scale-[1.02] active:scale-95 transition-all shadow-sm">
+                                    Vérifier
+                                </button>
+</div>
+<p class="mt-2 text-label-sm text-text-muted italic flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+                                N'incluez pas "www" ou "https://" au début.
+                            </p>
+</div>
+<!-- Current Status -->
+<div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant/30">
+<div class="flex items-center justify-between mb-4">
+<span class="text-label-lg font-bold text-main">Statut actuel</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-tertiary/10 text-tertiary text-label-sm font-bold rounded-full">
+<span class="w-2 h-2 bg-tertiary rounded-full animate-pulse"></span>
+                                    Non configuré
+                                </span>
+</div>
+<p class="text-body-sm text-text-muted leading-relaxed">
+                                Votre domaine n'est pas encore lié à nos serveurs. Veuillez suivre les instructions DNS sur la droite pour finaliser l'installation.
+                            </p>
+</div>
+</div>
+</div>
+<!-- DNS Records Card -->
+<div class="md:col-span-5 bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-8 overflow-hidden relative">
+<!-- Decorative element -->
+<div class="absolute -right-4 -top-4 w-32 h-32 bg-burkina-green-light/30 rounded-full blur-3xl"></div>
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-burkina-green-deep">dns</span>
+                        Configuration DNS
+                    </h3>
+<div class="space-y-6">
+<!-- Record Type A -->
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<span class="text-label-md font-bold text-main">Enregistrement A</span>
+<button class="text-burkina-green-deep text-label-sm hover:underline">Copier</button>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface-container p-3 rounded-lg border border-outline-variant/20">
+<span class="text-label-sm text-text-muted block">Hôte</span>
+<span class="text-body-sm font-mono font-bold">@</span>
+</div>
+<div class="bg-surface-container p-3 rounded-lg border border-outline-variant/20">
+<span class="text-label-sm text-text-muted block">Valeur</span>
+<span class="text-body-sm font-mono font-bold">76.76.21.21</span>
+</div>
+</div>
+</div>
+<!-- Record CNAME -->
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<span class="text-label-md font-bold text-main">Enregistrement CNAME</span>
+<button class="text-burkina-green-deep text-label-sm hover:underline">Copier</button>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface-container p-3 rounded-lg border border-outline-variant/20">
+<span class="text-label-sm text-text-muted block">Hôte</span>
+<span class="text-body-sm font-mono font-bold">www</span>
+</div>
+<div class="bg-surface-container p-3 rounded-lg border border-outline-variant/20">
+<span class="text-label-sm text-text-muted block">Valeur</span>
+<span class="text-body-sm font-mono font-bold">shops.shopizi.bf</span>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-burkina-green-light/50 border border-burkina-green-deep/20 rounded-xl">
+<p class="text-body-sm text-burkina-green-deep">
+<strong>Important:</strong> Les modifications DNS peuvent prendre jusqu'à 24-48 heures pour se propager à travers le monde.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Guidance/Help Section -->
+<div class="md:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-gutter mt-4">
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] flex gap-4">
+<div class="text-burkina-green-deep">
+<span class="material-symbols-outlined text-[32px]">security</span>
+</div>
+<div>
+<h4 class="text-label-lg font-bold text-main">Certificat SSL inclus</h4>
+<p class="text-body-sm text-text-muted mt-1">Shopizi génère automatiquement un certificat SSL gratuit pour sécuriser votre domaine.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] flex gap-4">
+<div class="text-secondary">
+<span class="material-symbols-outlined text-[32px]">support_agent</span>
+</div>
+<div>
+<h4 class="text-label-lg font-bold text-main">Besoin d'aide ?</h4>
+<p class="text-body-sm text-text-muted mt-1">Nos experts à Ouagadougou peuvent vous aider à configurer votre domaine par téléphone.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] flex gap-4">
+<div class="text-tertiary">
+<span class="material-symbols-outlined text-[32px]">domain_verification</span>
+</div>
+<div>
+<h4 class="text-label-lg font-bold text-main">Redirection .bf</h4>
+<p class="text-body-sm text-text-muted mt-1">Soutenez l'économie locale avec un domaine .bf. Nous gérons parfaitement l'extension nationale.</p>
+</div>
+</div>
+</div>
+<!-- Illustration Card -->
+<div class="md:col-span-12 relative h-64 rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] group">
+<div class="absolute inset-0 bg-gradient-to-r from-burkina-green-deep/90 to-transparent z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A cinematic, shallow depth-of-field photograph of a modern, high-tech computer workspace in a bright office in Burkina Faso. On the screen, a clean e-commerce interface is displayed. In the background, out-of-focus traditional African patterns decorate the walls. The lighting is professional and airy, reflecting a premium SaaS ecosystem for modern commerce." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDl75h4qHpgYhvfHToI0VoE9tJ1P3wnLchYb6jHtn-MhVwCETitU4wYujUeGFujaIP7-tmq7IkySw4E8BdwLwUBaYD6lsn7U-zTPWxDc0n7k6RJPOgW5wLx3BNN6ypQPY7nDXaDv2VlwcLEmvhschuR6Q0iqRkoxMBir4a--CIbclzFuVQ3hJDYEZh03Hyqx5lk6unKxvpFLbBJABQDiXYiVm6t5vPuiPipAAWt7AHtgT16ai70iQFMhsEZ_vTbv61kLpID2NOxA8E')"></div>
+<div class="relative z-20 h-full flex flex-col justify-center px-12 text-white max-w-xl">
+<h2 class="text-headline-md font-headline-md mb-2">Passez au niveau supérieur</h2>
+<p class="text-body-md text-white/90">Un domaine personnalisé augmente votre taux de conversion de 35% en moyenne en instaurant une confiance immédiate.</p>
+<div class="mt-6 flex gap-4">
+<button class="px-6 py-2 bg-white text-burkina-green-deep font-bold rounded-lg hover:bg-burkina-green-light transition-colors">Lire le guide</button>
+<button class="px-6 py-2 border border-white text-white font-bold rounded-lg hover:bg-white/10 transition-colors">Témoignages</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Pattern -->
+<div class="w-full h-24 fano-pattern opacity-10"></div>
+</main>
+<!-- Floating Action Button (FAB) - Suppressed as per Task Rules for Settings screens -->
+<script>
+        // Micro-interaction for Copy buttons
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText === 'Copier') {
+                btn.addEventListener('click', function() {
+                    const originalText = this.innerText;
+                    this.innerText = 'Copié !';
+                    this.classList.add('text-secondary');
+                    setTimeout(() => {
+                        this.innerText = originalText;
+                        this.classList.remove('text-secondary');
+                    }, 2000);
+                });
+            }
+        });
+
+        // Search bar interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        if (searchInput) {
+            searchInput.addEventListener('focus', function() {
+                this.parentElement.classList.add('scale-[1.01]');
+                this.parentElement.style.transition = 'all 0.3s ease';
+            });
+            searchInput.addEventListener('blur', function() {
+                this.parentElement.classList.remove('scale-[1.01]');
+            });
+        }
+    </script>
+</body></html>

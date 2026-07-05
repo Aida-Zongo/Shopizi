@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Médiathèque</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .faso-pattern {
+            background-image: radial-gradient(#007A38 0.5px, transparent 0.5px);
+            background-size: 12px 12px;
+            opacity: 0.05;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "surface-container-low": "#f5f3ee",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#7efc9a",
+                      "on-background": "#1b1c19",
+                      "secondary": "#7c5800",
+                      "on-secondary-fixed": "#271900",
+                      "secondary-fixed": "#ffdea6",
+                      "primary-fixed-dim": "#60df81",
+                      "inverse-surface": "#30312e",
+                      "surface-tint": "#006d30",
+                      "on-secondary-fixed-variant": "#5e4200",
+                      "text-muted": "#5C5F5A",
+                      "on-surface-variant": "#3e4a3e",
+                      "on-secondary": "#ffffff",
+                      "background": "#fbf9f4",
+                      "on-error": "#ffffff",
+                      "secondary-container": "#ffbb16",
+                      "secondary-fixed-dim": "#ffbb16",
+                      "text-main": "#1A1C19",
+                      "on-primary-fixed-variant": "#005323",
+                      "on-primary-fixed": "#00210a",
+                      "inverse-primary": "#60df81",
+                      "primary": "#006b2f",
+                      "surface-variant": "#e4e2dd",
+                      "error": "#ba1a1a",
+                      "surface": "#fbf9f4",
+                      "surface-dim": "#dbdad5",
+                      "primary-container": "#00873d",
+                      "tertiary": "#bb0014",
+                      "outline": "#6d7a6d",
+                      "on-secondary-container": "#6c4d00",
+                      "tertiary-fixed": "#ffdad6",
+                      "surface-bright": "#fbf9f4",
+                      "surface-off-white": "#F9F7F2",
+                      "on-primary-container": "#f7fff3",
+                      "surface-container": "#f0eee9",
+                      "on-surface": "#1b1c19",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f2f1ec",
+                      "burkina-green-light": "#E6F5ED",
+                      "burkina-green-deep": "#007A38",
+                      "on-tertiary-fixed": "#410002",
+                      "tertiary-container": "#e32126",
+                      "saffron-glow": "#FFF8E6",
+                      "on-tertiary-container": "#fffbff",
+                      "tertiary-fixed-dim": "#ffb4ac",
+                      "surface-container-high": "#eae8e3",
+                      "outline-variant": "#bdcaba",
+                      "on-tertiary-fixed-variant": "#93000d",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e4e2dd",
+                      "error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "0.5rem",
+                      "container-max": "1280px",
+                      "md": "1.5rem",
+                      "baseline": "4px",
+                      "sm": "1rem",
+                      "xl": "4rem",
+                      "lg": "2.5rem",
+                      "gutter": "1.5rem"
+              },
+              "fontFamily": {
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-sm": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-sm": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- Side Navigation Shell -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-r border-outline-variant/30 z-50">
+<div class="p-md">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted mt-1">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 mt-4 space-y-1">
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<!-- ACTIVE TAB: Médias -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 relative">
+<div class="faso-pattern absolute inset-0 rounded-b-lg"></div>
+<button class="w-full py-3 px-4 bg-secondary-container text-on-secondary-container font-label-lg rounded-xl flex items-center justify-center gap-2 shadow-sm hover:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                Passer à Pro
+            </button>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md z-40 flex items-center justify-between px-gutter">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full focus:ring-2 focus:ring-burkina-green-deep text-body-sm" placeholder="Rechercher un média..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-outline">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-outline">help</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right hidden sm:block">
+<p class="text-label-lg font-label-lg">Faso Market</p>
+<p class="text-label-sm text-text-muted">Vendeur Premium</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-burkina-green-light" data-alt="A professional headshot of a smiling West African male merchant in a clean, brightly lit corporate office environment. He is wearing a modern tailored suit with subtle traditional fabric accents. The lighting is soft and airy, reflecting a high-end SaaS platform user profile, with a minimalist off-white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6_VS1Q6ShRyfmTuj_XA121AaCNTUv124c6Xsk_46LnbMAQ4MMpadyBi32EFCt9JTyNdqpmU21sGzjJEPCeiJNCKRfcqMfxYNuedpoKSyQeqit7ogaPfZvAl7Om-D0818SsY8jvFAVJzlAtPp65Ay_qsMAAhccfj6mdNyGOfXC2AmN-VSaqGW9tyqykStx8mhLrtZ51G2EBgG7zkYbnCYoX3PeimqsScpXXsCqXqdoplD9BRQ52YkgJJFFDV4sLQUBerBPxhQxTyY"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-lg max-w-7xl mx-auto">
+<!-- Header & Storage Alert -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-text-main mb-2">Médiathèque</h2>
+<p class="text-body-lg text-text-muted">Gérez vos visuels de produits et bannières de boutique.</p>
+</div>
+<!-- Storage Widget -->
+<div class="bg-white p-4 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep w-full md:w-80">
+<div class="flex justify-between items-center mb-2">
+<span class="text-label-lg font-label-lg">Stockage utilisé</span>
+<span class="text-label-sm font-bold text-burkina-green-deep">90%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden mb-1">
+<!-- Critical state at 90% (Saffron per guidelines) -->
+<div class="h-full bg-secondary-container transition-all duration-1000 ease-out" style="width: 90%;"></div>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-label-sm text-text-muted">45.2 MB / 50 MB</p>
+<a class="text-label-sm font-bold text-burkina-green-deep hover:underline" href="#">Augmenter</a>
+</div>
+</div>
+</div>
+<!-- Toolbar -->
+<div class="flex flex-wrap items-center justify-between gap-md mb-md p-4 bg-white rounded-xl shadow-sm">
+<div class="flex items-center gap-3">
+<div class="relative">
+<select class="pl-4 pr-10 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-label-lg appearance-none focus:border-burkina-green-deep focus:ring-0">
+<option>Toutes les dates</option>
+<option>Octobre 2023</option>
+<option>Septembre 2023</option>
+<option>Août 2023</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+<div class="relative">
+<select class="pl-4 pr-10 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-label-lg appearance-none focus:border-burkina-green-deep focus:ring-0">
+<option>Tous les formats</option>
+<option>Images (JPG, PNG)</option>
+<option>Vidéos (MP4)</option>
+<option>Documents (PDF)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 text-burkina-green-deep border border-burkina-green-deep rounded-lg font-label-lg hover:bg-burkina-green-light transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+                        Grille
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2.5 text-text-muted hover:text-burkina-green-deep transition-all font-label-lg">
+<span class="material-symbols-outlined text-[20px]">list</span>
+                        Liste
+                    </button>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-secondary text-white rounded-lg font-label-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">cloud_upload</span>
+                        Télécharger
+                    </button>
+</div>
+</div>
+<!-- Bento Media Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-md">
+<!-- Media Card 1 -->
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-quality studio photograph of a vibrant, colorful Burkina Faso hand-woven basket, showing intricate geometric patterns in red, green, and yellow. The lighting is soft and professional, with a clean white background, highlighting the artisanal texture and craftsmanship of the product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ2mRoHoyc3r4M-HB7-ntB2jeLMgVAvRlU8YAzhSfTIL3bFRx7uTqqxJQUUKTFQlpDVDMVFtmsGU4sLXlOEAPWEwKjMbOTdo0jckuCzdtZ63t2dIsB271qcbyvGRyU1iS70V6a5KwKsFrVmttm2q-918PYF2j2kBEdYitqzXx_VsnQgMHx9cPPjOL5-ihMYSgT-sqCsQz0F0C947rnpEWhfmdLRFhENHTFaH7qbe1jtYt6uHbMT2wSrj3_jDYMGnJZuJqtY1hZk2U"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+<div class="flex gap-2 w-full justify-center">
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">panier_traditionnel.jpg</p>
+<p class="text-label-sm text-text-muted">1.2 MB • 24 Oct 2023</p>
+</div>
+</div>
+<!-- Media Card 2 -->
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Close-up photograph of high-quality Faso Dan Fani textile fabric featuring a unique indigo and cream striped pattern. The lighting is cinematic, capturing the depth of the weave and the natural texture of the cotton. The image is clean, sharp, and intended for an e-commerce storefront presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwaj1EfcfW1gLZHUtKM8jJnm3ncYjqvmE7ilxEBc38_87bYUnqxCdWnDzlwPolIe6a0-UGgCQurp7WYTHePhHfQ0iYA_0gsQhtvnWqXTUogT3_stggdS5WHUL_uLO05lfFr-FklHrgVkrGRtjcFa_5zdwUhqaXzOTtIK86qj4wln1lrFGxCBBuOPHwJ6JvhQaO1h1iPE-ZaFMtSpn29mHaqVfVbsFUskyHGZomiLqS4eBEOnmt3fsgDOVelwVMNfCiiU0KEBJNzGE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+<div class="flex gap-2 w-full justify-center">
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">tissu_faso_danfani.png</p>
+<p class="text-label-sm text-text-muted">2.5 MB • 22 Oct 2023</p>
+</div>
+</div>
+<!-- Media Card 3 -->
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative flex items-center justify-center bg-surface-container-low">
+<span class="material-symbols-outlined text-outline text-[64px]">video_library</span>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+<div class="flex gap-2 w-full justify-center">
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">play_arrow</span></button>
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">promo_video_boutique.mp4</p>
+<p class="text-label-sm text-text-muted">15.8 MB • 18 Oct 2023</p>
+</div>
+</div>
+<!-- Media Card 4 -->
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Commercial product photography of organic Shea butter in a premium minimalist glass jar with a wooden lid. The lighting is warm and glowing, creating an expensive, high-end skincare aesthetic. The background is a soft beige linen cloth, perfectly styled for a luxury African beauty brand e-commerce site." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy_tRMUMgMDBsPCj4AK2qcc9xkBnQn2XEE-TCmrqQHeXD9i1xPJhSwHC3FPw4-tY6rxa29aaRZp6jIEj3lmH0yIgE1ceOuN5PV257Dq39LMv7zpXIk-5I0IUBMUV7DbrAdKqapUiHy6FCI6x35XPNwyox3btes7aB2Z_5VXOr1A3iPm--t-z0Dn7uROgp2QpEDI7fO_SW1IHxbQLv6zLPGK5xjVseRTgiIBBoOf_hl-G_lTOB3xSJJU0X7K2waJzAU_GrH0j7dqVI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+<div class="flex gap-2 w-full justify-center">
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">beurre_karite_bio.jpg</p>
+<p class="text-label-sm text-text-muted">0.8 MB • 15 Oct 2023</p>
+</div>
+</div>
+<!-- Media Card 5 (Draft/New Uploading Simulation) -->
+<div class="group relative bg-white border-2 border-dashed border-outline-variant/50 rounded-xl flex flex-col items-center justify-center p-6 hover:border-burkina-green-deep hover:bg-burkina-green-light/20 transition-all cursor-pointer aspect-square">
+<span class="material-symbols-outlined text-outline group-hover:text-burkina-green-deep text-[48px] mb-2">add_photo_alternate</span>
+<p class="text-label-lg text-center text-text-muted group-hover:text-burkina-green-deep">Ajouter un nouveau média</p>
+</div>
+<!-- Repeating items to fill grid -->
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A collection of handmade bronze statues from Ouagadougou, artistically arranged on a wooden surface. The lighting is natural and warm, coming from a side window, highlighting the metallic sheen and fine details of the craftsmanship. Modern corporate photography style for a premium artisanal shop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUHCt35vAozmjV5ZGyyhOke9BrjO48NgI_kWmluaUY1vQYMCDVLx1sE0pFtY9oVKoenVv2dK69K8h5R_bWycuqT8SSZ3N4HgG01NSxSMgB0dm5WzMyYWxUGmUHJWLVRw8HjPtx0yUMIY4mtZ07pfXSFjpLH1pb45IO2IGQe1qKEeYCNdE63uawUm2TdVnpPyyePW2PvwmxnKlWkkBiSLcg0hsXzaF1DwpeeuuAXTXiZWfIBvwUfm6dzVUdidWn1C4IvyYwcDwixe0"/>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3 bg-black/40"></div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">bronze_artisanal.webp</p>
+<p class="text-label-sm text-text-muted">3.1 MB • 12 Oct 2023</p>
+</div>
+</div>
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Macro photography of raw cocoa beans being held by hands in a traditional woven basket. The image is warm, earthy, and saturated, evoking a sense of authenticity and harvest. The lighting is dramatic with deep shadows and golden highlights, suitable for an premium African agricultural product brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3zxuYRr2ZRUPwchga2xrV-ppP2Dkdv7maYwdW5e8NdDJ7sjpJU83rYjwFaVudPNI8zTCmCRKFBkc59DOYTlN5-gAqGH56cEh4o1t-x9dXFZXGKkBYF5i12Vszf4lnOGQX5BxUWGhYUkwFyV6RMcdxEU_zG3H881hRRf9GGhQXtzyqaCgKOh4k4PWKlJcdfMZqiQsCvh4dxKwNkD2k-k_kjM__vMJLMqW6nGTw1x_dxh9Y_2uGn-X8kNFrc2GV_7r2kUP5ck6Lbb8"/>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3 bg-black/40"></div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">cacao_brut_source.jpg</p>
+<p class="text-label-sm text-text-muted">1.4 MB • 10 Oct 2023</p>
+</div>
+</div>
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Top-down view of a variety of traditional Burkinabe spices in ceramic bowls. The spices are bright red, yellow, and brown, arranged on a textured slate background. High contrast, sharp focus, and vibrant colors used to showcase culinary authenticity in a modern e-commerce gallery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDslFVCNznDfTUOyTyuHoAlzAJiN_Yku9CsZLdgLlf-kjpKWiCOmLSwRujpU7F3L6-R_UFGzKL_sUIqRFEqsGD_fTnGN8-8oI1UMFOTkGmkO_UCxnpQOIsJwBg8kIpHGsfxnuBKP1Fzow0m1rrwu1FiNY-NQIIbN10dJg-lJkWxggxkSXu2YOXLCfUyx8WVubTY4wTcoqc0BnFBkfVF5o0qVr_NzfVaybI9lALSZcqEehU0_eqdg49QkNjDSFnHfPhccFbewRB6wus"/>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3 bg-black/40"></div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">epices_sahel.jpg</p>
+<p class="text-label-sm text-text-muted">2.2 MB • 05 Oct 2023</p>
+</div>
+</div>
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Minimalist photograph of a modern fashion model wearing an avant-garde outfit made from traditional Faso Dan Fani fabric. The studio lighting is bright and high-key, with a soft grey background. The focus is on the fusion of modern tailoring and traditional textile patterns." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX1rzLYUbfwatEUNF838EOLJQ3pyJuSAqt2mrb_HhD2-sQucFcY6lLwZyFoPEoa9kRuB_uItPWy8cCaN2S--satFluwSD3F6hQS-dntLMSITPukCQ_R4Jxcg09ARenJHs-FjypzvjfhAd731LXR9L9HwhcHk6F9T7ZFh9POPSBmqdAcuYd85Vq-oTq-YjQJgksdE07FcSoiu3Wwo9gBliAQ7E6ge2jg0IGtWBzxaD7LE-pcHUbC8ft7RCm2jpcqmpdugs4Sze5dsY"/>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3 bg-black/40"></div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">fashion_shoot_01.png</p>
+<p class="text-label-sm text-text-muted">4.6 MB • 01 Oct 2023</p>
+</div>
+</div>
+<div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer">
+<div class="aspect-square relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Beautifully designed marketing banner for a Burkinabe artisan boutique, featuring text and image composite with traditional patterns and a call to action. The aesthetic is clean, professional, and follows a modern corporate layout with high-quality white space and elegant typography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfUqMkELMwRo2TIM5HaZh9u8A7p16Hvd1vCqGtwjPlRQ-83lQ6MOOYjiSkguH4NMTWtPphLXazKqUpziJuewBPJPumTKUuZQq-uYxbH9iC5I0cfJXSSJe89Yc6ai5Ap3Vo7hd2KsDro9U343MCpicVKKodXcO9hvoPDF8sfZgqz2d75mBZnyZ-PdMQlwjetC9MZRnPKSeHIZR_C0mhHcF9D-eDI2uyDZbR5EBqHNtAdj5-knfmTUL3kCRPflplhh2o6di2bICgpWw"/>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3 bg-black/40"></div>
+</div>
+<div class="p-3">
+<p class="text-label-lg truncate font-bold">banner_promo_noel.jpg</p>
+<p class="text-label-sm text-text-muted">2.9 MB • 28 Sep 2023</p>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-lg flex items-center justify-between">
+<p class="text-body-sm text-text-muted">Affichage de 10 sur 42 fichiers</p>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-burkina-green-deep text-white font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container transition-all font-bold">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container transition-all font-bold">3</button>
+<span class="px-2">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Upload Modal Overlay (Hidden by default) -->
+<div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300" id="uploadModal">
+<div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden scale-95 transition-transform duration-300">
+<div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="text-headline-sm font-headline-sm">Télécharger des fichiers</h3>
+<button class="p-2 hover:bg-surface-container rounded-full" onclick="closeModal()"><span class="material-symbols-outlined">close</span></button>
+</div>
+<div class="p-8 text-center">
+<div class="mb-6 py-12 border-2 border-dashed border-burkina-green-deep/30 rounded-xl bg-burkina-green-light/10 flex flex-col items-center">
+<span class="material-symbols-outlined text-[64px] text-burkina-green-deep/40 mb-4">upload_file</span>
+<p class="text-body-lg font-bold mb-1">Glissez vos fichiers ici</p>
+<p class="text-body-sm text-text-muted mb-6">ou parcourez votre ordinateur (Max 10MB par fichier)</p>
+<button class="px-8 py-3 bg-burkina-green-deep text-white rounded-full font-label-lg hover:scale-[0.98] transition-transform">Sélectionner des fichiers</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Button for Mobile -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-secondary text-white rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-50" onclick="openModal()">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<script>
+        function openModal() {
+            const modal = document.getElementById('uploadModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('uploadModal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Add visual micro-interactions to media cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

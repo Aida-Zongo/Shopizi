@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configuration Boutique - Shopizi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#ffbb16",
+                        "surface-variant": "#e4e2dd",
+                        "surface-container-highest": "#e4e2dd",
+                        "surface-dim": "#dbdad5",
+                        "inverse-primary": "#60df81",
+                        "on-primary-fixed": "#00210a",
+                        "on-tertiary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface": "#fbf9f4",
+                        "burkina-green-deep": "#007A38",
+                        "secondary": "#7c5800",
+                        "tertiary": "#bb0014",
+                        "inverse-surface": "#30312e",
+                        "on-primary-fixed-variant": "#005323",
+                        "on-background": "#1b1c19",
+                        "secondary-fixed": "#ffdea6",
+                        "primary-container": "#00873d",
+                        "surface-container": "#f0eee9",
+                        "tertiary-container": "#e32126",
+                        "on-secondary-fixed-variant": "#5e4200",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "burkina-green-light": "#E6F5ED",
+                        "on-error": "#ffffff",
+                        "text-muted": "#5C5F5A",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#60df81",
+                        "on-secondary-container": "#6c4d00",
+                        "surface-container-low": "#f5f3ee",
+                        "on-tertiary-fixed-variant": "#93000d",
+                        "surface-tint": "#006d30",
+                        "outline": "#6d7a6d",
+                        "surface-container-high": "#eae8e3",
+                        "tertiary-fixed": "#ffdad6",
+                        "inverse-on-surface": "#f2f1ec",
+                        "outline-variant": "#bdcaba",
+                        "saffron-glow": "#FFF8E6",
+                        "primary-fixed": "#7efc9a",
+                        "background": "#fbf9f4",
+                        "on-secondary-fixed": "#271900",
+                        "on-tertiary-fixed": "#410002",
+                        "text-main": "#1A1C19",
+                        "primary": "#006b2f",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#f7fff3",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fbf9f4",
+                        "secondary-fixed-dim": "#ffbb16",
+                        "surface-off-white": "#F9F7F2",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1b1c19",
+                        "on-surface-variant": "#3e4a3e",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "1.5rem",
+                        "sm": "1rem",
+                        "xl": "4rem",
+                        "container-max": "1280px",
+                        "baseline": "4px",
+                        "gutter": "1.5rem",
+                        "lg": "2.5rem",
+                        "xs": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fbf9f4;
+            color: #1A1C19;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bdcaba;
+            border-radius: 10px;
+        }
+        .faso-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-surface selection:bg-burkina-green-light selection:text-burkina-green-deep">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-screen border-r border-outline-variant/30 dark:border-outline-variant/10 h-full w-64 fixed left-0 top-0 bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="p-6">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted mt-1">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 mt-4 space-y-1 overflow-y-auto custom-scrollbar">
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-secondary-container rounded-xl p-4 text-center">
+<p class="text-label-sm font-bold text-on-secondary-container mb-2">Passez à l'étape supérieure</p>
+<button class="w-full bg-on-primary-fixed text-white text-label-lg py-2 rounded-lg hover:opacity-90 transition-opacity">
+                    Passer à Pro
+                </button>
+</div>
+</div>
+<div class="h-16 faso-pattern opacity-10"></div>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/50 rounded-full focus:ring-2 focus:ring-burkina-green-deep/20 focus:border-burkina-green-deep outline-none transition-all text-body-sm" placeholder="Rechercher dans votre boutique..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">help</span>
+</button>
+<div class="flex items-center gap-3 ml-2 pl-4 border-l border-outline-variant/30">
+<div class="text-right">
+<p class="text-label-lg text-text-main">Moussa Traoré</p>
+<p class="text-label-sm text-text-muted">Gérant</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-burkina-green-light" data-alt="Close-up professional portrait of a West African entrepreneur in a modern office setting. He is wearing a stylish button-down shirt made of traditional Faso Dan Fani fabric. The lighting is soft and natural, emphasizing a look of confidence and success. High-end photography style with shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOwXNX5uvh30T_xHMmbUZN4q_cjeGFsecRTZIezbUYFRlH5B1pheETPsC7_KxPdGSwhNYf_9NQSw9cDYYKR_1ynA1qNRyUvISGpF_pq08jVFYv378ANjvW6o0B_Brp1Rrv3BtMPOVEqGUO_iwUzy7Csx1hnbAxqrkMuh2aGcFLnGK15zilXag_3OkxaHvtaHwwXb5_PcrZoqi0TJNje_yTo3tqeT0DVap2GBWbl3zUv9VqDQxCqFFlrbFjNGt54XUXj9Mhat_I-5U"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-gutter max-w-7xl mx-auto space-y-md">
+<!-- Page Header with Action -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 py-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-text-main">Configuration du Site Public</h2>
+<p class="text-body-md text-text-muted">Personnalisez l'apparence de votre boutique pour vos clients.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-lg border border-burkina-green-deep text-burkina-green-deep font-label-lg hover:bg-burkina-green-light transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">visibility</span>
+                        Aperçu Mobile
+                    </button>
+<button class="px-6 py-2.5 rounded-lg bg-secondary-container text-on-secondary-container font-label-lg hover:shadow-lg transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">publish</span>
+                        Publier les changements
+                    </button>
+</div>
+</div>
+<!-- Bento Layout for Settings -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Configuration Column -->
+<div class="lg:col-span-7 space-y-md">
+<!-- Section: Brand Assets -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep">
+<h3 class="text-headline-sm font-headline-sm text-text-main mb-6">Identité Visuelle</h3>
+<div class="space-y-6">
+<!-- Logo Upload -->
+<div class="flex flex-col md:flex-row gap-6 items-start">
+<div class="w-full md:w-32 aspect-square bg-surface-container rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:border-burkina-green-deep transition-colors group">
+<span class="material-symbols-outlined text-outline group-hover:text-burkina-green-deep mb-2">add_photo_alternate</span>
+<span class="text-label-sm text-text-muted">Logo (SVG/PNG)</span>
+</div>
+<div class="flex-1 space-y-2">
+<label class="text-label-lg text-text-main">Nom de la boutique</label>
+<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-burkina-green-deep/20 focus:border-burkina-green-deep outline-none" type="text" value="Artisanat du Sahel"/>
+<p class="text-label-sm text-text-muted">Ceci apparaîtra dans l'en-tête de votre site.</p>
+</div>
+</div>
+<!-- Banner Upload -->
+<div class="space-y-2">
+<label class="text-label-lg text-text-main">Bannière d'accueil</label>
+<div class="relative w-full h-40 bg-surface-container rounded-lg overflow-hidden group cursor-pointer">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="A wide cinematic shot of a vibrant African marketplace with beautifully textured fabrics and handcrafted pottery. The image is bathed in warm golden hour sunlight, creating long shadows and a rich, inviting atmosphere. The focus is on the textures and colors of the artisanal products, conveying a sense of quality and heritage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDBBeuvF5lUMseoMcV-gbakbgoA6iYrz5ZfQcv0TH8GBwzAgl9rZMJnhdyJjL46aEYpLmeNBWgprpXbfKHghos_ZUYy0H4yL90fo8iiB8GIoztT2TOMf2u9x3APqWhhO8uHLqTcj-hJ6Opz3-XMQL-_grXirmilmui81pg00dqOQnva8u_O1uGma58ttq8lzKpXuNHRa00N05j8wNvpHgtTF18zaItYqIDUhb4O-IKKQfB_N0O9Hwr-ufbYxLTDMUMrH_bGcaBXDY"/>
+<div class="absolute inset-0 flex flex-col items-center justify-center bg-black/20 text-white">
+<span class="material-symbols-outlined text-4xl mb-1">upload_file</span>
+<span class="text-label-lg font-bold">Changer la bannière</span>
+<span class="text-label-sm">Recommandé : 1920x600px</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Theme Selection -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<h3 class="text-headline-sm font-headline-sm text-text-main mb-6">Choix du Thème</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- Theme 1: Active -->
+<div class="relative group cursor-pointer border-2 border-burkina-green-deep rounded-xl overflow-hidden p-1">
+<div class="aspect-[4/3] bg-burkina-green-light rounded-lg mb-2 overflow-hidden">
+<div class="w-full h-8 bg-burkina-green-deep"></div>
+<div class="p-2 space-y-1">
+<div class="w-full h-2 bg-burkina-green-deep/20 rounded"></div>
+<div class="w-2/3 h-2 bg-burkina-green-deep/20 rounded"></div>
+</div>
+</div>
+<div class="px-2 pb-2">
+<p class="text-label-lg font-bold text-burkina-green-deep">Authentique</p>
+<p class="text-label-sm text-text-muted">Couleurs nationales</p>
+</div>
+<span class="absolute top-3 right-3 material-symbols-outlined text-burkina-green-deep bg-white rounded-full">check_circle</span>
+</div>
+<!-- Theme 2 -->
+<div class="group cursor-pointer border-2 border-transparent hover:border-outline-variant rounded-xl overflow-hidden p-1 transition-all">
+<div class="aspect-[4/3] bg-surface-container rounded-lg mb-2 overflow-hidden">
+<div class="w-full h-8 bg-inverse-surface"></div>
+<div class="p-2 space-y-1">
+<div class="w-full h-2 bg-outline-variant rounded"></div>
+<div class="w-2/3 h-2 bg-outline-variant rounded"></div>
+</div>
+</div>
+<div class="px-2 pb-2">
+<p class="text-label-lg font-bold text-text-main">Minimaliste</p>
+<p class="text-label-sm text-text-muted">Épuré et moderne</p>
+</div>
+</div>
+<!-- Theme 3 -->
+<div class="group cursor-pointer border-2 border-transparent hover:border-outline-variant rounded-xl overflow-hidden p-1 transition-all">
+<div class="aspect-[4/3] bg-saffron-glow rounded-lg mb-2 overflow-hidden">
+<div class="w-full h-8 bg-secondary-container"></div>
+<div class="p-2 space-y-1">
+<div class="w-full h-2 bg-secondary-container/20 rounded"></div>
+<div class="w-2/3 h-2 bg-secondary-container/20 rounded"></div>
+</div>
+</div>
+<div class="px-2 pb-2">
+<p class="text-label-lg font-bold text-text-main">Solaire</p>
+<p class="text-label-sm text-text-muted">Chaleureux &amp; Énergie</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Social Links -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-headline-sm font-headline-sm text-text-main">Réseaux Sociaux</h3>
+<span class="text-label-sm text-burkina-green-deep font-bold">Connectés</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 bg-surface p-3 rounded-lg border border-outline-variant/30">
+<div class="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
+<span class="material-symbols-outlined">face_nod</span>
+</div>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-sm" placeholder="URL Facebook" type="text" value="facebook.com/artisanat-sahel"/>
+<span class="material-symbols-outlined text-green-500">check</span>
+</div>
+<div class="flex items-center gap-4 bg-surface p-3 rounded-lg border border-outline-variant/30">
+<div class="w-10 h-10 flex items-center justify-center bg-pink-100 text-pink-600 rounded-full">
+<span class="material-symbols-outlined">photo_camera</span>
+</div>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-sm" placeholder="URL Instagram" type="text"/>
+<button class="text-label-sm text-burkina-green-deep font-bold px-3">Connecter</button>
+</div>
+<div class="flex items-center gap-4 bg-surface p-3 rounded-lg border border-outline-variant/30">
+<div class="w-10 h-10 flex items-center justify-center bg-green-100 text-green-600 rounded-full">
+<span class="material-symbols-outlined">chat</span>
+</div>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-sm" placeholder="Numéro WhatsApp Business" type="text" value="+226 70 00 00 00"/>
+<span class="material-symbols-outlined text-green-500">check</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Preview Column -->
+<div class="lg:col-span-5 space-y-md">
+<div class="sticky top-24">
+<div class="bg-surface-container-lowest rounded-3xl p-4 shadow-[0px_10px_32px_rgba(0,0,0,0.08)] border-8 border-inverse-surface/10 aspect-[9/18.5] max-w-[340px] mx-auto overflow-hidden flex flex-col">
+<!-- Mobile Preview Screen -->
+<div class="flex-1 bg-white rounded-2xl overflow-hidden flex flex-col">
+<!-- App Bar Preview -->
+<div class="bg-white px-4 py-3 flex justify-between items-center border-b border-surface-container">
+<span class="text-label-lg font-bold text-burkina-green-deep">Artisanat Sahel</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[20px]">search</span>
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+</div>
+</div>
+<!-- Content Preview -->
+<div class="flex-1 overflow-y-auto custom-scrollbar bg-surface">
+<!-- Banner -->
+<div class="w-full h-32 bg-surface-container relative">
+<img class="w-full h-full object-cover" data-alt="A wide cinematic shot of a vibrant African marketplace with beautifully textured fabrics and handcrafted pottery. The image is bathed in warm golden hour sunlight, creating long shadows and a rich, inviting atmosphere. The focus is on the textures and colors of the artisanal products, conveying a sense of quality and heritage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQQZpPkBTv4Qa15KtfArMUlS9DBkiK835FzIGIfqb6TQRiIjUu1jEcHU_bXy_gpKwRIzA4Zoy3kD6zAtHyWY1NmaTnEZ-8rHPEqJ_vDaE3FIwQyHo3CGp7ke8N3fqjFrxgpEiAtFTIE2xW0JTrxYQh-IDPMwR531JFAk9ml_KQrQ3nf05FrKpK_sbmJwicdKj5YyVgCb43bEH1in-Qt7xJmVmc4JuqId_vFETELEU_iK82xq1xTol281kEpABwJ1kS72tHp1iBBqg"/>
+<div class="absolute inset-0 bg-black/10"></div>
+</div>
+<!-- Welcome Text -->
+<div class="p-4 space-y-2">
+<h4 class="font-headline-sm text-[18px]">Bienvenue chez nous</h4>
+<p class="text-[12px] text-text-muted leading-relaxed">Découvrez l'excellence du savoir-faire Burkinabé à travers nos créations uniques.</p>
+</div>
+<!-- Categories -->
+<div class="px-4 py-2">
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<span class="px-3 py-1 bg-burkina-green-deep text-white text-[10px] rounded-full whitespace-nowrap">Tout</span>
+<span class="px-3 py-1 bg-white border border-outline-variant text-[10px] rounded-full whitespace-nowrap">Pagne</span>
+<span class="px-3 py-1 bg-white border border-outline-variant text-[10px] rounded-full whitespace-nowrap">Poterie</span>
+<span class="px-3 py-1 bg-white border border-outline-variant text-[10px] rounded-full whitespace-nowrap">Cuir</span>
+</div>
+</div>
+<!-- Grid Preview -->
+<div class="p-4 grid grid-cols-2 gap-3">
+<div class="space-y-2">
+<div class="aspect-square bg-surface-container rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-quality studio shot of a hand-woven Faso Dan Fani scarf in vibrant green and yellow stripes. The fabric texture is crisp and clear, presented against a clean, minimalist off-white background. Professional lighting highlights the intricate weave and vibrant natural dyes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1g0badWlZDmPRqzNlc_c0dOqqgzo9G9kkGbwuUAMQ0p_4F6BQnwNFMatNiVRbQQMLch-btNrXENIdV_wFpn0NtB1Lxzg510lYpsE2VPihgSGKKBtxXtDBXPHanPF890OFN9siyh2mph2zqW__u3B3tPEUyQM-5WUQXm6xYxFR9RWs3wFD1R84Weag6NOWM8aQiLd4Hw224ohI6mC8YvKDJDwJG7OIiYEuurkV2wXCG2eE6ZWXzXOqra8C9gY-xKkIoYYs2lCa1-g"/>
+</div>
+<div class="h-2 w-3/4 bg-surface-container rounded"></div>
+<div class="h-2 w-1/2 bg-surface-container rounded"></div>
+</div>
+<div class="space-y-2">
+<div class="aspect-square bg-surface-container rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A beautiful, handcrafted ceramic vase with traditional geometric patterns, styled in a modern home environment. Soft natural light from a nearby window creates gentle shadows. The palette is earthy with deep terracotta and cream accents, reflecting authentic craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrVMJb_GWvQ204g0luiVOFYJCEL1sV0mcW5MiwzGNCSglMOHeWt0RjIwHSoAfSFmfn1r6EpjFtCkXIoLT5xFV0HHyKbI2ChESG86212c4eBKw8Vw79KodM9KujXRw1PlvEVcQjCJu5VgTg0uIfbJilXEw-4ELzDN5S2dTG3N634FxfK_AWQ5ffE4QKgcmujyAFfo6Pt5HA-QeqqYDeBzbFs9GLkaoIP1VveElLowVtcGY1dAdZhT8np6P9YtFsYn1gOqb11aVavU4"/>
+</div>
+<div class="h-2 w-3/4 bg-surface-container rounded"></div>
+<div class="h-2 w-1/2 bg-surface-container rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="h-1 w-24 bg-inverse-surface/20 mx-auto mt-4 rounded-full"></div>
+</div>
+<p class="text-center mt-4 text-label-sm text-text-muted">Aperçu en temps réel (Mode Mobile)</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Toast Notification (Hidden by default) -->
+<div class="fixed bottom-8 right-8 bg-inverse-surface text-inverse-on-surface px-6 py-4 rounded-xl shadow-xl translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-3 z-50" id="save-toast">
+<span class="material-symbols-outlined text-green-400">check_circle</span>
+<div>
+<p class="font-bold text-label-lg">Changements enregistrés</p>
+<p class="text-label-sm opacity-80">Votre boutique sera mise à jour dans quelques secondes.</p>
+</div>
+</div>
+<script>
+        // Simple interaction for the Publish button
+        const publishBtn = document.querySelector('button.bg-secondary-container');
+        const toast = document.getElementById('save-toast');
+
+        publishBtn.addEventListener('click', () => {
+            // Simulate publishing
+            publishBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Publication...';
+            publishBtn.classList.add('opacity-80');
+            
+            setTimeout(() => {
+                publishBtn.innerHTML = '<span class="material-symbols-outlined">publish</span> Publier les changements';
+                publishBtn.classList.remove('opacity-80');
+                
+                // Show toast
+                toast.classList.remove('translate-y-24', 'opacity-0');
+                
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24', 'opacity-0');
+                }, 4000);
+            }, 1500);
+        });
+
+        // Theme selection interaction
+        const themeCards = document.querySelectorAll('.grid-cols-3 > div');
+        themeCards.forEach(card => {
+            card.addEventListener('click', () => {
+                themeCards.forEach(c => {
+                    c.classList.remove('border-burkina-green-deep');
+                    c.classList.add('border-transparent');
+                    const check = c.querySelector('.material-symbols-outlined');
+                    if (check) check.remove();
+                });
+                card.classList.remove('border-transparent');
+                card.classList.add('border-burkina-green-deep');
+                const check = document.createElement('span');
+                check.className = 'absolute top-3 right-3 material-symbols-outlined text-burkina-green-deep bg-white rounded-full';
+                check.innerText = 'check_circle';
+                card.appendChild(check);
+            });
+        });
+    </script>
+</body></html>

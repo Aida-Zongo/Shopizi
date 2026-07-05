@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Détails du Produit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f5f3ee",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#7efc9a",
+                    "on-background": "#1b1c19",
+                    "secondary": "#7c5800",
+                    "on-secondary-fixed": "#271900",
+                    "secondary-fixed": "#ffdea6",
+                    "primary-fixed-dim": "#60df81",
+                    "inverse-surface": "#30312e",
+                    "surface-tint": "#006d30",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "text-muted": "#5C5F5A",
+                    "on-surface-variant": "#3e4a3e",
+                    "on-secondary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#ffbb16",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "text-main": "#1A1C19",
+                    "on-primary-fixed-variant": "#005323",
+                    "on-primary-fixed": "#00210a",
+                    "inverse-primary": "#60df81",
+                    "primary": "#006b2f",
+                    "surface-variant": "#e4e2dd",
+                    "error": "#ba1a1a",
+                    "surface": "#fbf9f4",
+                    "surface-dim": "#dbdad5",
+                    "primary-container": "#00873d",
+                    "tertiary": "#bb0014",
+                    "outline": "#6d7a6d",
+                    "on-secondary-container": "#6c4d00",
+                    "tertiary-fixed": "#ffdad6",
+                    "surface-bright": "#fbf9f4",
+                    "surface-off-white": "#F9F7F2",
+                    "on-primary-container": "#f7fff3",
+                    "surface-container": "#f0eee9",
+                    "on-surface": "#1b1c19",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f2f1ec",
+                    "burkina-green-light": "#E6F5ED",
+                    "burkina-green-deep": "#007A38",
+                    "on-tertiary-fixed": "#410002",
+                    "tertiary-container": "#e32126",
+                    "saffron-glow": "#FFF8E6",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "surface-container-high": "#eae8e3",
+                    "outline-variant": "#bdcaba",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e4e2dd",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "0.5rem",
+                    "container-max": "1280px",
+                    "md": "1.5rem",
+                    "baseline": "4px",
+                    "sm": "1rem",
+                    "xl": "4rem",
+                    "lg": "2.5rem",
+                    "gutter": "1.5rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fani-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-text-main font-body-md overflow-x-hidden">
+<!-- Sidebar (Shared Component) -->
+<aside class="flex flex-col h-screen border-r border-outline-variant/30 dark:border-outline-variant/10 bg-surface dark:bg-surface-container h-full w-64 fixed left-0 top-0 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="p-6">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep dark:text-primary-fixed">Shopizi</h1>
+<p class="text-label-sm text-text-muted mt-1">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 mt-4">
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 bg-burkina-green-light dark:bg-primary-container text-burkina-green-deep dark:text-on-primary-container rounded-full px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-high rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-secondary-container p-4 rounded-xl relative overflow-hidden group">
+<div class="absolute inset-0 fani-pattern opacity-10"></div>
+<p class="text-on-secondary-container font-label-lg relative z-10">Plan Actuel: Gratuit</p>
+<button class="w-full mt-3 bg-secondary text-on-secondary py-2 rounded-lg text-label-lg font-bold transition-transform active:scale-95">Passer à Pro</button>
+</div>
+<div class="mt-6 flex items-center gap-3 px-2">
+<img class="w-10 h-10 rounded-full object-cover border-2 border-burkina-green-deep" data-alt="Close up profile portrait of a confident Burkinabé entrepreneur wearing traditional Faso Dan Fani attire, bright high-key lighting with a clean off-white background, photorealistic style, sharp focus on eyes, representing a top-tier local partner." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSnGd_3dT8NlAA2IXL5DsW_gXLRW9pzK6LLD0Lv2TCi5Luy5vlGppFbi94mrlRJ-W_9CDHu_4RH_-mtKeK7t8zB_O8yx5N89RUIVQ5dmWFlRCeQ3o_yBAbSNbbINlCfTcpH37EGX12WmLFo6AaVky4La6fV8e_-GRw-pgaLjmOBXqUZe57lST-752KsCbXVYKeea1sdPJDfutfslYLscLLEV6FZEyVrXnaL6qZS-x2fW8zA5Rxp8BPTtfRGwsOf1Qsj03x6Du2Q18"/>
+<div class="flex flex-col">
+<span class="text-label-lg font-bold">Moussa Traoré</span>
+<span class="text-label-sm text-text-muted">Artisan Textile</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Header (Shared Component) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4 flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-body-sm focus:ring-2 focus:ring-burkina-green-deep/20 transition-all" placeholder="Rechercher des produits..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<button class="flex items-center gap-2 hover:bg-surface-container-highest/50 py-1.5 px-3 rounded-full transition-all">
+<span class="text-label-lg font-bold">Boutique Live</span>
+<span class="w-2 h-2 rounded-full bg-burkina-green-deep animate-pulse"></span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-64 pt-24 px-gutter pb-xl min-h-screen">
+<div class="max-w-6xl mx-auto">
+<!-- Breadcrumbs & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-lg">
+<div>
+<nav class="flex items-center gap-2 text-label-sm text-text-muted mb-2">
+<a class="hover:text-burkina-green-deep" href="#">Produits</a>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<a class="hover:text-burkina-green-deep" href="#">Vêtements</a>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-text-main font-bold">Bazin Riche Signature</span>
+</nav>
+<h2 class="text-headline-lg font-headline-lg text-text-main">Bazin Riche Signature "Faso Dan Fani"</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-error text-error font-label-lg hover:bg-error/5 transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+                        Supprimer
+                    </button>
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-burkina-green-deep text-on-primary font-label-lg hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+                        Modifier le produit
+                    </button>
+</div>
+</div>
+<!-- Content Grid: Bento Style -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Gallery Section (Col 1-7) -->
+<div class="lg:col-span-7 space-y-4">
+<div class="aspect-[4/3] w-full rounded-xl overflow-hidden bg-white shadow-[0px_4px_20px_rgba(0,0,0,0.04)] relative group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A high-end professional studio photograph of a vibrant indigo-dyed Bazin Riche textile draped elegantly. The fabric features intricate hand-woven Faso Dan Fani patterns along the hem. The lighting is soft and cinematic, highlighting the silky sheen and rich texture of the material. Set against a clean, warm-toned minimalist background to evoke a sense of premium West African luxury." id="main-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB72lZOQ8vlSQS5VVGMyQaiPsQhWGlHPcGlw-lMGKUHYTjWSdOdYnu_gVnVit-M79zpIw6qpFNXnLYR46cUbNWe0HS-nH20JtQgho8Cd2KzDy-I-g4UfyjqNbihkr2klX4MXiK9JTfXQSpEz6EYHnRdQLjWfLKfbDC9WZN3iqBYnTKbop-uZGj1qC8Gqs3qHxfpbqJ82kWz1fe5C0fYYdeNGaZRYWBFq318yufB97gnwlY6GbkRFkN2NQfOmoTjdafJEcB_e3pGVZE"/>
+<div class="absolute top-4 left-4 bg-burkina-green-deep text-white text-label-sm font-bold px-3 py-1 rounded-full">Meilleure Vente</div>
+<button class="absolute bottom-4 right-4 bg-white/80 backdrop-blur-md p-3 rounded-full text-text-main shadow-md hover:bg-white transition-colors">
+<span class="material-symbols-outlined" data-icon="zoom_in">zoom_in</span>
+</button>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<div class="aspect-square rounded-lg overflow-hidden border-2 border-burkina-green-deep cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Detailed macro shot of hand-woven embroidery on luxury fabric, showcasing fine golden threads and deep green patterns. The lighting captures the intricate craftsmanship and heritage of Burkinabé textile arts." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6Mrp9AsXgNBS1TbeIDAB8ehsVRewdNxoZ0TqwTFXIckwU07FRPbeX9lpj68H7JVp1v0dOOsJbM4FxOjy8bqr7jMuSBfQ62GrpBex389T8bbOhd1r7u1ivoqfXVNsY0WnUwf4BdGMUof4vMBYDN_Yz_gkkWf-Pzviewsglb1nHOOR4Si9pePWflXabDCT6JRm2bMB3O4IM-sgHaRDY2NxoBmO5Ag9IKB6sYVxE4SuFA2y_XXYZHJ_Mw1HvyrCZ1eaWD_ly5sQyBDg"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant/30 hover:border-burkina-green-deep cursor-pointer transition-colors">
+<img class="w-full h-full object-cover" data-alt="A male model wearing a traditional grand boubou made from premium Bazin Riche fabric, standing in a modern architectural courtyard with soft natural light, conveying style and status." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ8nIdgUVtcm_QIGvU8gnYK-YmW6VJ5HjU-1EOeQVRzGjHpbfxSDh2WxaqI9P-RryeQurRHwQAY3oz-hTsVC7lSL3jdzRhaBswYrvICKf_ZEURQcnHZLvGP9pYpjVZF4_DFO3p_DREVM4P_MprAmKPKc_v65HoEsCDHyGHLwvilu6rdopMUqOjuz9eHqIOFFz5Oei955SpkNtrvkzM6kRnCqCkJz_FM7GRV1EKH82XOKX_Qp6OLo9dDzM0XrxFbTWLvxPynU4aPv8"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant/30 hover:border-burkina-green-deep cursor-pointer transition-colors">
+<img class="w-full h-full object-cover" data-alt="Rolls of high-quality indigo and saffron textiles stacked in a minimalist artisan workshop, soft morning sunlight filtering through, emphasizing the variety of authentic local materials." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEz2xxeXioAxgfGx7yL5f_-mQIDdcV9t0r-Cswqix7zS9HsQx8YxA2EQOm5-SGYUP0PScqjufgApgJBUfBwTQPH7C2pDAjBFVIvuO4KgBqCElJRm7M6buC1XGAf8iMe6dKHrIA41vRILEDYfZjD2pk0ZC2eG9V5od9D_rKM3fYPi437ZSItsXsiZH8AxlJ8uWlapwBY81dBC4-JcJk_GfFmmWXtEtaBMOfilI0MLACALikNdezVQPK4QMKpY7lfatW8-kq_4Iz2Gk"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant/30 hover:border-burkina-green-deep cursor-pointer transition-colors flex flex-col items-center justify-center bg-surface-container-low relative">
+<span class="material-symbols-outlined text-outline" data-icon="add_a_photo">add_a_photo</span>
+<span class="text-label-sm text-text-muted mt-1">+12</span>
+</div>
+</div>
+</div>
+<!-- Info Section (Col 8-12) -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- Pricing & Stock Card -->
+<div class="bg-white rounded-lg p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 fani-pattern w-24 h-24 opacity-20 -rotate-12"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-label-sm text-text-muted uppercase tracking-wider mb-1">Prix de vente</p>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-lg font-headline-lg text-burkina-green-deep">45,000</span>
+<span class="text-headline-sm font-headline-sm text-burkina-green-deep">FCFA</span>
+</div>
+</div>
+<div class="text-right">
+<span class="bg-burkina-green-light text-burkina-green-deep text-label-sm font-bold px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    En Stock
+                                </span>
+<p class="text-label-sm text-text-muted mt-1">Ref: SPZ-4492</p>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/20">
+<div class="flex justify-between items-center mb-2">
+<span class="text-label-lg font-bold">Niveau de Stock</span>
+<span class="text-label-lg font-bold">128 / 150</span>
+</div>
+<!-- Progress Component -->
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-burkina-green-deep rounded-full w-[85%] transition-all duration-1000"></div>
+</div>
+<p class="text-label-sm text-text-muted mt-3 italic">"80% de vos ventes ce mois-ci proviennent de ce produit."</p>
+</div>
+</div>
+<!-- Variant Selection -->
+<div class="bg-white rounded-lg p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="mb-6">
+<label class="text-label-lg block mb-3">Couleurs disponibles</label>
+<div class="flex gap-3">
+<button class="w-10 h-10 rounded-full border-2 border-burkina-green-deep p-0.5" title="Bleu Royal">
+<div class="w-full h-full rounded-full bg-[#002366]"></div>
+</button>
+<button class="w-10 h-10 rounded-full border-2 border-transparent hover:border-outline-variant/50 p-0.5 transition-all" title="Vert Émeraude">
+<div class="w-full h-full rounded-full bg-[#004D25]"></div>
+</button>
+<button class="w-10 h-10 rounded-full border-2 border-transparent hover:border-outline-variant/50 p-0.5 transition-all" title="Saffron">
+<div class="w-full h-full rounded-full bg-[#F4C430]"></div>
+</button>
+<button class="w-10 h-10 rounded-full border-2 border-transparent hover:border-outline-variant/50 p-0.5 transition-all" title="Bordeaux">
+<div class="w-full h-full rounded-full bg-[#800000]"></div>
+</button>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-3">
+<label class="text-label-lg">Tailles (Variantes)</label>
+<button class="text-burkina-green-deep text-label-sm hover:underline">Gérer les stocks</button>
+</div>
+<div class="grid grid-cols-4 gap-2">
+<button class="py-2 border border-outline-variant/30 rounded-lg text-label-lg hover:border-burkina-green-deep hover:bg-burkina-green-light transition-all">S</button>
+<button class="py-2 border-2 border-burkina-green-deep rounded-lg text-label-lg bg-burkina-green-light font-bold">M</button>
+<button class="py-2 border border-outline-variant/30 rounded-lg text-label-lg hover:border-burkina-green-deep hover:bg-burkina-green-light transition-all">L</button>
+<button class="py-2 border border-outline-variant/30 rounded-lg text-label-lg hover:border-burkina-green-deep hover:bg-burkina-green-light transition-all">XL</button>
+</div>
+</div>
+</div>
+<!-- Rapid Stats -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low rounded-lg p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-burkina-green-deep">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<p class="text-label-sm text-text-muted">Ventes (30j)</p>
+<p class="text-label-lg font-bold">+24%</p>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</div>
+<div>
+<p class="text-label-sm text-text-muted">Vues (30j)</p>
+<p class="text-label-lg font-bold">1,240</p>
+</div>
+</div>
+</div><div class="bg-white rounded-lg p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-t-4 border-secondary">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-label-lg font-bold">Noter ce produit</h3>
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-headline-sm font-bold">4.8</span>
+<span class="text-label-sm text-text-muted">/5</span>
+</div>
+</div>
+<div class="flex justify-between gap-2 mb-4">
+<button class="flex-1 py-2 rounded-lg border border-outline-variant/30 hover:border-secondary hover:bg-saffron-glow/30 transition-all text-text-muted hover:text-secondary">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+</button>
+<button class="flex-1 py-2 rounded-lg border border-outline-variant/30 hover:border-secondary hover:bg-saffron-glow/30 transition-all text-text-muted hover:text-secondary">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+</button>
+<button class="flex-1 py-2 rounded-lg border border-outline-variant/30 hover:border-secondary hover:bg-saffron-glow/30 transition-all text-text-muted hover:text-secondary">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+</button>
+<button class="flex-1 py-2 rounded-lg border border-outline-variant/30 hover:border-secondary hover:bg-saffron-glow/30 transition-all text-text-muted hover:text-secondary">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+</button>
+<button class="flex-1 py-2 rounded-lg border border-outline-variant/30 hover:border-secondary hover:bg-saffron-glow/30 transition-all text-text-muted hover:text-secondary">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+</button>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg flex gap-3 items-start">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="info">info</span>
+<p class="text-label-sm text-text-muted leading-tight">
+            Votre note aide les autres acheteurs et contribue à 15% de la note globale de <strong>Moussa Traoré</strong>.
+        </p>
+</div>
+</div>
+</div>
+<!-- Description & Details (Full Width) -->
+<div class="lg:col-span-12">
+<div class="bg-white rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
+<div class="flex border-b border-outline-variant/20">
+<button class="px-8 py-4 text-label-lg font-bold border-b-2 border-burkina-green-deep text-burkina-green-deep">Description</button>
+<button class="px-8 py-4 text-label-lg font-medium text-text-muted hover:text-text-main transition-colors">Spécifications Techniques</button>
+<button class="px-8 py-4 text-label-lg font-medium text-text-muted hover:text-text-main transition-colors">Avis Clients (42)</button>
+<button class="px-8 py-4 text-label-lg font-medium text-text-muted hover:text-text-main transition-colors">Livraison</button>
+</div>
+<div class="p-lg grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="space-y-4">
+<h3 class="text-headline-sm font-headline-sm">L'élégance du patrimoine Burkinabé</h3>
+<p class="text-body-md text-text-muted leading-relaxed">
+                                    Ce Bazin Riche Signature est une pièce d'exception qui allie la noblesse du coton damassé de première qualité au savoir-faire ancestral des tisserands du Burkina Faso. Chaque pièce arbore des bordures authentiques en Faso Dan Fani, tissées à la main avec des fils de coton teintés naturellement.
+                                </p>
+<p class="text-body-md text-text-muted leading-relaxed">
+                                    Parfait pour les grandes occasions (mariages, cérémonies officielles), ce tissu offre un tombé impeccable et une brillance durable qui s'accentue avec le temps. La teinture indigo est réalisée par des coopératives de femmes à Ouagadougou, garantissant une authenticité et une traçabilité totale.
+                                </p>
+<ul class="space-y-2 mt-4">
+<li class="flex items-center gap-2 text-body-md">
+<span class="material-symbols-outlined text-burkina-green-deep text-[18px]" data-icon="done">done</span>
+                                        Coton 100% Organique certifié
+                                    </li>
+<li class="flex items-center gap-2 text-body-md">
+<span class="material-symbols-outlined text-burkina-green-deep text-[18px]" data-icon="done">done</span>
+                                        Bordures Faso Dan Fani tissées main
+                                    </li>
+<li class="flex items-center gap-2 text-body-md">
+<span class="material-symbols-outlined text-burkina-green-deep text-[18px]" data-icon="done">done</span>
+                                        Teinture artisanale sans produits chimiques agressifs
+                                    </li>
+</ul>
+</div>
+<div class="space-y-6">
+<div class="bg-surface-container-low p-md rounded-xl">
+<h4 class="text-label-lg font-bold mb-4">Détails de fabrication</h4>
+<div class="space-y-3">
+<div class="flex justify-between">
+<span class="text-label-sm text-text-muted">Provenance</span>
+<span class="text-label-sm font-bold">Ouagadougou, BF</span>
+</div>
+<div class="flex justify-between">
+<span class="text-label-sm text-text-muted">Temps de production</span>
+<span class="text-label-sm font-bold">14 Jours</span>
+</div>
+<div class="flex justify-between">
+<span class="text-label-sm text-text-muted">Poids du tissu</span>
+<span class="text-label-sm font-bold">420g/m²</span>
+</div>
+<div class="flex justify-between">
+<span class="text-label-sm text-text-muted">Méthode de lavage</span>
+<span class="text-label-sm font-bold">Lavage à froid recommandé</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4 items-center p-md bg-saffron-glow/30 rounded-xl border border-secondary-container/20">
+<span class="material-symbols-outlined text-secondary text-[40px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<div>
+<p class="text-label-lg font-bold text-secondary">Produit Certifié</p>
+<p class="text-label-sm text-on-secondary-container">Ce produit porte le label national "Faso Dan Fani", garantissant son authenticité burkinabé.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Success Feedback Overlay (Hidden by default) -->
+<div class="fixed bottom-8 right-8 bg-inverse-surface text-inverse-on-surface px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 translate-y-20 transition-transform duration-300 z-50" id="toast">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="check_circle">check_circle</span>
+<span class="text-label-lg">Modifications enregistrées avec succès</span>
+</div>
+<script>
+        // Micro-interactions
+        const mainImage = document.getElementById('main-image');
+        const thumbs = document.querySelectorAll('.cursor-pointer img');
+        
+        thumbs.forEach(thumb => {
+            thumb.parentElement.addEventListener('click', () => {
+                // Visual feedback for active thumb
+                thumbs.forEach(t => t.parentElement.classList.remove('border-burkina-green-deep'));
+                thumbs.forEach(t => t.parentElement.classList.add('border-outline-variant/30'));
+                thumb.parentElement.classList.remove('border-outline-variant/30');
+                thumb.parentElement.classList.add('border-burkina-green-deep');
+                
+                // Swap main image with transition
+                mainImage.style.opacity = '0';
+                setTimeout(() => {
+                    mainImage.src = thumb.src;
+                    mainImage.style.opacity = '1';
+                }, 200);
+            });
+        });
+
+        // CTA Button Interaction
+        const saveBtn = document.querySelector('button.bg-burkina-green-deep');
+        const toast = document.getElementById('toast');
+
+        saveBtn.addEventListener('click', () => {
+            saveBtn.innerHTML = '<span class="animate-spin material-symbols-outlined" data-icon="progress_activity">progress_activity</span> Enregistrement...';
+            setTimeout(() => {
+                saveBtn.innerHTML = '<span class="material-symbols-outlined" data-icon="edit">edit</span> Modifier le produit';
+                toast.classList.remove('translate-y-20');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20');
+                }, 3000);
+            }, 1500);
+        });
+
+        // Hover lift effects on variant buttons
+        const variantBtns = document.querySelectorAll('.grid-cols-4 button');
+        variantBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => btn.classList.add('-translate-y-0.5'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('-translate-y-0.5'));
+        });
+    </script>
+</body></html>

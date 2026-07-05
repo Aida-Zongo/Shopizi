@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi Admin - Gestion des Transactions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#ffbb16",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-highest": "#e4e2dd",
+                    "surface-dim": "#dbdad5",
+                    "inverse-primary": "#60df81",
+                    "on-primary-fixed": "#00210a",
+                    "on-tertiary-container": "#fffbff",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface": "#fbf9f4",
+                    "burkina-green-deep": "#007A38",
+                    "secondary": "#7c5800",
+                    "tertiary": "#bb0014",
+                    "inverse-surface": "#30312e",
+                    "on-primary-fixed-variant": "#005323",
+                    "on-background": "#1b1c19",
+                    "secondary-fixed": "#ffdea6",
+                    "primary-container": "#00873d",
+                    "surface-container": "#f0eee9",
+                    "tertiary-container": "#e32126",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "burkina-green-light": "#E6F5ED",
+                    "on-error": "#ffffff",
+                    "text-muted": "#5C5F5A",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#60df81",
+                    "on-secondary-container": "#6c4d00",
+                    "surface-container-low": "#f5f3ee",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "surface-tint": "#006d30",
+                    "outline": "#6d7a6d",
+                    "surface-container-high": "#eae8e3",
+                    "tertiary-fixed": "#ffdad6",
+                    "inverse-on-surface": "#f2f1ec",
+                    "outline-variant": "#bdcaba",
+                    "saffron-glow": "#FFF8E6",
+                    "primary-fixed": "#7efc9a",
+                    "background": "#fbf9f4",
+                    "on-secondary-fixed": "#271900",
+                    "on-tertiary-fixed": "#410002",
+                    "text-main": "#1A1C19",
+                    "primary": "#006b2f",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#f7fff3",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fbf9f4",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "surface-off-white": "#F9F7F2",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1b1c19",
+                    "on-surface-variant": "#3e4a3e",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "1.5rem",
+                    "sm": "1rem",
+                    "xl": "4rem",
+                    "container-max": "1280px",
+                    "baseline": "4px",
+                    "gutter": "1.5rem",
+                    "lg": "2.5rem",
+                    "xs": "0.5rem"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #fbf9f4;
+        color: #1b1c19;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .fani-pattern {
+        background-image: radial-gradient(#007A38 0.5px, transparent 0.5px);
+        background-size: 16px 16px;
+        opacity: 0.05;
+      }
+      .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #e4e2dd; border-radius: 10px; }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-screen border-r border-outline-variant/30 fixed left-0 top-0 w-64 bg-surface z-50">
+<div class="px-6 py-8">
+<h1 class="text-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted mt-1">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="text-label-lg">Catégories</span>
+</a>
+<!-- Active State for Commands/Payments -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 active:scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">loyalty</span>
+<span class="text-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">perm_media</span>
+<span class="text-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 mt-auto relative overflow-hidden">
+<div class="fani-pattern absolute inset-0"></div>
+<div class="relative z-10 bg-secondary-container/10 p-4 rounded-xl border border-secondary-container/20">
+<p class="text-label-sm font-bold text-secondary mb-2">Vendez plus haut</p>
+<button class="w-full bg-secondary-container text-on-secondary-fixed font-bold py-2 px-4 rounded-lg text-label-sm hover:brightness-95 transition-all">
+                    Passer à Pro
+                </button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- Top Navbar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md z-40 flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-body-sm focus:ring-2 focus:ring-burkina-green-deep focus:border-burkina-green-deep outline-none transition-all" placeholder="Rechercher une transaction, un marchand..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-tertiary rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-label-md font-bold text-on-surface">Admin Shopizi</p>
+<p class="text-label-sm text-text-muted">Gestionnaire</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-burkina-green-light" data-alt="Close-up portrait of a professional African business administrator in a modern office, wearing a clean linen shirt, high-end professional lighting, bright and airy photography style consistent with a corporate SaaS dashboard environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkiERJrOsaDAyAFj92i3yCYgvOPRVncD5ZrhMlZyitPjZ7IZ-VhCRgyfPozZyC4ycqDVfESJSgQKtrzMMDSzxOrLfV3_nmi4_fTAdOUR7CzaCIskafkEODd2KV574hotDXvRNBXSB7V6I6HSbhjWCSKG99SpshEXC7Qu0WMR8d4SmRqy1WajfHAL7HaxseiVU0vR3wTV7ML8iRY3eYUHgu4NbM7niLr7tXNwxyHe9a6onSvhowqFykkpttS_BUoyZjnfYWNGNGd9w"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="mt-16 p-gutter flex-1 overflow-y-auto custom-scrollbar">
+<!-- Page Header & Key Metrics -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-lg">
+<div>
+<h2 class="text-headline-lg font-bold text-main">Historique des Paiements</h2>
+<p class="text-body-md text-text-muted mt-2">Vue globale et réconciliation de toutes les transactions du réseau.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant bg-surface rounded-lg text-label-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-body-md">file_download</span>
+                        Exporter (CSV)
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-burkina-green-deep text-white rounded-lg text-label-lg hover:brightness-90 transition-all shadow-sm">
+<span class="material-symbols-outlined text-body-md">add</span>
+                        Nouvelle Transaction
+                    </button>
+</div>
+</div>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md mb-lg">
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep">
+<p class="text-label-sm text-text-muted uppercase tracking-wider">Volume total (24h)</p>
+<p class="text-headline-md font-bold text-main mt-2">1,240,500 FCFA</p>
+<div class="flex items-center gap-1 text-burkina-green-deep mt-2">
+<span class="material-symbols-outlined text-body-sm">trending_up</span>
+<span class="text-label-sm">+12.5% vs hier</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-secondary-container">
+<p class="text-label-sm text-text-muted uppercase tracking-wider">Transactions</p>
+<p class="text-headline-md font-bold text-main mt-2">342</p>
+<div class="flex items-center gap-1 text-burkina-green-deep mt-2">
+<span class="material-symbols-outlined text-body-sm">check_circle</span>
+<span class="text-label-sm">98% de succès</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-outline-variant">
+<p class="text-label-sm text-text-muted uppercase tracking-wider">Panier Moyen</p>
+<p class="text-headline-md font-bold text-main mt-2">3,627 FCFA</p>
+<div class="flex items-center gap-1 text-text-muted mt-2">
+<span class="material-symbols-outlined text-body-sm">remove</span>
+<span class="text-label-sm">Stable</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-tertiary">
+<p class="text-label-sm text-text-muted uppercase tracking-wider">Échecs / Litiges</p>
+<p class="text-headline-md font-bold text-main mt-2">7</p>
+<div class="flex items-center gap-1 text-tertiary mt-2">
+<span class="material-symbols-outlined text-body-sm">warning</span>
+<span class="text-label-sm">Nécessite action</span>
+</div>
+</div>
+</div>
+<!-- Filters Bar -->
+<div class="bg-surface-container-low/50 p-4 rounded-xl mb-md flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-2">
+<label class="text-label-sm font-bold text-on-surface-variant">Période :</label>
+<select class="bg-surface border border-outline-variant rounded-lg px-3 py-1.5 text-body-sm focus:ring-2 focus:ring-burkina-green-deep outline-none">
+<option>Aujourd'hui</option>
+<option>7 derniers jours</option>
+<option selected="">30 derniers jours</option>
+<option>Personnalisé...</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-label-sm font-bold text-on-surface-variant">Statut :</label>
+<select class="bg-surface border border-outline-variant rounded-lg px-3 py-1.5 text-body-sm focus:ring-2 focus:ring-burkina-green-deep outline-none">
+<option>Tous</option>
+<option>Confirmé</option>
+<option>En attente</option>
+<option>Annulé</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-label-sm font-bold text-on-surface-variant">Méthode :</label>
+<select class="bg-surface border border-outline-variant rounded-lg px-3 py-1.5 text-body-sm focus:ring-2 focus:ring-burkina-green-deep outline-none">
+<option>Toutes</option>
+<option>Orange Money</option>
+<option>Moov Money</option>
+<option>Carte Bancaire</option>
+</select>
+</div>
+<div class="ml-auto">
+<button class="text-label-md text-burkina-green-deep font-bold hover:underline">Réinitialiser les filtres</button>
+</div>
+</div>
+<!-- Transactions Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden border border-outline-variant/20">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50 border-b border-outline-variant/30">
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">ID Transaction</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Marchand</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Montant</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Statut</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Méthode</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Date &amp; Heure</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium text-main font-mono">#TX-904821</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-burkina-green-light flex items-center justify-center text-burkina-green-deep font-bold text-label-sm">TD</div>
+<div>
+<p class="text-body-sm font-bold text-main">Tissage du Faso</p>
+<p class="text-label-sm text-text-muted">Ouagadougou</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-bold text-main">45,000 FCFA</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-label-sm font-bold bg-burkina-green-light text-burkina-green-deep inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-burkina-green-deep"></span> Confirmed
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-body-sm">
+<span class="material-symbols-outlined text-secondary">smartphone</span>
+                                        Orange Money
+                                    </div>
+</td>
+<td class="px-6 py-4 text-body-sm text-text-muted">24 Oct 2023, 14:32</td>
+<td class="px-6 py-4">
+<button class="p-1 hover:bg-surface-container-highest rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium text-main font-mono">#TX-904822</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-saffron-glow flex items-center justify-center text-secondary font-bold text-label-sm">EM</div>
+<div>
+<p class="text-body-sm font-bold text-main">Épices du Marché</p>
+<p class="text-label-sm text-text-muted">Bobo-Dioulasso</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-bold text-main">12,500 FCFA</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-label-sm font-bold bg-secondary-container/20 text-secondary inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Pending
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-body-sm">
+<span class="material-symbols-outlined text-secondary">smartphone</span>
+                                        Moov Money
+                                    </div>
+</td>
+<td class="px-6 py-4 text-body-sm text-text-muted">24 Oct 2023, 15:01</td>
+<td class="px-6 py-4">
+<button class="p-1 hover:bg-surface-container-highest rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium text-main font-mono">#TX-904823</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold text-label-sm">KS</div>
+<div>
+<p class="text-body-sm font-bold text-main">Kadi Service</p>
+<p class="text-label-sm text-text-muted">Koudougou</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-bold text-main">2,200 FCFA</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-label-sm font-bold bg-tertiary/10 text-tertiary inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Cancelled
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-body-sm">
+<span class="material-symbols-outlined text-burkina-green-deep">credit_card</span>
+                                        Visa **** 4492
+                                    </div>
+</td>
+<td class="px-6 py-4 text-body-sm text-text-muted">24 Oct 2023, 15:45</td>
+<td class="px-6 py-4">
+<button class="p-1 hover:bg-surface-container-highest rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4">
+<span class="text-body-sm font-medium text-main font-mono">#TX-904824</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-burkina-green-light flex items-center justify-center text-burkina-green-deep font-bold text-label-sm">BT</div>
+<div>
+<p class="text-body-sm font-bold text-main">Boutique Tradition</p>
+<p class="text-label-sm text-text-muted">Ouagadougou</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-bold text-main">89,900 FCFA</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-label-sm font-bold bg-burkina-green-light text-burkina-green-deep inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-burkina-green-deep"></span> Confirmed
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-body-sm">
+<span class="material-symbols-outlined text-secondary">smartphone</span>
+                                        Orange Money
+                                    </div>
+</td>
+<td class="px-6 py-4 text-body-sm text-text-muted">24 Oct 2023, 16:10</td>
+<td class="px-6 py-4">
+<button class="p-1 hover:bg-surface-container-highest rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="px-6 py-4 flex items-center justify-between border-t border-outline-variant/20 bg-surface-container-low/20">
+<p class="text-label-sm text-text-muted">Affichage de 4 sur 2,450 transactions</p>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-label-lg font-bold border border-outline-variant rounded-lg hover:bg-surface-container-low disabled:opacity-50" disabled="">Précédent</button>
+<button class="px-4 py-2 text-label-lg font-bold border border-outline-variant rounded-lg hover:bg-surface-container-low">Suivant</button>
+</div>
+</div>
+</div>
+<!-- Reconciliation Alerts -->
+<div class="mt-lg grid grid-cols-1 lg:grid-cols-2 gap-md">
+<div class="bg-tertiary-container/5 border border-tertiary-container/20 p-md rounded-xl flex gap-4">
+<div class="w-12 h-12 bg-tertiary-container rounded-full flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white">priority_high</span>
+</div>
+<div>
+<h4 class="text-headline-sm text-tertiary font-bold">Écarts de Réconciliation</h4>
+<p class="text-body-sm text-text-muted mt-1">3 transactions Orange Money n'ont pas encore reçu de confirmation webhook. Veuillez vérifier le statut manuel.</p>
+<button class="mt-3 text-label-lg font-bold text-tertiary hover:underline">Vérifier maintenant</button>
+</div>
+</div>
+<div class="bg-burkina-green-light/30 border border-burkina-green-deep/10 p-md rounded-xl flex gap-4">
+<div class="w-12 h-12 bg-burkina-green-deep rounded-full flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white">verified</span>
+</div>
+<div>
+<h4 class="text-headline-sm text-burkina-green-deep font-bold">Clôture Mensuelle</h4>
+<p class="text-body-sm text-text-muted mt-1">Le rapport de réconciliation du mois de Septembre est prêt pour signature et archivage.</p>
+<button class="mt-3 text-label-lg font-bold text-burkina-green-deep hover:underline">Voir le rapport</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Micro-interactions Script -->
+<script>
+        // Simple search highlighting simulation
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                if (text.includes(val)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Simple active tab logic enhancement
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                navLinks.forEach(l => {
+                    l.classList.remove('bg-burkina-green-light', 'text-burkina-green-deep');
+                    l.classList.add('text-text-muted');
+                });
+                link.classList.add('bg-burkina-green-light', 'text-burkina-green-deep');
+                link.classList.remove('text-text-muted');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bazin Riche Signature | Shopizi Storefront</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Shared Components Styles & Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface": "#fbf9f4",
+                "surface-container-highest": "#e4e2dd",
+                "on-error": "#ffffff",
+                "on-primary": "#ffffff",
+                "on-tertiary-fixed-variant": "#93000d",
+                "tertiary-fixed": "#ffdad6",
+                "background": "#fbf9f4",
+                "on-secondary-fixed-variant": "#5e4200",
+                "on-background": "#1b1c19",
+                "surface-dim": "#dbdad5",
+                "primary-fixed-dim": "#60df81",
+                "outline-variant": "#bdcaba",
+                "primary-fixed": "#7efc9a",
+                "on-tertiary-fixed": "#410002",
+                "tertiary-fixed-dim": "#ffb4ac",
+                "primary-container": "#00873d",
+                "on-secondary-fixed": "#271900",
+                "surface-tint": "#006d30",
+                "on-surface-variant": "#3e4a3e",
+                "on-primary-fixed": "#00210a",
+                "tertiary": "#bb0014",
+                "tertiary-container": "#e32126",
+                "secondary-fixed": "#ffdea6",
+                "secondary-container": "#ffbb16",
+                "on-error-container": "#93000a",
+                "error-container": "#ffdad6",
+                "surface-variant": "#e4e2dd",
+                "on-surface": "#1b1c19",
+                "saffron-glow": "#FFF8E6",
+                "on-secondary-container": "#6c4d00",
+                "inverse-surface": "#30312e",
+                "secondary": "#7c5800",
+                "surface-container": "#f0eee9",
+                "inverse-primary": "#60df81",
+                "burkina-green-light": "#E6F5ED",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-fixed-variant": "#005323",
+                "on-primary-container": "#f7fff3",
+                "error": "#ba1a1a",
+                "surface-container-high": "#eae8e3",
+                "surface-off-white": "#F9F7F2",
+                "burkina-green-deep": "#007A38",
+                "primary": "#006b2f",
+                "secondary-fixed-dim": "#ffbb16",
+                "inverse-on-surface": "#f2f1ec",
+                "outline": "#6d7a6d",
+                "on-tertiary-container": "#fffbff",
+                "on-secondary": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "surface-bright": "#fbf9f4",
+                "text-main": "#1A1C19",
+                "surface-container-low": "#f5f3ee",
+                "text-muted": "#5C5F5A"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xl": "4rem",
+                "container-max": "1280px",
+                "gutter": "1.5rem",
+                "md": "1.5rem",
+                "baseline": "4px",
+                "xs": "0.5rem",
+                "lg": "2.5rem",
+                "sm": "1rem"
+            },
+            "fontFamily": {
+                "headline-md": ["Plus Jakarta Sans"],
+                "body-md": ["Plus Jakarta Sans"],
+                "body-sm": ["Plus Jakarta Sans"],
+                "label-lg": ["Plus Jakarta Sans"],
+                "headline-lg": ["Plus Jakarta Sans"],
+                "headline-lg-mobile": ["Plus Jakarta Sans"],
+                "body-lg": ["Plus Jakarta Sans"],
+                "label-sm": ["Plus Jakarta Sans"],
+                "headline-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fbf9f4; color: #1b1c19; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Custom scrollbar for gallery */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Faso Dan Fani subtle pattern */
+        .faso-pattern {
+            background-image: radial-gradient(#006b2f 0.5px, transparent 0.5px), radial-gradient(#7c5800 0.5px, #fbf9f4 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.03;
+        }
+        
+        .active-tab { border-bottom: 2px solid #006b2f; color: #006b2f; font-weight: 700; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .hover-lift { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-4px); box-shadow: 0px 10px 32px rgba(0, 0, 0, 0.08); }
+    </style>
+</head>
+<body class="bg-surface selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<header class="bg-surface shadow-sm sticky top-0 z-50 w-full">
+<nav class="flex justify-between items-center px-gutter py-md max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-lg">
+<a class="font-headline-lg text-headline-lg text-primary tracking-tight" href="#">Shopizi Storefront</a>
+<div class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Collections</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Featured</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">New Arrivals</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Support</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative group">
+<span class="material-symbols-outlined text-on-surface p-2 hover:bg-surface-container-low rounded-full transition-colors cursor-pointer">shopping_cart</span>
+<span class="absolute top-1 right-1 bg-tertiary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">2</span>
+</div>
+<span class="material-symbols-outlined text-on-surface p-2 hover:bg-surface-container-low rounded-full transition-colors cursor-pointer">person</span>
+<button class="md:hidden material-symbols-outlined">menu</button>
+</div>
+</nav>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-lg">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-xs text-text-muted font-label-sm mb-md">
+<a class="hover:text-primary" href="#">Accueil</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<a class="hover:text-primary" href="#">Hommes</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<a class="hover:text-primary" href="#">Tenues Traditionnelles</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-on-surface font-semibold">Bazin Riche Signature</span>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Left Side: Image Gallery -->
+<div class="lg:col-span-7 flex flex-col gap-sm">
+<div class="aspect-[4/5] rounded-xl overflow-hidden bg-surface-container shadow-sm group relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A high-resolution, professional fashion editorial shot of a stunning Bazin Riche traditional West African outfit. The fabric has a rich, glossy finish with intricate geometric embroidery. The setting is a minimalist, warm light-mode studio that emphasizes the garment's texture and deep blue color. Soft directional lighting highlights the subtle patterns of the Faso Dan Fani inspired craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDliqSdrMaAWvay5Zpks5GQCSEwrM03ctcTJn0arRF6kP3qdmPTVUJUx_HVubfW9UqxhXts5ryjwnWRmzhK0dZUtt3n_rlwMWAAdncSKzFM5Qauz8xRrUq2pzL4PlQgLBBrzFU_F8TTq238-GB1TyS2So3EqnUiVQx3vLBX6y1o-JkLMvZZfnbUjjRxv-wCs6zy1jX8gH5qzssESlKcPYQILUNzT_vImdWqolcKd-nwTowWO1gcT1ArqDr7o9KQccUeawurMgzT62s"/>
+<div class="absolute top-md left-md bg-secondary-container text-on-secondary-container px-sm py-xs rounded-lg font-label-lg shadow-sm">
+                        Meilleure Vente
+                    </div>
+</div>
+<!-- Thumbnails -->
+<div class="flex gap-sm overflow-x-auto no-scrollbar pb-sm">
+<div class="w-24 aspect-square rounded-lg overflow-hidden border-2 border-primary cursor-pointer flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up macro shot of premium Bazin Riche fabric showing the high-shine surface and exquisite embroidery details in deep blue and gold. The lighting is crisp and bright, showing every stitch with artisanal precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdnCFOyH5oMRtlrePDGl6uiGOe2FLnGxbZdlI-K2HaMIuYcDXC5iG2ktMS7U80pdzgKxa6P1w6y3gzQ7miApnXVXP4euS5j1EnSENgN43JIihOfp63Y2ga2_1Z0QQaYawWtfiaBlF3OoZHb3xjPmi6STYdJTj5KsoJVTR_mmBahydEEmRTgSbqQiBE5jWFPQDGPw8Ps6LB0yDzt9R-CNIFpFTjtb_CgF5cDaUs9WMRTeRIgpoY9VnUx6KohsDQCqtrELZY4ckdhmo"/>
+</div>
+<div class="w-24 aspect-square rounded-lg overflow-hidden border border-outline-variant hover:border-primary cursor-pointer transition-colors flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Side profile of a male model wearing the Bazin Riche Signature outfit, showcasing the structured fit and elegant drape. The background is a clean, off-white surface typical of modern high-end Burkinabé boutique styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjcAY98aFmQUJ4CYvumOnRAWFDRYEDO2xWJaCVT5Bca18Gm6wdWUdOjgUcL6uvux-7nsGKs8SNV5F1wYG3RBbZZMyyZf0Ey4dPb2TFryxPHwM_fANulynTQeh7Jj7btJw5KxJPlimX6cqM4zUpdHw94e8ytlHDED1a8AFpT2KdcHMmVpGGRdcJCRWb10gyIej6Gr-HHiBfJoi2_AF6RxZg6nBSDqpL94tC9rnTHKvqzX9JCobVpwLaBdmu_ww-rJg2rUmBTt5gBIc"/>
+</div>
+<div class="w-24 aspect-square rounded-lg overflow-hidden border border-outline-variant hover:border-primary cursor-pointer transition-colors flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Back view detail of the Bazin Riche garment, highlighting the seamless craftsmanship and consistent embroidery pattern across the shoulders. The aesthetic is clean, luxurious, and rooted in traditional excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL4e2ZgQv-V5zgnJigDxdeckzAnAyeBJaHzVOrVD-KG9Nh-QnGZOYoI9iNClAu9a-nsyj8w-kRIDst-RA6mYJWuIYmFzI0v471ECeGh54Awljvzxf7OSDpzGEeqduN59f-CLASr-ortk-YGoC8fCG3XlKU0236HmNYHHAzA1pSwYRU7EOz17MIm1HfmZWKe8enNVCCyt3OKq_w474xYsSjbcYA33nQ1FsdSjgh7bmJ0_O7DissX5td7nzpW4ESlVGIqP0rrj_IF88"/>
+</div>
+<div class="w-24 aspect-square rounded-lg overflow-hidden border border-outline-variant hover:border-primary cursor-pointer transition-colors flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Lifestyle shot of the Bazin Riche Signature outfit displayed on a high-end wooden mannequin in a contemporary African boutique setting with soft ambient lighting and plants." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABa0GAAltJoU4QxzYUvRTvkyC_leEEgNVBozwZC8gGaFav4CeTF8Y1jovJPE0B63B4bPes6ODW-T7vWgNZ7JA-pAcwz5STwSgjl9antQoVx41xXmUljEwWbz_0v8u0k7Fozql4XUdDjtcIDMAN8bgkDLkiAsfVfdyKtzFvLs2maa_1Npsggy0kDtBHTy1d9cH2TOlHydACcwih3nGfmbD78lrBSCIIVSIjeXRuFAVZSc8zWyW-D5X69TpNz2IjHndqQRVsG8MqYRs"/>
+</div>
+</div>
+</div>
+<!-- Right Side: Product Info -->
+<div class="lg:col-span-5 flex flex-col gap-md">
+<div class="flex flex-col gap-xs">
+<p class="text-primary font-label-lg uppercase tracking-widest">Collection Prestige</p>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Bazin Riche Signature</h1>
+<div class="flex items-center gap-sm mt-xs">
+<div class="flex text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="text-text-muted font-label-sm">(48 avis clients)</span>
+</div>
+</div>
+<div class="py-md">
+<span class="font-headline-lg text-headline-lg text-on-surface">45,000 FCFA</span>
+<p class="text-text-muted font-body-sm mt-xs">TVA incluse. Livraison calculée au panier.</p>
+</div>
+<hr class="border-outline-variant"/>
+<!-- Variants: Color -->
+<div class="flex flex-col gap-sm py-md">
+<span class="font-label-lg text-on-surface">Couleur : <span class="font-normal text-text-muted" id="selected-color">Deep Blue</span></span>
+<div class="flex gap-md">
+<button class="w-10 h-10 rounded-full bg-[#002B5B] border-2 border-primary ring-2 ring-offset-2 ring-primary transition-all"></button>
+<button class="w-10 h-10 rounded-full bg-[#0B3D0B] border border-outline-variant hover:ring-2 hover:ring-offset-2 hover:ring-outline-variant transition-all"></button>
+</div>
+</div>
+<!-- Variants: Size -->
+<div class="flex flex-col gap-sm py-md">
+<div class="flex justify-between items-center">
+<span class="font-label-lg text-on-surface">Taille</span>
+<button class="text-primary font-label-sm hover:underline">Guide des tailles</button>
+</div>
+<div class="grid grid-cols-4 gap-sm">
+<button class="py-sm border border-outline-variant rounded-lg font-label-lg hover:border-primary hover:text-primary transition-colors">S</button>
+<button class="py-sm border-2 border-primary text-primary bg-burkina-green-light rounded-lg font-label-lg">M</button>
+<button class="py-sm border border-outline-variant rounded-lg font-label-lg hover:border-primary hover:text-primary transition-colors">L</button>
+<button class="py-sm border border-outline-variant rounded-lg font-label-lg hover:border-primary hover:text-primary transition-colors">XL</button>
+</div>
+</div>
+<!-- Quantity & Add to Cart -->
+<div class="flex flex-col gap-md py-md">
+<div class="flex items-center gap-lg">
+<div class="flex items-center border border-outline-variant rounded-lg overflow-hidden">
+<button class="p-3 hover:bg-surface-container-low text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="px-gutter font-label-lg text-on-surface">1</span>
+<button class="p-3 hover:bg-surface-container-low text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<button class="flex-1 bg-primary text-white py-4 rounded-lg font-headline-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-sm shadow-md">
+<span class="material-symbols-outlined">shopping_bag</span>
+                            Ajouter au Panier
+                        </button>
+</div>
+<button class="w-full border border-primary text-primary py-4 rounded-lg font-headline-sm hover:bg-burkina-green-light transition-colors">
+                        Acheter Maintenant
+                    </button>
+</div>
+<!-- Trust Badges -->
+<div class="grid grid-cols-2 gap-md py-lg border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary p-2 bg-burkina-green-light rounded-full">brush</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-on-surface">Artisanat Local</span>
+<span class="text-text-muted text-[10px]">Fait main au Burkina Faso</span>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary p-2 bg-saffron-glow rounded-full">verified_user</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-on-surface">Paiement Sécurisé</span>
+<span class="text-text-muted text-[10px]">Protection Shopizi 100%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detail Tabs -->
+<div class="mt-xl">
+<div class="flex border-b border-outline-variant mb-lg overflow-x-auto no-scrollbar">
+<button class="px-gutter py-sm font-label-lg active-tab whitespace-nowrap" id="tab-description-btn" onclick="switchTab('description')">Description</button>
+<button class="px-gutter py-sm font-label-lg text-text-muted hover:text-on-surface whitespace-nowrap" id="tab-specifications-btn" onclick="switchTab('specifications')">Spécifications</button>
+<button class="px-gutter py-sm font-label-lg text-text-muted hover:text-on-surface whitespace-nowrap" id="tab-livraison-btn" onclick="switchTab('livraison')">Livraison &amp; Retours</button>
+</div>
+<div class="tab-content active animate-in fade-in duration-500" id="tab-description">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+<div class="flex flex-col gap-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">L'excellence du Bazin Riche</h3>
+<p class="text-body-md text-text-muted leading-relaxed">
+                            Notre modèle "Signature" représente le summum de l'élégance burkinabé. Confectionné à partir d'un Bazin Riche de première qualité, chaque pièce est traitée pour offrir une brillance éclatante et une tenue impeccable.
+                        </p>
+<p class="text-body-md text-text-muted leading-relaxed">
+                            Le travail de broderie, réalisé par des maîtres artisans de Ouagadougou, s'inspire des motifs traditionnels tout en arborant une coupe contemporaine ajustée. C'est l'habit idéal pour les grandes cérémonies, mariages et événements prestigieux.
+                        </p>
+</div>
+<div class="rounded-xl overflow-hidden aspect-video bg-surface-container relative">
+<img class="w-full h-full object-cover" data-alt="Candid lifestyle photograph of an elegant man in a bustling, high-end Ouagadougou urban setting during golden hour. He is wearing the Bazin Riche Signature outfit. The lighting is warm and cinematic, casting soft shadows that reveal the texture of the fabric against a modern architectural background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6kcTtUfiAkYLSAbiTS3qLjWZgqMfZ6n6fEJWiKdLIlxlcDmH2pNO9svFfqWbU6VoRiUv_L2qA5m8Qqjx1E9vaYYrlg3rLFhbsx3M9KV4v34t1ja5yw5iiUT_T5Ng8Rtrw5Gi1CRCrxdycvVEIQIWBp523zu3Tw53VVg063wNhtULmZ9Id_4ftGXZ3az2eNY3XqiqVzO51zGZbK6pbZ0n42-1_veYzvBGUW4nBSkSv3SlGadw0FHEvpAtM8dxvlfqUDb5M0WZ0MMw"/>
+<div class="absolute inset-0 faso-pattern"></div>
+</div>
+</div>
+</div>
+<div class="tab-content animate-in fade-in duration-500" id="tab-specifications">
+<div class="bg-surface-container-low rounded-xl p-lg border border-outline-variant max-w-2xl">
+<dl class="grid grid-cols-1 gap-md">
+<div class="flex justify-between py-xs border-b border-outline-variant">
+<dt class="font-label-lg text-text-muted">Matière</dt>
+<dd class="font-label-lg text-on-surface">100% Coton Bazin Riche de Qualité Supérieure</dd>
+</div>
+<div class="flex justify-between py-xs border-b border-outline-variant">
+<dt class="font-label-lg text-text-muted">Type de Broderie</dt>
+<dd class="font-label-lg text-on-surface">Point de chaînette traditionnel artisanal</dd>
+</div>
+<div class="flex justify-between py-xs border-b border-outline-variant">
+<dt class="font-label-lg text-text-muted">Entretien</dt>
+<dd class="font-label-lg text-on-surface">Nettoyage à sec recommandé</dd>
+</div>
+<div class="flex justify-between py-xs border-b border-outline-variant">
+<dt class="font-label-lg text-text-muted">Origine</dt>
+<dd class="font-label-lg text-on-surface">Confectionné à la main au Burkina Faso</dd>
+</div>
+</dl>
+</div>
+</div>
+<div class="tab-content animate-in fade-in duration-500" id="tab-livraison">
+<div class="flex flex-col gap-md">
+<div class="flex items-start gap-md">
+<span class="material-symbols-outlined text-primary mt-1">local_shipping</span>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Expédition Nationale &amp; Internationale</h4>
+<p class="text-body-md text-text-muted max-w-xl mt-xs">Livraison à domicile partout au Burkina Faso sous 48h-72h. Expédition internationale disponible vers l'Afrique de l'Ouest, l'Europe et l'Amérique via nos partenaires logistiques sécurisés.</p>
+</div>
+</div>
+<div class="flex items-start gap-md mt-md">
+<span class="material-symbols-outlined text-secondary mt-1">assignment_return</span>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Politique de Retour</h4>
+<p class="text-body-md text-text-muted max-w-xl mt-xs">Vous disposez de 7 jours après réception pour demander un échange si la taille ne vous convient pas, sous réserve que l'article soit dans son état d'origine.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Related Products -->
+<section class="mt-xl py-xl">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Produits Similaires</h2>
+<p class="text-text-muted font-body-md mt-xs">Complétez votre garde-robe avec notre sélection prestige.</p>
+</div>
+<a class="text-primary font-bold hover:underline flex items-center gap-xs" href="#">
+                    Voir tout <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover-lift group border border-outline-variant">
+<div class="aspect-[3/4] relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A luxurious traditional boubou made from light brown Bazin Riche with white silk embroidery. The product is shot in a bright studio on a minimalist backdrop that fits the Shopizi premium merchant aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlxtiQ2jjsHFJjnFy5GQlsDUZLInrhwMrO6x958FdPUSN6BZtxPdcAsCdIY21ZnGzgX8M8xAl1T7FR8pEDl4bWQxxnXqExqiGwkpLODApuIEygJmAwOwzqh0DqAYjNSKIFlaNGKTGgQHTq2xS9UK6D5pCp4OVHdHVC-eguoisB2SbbbvyctsZ95yTlZK-UNCI4gk1eRTttSfZIFjVVHcCekUywdCJVTvXzsGtTTKgPrOJXBCWkO28nezRKTSav-Q4TEAB0PUJ3JwE"/>
+<button class="absolute bottom-md right-md bg-white p-2 rounded-full shadow-md text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+<div class="p-md">
+<h3 class="font-label-lg text-on-surface">Boubou Royal Sahel</h3>
+<div class="flex items-center justify-between mt-sm">
+<span class="font-bold text-primary">38,500 FCFA</span>
+<span class="text-text-muted text-[10px] uppercase font-bold">Tradition</span>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover-lift group border border-outline-variant">
+<div class="aspect-[3/4] relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Handcrafted leather sandals from Burkina Faso, featuring intricate woven straps in dark brown and golden tones. Set on a clean minimalist surface with soft shadows and high-end lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTjP2S00M9HOZnJiKAJYqTLhf2GoW96wv3znGi9nN3jrSRoq6-YyNYo0jO8meWKgcHL9haW9RCCYgNRqUM5VCorPBJv9-eGMhArG06y7zAAxYmMv5OhbLoQ_P9gzHoUCKVPfZri1WOP2c_JaHkbkRrclw0eP7DLAzkLLibLXN3Rqs5d2uJ39fXNRNFPX56DO6hMtu7bMUMnbVE35fnpKrmnydvQi7Xt169z1WInHz1LGR1AS7TIuYSTXWs3GHzar9642hmJtyMkrU"/>
+<button class="absolute bottom-md right-md bg-white p-2 rounded-full shadow-md text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+<div class="absolute top-sm left-sm bg-tertiary text-white px-xs py-0.5 rounded text-[10px] font-bold">PROMO</div>
+</div>
+<div class="p-md">
+<h3 class="font-label-lg text-on-surface">Sandales Cuir Artisan</h3>
+<div class="flex items-center justify-between mt-sm">
+<span class="font-bold text-primary">12,000 FCFA</span>
+<span class="text-text-muted text-[10px] uppercase font-bold">Accessoires</span>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover-lift group border border-outline-variant">
+<div class="aspect-[3/4] relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Modern cut short-sleeve shirt made from Faso Dan Fani handwoven fabric in black and white stripes with a small pocket detail. Professional boutique photography with clean white aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcCg9CgckB4fLAFyr_C-H5HOOfXK2MdpzLWLq30hoqVMLjI_8V4sud-dlTBaWhi4LpCSaeaY5dyxRw6VSE9lgJAfw50oqpdNxIO1oPNLj4nC6IdrRMwLi9MsY0vI5lhorqqDTL8h8Nk0HBlHzyHD6OR-zKmxvgNmrrhM2GtbQs0tULYNCIU6bJy3GuCAi3emfiLJszZnz81T5SPhd6gOqL4mQA7voA-F0y_2hYDV-E-DR6s02zrpSvwUiNiSIB6lQFEbXVfbCAif8"/>
+<button class="absolute bottom-md right-md bg-white p-2 rounded-full shadow-md text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+<div class="p-md">
+<h3 class="font-label-lg text-on-surface">Chemise Dan Fani Modern</h3>
+<div class="flex items-center justify-between mt-sm">
+<span class="font-bold text-primary">22,500 FCFA</span>
+<span class="text-text-muted text-[10px] uppercase font-bold">Casual</span>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover-lift group border border-outline-variant">
+<div class="aspect-[3/4] relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A set of traditional African accessories including a handmade embroidered cap and a matching leather pouch, displayed artfully on a high-end textured surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALsohal7O1oST6-sXbm4REuNyvDSxQCpf2BrHHbf_yHVT0JZRlokWchIZozQeLrhQAU8lgSWkvbSJnn9h8Efgg7oB56nyXSMuxwqkyuT8rtkqN4KCCUUdcp1zElQUH_NWwK46tTscEOrDDtYoXhm3C2S5UKhtG-5y1WDGp7_nMWA6Uhy4XTHffcPyJ-1VelcYxhcs--yJSIl3CHcZAVYYfhZZSvJXnDnEZK52eDZESk_Z9rrB9hMjBB2y8w1qBbLN51QeuyFZ_Wb8"/>
+<button class="absolute bottom-md right-md bg-white p-2 rounded-full shadow-md text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+<div class="p-md">
+<h3 class="font-label-lg text-on-surface">Kit Accessoires Prestige</h3>
+<div class="flex items-center justify-between mt-sm">
+<span class="font-bold text-primary">15,000 FCFA</span>
+<span class="text-text-muted text-[10px] uppercase font-bold">Prestige</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-high border-t border-outline-variant w-full">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg px-gutter py-xl max-w-container-max mx-auto w-full">
+<div class="flex flex-col gap-md">
+<span class="font-headline-sm text-headline-sm text-on-surface">Shopizi</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+                    La première plateforme de commerce local au Burkina Faso. Nous connectons les artisans et les marchands aux consommateurs du monde entier.
+                </p>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">face_nod</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">photo_camera</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">chat</span>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-lg text-on-surface uppercase mb-xs">Liens Rapides</span>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary transition-colors hover:underline decoration-secondary" href="#">À propos</a>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary transition-colors hover:underline decoration-secondary" href="#">Livraison</a>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary transition-colors hover:underline decoration-secondary" href="#">Paiements Sécurisés</a>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary transition-colors hover:underline decoration-secondary" href="#">Conditions d'Utilisation</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-label-lg text-on-surface uppercase mb-xs">Newsletter</span>
+<p class="text-body-sm text-on-surface-variant">Inscrivez-vous pour recevoir nos dernières collections et offres exclusives.</p>
+<div class="flex items-center bg-white rounded-lg border border-outline-variant p-1 mt-sm">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-sm px-sm" placeholder="Votre email" type="email"/>
+<button class="bg-primary text-white px-md py-sm rounded-lg font-label-lg hover:opacity-90">S'inscrire</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter py-md border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Shopizi. Propulsé par la technologie locale.</span>
+<div class="flex items-center gap-md">
+<div class="h-6 w-10 bg-surface-container rounded border border-outline-variant flex items-center justify-center font-bold text-[8px] text-text-muted">VISA</div>
+<div class="h-6 w-10 bg-surface-container rounded border border-outline-variant flex items-center justify-center font-bold text-[8px] text-text-muted">ORANGE</div>
+<div class="h-6 w-10 bg-surface-container rounded border border-outline-variant flex items-center justify-center font-bold text-[8px] text-text-muted">MOOV</div>
+</div>
+</div>
+</footer>
+<script>
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            // Update button styles
+            document.querySelectorAll('[id$="-btn"]').forEach(btn => {
+                btn.classList.remove('active-tab');
+                btn.classList.remove('text-primary');
+                btn.classList.add('text-text-muted');
+                btn.classList.remove('font-bold');
+            });
+            
+            const activeBtn = document.getElementById('tab-' + tabId + '-btn');
+            activeBtn.classList.add('active-tab');
+            activeBtn.classList.remove('text-text-muted');
+            activeBtn.classList.add('text-primary');
+            activeBtn.classList.add('font-bold');
+        }
+
+        // Add smooth interaction for color selectors
+        document.querySelectorAll('.rounded-full').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.rounded-full').forEach(b => {
+                    b.classList.remove('ring-2', 'ring-offset-2', 'ring-primary', 'border-primary');
+                    b.classList.add('border-outline-variant');
+                });
+                this.classList.add('ring-2', 'ring-offset-2', 'ring-primary', 'border-primary');
+                this.classList.remove('border-outline-variant');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panier | Artisanat du Sahel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#fbf9f4",
+                        "surface-container-highest": "#e4e2dd",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#93000d",
+                        "tertiary-fixed": "#ffdad6",
+                        "background": "#fbf9f4",
+                        "on-secondary-fixed-variant": "#5e4200",
+                        "on-background": "#1b1c19",
+                        "surface-dim": "#dbdad5",
+                        "primary-fixed-dim": "#60df81",
+                        "outline-variant": "#bdcaba",
+                        "primary-fixed": "#7efc9a",
+                        "on-tertiary-fixed": "#410002",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "primary-container": "#00873d",
+                        "on-secondary-fixed": "#271900",
+                        "surface-tint": "#006d30",
+                        "on-surface-variant": "#3e4a3e",
+                        "on-primary-fixed": "#00210a",
+                        "tertiary": "#bb0014",
+                        "tertiary-container": "#e32126",
+                        "secondary-fixed": "#ffdea6",
+                        "secondary-container": "#ffbb16",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e4e2dd",
+                        "on-surface": "#1b1c19",
+                        "saffron-glow": "#FFF8E6",
+                        "on-secondary-container": "#6c4d00",
+                        "inverse-surface": "#30312e",
+                        "secondary": "#7c5800",
+                        "surface-container": "#f0eee9",
+                        "inverse-primary": "#60df81",
+                        "burkina-green-light": "#E6F5ED",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#005323",
+                        "on-primary-container": "#f7fff3",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#eae8e3",
+                        "surface-off-white": "#F9F7F2",
+                        "burkina-green-deep": "#007A38",
+                        "primary": "#006b2f",
+                        "secondary-fixed-dim": "#ffbb16",
+                        "inverse-on-surface": "#f2f1ec",
+                        "outline": "#6d7a6d",
+                        "on-tertiary-container": "#fffbff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fbf9f4",
+                        "text-main": "#1A1C19",
+                        "surface-container-low": "#f5f3ee",
+                        "text-muted": "#5C5F5A"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "4rem",
+                        "container-max": "1280px",
+                        "gutter": "1.5rem",
+                        "md": "1.5rem",
+                        "baseline": "4px",
+                        "xs": "0.5rem",
+                        "lg": "2.5rem",
+                        "sm": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fbf9f4;
+            color: #1b1c19;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .faso-dan-fani-pattern {
+            background-image: radial-gradient(#006b2f 0.5px, transparent 0.5px), radial-gradient(#7c5800 0.5px, #fbf9f4 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.03;
+        }
+        .card-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface shadow-sm sticky top-0 z-50 w-full">
+<div class="flex justify-between items-center px-gutter py-md max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-md">
+<span class="font-headline-lg text-headline-lg text-primary tracking-tight">Shopizi Storefront</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Collections</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Featured</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">New Arrivals</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Support</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface">person</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors relative active:scale-95">
+<span class="material-symbols-outlined text-on-surface">shopping_cart</span>
+<span class="absolute top-1 right-1 bg-tertiary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">3</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow max-w-container-max mx-auto w-full px-gutter py-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Left Side: Cart Items -->
+<div class="lg:col-span-7 space-y-md">
+<div class="flex items-center justify-between mb-lg">
+<h1 class="font-headline-lg text-headline-lg text-text-main">Votre Panier</h1>
+<span class="text-text-muted font-body-md">3 articles de l'Artisanat du Sahel</span>
+</div>
+<!-- Cart Item 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md flex gap-md card-shadow border border-surface-container-highest transition-all hover:translate-y-[-2px]">
+<div class="w-32 h-32 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A high-quality studio photograph of a hand-woven Faso Dan Fani textile cushion with intricate geometric patterns in deep green, earthy brown, and vibrant saffron. The lighting is soft and professional, highlighting the rich texture of the traditional Burkinabé fabric against a clean off-white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3a-3wRSaMdEKt3_x7lkrp7oihXwn1826UbgwmXJWrYQFt-u_Y_e1cz0eAQ1fuK-p_BXuh7OOIMvgX15fPvoKwJN3b3GKgIT8X6DRLAmwz4ozvgR0s1vs3jpKH4MN6v4bMDDXdbcL-QLdCwhIyqRkHwZQZ480p_WeURzD-HLrSH34K2xsiLGn0eAxjJLj69dfHUKgJdwp63RBwbtgV9m1-NjqjRQ3iBKWsXP4A4hs3_yvkiIPdN51-o7lOeUUBfHZduHraTFtuu3E"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-main">Coussin Faso Dan Fani</h3>
+<p class="text-text-muted font-body-sm">Motif Royal Traditionnel</p>
+</div>
+<button class="text-error hover:bg-error-container p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-end">
+<div class="flex items-center bg-surface-container-low rounded-full px-sm py-xs">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-full transition-colors">-</button>
+<span class="px-md font-label-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-full transition-colors">+</button>
+</div>
+<span class="font-headline-sm text-primary">12 500 FCFA</span>
+</div>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md flex gap-md card-shadow border border-surface-container-highest transition-all hover:translate-y-[-2px]">
+<div class="w-32 h-32 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close-up shot of a hand-carved ebony wood sculpture depicting a stylized Sahelian gazelle. The wood grain is polished to a deep dark luster, reflecting warm studio lighting. The aesthetic is modern-minimalist yet deeply rooted in West African craftsmanship, set in a bright, airy designer showroom environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Vjg-V6bbobvp3kGUfbltlOBqCTx9k3OC_BOZ_6oMckIe6Xl0q7Y1GwppZ7943j8w2073wnqyvsrOd7CN7zv-akFQGY2SSVhIfmIE5OigW-CgAYSB9GT0fBMbK4OL24jMWNPErqsTuVSowWRXkAvxNomLLeLAS-ZS4d4h4ffM5d2ivtCj-VWj8uDDJXlxXXAjlr-NXg24AQG36vcZZ15r3kkddkHFlZLQbCtktxhwI4Waumf8jZKKF9zumqtJuLtfcCjHarhEUEs"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-main">Sculpture Gazelle d'Ébène</h3>
+<p class="text-text-muted font-body-sm">Pièce Unique de Bobo-Dioulasso</p>
+</div>
+<button class="text-error hover:bg-error-container p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-end">
+<div class="flex items-center bg-surface-container-low rounded-full px-sm py-xs">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-full transition-colors">-</button>
+<span class="px-md font-label-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-full transition-colors">+</button>
+</div>
+<span class="font-headline-sm text-primary">45 000 FCFA</span>
+</div>
+</div>
+</div>
+<!-- Cart Item 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-md flex gap-md card-shadow border border-surface-container-highest transition-all hover:translate-y-[-2px]">
+<div class="w-32 h-32 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Elegant leather handbag crafted in Ouagadougou, featuring locally sourced premium cowhide with traditional hand-stitched detailing. The color is a rich terracotta, perfectly complemented by golden brass hardware. The bag is presented in a high-end fashion editorial style with soft, warm shadows and a clean, minimalist backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFM8fyYl038-EcJDMoAMPff5d4A0OeJPVAwC-sJCjwi9NtbPBanICQd6PySjcrXB3hK_wpSkdmcW3HZj7hPdUIpNJBlAmBQyYwAQnUHzjnK3sPn9RTVCW9eo4o24W-2AFDWt9qkdcXr7DqLRZnvyGhhGRQbpVvZ3xwFPhAhF7F6tzUmobg0gHiMmwG6z7Tcx2oB33YaXdBodafIYYU_i5FQqs556o7BIq_gOdFmCYtE9bwpiIWRS4Fk8ilOfT0E85Sk9GnxktdeCE"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-main">Sac à Main Cuir Sahélien</h3>
+<p class="text-text-muted font-body-sm">Cuir de chèvre tannage naturel</p>
+</div>
+<button class="text-error hover:bg-error-container p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-end">
+<div class="flex items-center bg-surface-container-low rounded-full px-sm py-xs">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-full transition-colors">-</button>
+<span class="px-md font-label-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-highest rounded-full transition-colors">+</button>
+</div>
+<span class="font-headline-sm text-primary">28 000 FCFA</span>
+</div>
+</div>
+</div>
+<div class="pt-md">
+<a class="flex items-center gap-2 text-primary font-label-lg hover:underline" href="#">
+<span class="material-symbols-outlined">arrow_back</span>
+                        Continuer mes achats
+                    </a>
+</div>
+</div>
+<!-- Right Side: Checkout Summary -->
+<div class="lg:col-span-5">
+<div class="bg-white rounded-xl p-lg card-shadow sticky top-32 border border-surface-container-highest">
+<h2 class="font-headline-md text-headline-md text-text-main mb-md">Résumé de la commande</h2>
+<!-- Shipping Form -->
+<div class="space-y-md mb-lg">
+<div>
+<label class="font-label-lg text-text-main mb-2 block">Ville de livraison</label>
+<select class="w-full bg-white border border-outline-variant rounded-lg p-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all">
+<option>Ouagadougou</option>
+<option>Bobo-Dioulasso</option>
+<option>Koudougou</option>
+<option>Banfora</option>
+</select>
+</div>
+<div>
+<label class="font-label-lg text-text-main mb-2 block">Adresse de livraison détaillée</label>
+<textarea class="w-full bg-white border border-outline-variant rounded-lg p-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Quartier, Secteur, Rue, Porte..." rows="3"></textarea>
+</div>
+</div>
+<!-- Payment Methods -->
+<div class="mb-lg">
+<p class="font-label-lg text-text-main mb-3">Moyen de paiement</p>
+<div class="grid grid-cols-2 gap-sm">
+<label class="relative cursor-pointer">
+<input checked="" class="peer sr-only" name="payment" type="radio"/>
+<div class="flex flex-col items-center justify-center p-md border-2 border-surface-container-highest rounded-xl bg-surface hover:bg-burkina-green-light peer-checked:border-primary peer-checked:bg-burkina-green-light transition-all">
+<div class="w-12 h-12 bg-[#FF6B00] rounded-lg flex items-center justify-center text-white font-bold text-xs mb-2 text-center leading-tight">Orange Money</div>
+<span class="text-label-sm">Orange Money</span>
+</div>
+</label>
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="payment" type="radio"/>
+<div class="flex flex-col items-center justify-center p-md border-2 border-surface-container-highest rounded-xl bg-surface hover:bg-burkina-green-light peer-checked:border-primary peer-checked:bg-burkina-green-light transition-all">
+<div class="w-12 h-12 bg-[#0054A6] rounded-lg flex items-center justify-center text-white font-bold text-xs mb-2 text-center leading-tight">Moov Money</div>
+<span class="text-label-sm">Moov Money</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Pricing Breakdown -->
+<div class="space-y-sm mb-lg border-t border-surface-container-highest pt-md">
+<div class="flex justify-between text-body-md">
+<span class="text-text-muted">Sous-total</span>
+<span class="text-text-main">85 500 FCFA</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-text-muted">Estimation livraison</span>
+<span class="text-text-main">2 500 FCFA</span>
+</div>
+<div class="flex justify-between text-headline-sm pt-sm">
+<span class="font-bold">Total à payer</span>
+<span class="font-bold text-primary">88 000 FCFA</span>
+</div>
+</div>
+<!-- Checkout Button -->
+<button class="w-full bg-secondary-container hover:bg-secondary text-on-secondary-container font-headline-sm py-4 rounded-xl shadow-md transition-all active:scale-[0.98] mb-md flex items-center justify-center gap-2">
+                        Confirmer et Payer via Mobile Money
+                    </button>
+<!-- Success/Security Assurance -->
+<div class="flex items-center justify-center gap-2 text-burkina-green-deep bg-burkina-green-light p-3 rounded-lg">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span class="text-label-lg">Transaction sécurisée par Shopizi</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-high border-t border-outline-variant w-full">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg px-gutter py-xl max-w-container-max mx-auto w-full relative">
+<!-- Pattern Accent -->
+<div class="absolute inset-0 faso-dan-fani-pattern pointer-events-none"></div>
+<div class="relative z-10">
+<span class="font-headline-sm text-headline-sm text-on-surface mb-md block">Artisanat du Sahel</span>
+<p class="text-on-surface-variant font-body-sm max-w-xs">Le cœur de l'artisanat Burkinabé, propulsé vers le futur par la technologie Shopizi.</p>
+</div>
+<div class="relative z-10 grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<span class="font-label-lg text-primary mb-2">Boutique</span>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary hover:underline transition-colors" href="#">À propos</a>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary hover:underline transition-colors" href="#">Livraison</a>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-label-lg text-primary mb-2">Sécurité</span>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary hover:underline transition-colors" href="#">Paiements Sécurisés</a>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary hover:underline transition-colors" href="#">Conditions</a>
+</div>
+</div>
+<div class="relative z-10 flex flex-col justify-between">
+<div class="flex gap-md mb-md">
+<a class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined">face_nod</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-primary shadow-sm hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+</div>
+<p class="text-on-surface-variant font-label-sm">© 2024 Shopizi. Propulsé par la technologie locale.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for quantity buttons
+        document.querySelectorAll('button').forEach(button => {
+            if(button.innerText === '+' || button.innerText === '-') {
+                button.addEventListener('click', (e) => {
+                    const span = e.target.parentElement.querySelector('span');
+                    let val = parseInt(span.innerText);
+                    if(button.innerText === '+') val++;
+                    if(button.innerText === '-' && val > 1) val--;
+                    span.innerText = val;
+                    
+                    // Subtle visual feedback
+                    span.classList.add('scale-125', 'text-primary');
+                    setTimeout(() => {
+                        span.classList.remove('scale-125', 'text-primary');
+                    }, 200);
+                });
+            }
+        });
+
+        // Form interaction tracking
+        const checkoutBtn = document.querySelector('button.bg-secondary-container');
+        checkoutBtn.addEventListener('click', () => {
+            checkoutBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Traitement...';
+            setTimeout(() => {
+                checkoutBtn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Paiement Initialisé';
+                checkoutBtn.classList.replace('bg-secondary-container', 'bg-burkina-green-deep');
+                checkoutBtn.classList.replace('text-on-secondary-container', 'text-white');
+            }, 1500);
+        });
+    </script>
+</body></html>

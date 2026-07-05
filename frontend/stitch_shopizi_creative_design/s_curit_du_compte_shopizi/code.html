@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Paramètres de Sécurité</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#ffbb16",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-highest": "#e4e2dd",
+                    "surface-dim": "#dbdad5",
+                    "inverse-primary": "#60df81",
+                    "on-primary-fixed": "#00210a",
+                    "on-tertiary-container": "#fffbff",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface": "#fbf9f4",
+                    "burkina-green-deep": "#007A38",
+                    "secondary": "#7c5800",
+                    "tertiary": "#bb0014",
+                    "inverse-surface": "#30312e",
+                    "on-primary-fixed-variant": "#005323",
+                    "on-background": "#1b1c19",
+                    "secondary-fixed": "#ffdea6",
+                    "primary-container": "#00873d",
+                    "surface-container": "#f0eee9",
+                    "tertiary-container": "#e32126",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "burkina-green-light": "#E6F5ED",
+                    "on-error": "#ffffff",
+                    "text-muted": "#5C5F5A",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#60df81",
+                    "on-secondary-container": "#6c4d00",
+                    "surface-container-low": "#f5f3ee",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "surface-tint": "#006d30",
+                    "outline": "#6d7a6d",
+                    "surface-container-high": "#eae8e3",
+                    "tertiary-fixed": "#ffdad6",
+                    "inverse-on-surface": "#f2f1ec",
+                    "outline-variant": "#bdcaba",
+                    "saffron-glow": "#FFF8E6",
+                    "primary-fixed": "#7efc9a",
+                    "background": "#fbf9f4",
+                    "on-secondary-fixed": "#271900",
+                    "on-tertiary-fixed": "#410002",
+                    "text-main": "#1A1C19",
+                    "primary": "#006b2f",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#f7fff3",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fbf9f4",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "surface-off-white": "#F9F7F2",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1b1c19",
+                    "on-surface-variant": "#3e4a3e",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "1.5rem",
+                    "sm": "1rem",
+                    "xl": "4rem",
+                    "container-max": "1280px",
+                    "baseline": "4px",
+                    "gutter": "1.5rem",
+                    "lg": "2.5rem",
+                    "xs": "0.5rem"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .faso-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bdcaba;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-text-main font-body-md overflow-hidden">
+<!-- SideNavBar (Predicted Component) -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-r border-outline-variant/30 z-50">
+<div class="p-md flex items-center gap-3">
+<div class="w-10 h-10 bg-burkina-green-deep rounded-xl flex items-center justify-center text-white font-bold text-xl">S</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted">Burkinabé Merchant</p>
+</div>
+</div>
+<nav class="mt-md flex-grow space-y-1 overflow-y-auto custom-scrollbar">
+<!-- Tableau de Bord -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<!-- Produits -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<!-- Catégories -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<!-- Commandes -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<!-- Boutique -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<!-- Abonnement -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<!-- Médias -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<!-- Paramètres (Active) -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-md mt-auto">
+<div class="bg-secondary-container/10 p-4 rounded-xl border border-secondary-container/20 relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-label-sm font-bold text-secondary">PRO PLAN</p>
+<p class="text-body-sm mb-3">Accédez aux outils avancés.</p>
+<button class="bg-secondary-container text-on-secondary-container w-full py-2 rounded-lg text-label-lg font-bold hover:shadow-md transition-shadow">Passer à Pro</button>
+</div>
+<div class="absolute -right-4 -bottom-4 w-16 h-16 opacity-5 faso-pattern"></div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Predicted Component) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 flex justify-between items-center px-gutter bg-surface/80 backdrop-blur-md z-40">
+<div class="flex items-center gap-4 w-1/2">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-body-sm focus:ring-2 focus:ring-burkina-green-deep/20 transition-all" placeholder="Rechercher des paramètres..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest/50 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest/50 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help">help</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right">
+<p class="text-label-lg font-bold">Moussa Traoré</p>
+<p class="text-label-sm text-text-muted">Boutique Artisanat Faso</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-cover bg-center border-2 border-white shadow-sm" data-alt="A professional portrait of a West African entrepreneur in business attire, looking confident and smiling. The background is a brightly lit, modern minimalist office space with warm wooden accents and a subtle green and white color palette, conveying trust and local leadership." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAaYpPFBKVeHFZ24nCKUbM1kDX9X87x5RxqaNcn7caL1aHv5f_cqP2Vb6HkVp5eKW9v5MRa9x1EvY8CjaDR7I-tQylwq41CZlN1Xkgt8b-TWMPvCkhhlWHWlIRKa2vvOBCMzrAd1dWm0dfMqBhPNljT_HyhQUaEgdK4uMHOI2DDc7ABaZEPRCnxVdrDxFWK1nLQ6T5Axzk-GHIcCTAFrnt3q4HqGqUFfyZZNJnTlQTHwzf-Hjsr1c4vqYwpEL_rYC9Eghtc85ZL20Y')"></div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 h-screen overflow-y-auto custom-scrollbar bg-background p-gutter">
+<div class="max-w-6xl mx-auto space-y-md">
+<!-- Page Header -->
+<div class="flex flex-col gap-1 mb-lg">
+<h2 class="text-headline-lg font-headline-lg text-text-main">Sécurité du Compte</h2>
+<p class="text-body-md text-text-muted">Gérez vos identifiants de connexion et protégez vos données marchandes.</p>
+</div>
+<!-- Bento Grid Layout for Security Settings -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-md items-start">
+<!-- Change Password Section (Col 7) -->
+<section class="lg:col-span-7 bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep">
+<div class="flex items-center gap-3 mb-md">
+<div class="w-10 h-10 rounded-full bg-burkina-green-light flex items-center justify-center text-burkina-green-deep">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm">Modifier le mot de passe</h3>
+</div>
+<form class="space-y-sm">
+<div class="space-y-1">
+<label class="text-label-lg block">Mot de passe actuel</label>
+<input class="w-full bg-white border border-[#E0E0E0] rounded-lg px-4 py-3 focus:ring-2 focus:ring-burkina-green-deep/20 focus:border-burkina-green-deep transition-all" placeholder="••••••••" type="password"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<div class="space-y-1">
+<label class="text-label-lg block">Nouveau mot de passe</label>
+<input class="w-full bg-white border border-[#E0E0E0] rounded-lg px-4 py-3 focus:ring-2 focus:ring-burkina-green-deep/20 focus:border-burkina-green-deep transition-all" placeholder="••••••••" type="password"/>
+</div>
+<div class="space-y-1">
+<label class="text-label-lg block">Confirmer le nouveau mot de passe</label>
+<input class="w-full bg-white border border-[#E0E0E0] rounded-lg px-4 py-3 focus:ring-2 focus:ring-burkina-green-deep/20 focus:border-burkina-green-deep transition-all" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<p class="text-label-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="info">info</span>
+                            Minimum 8 caractères, incluant une majuscule et un chiffre.
+                        </p>
+<div class="pt-sm">
+<button class="bg-burkina-green-deep text-white px-6 py-3 rounded-lg text-label-lg font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95" type="submit">
+                                Mettre à jour le mot de passe
+                            </button>
+</div>
+</form>
+</section>
+<!-- 2FA Section (Col 5) -->
+<section class="lg:col-span-5 bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] flex flex-col h-full">
+<div class="flex items-center justify-between mb-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm">Double Authentification</h3>
+</div>
+<div class="px-2 py-1 bg-tertiary-fixed rounded text-[10px] font-bold text-tertiary">INACTIF</div>
+</div>
+<p class="text-body-sm text-text-muted mb-md">
+                        Ajoutez une couche de sécurité supplémentaire à votre compte en exigeant un code unique lors de chaque connexion.
+                    </p>
+<div class="space-y-sm flex-grow">
+<div class="flex items-start gap-3 p-3 bg-saffron-glow rounded-lg border border-secondary-container/20">
+<span class="material-symbols-outlined text-secondary" data-icon="smartphone">smartphone</span>
+<div>
+<p class="text-label-lg font-bold">Via Application Authenticator</p>
+<p class="text-label-sm text-text-muted">Google Authenticator, Authy, etc.</p>
+</div>
+<button class="ml-auto text-secondary font-bold text-label-lg hover:underline transition-all">Activer</button>
+</div>
+<div class="flex items-start gap-3 p-3 bg-surface-container-low rounded-lg border border-outline-variant/20 grayscale opacity-60">
+<span class="material-symbols-outlined text-text-muted" data-icon="sms">sms</span>
+<div>
+<p class="text-label-lg font-bold">Via SMS (Burkina Faso)</p>
+<p class="text-label-sm text-text-muted">Indisponible temporairement</p>
+</div>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant/30">
+<div class="flex items-center gap-2 text-label-sm text-text-muted">
+<span class="material-symbols-outlined text-[18px] text-burkina-green-deep" data-icon="security">security</span>
+                            Hautement recommandé pour les marchands Premium.
+                        </div>
+</div>
+</section>
+<!-- Active Sessions (Col 12) -->
+<section class="lg:col-span-12 bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-burkina-green-light flex items-center justify-center text-burkina-green-deep">
+<span class="material-symbols-outlined" data-icon="devices">devices</span>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm">Historique des Sessions Actives</h3>
+<p class="text-label-sm text-text-muted">Appareils actuellement connectés à votre compte Shopizi.</p>
+</div>
+</div>
+<button class="text-tertiary font-bold text-label-lg px-4 py-2 hover:bg-tertiary/5 rounded-lg transition-colors border border-tertiary/20">Déconnecter toutes les autres sessions</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant/30 text-label-sm text-text-muted uppercase tracking-wider">
+<th class="pb-3 font-semibold">Appareil &amp; Navigateur</th>
+<th class="pb-3 font-semibold">Localisation (IP)</th>
+<th class="pb-3 font-semibold">Dernière activité</th>
+<th class="pb-3 font-semibold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-muted" data-icon="desktop_windows">desktop_windows</span>
+<div>
+<p class="text-label-lg font-bold">MacBook Pro - Chrome</p>
+<p class="text-label-sm text-burkina-green-deep font-bold">Session actuelle</p>
+</div>
+</div>
+</td>
+<td class="py-4">
+<div class="flex flex-col">
+<span class="text-label-lg">Ouagadougou, Burkina Faso</span>
+<span class="text-label-sm text-text-muted">41.203.165.22</span>
+</div>
+</td>
+<td class="py-4">
+<span class="text-label-lg">Maintenant</span>
+</td>
+<td class="py-4 text-right">
+<span class="text-label-sm font-bold text-burkina-green-deep">Connecté</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-muted" data-icon="smartphone">smartphone</span>
+<div>
+<p class="text-label-lg font-bold">Samsung Galaxy S21 - App Shopizi</p>
+<p class="text-label-sm text-text-muted">Android 13</p>
+</div>
+</div>
+</td>
+<td class="py-4">
+<div class="flex flex-col">
+<span class="text-label-lg">Bobo-Dioulasso, Burkina Faso</span>
+<span class="text-label-sm text-text-muted">154.68.21.104</span>
+</div>
+</td>
+<td class="py-4">
+<span class="text-label-lg">Il y a 2 heures</span>
+</td>
+<td class="py-4 text-right">
+<button class="text-text-muted hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-muted" data-icon="laptop_mac">laptop_mac</span>
+<div>
+<p class="text-label-lg font-bold">Dell XPS 15 - Firefox</p>
+<p class="text-label-sm text-text-muted">Windows 11</p>
+</div>
+</div>
+</td>
+<td class="py-4">
+<div class="flex flex-col">
+<span class="text-label-lg">Koudougou, Burkina Faso</span>
+<span class="text-label-sm text-text-muted">102.215.34.88</span>
+</div>
+</td>
+<td class="py-4">
+<span class="text-label-lg">15 Octobre 2023</span>
+</td>
+<td class="py-4 text-right">
+<button class="text-text-muted hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Security Checklist (Col 12) -->
+<section class="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-sm">
+<div class="bg-burkina-green-light/30 p-md rounded-xl border border-burkina-green-deep/10 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-burkina-green-deep shadow-sm">
+<span class="material-symbols-outlined" data-icon="mail" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<div>
+<p class="text-label-lg font-bold">Email vérifié</p>
+<p class="text-label-sm text-text-muted">mou***@email.bf</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-burkina-green-deep" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="bg-saffron-glow/30 p-md rounded-xl border border-secondary-container/10 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined" data-icon="privacy_tip" style="font-variation-settings: 'FILL' 1;">privacy_tip</span>
+</div>
+<div>
+<p class="text-label-lg font-bold">2FA Manquant</p>
+<p class="text-label-sm text-text-muted">Sécurisez votre compte</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-tertiary" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/10 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-text-muted shadow-sm">
+<span class="material-symbols-outlined" data-icon="history" style="font-variation-settings: 'FILL' 1;">history</span>
+</div>
+<div>
+<p class="text-label-lg font-bold">Log d'Audit</p>
+<p class="text-label-sm text-text-muted">Dernier accès il y a 2h</p>
+</div>
+<button class="ml-auto text-burkina-green-deep">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</section>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label')?.classList.add('text-burkina-green-deep');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label')?.classList.remove('text-burkina-green-deep');
+            });
+        });
+
+        // Tab Active Logic (Mockup behavior)
+        const navItems = document.querySelectorAll('nav a');
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                navItems.forEach(i => {
+                    i.classList.remove('bg-burkina-green-light', 'text-burkina-green-deep', 'scale-95');
+                    i.classList.add('text-text-muted');
+                    const icon = i.querySelector('.material-symbols-outlined');
+                    if (icon) icon.style.fontVariationSettings = "'FILL' 0";
+                });
+                item.classList.add('bg-burkina-green-light', 'text-burkina-green-deep', 'scale-95');
+                item.classList.remove('text-text-muted');
+                const icon = item.querySelector('.material-symbols-outlined');
+                if (icon) icon.style.fontVariationSettings = "'FILL' 1";
+            });
+        });
+    </script>
+</body></html>

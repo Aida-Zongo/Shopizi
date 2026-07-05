@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ajouter un Produit | Shopizi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container-low": "#f5f3ee",
+                "text-main": "#1A1C19",
+                "primary-container": "#00873d",
+                "surface-container-highest": "#e4e2dd",
+                "primary-fixed-dim": "#60df81",
+                "on-secondary": "#ffffff",
+                "inverse-primary": "#60df81",
+                "surface-tint": "#006d30",
+                "surface-off-white": "#F9F7F2",
+                "primary": "#006b2f",
+                "on-tertiary-fixed-variant": "#93000d",
+                "burkina-green-deep": "#007A38",
+                "on-primary-fixed-variant": "#005323",
+                "secondary-fixed": "#ffdea6",
+                "surface-container-lowest": "#ffffff",
+                "surface-variant": "#e4e2dd",
+                "surface-dim": "#dbdad5",
+                "on-surface": "#1b1c19",
+                "tertiary-fixed": "#ffdad6",
+                "primary-fixed": "#7efc9a",
+                "on-secondary-fixed-variant": "#5e4200",
+                "surface-bright": "#fbf9f4",
+                "on-secondary-container": "#6c4d00",
+                "tertiary": "#bb0014",
+                "saffron-glow": "#FFF8E6",
+                "on-primary": "#ffffff",
+                "background": "#fbf9f4",
+                "on-tertiary": "#ffffff",
+                "surface-container": "#f0eee9",
+                "text-muted": "#5C5F5A",
+                "inverse-surface": "#30312e",
+                "on-secondary-fixed": "#271900",
+                "outline": "#6d7a6d",
+                "on-error": "#ffffff",
+                "burkina-green-light": "#E6F5ED",
+                "on-background": "#1b1c19",
+                "error": "#ba1a1a",
+                "secondary-container": "#ffbb16",
+                "outline-variant": "#bdcaba",
+                "inverse-on-surface": "#f2f1ec",
+                "secondary": "#7c5800",
+                "tertiary-container": "#e32126",
+                "on-primary-container": "#f7fff3",
+                "on-tertiary-container": "#fffbff",
+                "on-error-container": "#93000a",
+                "on-surface-variant": "#3e4a3e",
+                "tertiary-fixed-dim": "#ffb4ac",
+                "surface": "#fbf9f4",
+                "secondary-fixed-dim": "#ffbb16",
+                "on-tertiary-fixed": "#410002",
+                "surface-container-high": "#eae8e3",
+                "on-primary-fixed": "#00210a",
+                "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "16px",
+                "xl": "24px",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xs": "0.5rem",
+                "xl": "4rem",
+                "sm": "1rem",
+                "md": "1.5rem",
+                "gutter": "1.5rem",
+                "baseline": "4px",
+                "lg": "2.5rem",
+                "container-max": "1280px"
+            },
+            "fontFamily": {
+                "headline-lg-mobile": ["Plus Jakarta Sans"],
+                "body-sm": ["Plus Jakarta Sans"],
+                "body-md": ["Plus Jakarta Sans"],
+                "body-lg": ["Plus Jakarta Sans"],
+                "label-sm": ["Plus Jakarta Sans"],
+                "label-lg": ["Plus Jakarta Sans"],
+                "headline-md": ["Plus Jakarta Sans"],
+                "headline-sm": ["Plus Jakarta Sans"],
+                "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fbf9f4; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .fani-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 107, 47, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .form-focus-glow:focus {
+            box-shadow: 0 0 0 4px rgba(0, 122, 56, 0.1);
+        }
+    </style>
+</head>
+<body class="text-text-main overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col bg-surface border-r border-outline-variant/30 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="p-6">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted mt-1">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 mt-4 space-y-1">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 active:scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-lg text-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="font-label-lg text-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-lg text-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="font-label-lg text-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="font-label-lg text-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 mt-auto relative overflow-hidden">
+<div class="absolute inset-0 fani-pattern opacity-10 pointer-events-none"></div>
+<div class="bg-secondary-container rounded-lg p-4 relative z-10">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="bolt">bolt</span>
+<span class="font-label-lg text-label-lg text-on-secondary-container">Pro Plan</span>
+</div>
+<button class="w-full bg-on-secondary-container text-surface-container-lowest font-label-lg text-label-lg py-2 rounded-lg hover:opacity-90 transition-opacity">
+                    Passer à Pro
+                </button>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 flex justify-between items-center px-gutter bg-surface/80 backdrop-blur-md z-40">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-body-md font-body-md focus:ring-2 focus:ring-burkina-green-deep transition-all" placeholder="Rechercher un produit..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest/50 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest/50 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help">help</span>
+</button>
+</div>
+<div class="flex items-center gap-3 border-l pl-6 border-outline-variant/30">
+<div class="text-right">
+<p class="text-label-lg font-label-lg text-text-main">Moussa Traoré</p>
+<p class="text-label-sm font-label-sm text-text-muted">Artisan Bijoutier</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-burkina-green-light" data-alt="A professional close-up portrait of a West African merchant smiling confidently, wearing a traditional embroidered garment in earth tones. The background is a blurred, high-end boutique interior with soft lighting and minimalist furniture. The overall aesthetic is elegant, clean, and modern corporate, reflecting a successful entrepreneur." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGMRbQqoTwwHbOX6gfro_S1aWqb30IHb2SILc6Jo_Yte53DY6ryDFEeXFUNwI_fTX-vEoMoV7nQnlU_kFxsCWYtHzxyLQ2uqEUPQFyHN4g02AOKlYtl7XpaeE8qGZox_T2JXLX_E1U_sgT5-OyIg_2lyM99jUgyUnC9p69eqgm9m9ZLqpkUvVklhX_LYK6cbN0bodVQt3FbKjRW3syM43zdWHLkTUKRMd6kCiY5m-eHznXZbd-zbIOfZwx4-slvfaQrKJcrCouiw4"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="max-w-[1000px] mx-auto p-gutter lg:p-xl">
+<!-- Page Header & Limit Indicator -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-lg">
+<div>
+<nav class="flex items-center gap-2 text-label-sm font-label-sm text-text-muted mb-2">
+<a class="hover:text-burkina-green-deep" href="#">Produits</a>
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-burkina-green-deep">Ajouter un produit</span>
+</nav>
+<h2 class="text-headline-lg font-headline-lg text-text-main">Nouveau Produit</h2>
+<p class="text-body-md font-body-md text-text-muted mt-2">Détaillez votre article pour une meilleure visibilité sur Shopizi.</p>
+</div>
+<!-- Plan Limit Progress -->
+<div class="bg-surface-container rounded-xl p-4 min-w-[280px] border border-outline-variant/20 shadow-sm relative overflow-hidden">
+<div class="absolute right-0 top-0 h-full w-1/3 fani-pattern opacity-10"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-center mb-2">
+<span class="text-label-lg font-label-lg text-text-main">Capacité du catalogue</span>
+<span class="text-label-lg font-label-lg text-burkina-red font-bold">14 / 15</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<!-- Progress bar: 93% (Golden Saffron as it's > 80%) -->
+<div class="h-full bg-secondary-container transition-all duration-1000" style="width: 93%;"></div>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<p class="text-label-sm font-label-sm text-text-muted">Presque à saturation</p>
+<a class="text-label-sm font-label-sm text-burkina-green-deep underline font-bold" href="#">Augmenter</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Form Grid -->
+<form class="grid grid-cols-1 lg:grid-cols-3 gap-gutter lg:gap-md items-start">
+<!-- Left Column: Primary Information -->
+<div class="lg:col-span-2 space-y-gutter">
+<!-- Basic Info Card -->
+<div class="bg-surface-container-lowest rounded-lg p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep">
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-burkina-green-deep" data-icon="edit_note">edit_note</span>
+                            Informations Générales
+                        </h3>
+<div class="space-y-6">
+<div>
+<label class="block text-label-lg font-label-lg text-text-main mb-2">Nom du produit</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md font-body-md focus:border-burkina-green-deep focus:ring-1 focus:ring-burkina-green-deep form-focus-glow transition-all outline-none" placeholder="Ex: Bracelet en Bronze ciselé" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-label-lg font-label-lg text-text-main mb-2">Prix de vente (XOF)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 pl-4 pr-12 text-body-md font-body-md focus:border-burkina-green-deep focus:ring-1 focus:ring-burkina-green-deep form-focus-glow transition-all outline-none" placeholder="0" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-label-lg font-label-lg text-text-muted">XOF</span>
+</div>
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-text-main mb-2">Catégorie</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md font-body-md focus:border-burkina-green-deep focus:ring-1 focus:ring-burkina-green-deep form-focus-glow transition-all outline-none appearance-none">
+<option disabled="" selected="" value="">Sélectionner une catégorie</option>
+<option>Accessoires &amp; Bijoux</option>
+<option>Textiles &amp; Faso Dan Fani</option>
+<option>Artisanat d'Art</option>
+<option>Alimentation</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-text-main mb-2">Description</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md font-body-md focus:border-burkina-green-deep focus:ring-1 focus:ring-burkina-green-deep form-focus-glow transition-all outline-none" placeholder="Décrivez l'origine, les matériaux et les dimensions..." rows="4"></textarea>
+</div>
+</div>
+</div>
+<!-- Media Upload Card -->
+<div class="bg-surface-container-lowest rounded-lg p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-burkina-green-deep" data-icon="image">image</span>
+                            Médias du Produit
+                        </h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Main Upload Zone -->
+<div class="col-span-2 aspect-[4/3] border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-6 bg-surface-container-low/30 hover:bg-burkina-green-light transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-[48px] text-text-muted group-hover:text-burkina-green-deep transition-colors" data-icon="cloud_upload">cloud_upload</span>
+<p class="mt-4 text-label-lg font-label-lg text-text-main text-center">Glissez vos images ici</p>
+<p class="text-label-sm font-label-sm text-text-muted text-center mt-1">PNG, JPG jusqu'à 5MB</p>
+<button class="mt-4 px-4 py-2 bg-burkina-green-deep text-white rounded-lg text-label-sm font-label-sm hover:opacity-90 transition-opacity" type="button">
+                                    Parcourir
+                                </button>
+</div>
+<!-- Preview Thumbnails -->
+<div class="aspect-square bg-surface-container-high rounded-xl flex items-center justify-center relative group overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="A close-up studio photograph of a polished bronze bracelet with intricate traditional West African engravings. High-key lighting highlights the golden sheen and metallic textures against a clean off-white background. The shot is minimalist and elegant, focusing on the fine craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_5kVqtA8Pz7yFlLHXaZ8eRmWO0qycDi1YfSpz-gJF68tKnrHVhrKp5G_yLIYtgUWBS5tGqLkho0hK9hoB2HxkxIvQiUdgzHcC3tbgG7Wg-YVR3cI_TzpryYCxsWGSBTU9J99G89ogwovActRelHU5Gl0iAZgenN7YtpEUewR8VEpFODP6W2bxXcDh-WqlpYQGfMNQfcegsMGk4t3lq4tFxRVoHtPEU_1o2AyfLYry2AyUKUNCx-2_R2hImpw4tZaYrrbuZuz3fpM"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+<button class="bg-error w-8 h-8 rounded-full flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-white text-[18px]" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<div class="aspect-square border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center text-text-muted hover:border-burkina-green-deep transition-colors cursor-pointer">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+</div>
+<p class="mt-4 text-label-sm font-label-sm text-text-muted italic flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+                            L'image principale sera affichée en premier dans votre boutique.
+                        </p>
+</div>
+</div>
+<!-- Right Column: Settings & Actions -->
+<div class="space-y-gutter">
+<!-- Inventory Card -->
+<div class="bg-surface-container-lowest rounded-lg p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-burkina-green-deep" data-icon="inventory">inventory</span>
+                            Stock
+                        </h3>
+<div class="space-y-4">
+<div>
+<label class="block text-label-lg font-label-lg text-text-main mb-2">Quantité disponible</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-body-md font-body-md focus:border-burkina-green-deep outline-none" type="number" value="1"/>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-burkina-green-deep"></div>
+</div>
+<span class="text-label-lg font-label-lg text-text-main">Suivre le stock</span>
+</div>
+</div>
+</div>
+<!-- Visibility Card -->
+<div class="bg-surface-container-lowest rounded-lg p-md shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-burkina-green-deep" data-icon="visibility">visibility</span>
+                            Visibilité
+                        </h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 p-3 border border-burkina-green-deep/30 bg-burkina-green-light/20 rounded-lg cursor-pointer">
+<input checked="" class="text-burkina-green-deep focus:ring-burkina-green-deep" name="visibility" type="radio"/>
+<div>
+<p class="text-label-lg font-label-lg text-burkina-green-deep">Public</p>
+<p class="text-label-sm font-label-sm text-text-muted">Visible par tous les clients</p>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="text-burkina-green-deep focus:ring-burkina-green-deep" name="visibility" type="radio"/>
+<div>
+<p class="text-label-lg font-label-lg text-text-main">Brouillon</p>
+<p class="text-label-sm font-label-sm text-text-muted">Uniquement pour vous</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="space-y-3">
+<button class="w-full bg-secondary-container text-text-main font-headline-sm text-headline-sm py-4 rounded-lg shadow-sm hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">save</span>
+                            Enregistrer le produit
+                        </button>
+<button class="w-full bg-transparent border-2 border-burkina-green-deep text-burkina-green-deep font-label-lg text-label-lg py-4 rounded-lg hover:bg-burkina-green-light transition-all" type="button">
+                            Annuler les modifications
+                        </button>
+</div>
+</div>
+</form>
+</div>
+</main>
+<!-- Floating Action Feedback (Mock) -->
+<div class="fixed bottom-gutter right-gutter translate-y-24 opacity-0 transition-all duration-500 z-50" id="toast">
+<div class="bg-surface-container-lowest border-l-4 border-burkina-green-deep shadow-xl rounded-lg p-4 flex items-center gap-4">
+<div class="w-10 h-10 bg-burkina-green-light rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-burkina-green-deep" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-text-main">Modifications enregistrées</p>
+<p class="text-label-sm font-label-sm text-text-muted">Le catalogue a été mis à jour.</p>
+</div>
+</div>
+</div>
+<script>
+        // Simple Interaction logic
+        const form = document.querySelector('form');
+        const toast = document.getElementById('toast');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show toast
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            // Auto hide after 3s
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        });
+
+        // Hover lift effect for action buttons
+        const primaryBtn = document.querySelector('button[type="submit"]');
+        primaryBtn.addEventListener('mouseenter', () => {
+            primaryBtn.style.boxShadow = '0 10px 25px -5px rgba(255, 187, 22, 0.4)';
+        });
+        primaryBtn.addEventListener('mouseleave', () => {
+            primaryBtn.style.boxShadow = 'none';
+        });
+    </script>
+</body></html>

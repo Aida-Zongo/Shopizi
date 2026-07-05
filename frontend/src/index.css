@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+/* =============================================================
+   SHOPIZI — Sahel Ethereal Design System (Tailwind CSS v4)
+   ============================================================= */
+
+@theme {
+  /* ── Colors — Emerald Canopy palette (site-wide, since 2026-07-03) ──
+     Primaire #00A86B · Secondaire (mint) #A2E4B8 · Foncé #0A504A ·
+     Fond #F7F7F2 · Texte #1a1a1a · Or accent #ca8a04.
+     M3 token names are kept (huge existing class surface — ~32 files
+     consume them by class name) but repointed to the new palette so
+     every consumer cascades without per-file edits. ───────────────── */
+  --color-surface:                         #ffffff;
+  --color-surface-bright:                  #ffffff;
+  --color-surface-dim:                     #dbdad5;
+  --color-background:                      #F7F7F2;
+  --color-surface-off-white:               #F7F7F2;
+  --color-surface-container:               #f0eee9;
+  --color-surface-container-low:           #f5f3ee;
+  --color-surface-container-high:          #eae8e3;
+  --color-surface-container-highest:       #e4e2dd;
+  --color-surface-container-lowest:        #ffffff;
+  --color-surface-variant:                 #e4e2dd;
+
+  --color-on-surface:                      #1a1a1a;
+  --color-on-surface-variant:              #6b7280;
+  --color-inverse-surface:                 #30312e;
+  --color-inverse-on-surface:              #f2f1ec;
+
+  --color-primary:                         #00A86B;
+  --color-on-primary:                      #ffffff;
+  --color-primary-container:               #A2E4B8;
+  --color-on-primary-container:            #0A504A;
+  --color-inverse-primary:                 #60df81;
+  --color-primary-fixed:                   #A2E4B8;
+  --color-primary-fixed-dim:               #00A86B;
+  --color-on-primary-fixed:                #0A504A;
+  --color-on-primary-fixed-variant:        #0A504A;
+  --color-burkina-green-deep:              #00A86B;
+  --color-burkina-green-light:             #A2E4B8;
+  --color-burkina-green:                   #00A86B;
+
+  --color-secondary:                       #ca8a04;
+  --color-on-secondary:                    #ffffff;
+  --color-secondary-container:             #ca8a04;
+  --color-on-secondary-container:          #ffffff;
+  --color-saffron-glow:                    #FFF8E6;
+  --color-secondary-fixed:                 #ffdea6;
+  --color-secondary-fixed-dim:             #ca8a04;
+  --color-on-secondary-fixed:              #271900;
+  --color-on-secondary-fixed-variant:      #5e4200;
+
+  --color-tertiary:                        #bb0014;
+  --color-on-tertiary:                     #ffffff;
+  --color-tertiary-container:              #e32126;
+  --color-on-tertiary-container:           #fffbff;
+  --color-tertiary-fixed:                  #ffdad6;
+  --color-tertiary-fixed-dim:              #ffb4ac;
+  --color-on-tertiary-fixed:               #410002;
+  --color-on-tertiary-fixed-variant:       #93000d;
+
+  --color-error:                           #ba1a1a;
+  --color-on-error:                        #ffffff;
+  --color-error-container:                 #ffdad6;
+  --color-on-error-container:              #93000a;
+
+  --color-outline:                         #9ca3af;
+  --color-outline-variant:                   #e5e7eb;
+
+  --color-text-main:                       #1a1a1a;
+  --color-text-muted:                      #6b7280;
+  --color-border:                          #e5e7eb;
+  --color-accent:                          #ca8a04;
+
+  --color-primary-light:                   #A2E4B8;
+  --color-primary-dark:                    #0A504A;
+  --color-shopizi-primary:                 #00A86B;
+  --color-shopizi-light:                   #A2E4B8;
+  --color-shopizi-dark:                    #0A504A;
+  --color-shopizi-bg:                      #F7F7F2;
+  --color-shopizi-accent:                  #ca8a04;
+
+  /* ── Emerald Canopy tokens (Login/Register prototype) ──────────
+     Kept as aliases so LoginPage.tsx/RegisterPage.tsx keep working
+     unchanged; values match the site-wide tokens above. ─────────── */
+  --color-bg:                              #F7F7F2;
+  --color-bg-dark:                         #0A504A;
+  --color-accent-emerald:                  #00A86B;
+  --color-accent-mint:                     #A2E4B8;
+  --color-accent-forest:                   #0A504A;
+  --color-accent-gold:                     #ca8a04;
+  --color-text-primary:                    #0A504A;
+  --color-text-secondary:                  #457A74;
+
+  /* ── Spacing ────────────────────────────────────────── */
+  --spacing-baseline: 4px;
+  --spacing-xs:     0.5rem;
+  --spacing-sm:     1rem;
+  --spacing-md:     1.5rem;
+  --spacing-lg:     2.5rem;
+  --spacing-xl:     4rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-container-max: 1280px;
+
+  /* ── Max Widths ─────────────────────────────────────── */
+  --max-width-xs: 20rem;   /* 320px */
+  --max-width-sm: 24rem;   /* 384px */
+  --max-width-md: 28rem;   /* 448px */
+  --max-width-lg: 32rem;   /* 512px */
+  --max-width-xl: 36rem;   /* 576px */
+  --max-width-2xl: 42rem;  /* 672px */
+  --max-width-3xl: 48rem;  /* 768px */
+  --max-width-4xl: 56rem;  /* 896px */
+  --max-width-5xl: 64rem;  /* 1024px */
+  --max-width-6xl: 72rem;  /* 1152px */
+  --max-width-7xl: 80rem;  /* 1280px */
+
+  /* ── Fonts ─────────────────────────────────────────── */
+  --font-family-plus: 'Plus Jakarta Sans', sans-serif;
+  --font-family-display: 'Fraunces', serif;
+}
+
+/* ── Typography utilities ──────────────────────────── */
+@utility text-headline-lg {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+@utility text-headline-md {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+@utility text-headline-sm {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+@utility text-headline-lg-mobile {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+}
+@utility text-body-lg {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+}
+@utility text-body-md {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+@utility text-body-sm {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+@utility text-label-lg {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+@utility text-label-sm {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+@utility font-headline-lg         { font-family: 'Plus Jakarta Sans', sans-serif; }
+@utility font-headline-lg-mobile  { font-family: 'Plus Jakarta Sans', sans-serif; }
+@utility font-headline-md         { font-family: 'Plus Jakarta Sans', sans-serif; }
+@utility font-headline-sm         { font-family: 'Plus Jakarta Sans', sans-serif; }
+@utility font-body-lg             { font-family: 'Plus Jakarta Sans', sans-serif; }
+@utility font-body-md             { font-family: 'Plus Jakarta Sans', sans-serif; }
+@utility font-body-sm             { font-family: 'Plus Jakarta Sans', sans-serif; }
+@utility font-label-lg            { font-family: 'Plus Jakarta Sans', sans-serif; }
+@utility font-label-sm            { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+/* Display font — warm serif with character, headlines only (Login/Register prototype) */
+@utility font-display {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+}
+
+/* ── Material Symbols ───────────────────────────────── */
+@utility material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* ── Sahel Ethereal helpers ─────────────────────────── */
+@utility faso-pattern {
+  background-image: radial-gradient(circle at 2px 2px, rgba(0, 168, 107, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+@utility fani-pattern {
+  background-image: radial-gradient(circle at 2px 2px, rgba(0, 168, 107, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Flat single-colour diamond lattice — no gradient, low-opacity texture only */
+@utility kente-lattice {
+  background-image: url("data:image/svg+xml,%3Csvg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 4 L52 28 L28 52 L4 28 Z' fill='none' stroke='%23A2E4B8' stroke-width='1' stroke-opacity='0.3'/%3E%3C/svg%3E");
+  background-size: 56px 56px;
+}
+
+@utility ethereal-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Container & spacing utilities for legacy classes */
+@utility max-w-container-max { max-width: 1280px; }
+@utility p-gutter { padding: 1.5rem; }
+@utility px-gutter { padding-left: 1.5rem; padding-right: 1.5rem; }
+@utility py-gutter { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+
+@utility form-input-focus {
+  border-color: #00A86B !important;
+  box-shadow: 0 0 0 4px rgba(0, 168, 107, 0.1);
+  outline: none;
+}
+
+/* ── Global body ────────────────────────────────────── */
+body {
+  background-color: #F7F7F2;
+  color: #1a1a1a;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}

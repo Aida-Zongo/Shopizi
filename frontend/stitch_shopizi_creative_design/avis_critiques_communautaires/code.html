@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Communauté Shopizi - Avis &amp; Critiques</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#e4e2dd",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "surface-dim": "#dbdad5",
+                    "primary-fixed-dim": "#60df81",
+                    "outline-variant": "#bdcaba",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "on-background": "#1b1c19",
+                    "tertiary-fixed": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "background": "#fbf9f4",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "on-secondary-fixed": "#271900",
+                    "primary-container": "#00873d",
+                    "primary-fixed": "#7efc9a",
+                    "on-tertiary-fixed": "#410002",
+                    "surface-variant": "#e4e2dd",
+                    "on-surface": "#1b1c19",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#006d30",
+                    "on-surface-variant": "#3e4a3e",
+                    "on-primary-fixed": "#00210a",
+                    "secondary-container": "#ffbb16",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#e32126",
+                    "secondary-fixed": "#ffdea6",
+                    "tertiary": "#bb0014",
+                    "inverse-surface": "#30312e",
+                    "burkina-green-light": "#E6F5ED",
+                    "surface-container": "#f0eee9",
+                    "inverse-primary": "#60df81",
+                    "secondary": "#7c5800",
+                    "saffron-glow": "#FFF8E6",
+                    "on-secondary-container": "#6c4d00",
+                    "burkina-green-deep": "#007A38",
+                    "surface-off-white": "#F9F7F2",
+                    "surface-container-high": "#eae8e3",
+                    "inverse-on-surface": "#f2f1ec",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "primary": "#006b2f",
+                    "on-primary-container": "#f7fff3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#005323",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#6d7a6d",
+                    "on-tertiary-container": "#fffbff",
+                    "text-muted": "#5C5F5A",
+                    "surface-container-low": "#f5f3ee",
+                    "text-main": "#1A1C19",
+                    "surface-bright": "#fbf9f4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "16px",
+                    "xl": "24px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "1.5rem",
+                    "container-max": "1280px",
+                    "xl": "4rem",
+                    "sm": "1rem",
+                    "xs": "0.5rem",
+                    "lg": "2.5rem",
+                    "md": "1.5rem",
+                    "baseline": "4px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .faso-pattern {
+            background-image: radial-gradient(#006b2f 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+            opacity: 0.05;
+        }
+        .card-shadow { box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04); }
+        .glass-header { backdrop-filter: blur(8px); background-color: rgba(251, 249, 244, 0.8); }
+        
+        /* Custom Rating Slider */
+        .rating-star-fill { font-variation-settings: 'FILL' 1; color: #ffbb16; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="shadow-sm bg-surface sticky top-0 z-50 w-full glass-header">
+<div class="flex justify-between items-center px-gutter py-md max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-md">
+<span class="font-headline-lg text-headline-lg text-primary tracking-tight">Shopizi Storefront</span>
+<div class="hidden md:flex ml-lg items-center gap-sm bg-surface-container-low px-md py-xs rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-lg w-64" placeholder="Rechercher des avis..." type="text"/>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Collections</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Featured</a>
+<a class="text-on-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">New Arrivals</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Communauté</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="p-xs hover:bg-surface-container-high rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="p-xs hover:bg-surface-container-high rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-xl relative">
+<!-- Background Accent -->
+<div class="absolute top-0 right-0 w-1/2 h-1/2 faso-pattern -z-10 pointer-events-none"></div>
+<!-- Hero Section -->
+<section class="mb-xl">
+<div class="max-w-3xl">
+<h1 class="font-headline-lg text-headline-lg mb-sm text-text-main">La voix de nos clients</h1>
+<p class="font-body-lg text-body-lg text-text-muted mb-lg">Découvrez les retours authentiques de notre communauté d'entrepreneurs et de clients à travers le Burkina Faso. Partagez votre expérience et aidez les autres à choisir le meilleur.</p>
+<div class="flex flex-wrap gap-sm">
+<button class="bg-secondary-container text-text-main px-lg py-sm rounded-lg font-label-lg shadow-sm hover:translate-y-[-2px] transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined">rate_review</span>
+                        Donner mon avis
+                    </button>
+<button class="border border-primary text-primary px-lg py-sm rounded-lg font-label-lg hover:bg-burkina-green-light transition-all">
+                        Voir mes contributions
+                    </button>
+</div>
+</div>
+</section>
+<div class="flex flex-col lg:flex-row gap-lg">
+<!-- Filters Sidebar -->
+<aside class="w-full lg:w-72 shrink-0">
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow sticky top-28">
+<div class="mb-md pb-md border-b border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm mb-xs">Filtres</h3>
+<p class="font-label-sm text-label-sm text-text-muted">Affiner votre recherche</p>
+</div>
+<div class="space-y-lg">
+<!-- Category Filter -->
+<div>
+<label class="font-label-lg text-label-lg block mb-sm">Catégories de produits</label>
+<div class="space-y-xs">
+<label class="flex items-center gap-sm cursor-pointer p-xs hover:bg-surface-container rounded-lg transition-colors">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm">Tous les produits</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer p-xs hover:bg-surface-container rounded-lg transition-colors">
+<input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm">Mode &amp; Textile</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer p-xs hover:bg-surface-container rounded-lg transition-colors">
+<input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm">Artisanat Local</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer p-xs hover:bg-surface-container rounded-lg transition-colors">
+<input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm">Épicerie Fine</span>
+</label>
+</div>
+</div>
+<!-- Merchant Filter -->
+<div>
+<label class="font-label-lg text-label-lg block mb-sm">Commerçants vedettes</label>
+<div class="space-y-xs">
+<button class="w-full text-left p-xs rounded-lg hover:bg-burkina-green-light group transition-all">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a smiling Burkinabé artisan merchant wearing traditional woven clothing in a bright, sunlit market stall setting. High-end, warm natural lighting emphasizing trust and authenticity in a modern commercial context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6Oo3VwE4qcmZBOl_5QK-ZGOQ5pAP-Y-Y4V1-7EMQmNAjcydRsWRdzb9ECGBGuia5ZoK1EUgO0bA_dWuq16GWJIKXaU6muYm4ZQ-XMmSv8n5c-kGBon-cDyyr3_Or-r0uawrvbDJNB8faO8woe-y9nut9WPOLg352vkjQubRB6YFZ4dCSCh0L02Lye_yqxl7aA6t2bsye4XooNBINUZXZcJ-V_Dj9tg_Uscpp5FqMoi0v-IDbY3FmPcDN4sWMy7Ngn6GYjkqJWXg4"/>
+</div>
+<span class="font-body-sm text-body-sm group-hover:text-primary">Maison du Faso</span>
+</div>
+</button>
+<button class="w-full text-left p-xs rounded-lg hover:bg-burkina-green-light group transition-all">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A stylish modern logo for a textile brand featuring geometric patterns inspired by Faso Dan Fani. The aesthetic is clean, professional, and corporate with a vibrant green and gold color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXY7sdjwUkzPLaEQSOOS8d_vCCSlYpN-dXxUT8sw-UOneba0soZgdiGmxZKlJVutAL1-R2aA3cLujkGmQ8esr5rFULz6pxVMJ-qFRnYhBwG2Moq_BMHAM1tIYnIwVIHVW8hPH9eH0cFMjJrJlFZSQmGnqPXa8CBkZe6exyAJ8i9DUk_xWJq2UeLrMfbmHpLZgE6vepzMMp8J5NNTfTxUqksNBdZpDNVIQBe8QSL4SR2dn5zdvrLyB4vtQsPC0qBbtgZzLBIZCKwM8"/>
+</div>
+<span class="font-body-sm text-body-sm group-hover:text-primary">Dan Fani Prestige</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Rating Filter -->
+<div>
+<label class="font-label-lg text-label-lg block mb-sm">Note minimale</label>
+<div class="flex gap-xs">
+<button class="w-8 h-8 rounded border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-colors">4+</button>
+<button class="w-8 h-8 rounded border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-colors">3+</button>
+<button class="w-8 h-8 rounded border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-colors">2+</button>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Reviews Feed -->
+<div class="flex-1 space-y-md">
+<!-- Sorting & Summary -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-sm mb-lg">
+<div>
+<span class="font-headline-sm text-headline-sm">248 avis trouvés</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-sm text-label-sm text-text-muted whitespace-nowrap">Trier par :</span>
+<select class="bg-surface border border-outline rounded-lg font-label-lg text-label-lg py-xs px-sm focus:ring-primary focus:border-primary">
+<option>Les plus récents</option>
+<option>Les mieux notés</option>
+<option>Les plus utiles</option>
+</select>
+</div>
+</div>
+<!-- Review Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl p-lg card-shadow border-l-4 border-burkina-green-deep">
+<div class="flex flex-col md:flex-row gap-md">
+<div class="shrink-0">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">AB</div>
+</div>
+<div class="flex-1">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-xs mb-xs">
+<h4 class="font-label-lg text-label-lg">Alizeta B.</h4>
+<span class="font-label-sm text-label-sm text-text-muted">Il y a 2 jours</span>
+</div>
+<div class="flex items-center gap-xs mb-sm">
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="ml-sm font-label-sm text-label-sm bg-burkina-green-light text-burkina-green-deep px-xs py-[2px] rounded">Achat vérifié</span>
+</div>
+<h5 class="font-headline-sm text-headline-sm mb-xs">Qualité textile exceptionnelle</h5>
+<p class="font-body-md text-body-md text-text-main mb-md leading-relaxed">
+                                J'ai commandé un ensemble en Faso Dan Fani chez Maison du Faso. La texture est incroyable, bien plus douce que ce à quoi je m'attendais. La livraison à Ouagadougou a été très rapide. Je recommande vivement pour ceux qui cherchent de l'authentique !
+                            </p>
+<!-- Review Images -->
+<div class="flex gap-sm mb-md overflow-x-auto pb-sm">
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0 cursor-zoom-in">
+<img class="w-full h-full object-cover hover:scale-110 transition-transform" data-alt="A close-up high-resolution photograph of high-quality hand-woven Faso Dan Fani fabric. The intricate patterns are vibrant with green, gold, and white threads, showing detailed texture and craftsmanship under bright, airy studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBOOPaTA4QY8I_dfoDP6j-6dl1kB0G3o64p1XRZJ5N_fZU3yMpkCujCG1Inp4YtHXYi_p7omN23sNq1XAIMa3PuP-DavWkK2DUZ6c-PH2eSP91GhFfi9UI6LjUPj6RaADpyBNq0nFFR50vEvsCr3benGj7-sKrW2q6YZUAL5PcHgHmAUaaqng7J9GvlwxrxJMsTv7LBccoQpxWx6JMT-cH1by3GFrCOILyN6LBdrqTuu54etsR6pm01GiKVrYCVcFk5VBbfNysCQQ"/>
+</div>
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0 cursor-zoom-in">
+<img class="w-full h-full object-cover hover:scale-110 transition-transform" data-alt="A professional product shot of a traditional Burkinabé garment draped elegantly on a minimalist white stand. The lighting is soft and neutral, highlighting the quality of the material and the modern cut of the traditional attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2UCYqDEwygpB7GSMrrjI88zExg0OyN0HJXB3p5IwqUelv2o4sAd6Pjq3vl_1C5L26MU5B7U52SpEDbZVpnOcya2BklnDgu5vjHsPJGPBU2PwyosjF0nrGDvMeqOgDvfjR7gpdvE6svzeZH1WaqafjBSmWXPszbqtcCppmbVZSiNgjZ49pLENP-eeXpE4VlSDrQeCzVFa7JS98H9CbKhaXJL0518XvIT03rzkM-Ti_43OFXzapltfcx6cJZ9FtpaE56zlLrPOl3QA"/>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant pt-md">
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-xs text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">thumb_up</span>
+<span class="font-label-sm text-label-sm">Utile (12)</span>
+</button>
+<button class="flex items-center gap-xs text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">reply</span>
+<span class="font-label-sm text-label-sm">Répondre</span>
+</button>
+</div>
+<div class="text-secondary font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">storefront</span>
+                                    Boutique : Maison du Faso
+                                </div>
+</div>
+</div>
+</div>
+</article>
+<!-- Review Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl p-lg card-shadow">
+<div class="flex flex-col md:flex-row gap-md">
+<div class="shrink-0">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary font-bold">MK</div>
+</div>
+<div class="flex-1">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-xs mb-xs">
+<h4 class="font-label-lg text-label-lg">Moussa K.</h4>
+<span class="font-label-sm text-label-sm text-text-muted">Il y a 1 semaine</span>
+</div>
+<div class="flex items-center gap-xs mb-sm">
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined text-outline text-sm">star</span>
+</div>
+<h5 class="font-headline-sm text-headline-sm mb-xs">Bon produit, livraison un peu lente</h5>
+<p class="font-body-md text-body-md text-text-main mb-md leading-relaxed">
+                                Le beurre de karité bio est de très bonne qualité, très pur. J'aurais mis 5 étoiles mais la livraison a pris 2 jours de plus que prévu. Le service client a cependant été très réactif pour me tenir informé.
+                            </p>
+<div class="flex items-center justify-between border-t border-outline-variant pt-md">
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-xs text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">thumb_up</span>
+<span class="font-label-sm text-label-sm">Utile (3)</span>
+</button>
+<button class="flex items-center gap-xs text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">reply</span>
+<span class="font-label-sm text-label-sm">Répondre</span>
+</button>
+</div>
+<div class="text-secondary font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">storefront</span>
+                                    Boutique : BioBurkina
+                                </div>
+</div>
+<!-- Merchant Response -->
+<div class="mt-md bg-surface-container-low p-md rounded-lg border-l-2 border-primary">
+<div class="flex items-center gap-sm mb-xs">
+<span class="font-label-lg text-label-lg text-primary">Réponse de BioBurkina</span>
+<span class="font-label-sm text-label-sm text-text-muted">Il y a 6 jours</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                                    Bonjour Moussa, merci pour votre retour ! Nous nous excusons pour le retard dû à une forte demande. Nous travaillons à améliorer notre logistique pour que votre prochaine commande arrive encore plus vite. À bientôt !
+                                </p>
+</div>
+</div>
+</div>
+</article>
+<!-- Review Card 3 (Bento Style Variation) -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow grid md:grid-cols-3">
+<div class="md:col-span-1 h-48 md:h-full relative group">
+<img class="w-full h-full object-cover" data-alt="A professional food photography shot of artisanal honey in a sleek glass jar with a minimalist label. The background is a soft-focus wooden kitchen counter with warm golden morning light creating an inviting, premium organic feel. The color palette is rich ambers and soft creams." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1acU8Adc_ybmAntzV7crcE-HwIr4vhs0rqj1Hx2QPLO4-A20LRLA5qkySMha_doil6981MtwdJzmMuRtoIg2njLyT20W2w9NPs-ubIObTZH0KkwrNzvKOXTcWaAIev3cpV5qT1bQo1-b1bqtdXg-BwLHzw4MwqThoFJ6uvRKUm8xgkoFtriFxXJXmNhHqiq5FXPgWJA9vgG8q8xZhjVyYFEji33aMTy86wyV1niS6q24ZbLz99qdYbNYix-1KEpZrnEMeq77FU9s"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-white font-label-lg">Voir le produit</span>
+</div>
+</div>
+<div class="md:col-span-2 p-lg">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h4 class="font-label-lg text-label-lg">Fatoumata S.</h4>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+<span class="material-symbols-outlined rating-star-fill text-sm">star</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Il y a 3 semaines</span>
+</div>
+<h5 class="font-headline-sm text-headline-sm mb-xs">Le meilleur miel du pays !</h5>
+<p class="font-body-md text-body-md text-text-main mb-md line-clamp-3">
+                            Ce miel de fleurs de karité est une pure merveille. Parfait pour le petit déjeuner ou pour sucrer les infusions. Le packaging est très élégant, ce qui en fait aussi un super cadeau.
+                        </p>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm bg-secondary-fixed-dim/20 text-secondary px-sm py-1 rounded-full">Catégorie : Alimentation</span>
+<button class="text-primary font-label-lg flex items-center gap-xs hover:underline">
+                                Lire plus
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Pagination -->
+<div class="flex items-center justify-center gap-md pt-lg">
+<button class="w-10 h-10 rounded-full border border-outline flex items-center justify-center hover:bg-surface-container transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex gap-sm">
+<button class="w-10 h-10 rounded-full bg-primary text-white font-label-lg">1</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container transition-colors font-label-lg">2</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container transition-colors font-label-lg">3</button>
+<span class="flex items-end pb-2">...</span>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container transition-colors font-label-lg">12</button>
+</div>
+<button class="w-10 h-10 rounded-full border border-outline flex items-center justify-center hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-high border-t border-outline-variant mt-xl">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg px-gutter py-xl max-w-container-max mx-auto w-full">
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface mb-md block">Shopizi</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant max-w-xs">
+                    La plateforme e-commerce moderne dédiée aux talents du Burkina Faso. Connectez votre passion au monde digital.
+                </p>
+</div>
+<div class="flex flex-col gap-sm">
+<h6 class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-xs">Liens Rapides</h6>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary hover:underline transition-colors" href="#">À propos</a>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary hover:underline transition-colors" href="#">Livraison</a>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary hover:underline transition-colors" href="#">Paiements Sécurisés</a>
+<a class="text-on-surface-variant font-label-sm hover:text-secondary hover:underline transition-colors" href="#">Conditions d'Utilisation</a>
+</div>
+<div class="flex flex-col gap-sm">
+<h6 class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-xs">Contact &amp; Aide</h6>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">mail</span>
+<span class="font-label-sm">support@shopizi.bf</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">phone_iphone</span>
+<span class="font-label-sm">+226 25 XX XX XX</span>
+</div>
+<div class="mt-md">
+<p class="text-label-sm font-label-sm text-on-surface-variant">© 2024 Shopizi. Propulsé par la technologie locale.</p>
+</div>
+</div>
+</div>
+</footer>
+<!-- FAB (Mobile/Contextual Search) -->
+<button class="fixed bottom-gutter right-gutter bg-primary-container text-on-primary-container w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all md:hidden">
+<span class="material-symbols-outlined">add_comment</span>
+</button>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Filter toggles simulation
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                console.log('Filter changed:', cb.nextElementSibling.textContent);
+                // Here you would normally trigger a fetch/refilter logic
+            });
+        });
+    </script>
+</body></html>

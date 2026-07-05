@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — {{ shop.name }}{% endblock %}
+{% block content %}
+<section class="product-detail">
+  <div class="container">
+    <div class="product-main">
+      <div class="product-images">
+        <img src="{{ product.image_url or './static/img/placeholder.png' }}" alt="{{ product.name }}">
+      </div>
+      <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <p class="price">{{ "{:,.0f}".format(product.price_xof).replace(',', ' ') }} FCFA</p>
+        {% if product.description %}
+        <p class="desc">{{ product.description }}</p>
+        {% endif %}
+        <a href="{{ wa_link }}" target="_blank" class="btn btn-wa">Commander via WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ shop.name }}{% endblock %} — Shopizi</title>
+  <meta name="description" content="{% block description %}{{ shop.description or 'Boutique en ligne' }}{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: {{ theme.primary_color or '#007A38' }};
+      --color-accent: {{ theme.secondary_color or '#FFB627' }};
+      --color-bg: #F5F0EB;
+      --color-text: #1A1A1A;
+      --color-text-muted: #6B6B6B;
+      --color-white: #FFFFFF;
+      --color-surface: #FFF8F0;
+      --color-border: rgba(0,0,0,0.08);
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-headline: 'Cormorant Garamond', Georgia, serif;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+  </style>
+  <link rel="stylesheet" href="./static/css/shop-base.css">
+</head>
+<body>
+  {% include "partials/header.html" %}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  {% include "partials/footer.html" %}
+  {% include "partials/whatsapp_btn.html" %}
+  <script src="./static/js/shop.js"></script>
+</body>
+</html>

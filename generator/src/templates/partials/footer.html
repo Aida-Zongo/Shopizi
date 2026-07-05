@@ -1,0 +1,16 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">{{ shop.name }}</div>
+      <div class="footer-info">
+        {% if shop.description %}<p>{{ shop.description }}</p>{% endif %}
+        {% if shop.address %}<p>{{ shop.address }}</p>{% endif %}
+        {% if shop.phone_number %}<p>Tel: {{ shop.phone_number }}</p>{% endif %}
+        {% if shop.whatsapp_number %}<p>WhatsApp: {{ shop.whatsapp_number }}</p>{% endif %}
+      </div>
+      <div class="footer-powered">
+        Propulsé avec <span style="color: #e74c3c;">♥</span> par Shopizi
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,20 @@
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="./index.html" class="logo">
+        {% if shop.logo_url %}<img src="{{ shop.logo_url }}" alt="{{ shop.name }}">{% endif %}
+        <span>{{ shop.name }}</span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.site-nav').classList.toggle('active')">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav">
+        <a href="./index.html">Accueil</a>
+        <a href="./produits.html">Produits</a>
+        <a href="./a-propos.html">À propos</a>
+      </nav>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Statistiques Détaillées</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fbf9f4;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .dan-fani-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(224, 224, 224, 0.3);
+        }
+        .chart-bar {
+            transition: height 1s ease-in-out;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#ffbb16",
+                        "surface-variant": "#e4e2dd",
+                        "surface-container-highest": "#e4e2dd",
+                        "surface-dim": "#dbdad5",
+                        "inverse-primary": "#60df81",
+                        "on-primary-fixed": "#00210a",
+                        "on-tertiary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface": "#fbf9f4",
+                        "burkina-green-deep": "#007A38",
+                        "secondary": "#7c5800",
+                        "tertiary": "#bb0014",
+                        "inverse-surface": "#30312e",
+                        "on-primary-fixed-variant": "#005323",
+                        "on-background": "#1b1c19",
+                        "secondary-fixed": "#ffdea6",
+                        "primary-container": "#00873d",
+                        "surface-container": "#f0eee9",
+                        "tertiary-container": "#e32126",
+                        "on-secondary-fixed-variant": "#5e4200",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "burkina-green-light": "#E6F5ED",
+                        "on-error": "#ffffff",
+                        "text-muted": "#5C5F5A",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#60df81",
+                        "on-secondary-container": "#6c4d00",
+                        "surface-container-low": "#f5f3ee",
+                        "on-tertiary-fixed-variant": "#93000d",
+                        "surface-tint": "#006d30",
+                        "outline": "#6d7a6d",
+                        "surface-container-high": "#eae8e3",
+                        "tertiary-fixed": "#ffdad6",
+                        "inverse-on-surface": "#f2f1ec",
+                        "outline-variant": "#bdcaba",
+                        "saffron-glow": "#FFF8E6",
+                        "primary-fixed": "#7efc9a",
+                        "background": "#fbf9f4",
+                        "on-secondary-fixed": "#271900",
+                        "on-tertiary-fixed": "#410002",
+                        "text-main": "#1A1C19",
+                        "primary": "#006b2f",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#f7fff3",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fbf9f4",
+                        "secondary-fixed-dim": "#ffbb16",
+                        "surface-off-white": "#F9F7F2",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1b1c19",
+                        "on-surface-variant": "#3e4a3e",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "16px",
+                        "xl": "24px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "1.5rem",
+                        "sm": "1rem",
+                        "xl": "4rem",
+                        "container-max": "1280px",
+                        "baseline": "4px",
+                        "gutter": "1.5rem",
+                        "lg": "2.5rem",
+                        "xs": "0.5rem"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-text-main overflow-x-hidden">
+<!-- Side Navigation Shell -->
+<aside class="flex flex-col h-screen border-r border-outline-variant/30 h-full w-64 fixed left-0 top-0 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] bg-surface z-50">
+<div class="p-md">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted mt-1">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 mt-sm space-y-1">
+<!-- Tableaux de Bord Active Mapping (Analytics falls under Dashboard) -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-md mt-auto dan-fani-pattern rounded-t-xl">
+<div class="bg-secondary-container/10 p-4 rounded-xl border border-secondary-container/20">
+<p class="text-label-sm font-bold text-secondary mb-2">Plan Actuel: Basique</p>
+<button class="w-full bg-secondary-container text-on-secondary-container py-2 rounded-lg font-label-lg hover:brightness-95 transition-all">
+                    Passer à Pro
+                </button>
+</div>
+</div>
+</aside>
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-label-md focus:ring-2 focus:ring-burkina-green-deep/20 transition-all" placeholder="Rechercher des stats..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-text-muted hover:bg-surface-container-highest/50 p-2 rounded-full transition-all" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-text-muted hover:bg-surface-container-highest/50 p-2 rounded-full transition-all" data-icon="help">help</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right">
+<p class="text-label-md font-bold text-text-main">Awa Traoré</p>
+<p class="text-[10px] text-text-muted uppercase tracking-wider">Marchand Certifié</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-burkina-green-deep object-cover" data-alt="A professional and friendly portrait of a West African female entrepreneur in a bright, modern studio. She is wearing a stylish blazer with subtle traditional fabric accents. The background is a clean, warm-toned minimalist office space with soft daylight, reflecting a high-end SaaS corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz8XCO0Bbwgf-TuiUTJmY6ak6YmH8igwMR3DSEizOLGUQRMqssgiRPAY0bqmZYFxN_2vuvsqq_uPAXhcXuCO3ULem9iEoICY7QJFVARglg_SB1-J8DfwaWvScHnbCdxByuxFW2OqexCTvXwQdebP-ZNkA0SVrprjg1QRZ9Vbxravk9XAUZrtcIRDXYsFF5RHNhczF35DdUQq1_iZ3k5vQco1EayIbnSXiSJ76UClLHxbtaXOGfdUzH-v9HlEvgmjkz0-n6G43eD5A"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-lg max-w-container-max mx-auto space-y-lg">
+<!-- Page Header & Period Selector -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-text-main">Analyses &amp; Statistiques</h2>
+<p class="text-body-md text-text-muted mt-1">Suivez la croissance de votre boutique Shopizi en temps réel.</p>
+</div>
+<div class="flex bg-surface-container-high p-1 rounded-xl">
+<button class="px-4 py-2 text-label-lg rounded-lg bg-surface text-text-main shadow-sm transition-all">7 Jours</button>
+<button class="px-4 py-2 text-label-lg rounded-lg text-text-muted hover:text-text-main transition-all">30 Jours</button>
+<button class="px-4 py-2 text-label-lg rounded-lg text-text-muted hover:text-text-main transition-all">3 Mois</button>
+<button class="px-4 py-2 text-label-lg rounded-lg text-text-muted hover:text-text-main transition-all">Année</button>
+</div>
+</div>
+<!-- Bento Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-burkina-green-light rounded-lg">
+<span class="material-symbols-outlined text-burkina-green-deep" data-icon="payments">payments</span>
+</div>
+<span class="text-label-sm font-bold text-burkina-green-deep bg-burkina-green-light px-2 py-1 rounded">+12.5%</span>
+</div>
+<p class="text-label-lg text-text-muted">Chiffre d'Affaires</p>
+<h3 class="text-headline-md font-headline-md mt-1">1,240,500 FCFA</h3>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-saffron-glow rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="group">group</span>
+</div>
+<span class="text-label-sm font-bold text-secondary bg-saffron-glow px-2 py-1 rounded">+5.2%</span>
+</div>
+<p class="text-label-lg text-text-muted">Visiteurs Uniques</p>
+<h3 class="text-headline-md font-headline-md mt-1">8,432</h3>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest p-md rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-blue-50 rounded-lg">
+<span class="material-symbols-outlined text-blue-600" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<span class="text-label-sm font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">+8.1%</span>
+</div>
+<p class="text-label-lg text-text-muted">Commandes</p>
+<h3 class="text-headline-md font-headline-md mt-1">154</h3>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface-container-lowest p-md rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-tertiary/10 rounded-lg">
+<span class="material-symbols-outlined text-tertiary" data-icon="trending_up">trending_up</span>
+</div>
+<span class="text-label-sm font-bold text-tertiary bg-tertiary/10 px-2 py-1 rounded">-2.4%</span>
+</div>
+<p class="text-label-lg text-text-muted">Panier Moyen</p>
+<h3 class="text-headline-md font-headline-md mt-1">8,055 FCFA</h3>
+</div>
+</div>
+<!-- Detailed Analytics Visuals -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Main Sales Chart (Asymmetric) -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-lg rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)] relative overflow-hidden">
+<div class="flex justify-between items-center mb-xl">
+<h4 class="text-headline-sm font-headline-sm">Performance des Ventes</h4>
+<button class="text-label-lg text-burkina-green-deep font-bold flex items-center gap-1">
+                            Exporter <span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+</button>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-4 relative">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="border-b border-outline-variant"></div>
+<div class="border-b border-outline-variant"></div>
+<div class="border-b border-outline-variant"></div>
+<div class="border-b border-outline-variant"></div>
+</div>
+<!-- Bar Chart -->
+<div class="flex flex-col items-center flex-1 gap-2 group cursor-pointer">
+<div class="w-full bg-burkina-green-light group-hover:bg-burkina-green-deep transition-all rounded-t-md relative h-32 chart-bar">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">120k</div>
+</div>
+<span class="text-label-sm text-text-muted">Lun</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2 group cursor-pointer">
+<div class="w-full bg-burkina-green-light group-hover:bg-burkina-green-deep transition-all rounded-t-md h-40 chart-bar"></div>
+<span class="text-label-sm text-text-muted">Mar</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2 group cursor-pointer">
+<div class="w-full bg-burkina-green-light group-hover:bg-burkina-green-deep transition-all rounded-t-md h-24 chart-bar"></div>
+<span class="text-label-sm text-text-muted">Mer</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2 group cursor-pointer">
+<div class="w-full bg-burkina-green-deep transition-all rounded-t-md h-56 chart-bar"></div>
+<span class="text-label-sm text-text-muted font-bold text-text-main">Jeu</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2 group cursor-pointer">
+<div class="w-full bg-burkina-green-light group-hover:bg-burkina-green-deep transition-all rounded-t-md h-48 chart-bar"></div>
+<span class="text-label-sm text-text-muted">Ven</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2 group cursor-pointer">
+<div class="w-full bg-burkina-green-light group-hover:bg-burkina-green-deep transition-all rounded-t-md h-52 chart-bar"></div>
+<span class="text-label-sm text-text-muted">Sam</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2 group cursor-pointer">
+<div class="w-full bg-secondary-container transition-all rounded-t-md h-36 chart-bar"></div>
+<span class="text-label-sm text-text-muted">Dim</span>
+</div>
+</div>
+</div>
+<!-- Traffic Sources (Donut feel) -->
+<div class="bg-surface-container-lowest p-lg rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<h4 class="text-headline-sm font-headline-sm mb-lg">Origine du Trafic</h4>
+<div class="space-y-md">
+<div class="space-y-2">
+<div class="flex justify-between text-label-lg">
+<span>Facebook Shop</span>
+<span class="font-bold">45%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-burkina-green-deep w-[45%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-label-lg">
+<span>Recherche Directe</span>
+<span class="font-bold">30%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[30%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-label-lg">
+<span>WhatsApp Business</span>
+<span class="font-bold">15%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[15%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-label-lg">
+<span>Instagram</span>
+<span class="font-bold">10%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-outline w-[10%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-lg pt-lg border-t border-outline-variant/30 text-center">
+<button class="text-label-lg font-bold text-burkina-green-deep hover:underline">Voir tous les canaux</button>
+</div>
+</div>
+<!-- Top Products List -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-lg rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center mb-lg">
+<h4 class="text-headline-sm font-headline-sm">Produits les plus vendus</h4>
+<select class="border-none bg-surface-container-low rounded-lg text-label-md py-1 focus:ring-0">
+<option>Par Volume</option>
+<option>Par Valeur</option>
+</select>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-label-sm text-text-muted border-b border-outline-variant/30">
+<th class="pb-4 font-normal">Produit</th>
+<th class="pb-4 font-normal">Ventes</th>
+<th class="pb-4 font-normal">Revenus</th>
+<th class="pb-4 font-normal">Stock</th>
+<th class="pb-4 font-normal">Tendance</th>
+</tr>
+</thead>
+<tbody class="text-label-lg">
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High-quality commercial photography of a handcrafted Faso Dan Fani textile cushion with intricate geometric patterns in traditional West African colors. Sharp focus, professional studio lighting against a soft cream background, promoting a luxury artisan boutique." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3iw9jsbqhVvydBPGSB_MzHHDj2o6izHnUUIfCziGiI3BBsmQi2jIKs5VZ5uO_5OAPTO6V-87Yv3JD-tVbQ8sqCq_Pi0d4iNpmSxuzQmUIxSq8dU2tnphKbKGJeHMlIAFqyv9kx73gcoJBiHUDQJtwTh5P8GEKIF-mq_ixDYvAs3zZBvamkXtC6sNjbFfeMUZv-pZIw_mTX9S60QCDX6P27TlC8iP0o75LSY2eHb5SEMzhGFnJQT8EnwBg4tCDzYs5TAHebF3ZCMI"/>
+</div>
+<span class="font-bold">Coussin Faso Dan Fani</span>
+</td>
+<td class="py-4">42 unités</td>
+<td class="py-4 font-bold">252,000 FCFA</td>
+<td class="py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-burkina-green-deep w-3/4"></div>
+</div>
+<span class="text-label-sm">12 restants</span>
+</div>
+</td>
+<td class="py-4 text-burkina-green-deep">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up detailed product shot of organic shea butter in a premium minimalist jar. The lighting is soft and natural, emphasizing the creamy texture. The setting is a clean modern spa aesthetic with green leaf accents, evoking purity and high-end skincare branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4qvHw8JtITNrlRlvpG643r8s5xty9OsDKDyQjrjesjcdH-VLqH-vhF3xNimOGkoVS5PRprd6Cs56rH6_uSxUyNmCbcjMtnERqGq3Yq6ajnzdMQ6r3aGaSivKqHBi0pIMg55s4vrs9XL8JWv4HmLRB87gf6X6CTX6j2e-qDZIdRfeabl76-JMzG3uN8Fn7yaEHQN7wl-6lstOxN1NhpBcBoVS7Vyz80u1npuKTBvY2I-MBXjK7HjrYkyEo3Wjui9Up_bJOS_GBIsM"/>
+</div>
+<span class="font-bold">Beurre de Karité Bio</span>
+</td>
+<td class="py-4">28 unités</td>
+<td class="py-4 font-bold">140,000 FCFA</td>
+<td class="py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[90%]"></div>
+</div>
+<span class="text-label-sm">5 restants</span>
+</div>
+</td>
+<td class="py-4 text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="trending_flat">trending_flat</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Exquisite artisanal bronze figurine from Burkina Faso, depicting a traditional musician. High-contrast lighting highlights the metallic texture and fine details of the craft. Professional catalog style photography on a dark, elegant background for a luxury boutique." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcfyIwraGDrvRMmIBHebUnKDqOkjGUhYe52lQYIHrozA-8aWAu9FUwMhCYB2jK1jpq4qJloWzgbwYycdLR358nggwEsmVVnfAJ-2q14JmQ4YLlpQWDFDagzWAPAnkte-GZVIu6g_8I9gxP8sfCfTOcvcAUApHLBMwOCxe3m7g4eUGJKH0-AHhN6uiFYmqgh1ooFEsIxD5mLINC-Epu8utmSfE2NhBwZdho-9r7S6q_73vOROQNp-sdSw9BXNugPkqa__p0DOHnQCg"/>
+</div>
+<span class="font-bold">Statuette Bronze Artisanale</span>
+</td>
+<td class="py-4">15 unités</td>
+<td class="py-4 font-bold">450,000 FCFA</td>
+<td class="py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[100%]"></div>
+</div>
+<span class="text-label-sm text-tertiary font-bold">Ruptrue</span>
+</div>
+</td>
+<td class="py-4 text-tertiary">
+<span class="material-symbols-outlined text-sm" data-icon="trending_down">trending_down</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Visitors by Day / Heatmap-like grid -->
+<div class="bg-surface-container-lowest p-lg rounded-lg shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<h4 class="text-headline-sm font-headline-sm mb-lg">Affluence par Heure</h4>
+<div class="grid grid-cols-7 gap-2">
+<!-- Simplified Heatmap visualization -->
+<div class="h-8 bg-burkina-green-deep/10 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/20 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/5 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/40 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/60 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/30 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/10 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/5 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/20 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/80 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/90 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/100 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/50 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/20 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/30 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/50 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/20 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/10 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/15 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/5 rounded-sm"></div>
+<div class="h-8 bg-burkina-green-deep/5 rounded-sm"></div>
+</div>
+<div class="mt-4 flex justify-between text-[10px] text-text-muted uppercase tracking-widest">
+<span>08:00</span>
+<span>12:00</span>
+<span>16:00</span>
+<span>20:00</span>
+</div>
+<p class="text-body-sm text-text-muted mt-6 italic">Le pic d'activité est généralement atteint le Jeudi entre 12h et 14h.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB) - Relevant for dashboard -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center group hover:scale-110 transition-transform z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface px-3 py-1 rounded-lg text-label-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Nouveau Produit</span>
+</button>
+<script>
+        // Micro-interaction for period switching
+        document.querySelectorAll('.flex.bg-surface-container-high button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Reset styles
+                document.querySelectorAll('.flex.bg-surface-container-high button').forEach(b => {
+                    b.classList.remove('bg-surface', 'text-text-main', 'shadow-sm');
+                    b.classList.add('text-text-muted');
+                });
+                // Set active style
+                button.classList.add('bg-surface', 'text-text-main', 'shadow-sm');
+                button.classList.remove('text-text-muted');
+
+                // Simulate data reload
+                const bars = document.querySelectorAll('.chart-bar');
+                bars.forEach(bar => {
+                    bar.style.height = '0px';
+                    setTimeout(() => {
+                        bar.style.height = (Math.random() * 200 + 50) + 'px';
+                    }, 300);
+                });
+            });
+        });
+
+        // Initialize bars
+        window.addEventListener('load', () => {
+             const bars = document.querySelectorAll('.chart-bar');
+             bars.forEach(bar => {
+                const targetHeight = bar.offsetHeight;
+                bar.style.height = '0px';
+                setTimeout(() => {
+                    bar.style.height = targetHeight + 'px';
+                }, 100);
+             });
+        });
+    </script>
+</body></html>

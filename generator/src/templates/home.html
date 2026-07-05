@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1>{{ shop.name }}</h1>
+    <p>{{ shop.description or 'Découvrez nos produits de qualité, livrés rapidement chez vous.' }}</p>
+    <a href="./produits.html" class="btn btn-primary">Voir les produits</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Produits en vedette</h2>
+      <p>Une sélection de nos meilleurs articles</p>
+    </div>
+    <div class="product-grid">
+      {% for p in featured_products[:6] %}
+      <a href="./produits/{{ p.slug }}.html" class="product-card">
+        <div class="img-wrapper">
+          <img src="{{ p.thumbnail_url or p.image_url or './static/img/placeholder.png' }}" alt="{{ p.name }}">
+        </div>
+        <h3>{{ p.name }}</h3>
+        <p class="price">{{ "{:,.0f}".format(p.price_xof).replace(',', ' ') }} FCFA</p>
+      </a>
+      {% endfor %}
+    </div>
+    <div style="text-align: center; margin-top: 2.5rem;">
+      <a href="./produits.html" class="btn btn-outline">Voir tout le catalogue</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

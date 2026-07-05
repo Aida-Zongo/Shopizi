@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Artisanat du Sahel | Shopizi Storefront</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#fbf9f4",
+                    "surface-container-highest": "#e4e2dd",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "tertiary-fixed": "#ffdad6",
+                    "background": "#fbf9f4",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "on-background": "#1b1c19",
+                    "surface-dim": "#dbdad5",
+                    "primary-fixed-dim": "#60df81",
+                    "outline-variant": "#bdcaba",
+                    "primary-fixed": "#7efc9a",
+                    "on-tertiary-fixed": "#410002",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "primary-container": "#00873d",
+                    "on-secondary-fixed": "#271900",
+                    "surface-tint": "#006d30",
+                    "on-surface-variant": "#3e4a3e",
+                    "on-primary-fixed": "#00210a",
+                    "tertiary": "#bb0014",
+                    "tertiary-container": "#e32126",
+                    "secondary-fixed": "#ffdea6",
+                    "secondary-container": "#ffbb16",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e4e2dd",
+                    "on-surface": "#1b1c19",
+                    "saffron-glow": "#FFF8E6",
+                    "on-secondary-container": "#6c4d00",
+                    "inverse-surface": "#30312e",
+                    "secondary": "#7c5800",
+                    "surface-container": "#f0eee9",
+                    "inverse-primary": "#60df81",
+                    "burkina-green-light": "#E6F5ED",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#005323",
+                    "on-primary-container": "#f7fff3",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#eae8e3",
+                    "surface-off-white": "#F9F7F2",
+                    "burkina-green-deep": "#007A38",
+                    "primary": "#006b2f",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "inverse-on-surface": "#f2f1ec",
+                    "outline": "#6d7a6d",
+                    "on-tertiary-container": "#fffbff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#fbf9f4",
+                    "text-main": "#1A1C19",
+                    "surface-container-low": "#f5f3ee",
+                    "text-muted": "#5C5F5A"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "4rem",
+                    "container-max": "1280px",
+                    "gutter": "1.5rem",
+                    "md": "1.5rem",
+                    "baseline": "4px",
+                    "xs": "0.5rem",
+                    "lg": "2.5rem",
+                    "sm": "1rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .text-saffron { color: #ffbb16; }
+        .bg-saffron { background-color: #ffbb16; }
+        .border-saffron { border-color: #ffbb16; }
+        
+        /* Faso Dan Fani Inspired Pattern Overlay */
+        .fani-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 107, 47, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(to right, rgba(251, 249, 244, 0.95) 30%, rgba(251, 249, 244, 0.1) 100%);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bdcaba;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary/20">
+<!-- TopNavBar -->
+<header class="shadow-sm bg-surface dark:bg-inverse-surface docked full-width top-0 sticky top-0 z-50 w-full">
+<div class="flex justify-between items-center px-gutter py-md max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-lg">
+<a class="font-headline-lg text-headline-lg text-primary dark:text-inverse-primary tracking-tight" href="#">Artisanat du Sahel</a>
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-lg text-label-lg" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Featured</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">New Arrivals</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-lg hover:text-primary transition-colors duration-200" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors duration-200 flex items-center">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors duration-200 flex items-center relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-0 right-0 w-4 h-4 bg-tertiary text-white text-[10px] rounded-full flex items-center justify-center">2</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors duration-200 flex items-center">
+<span class="material-symbols-outlined">person</span>
+</button>
+<button class="md:hidden p-xs text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="fani-pattern min-h-screen">
+<!-- Hero Section -->
+<section class="relative w-full h-[870px] overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A cinematic, wide-angle shot of vibrant hand-woven Faso Dan Fani textiles featuring intricate geometric patterns in Burkina Green, Saffron, and deep earthy tones. The fabrics are artfully draped in a bright, airy Burkinabé studio with natural sunlight streaming through, creating a soft, ethereal atmosphere. The visual style is premium and artisanal, emphasizing the rich textures and craftsmanship of the Sahelian region." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPrtFsoFmxZmq3r4wrZ8X6z5pyblKKgXCscd-bPbaMJGp7miI8kim0dBBGMX3F455LRO3_scnIWv8BDQod1aYMxZF0khWMgZT7T2RJHIkYA1-apMJcpkETzzet-xTIigwM1NV3viCLwFZKKICAz8gsc6mzLlPm4FRZPPOkqful6nCOib56rizI-BZm0J3AQ-rzoyNKWtgTsqFy6FayKRsJaj-vht2fNX9OcKRPA4OR7PxeHWgfSbqcXHL6LwHFD1WTFpRp0_YxMUw')"></div>
+<div class="absolute inset-0 hero-gradient"></div>
+<div class="relative h-full max-w-container-max mx-auto px-gutter flex flex-col justify-center items-start z-10">
+<span class="bg-primary/10 text-primary px-sm py-xs rounded-full font-label-lg text-label-sm mb-md inline-block">Édition Limitée : Faso Dan Fani</span>
+<h1 class="font-headline-lg text-headline-lg md:text-[64px] md:leading-[72px] text-text-main max-w-2xl mb-md">
+                    L'Élégance Ancestrale du <span class="text-primary">Burkina Faso</span>
+</h1>
+<p class="font-body-lg text-body-lg text-text-muted max-w-xl mb-lg">
+                    Découvrez une collection unique d'artisanat authentique, façonnée par les mains expertes de nos maîtres tisserands. Alliez tradition sahélienne et design contemporain.
+                </p>
+<div class="flex flex-wrap gap-md">
+<button class="bg-secondary-container text-on-secondary-container px-xl py-md rounded-lg font-label-lg text-label-lg hover:scale-105 transition-transform shadow-md flex items-center gap-xs">
+                        Shop Now
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="border-2 border-primary text-primary px-xl py-md rounded-lg font-label-lg text-label-lg hover:bg-primary/5 transition-colors">
+                        Notre Histoire
+                    </button>
+</div>
+</div>
+</section>
+<!-- Featured Collections (Bento Grid) -->
+<section class="py-xl max-w-container-max mx-auto px-gutter">
+<div class="flex justify-between items-end mb-xl">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-main">Featured Collections</h2>
+<p class="font-body-md text-body-md text-text-muted">Explorez nos univers artisanaux</p>
+</div>
+<a class="text-primary font-label-lg flex items-center gap-xs hover:underline" href="#">
+                    Voir tout <span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md h-[700px] md:h-[600px]">
+<!-- Main Card -->
+<div class="md:col-span-7 relative rounded-xl overflow-hidden group cursor-pointer shadow-sm">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A close-up shot of hand-carved bronze sculptures from Burkina Faso, showcasing intricate details of Sahelian figures. The background is a soft-focus artisanal workshop with warm, golden light highlighting the metallic sheen. The aesthetic is modern corporate mixed with authentic West African heritage, using a clean, light-mode background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDlZKSKUMQeUlQYr5wXiobWXiLGsO4AYBCcWsytF4omnMJzLdBZ2Iwxv4YViIgWkv-S4DkWHOK3YDk2iJOb_nvjzzBXNwo6JiF2-wmy2ICgE0r6pvCRtiWUtnPV_ROehgLqovIxae8TcIl9Q2Au-QeGC2miMG_DhshR1WxTWeoNUPL_E2uOom_sn_Dicnj4u8lXhX301JrRV93qyIoJV1b3bbOk8GDYrvdN5WwZP7gULttDG855hUmk8tF4ZwhlvJwHXnzuDEMNhrE')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg text-white">
+<h3 class="font-headline-sm text-headline-sm mb-xs">Bronzes de Ouagadougou</h3>
+<p class="font-body-sm text-body-sm opacity-90 mb-md">L'art ancestral de la cire perdue revisité.</p>
+<span class="px-md py-xs bg-white/20 backdrop-blur-md rounded-full font-label-sm">Explorer</span>
+</div>
+</div>
+<!-- Right Top Card -->
+<div class="md:col-span-5 relative rounded-xl overflow-hidden group cursor-pointer shadow-sm">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="Exquisite leather accessories, including handcrafted bags and wallets, made from premium Sahelian leather. The products are arranged on a minimalist white stone surface with subtle green leaf shadows, reflecting a high-end, airy aesthetic. The colors are rich ochre and deep emerald green, matching the Burkina Faso brand identity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB3R3i8P9dSjQKqzhmUGYLSfWijljZgtPDByfUrJlpmb2U1By0wTkd1YaxLZ94C3eBXgxBDtgzaIBPejc8r55NPhBicVv_0b_pxf2lP4jsfn4mRTu02uKzpmjHTnrRjb4rFL13VAyT-lWLBbO4Yf8qH7H_u8hyOEYpuTO1ANJHpjudsEjwcOPufJwD-clRFl20q4dqnlx_S1xLpOs4YcVYV90MK7Bup7tks8GvNcwm58iwmk2CEDQzoL4rA_m6QZRhceKtYGpntOtU')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg text-white">
+<h3 class="font-headline-sm text-headline-sm mb-xs">Maroquinerie d'Exception</h3>
+<span class="px-md py-xs bg-white/20 backdrop-blur-md rounded-full font-label-sm">Découvrir</span>
+</div>
+</div>
+<!-- Right Bottom Card (Small) -->
+<div class="md:col-span-5 relative rounded-xl overflow-hidden group cursor-pointer shadow-sm">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A collection of decorative pottery and ceramic vessels with traditional geometric patterns. The lighting is soft and natural, emphasizing the organic textures of the clay. The setting is a minimalist, modern home interior that highlights the versatility of traditional Burkinabé art in global contemporary spaces." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCnud1GUKyR9ZDrGdaaH8mlhmvFjKqFLJwNep3ATKOH7f35MfL2vLt0T93ajuksQaOMcPSf75aNhauIBjpZduEUd3tmTq_dVOTcMDo4N8x1-FWLDy1DRyifXK17znuWYC6SNaAoKeetjz1IFRrNcRndGwXgyKtB11BrJyeuF1fCKJ37d-VXVcZaNeTBst8mQela7kxGIOp6QmulfKzgxdfCQX9RY1Mhkh6vPWn3FJBTlPChWqPislCvHMq7sFPhoTPSucs1FADM75k')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg text-white">
+<h3 class="font-headline-sm text-headline-sm mb-xs">Poterie &amp; Céramique</h3>
+<span class="px-md py-xs bg-white/20 backdrop-blur-md rounded-full font-label-sm">Voir la sélection</span>
+</div>
+</div>
+</div>
+</section>
+<!-- New Arrivals (Horizontal Scroll) -->
+<section class="py-xl bg-surface-container-low">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="mb-lg">
+<h2 class="font-headline-md text-headline-md text-text-main">New Arrivals</h2>
+<p class="font-body-md text-body-md text-text-muted">Les dernières pépites de nos artisans</p>
+</div>
+<div class="flex gap-md overflow-x-auto pb-lg custom-scrollbar snap-x">
+<!-- Product Card 1 -->
+<div class="min-w-[280px] md:min-w-[320px] bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] snap-start group border border-transparent hover:border-primary/20 transition-all overflow-hidden">
+<div class="h-64 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stunning hand-woven Faso Dan Fani scarf in vibrant green and saffron stripes, presented on a minimalist mannequin. The lighting is crisp and professional, highlighting the texture of the cotton. The image is clean and high-key, suitable for a premium e-commerce storefront." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnI4npbeeWRdmag-E2QSapORDo7kAa3MBflNp_cq_hYqJLHQe3SymovJxbMCv8rlCGnrEnWjEWj2CNW3LYnZ_xwDKG1_kiwNDRu0wIXQWZz8vAQaFnIfIHIZSxSIxmC7zzhmDs_TGsf5T3luFijMh2UsyTBk5bxwT3YjuNz839zvaprx-kVbHK9uIWgobuLEL-Vrq36-X5Cm8XJifkNZa_-HD1OVQ4AItdtIQYDTqBIf2kgk1P2fb4ihBnRAUlDcm78T0dF44EeuU"/>
+<button class="absolute top-3 right-3 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-text-main hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-md">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider mb-xs block">Tissage</span>
+<h4 class="font-headline-sm text-headline-sm text-text-main mb-xs">Écharpe "Yennenga"</h4>
+<div class="flex justify-between items-center">
+<span class="font-headline-sm text-headline-sm text-primary">15,000 CFA</span>
+<button class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="min-w-[280px] md:min-w-[320px] bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] snap-start group border border-transparent hover:border-primary/20 transition-all overflow-hidden">
+<div class="h-64 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A handcrafted table lamp featuring a base made of carved dark wood and a lampshade made from translucent indigo-dyed fabric from Burkina Faso. The lamp is lit, casting a warm and inviting glow in a modern, minimalist living room with white walls and natural wood accents. High-end, airy minimalist photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVLnzPzfbtet0t8QUsRs8jNR3mZ03DGmsg6CEdjgBuSBJokgbRcvjBYBf2WyDVcm3YWN8X2Nd8gCp_w1dV8b1VOte6ybkTGKEJ4giPLWCy1y-ctIGLGVd0pUu9FXZ_xKIf7IMxjBd8qowbN-7TMRHSHB5NYMK7sINJTi1h8Mjhq47gecJmmrauUaQjuHCSrGi5KyocYp2kcD8WUJVQsYlFIRDubeg0kleYoonO1nII1_BghBAKX0LkXJ12jIqXq_8LU_6ZsQMTY_Q"/>
+</div>
+<div class="p-md">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider mb-xs block">Luminaire</span>
+<h4 class="font-headline-sm text-headline-sm text-text-main mb-xs">Lampe "Clair de Lune"</h4>
+<div class="flex justify-between items-center">
+<span class="font-headline-sm text-headline-sm text-primary">45,000 CFA</span>
+<button class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="min-w-[280px] md:min-w-[320px] bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] snap-start group border border-transparent hover:border-primary/20 transition-all overflow-hidden">
+<div class="h-64 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A pair of elegant, minimalist leather sandals in a rich tan color, handcrafted with subtle woven details. They are displayed on a bed of fine white sand under soft, warm lighting. The aesthetic is organic, premium, and deeply rooted in Sahelian culture, using a sophisticated and light-mode color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0e3LOXLkouGSQ3De0p3ogMsNVGp6wbb1TzkDRKOGrFgt4W5sY5y09nqaiKX_1KOIqCJwZxEA0gY2MJU9jRnwdnGh-jmahzfoiz_nVC_fPnBzq2gnFZfqQwmj_4MnBm5CrRR5gbkrWIDjIeSA45ZttKXuLm1uDa0x6uhQwM9QsklbICTgo_OEl3QUJqOo24Dlm0q9K-mrKA0N3FRExrCNw1iYxN_FLeEImjD9jryLF_3nTFrBOufGk8Ba33OMy-P7ihnyQVSA1DBQ"/>
+</div>
+<div class="p-md">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider mb-xs block">Maroquinerie</span>
+<h4 class="font-headline-sm text-headline-sm text-text-main mb-xs">Sandales "Sahel"</h4>
+<div class="flex justify-between items-center">
+<span class="font-headline-sm text-headline-sm text-primary">22,500 CFA</span>
+<button class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="min-w-[280px] md:min-w-[320px] bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] snap-start group border border-transparent hover:border-primary/20 transition-all overflow-hidden">
+<div class="h-64 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A set of contemporary jewelry including a necklace and earrings made from recycled bronze and accented with vibrant red and green stones. The jewelry is laid out on a clean white linen fabric, illuminated by soft morning light. The style is modern, ethical, and elegant, showcasing Burkinabé craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQbAmqe94OH1LJSbVP-coZ4NEhK0H1DuOGngtG66HaLVep7cRSj-Qi5b16FJc9Exg2wvcl8U1Sqf6xIMVA2-enBCfeVI747vu-LUgjzOyEgrvQAqfhVAKlbIIbBlzt3W_7ADWy6KA-Ry9jih7iz-oXIaJxBX7nFHBpwvfc19lmYPwVPpbg3boPUER70WcCYrKQIOn-xIYeUL0kGwU4UW9Fl-tCL0JIfxIANqSNBYLKiEDkHCdki5chlxf5Mbd4lBbA8htvdmy42Zo"/>
+</div>
+<div class="p-md">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider mb-xs block">Bijoux</span>
+<h4 class="font-headline-sm text-headline-sm text-text-main mb-xs">Parure "Gourma"</h4>
+<div class="flex justify-between items-center">
+<span class="font-headline-sm text-headline-sm text-primary">12,000 CFA</span>
+<button class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Top Selling (Two-Column Layout) -->
+<section class="py-xl max-w-container-max mx-auto px-gutter">
+<div class="mb-lg">
+<h2 class="font-headline-md text-headline-md text-text-main">Top Selling Crafts</h2>
+<p class="font-body-md text-body-md text-text-muted">Nos incontournables plébiscités par la communauté</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg items-center">
+<div class="space-y-md">
+<!-- Stat Card 1 -->
+<div class="bg-white p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-primary flex items-center gap-md">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small detailed photo of a woven basket in Burkina Green and Saffron colors. The photography is clean, bright, and focused on the intricate weave. High-end product shot with a minimalist light-mode background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyvx7OGEhXM2nUpuctzibScerzSeTtKxBV03v5-XlrI3qJ6JwzbGNn_TGa2YmKfQ-1AGCZ_d43hVwC4IvOqac8NThamzFH6Czar-o7fOGNrTOsAaHwZcurScoeUe4v3g8oPzGydixQxtXrDFce2dhtE7FLs2sFfF3fodi9MonFEZwqZL_8Jy3QeuzflwTMP4AMOk23212IeCsBtwDf-OrzUdtppXBF-7zUOcHbUATkBSUwHlgMSHIdOVVgkyEQh6RugwiVlC-kRw"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-label-lg text-label-lg text-text-main">Panier de Bolgatanga</h5>
+<p class="text-label-sm text-text-muted">Plus de 500 unités vendues</p>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-primary">8,500 CFA</p>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-white p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-primary flex items-center gap-md">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A detailed image of a hand-woven Bogolan cushion cover with traditional mud-cloth patterns in black and cream. The texture is rough and authentic, set against a pristine white background. High-quality e-commerce photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3w0P4OIwpS-EM3jMmUeH49n9lV-2HQVGZi1V-92laGmr4qwKWGUtduwQuzjK-gpASxjZcxLPrE0BXqObVpXdr_Og04r8HpC9MnHrO_Pb5KMebkuFR53IH3VPEEw_S0DU1G7NqJHUyVZm-sYH-VNr_qPnO27ywjcyZk1xyznbnr8o15v0nk4sXFIBow0hLRfJHgq4TTsFDZxLGjpO2jO_wvAkm9c8xxjP1tO3qb8d4ctdfHC-Jt4IS0qwQ9zqoba64Qim6p0TH5ec"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-label-lg text-label-lg text-text-main">Coussin Bogolan Chic</h5>
+<p class="text-label-sm text-text-muted">En stock : 12 restants</p>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-primary">18,000 CFA</p>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-white p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-primary flex items-center gap-md">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A handcrafted wooden sculpture of a baobab tree, intricately carved from dark mahogany. The lighting is soft and directional, creating elegant shadows on a light-colored surface. The style is modern minimalist African art." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyTjHtZWmikFEiQCcPLV2ZSAmlnW3iFhY5Rs0QOhxX83kDR354qDcBDRqe9tuhzl0ZQtElwIQeHGsE483Rf5i7rWPURYv4o_XQrEITSGM5OU5owD4B5lLpPqiDtBgF2vBoKryQtkc5XbZYK35EX4uvf5Ogq5KrQ6LeoTQe9k93QZkgUFGRB4i9E-lBaCEzXBOSMmyXxGeVaq0BdGhY_Tzh1ZajCz_Z-5NcCDzfxsVrryeDkPeaIjlgfYQjXQKamChrhXGbGub8JFo"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-label-lg text-label-lg text-text-main">Sculpture Baobab</h5>
+<p class="text-label-sm text-text-muted">Produit Coup de Coeur</p>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-primary">35,000 CFA</p>
+</div>
+</div>
+</div>
+<div class="relative h-full min-h-[400px] rounded-xl overflow-hidden shadow-lg group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A portrait of a Burkinabé artisan woman smiling warmly as she works on a traditional loom weaving Faso Dan Fani. She is dressed in colorful traditional attire, and her workspace is filled with vibrant spools of cotton. The scene is bright and authentic, celebrating the human story behind the products. The atmosphere is empowering and full of life." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKA0xnNSw3p0aqw-6M5Jip5HRrjIw2Isz8GuOjJgXZFyYqDSffVJG7cCg2fmyPaefEullH9eKsgWEV5_LNWwiQYqeH0BiXB4CZHPJPMmPyFH3KclIL7UEPMx_-oQQ59T3Kf_YIZXaEBIcy4TB0aErkIutkQbbc5BNGrEeWvtoL0LPFAJmadnv6vaeY8vmDfrWhdHzwk6mzld8_PhdMX6fXOJgaqnxL5mTiwRKGaiOxpSOl0ZjMxYRcSTd5LtQrzLSFtKKJPiI3VfE"/>
+<div class="absolute inset-0 bg-primary/20 backdrop-blur-[2px]"></div>
+<div class="absolute inset-0 flex flex-col justify-center items-center text-center p-lg">
+<div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-md text-primary animate-pulse">
+<span class="material-symbols-outlined text-4xl">play_circle</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-white mb-xs">L'Art de Tisser</h4>
+<p class="text-white font-body-md max-w-sm">Découvrez les mains qui créent vos produits préférés à travers notre mini-documentaire.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / CTA -->
+<section class="py-xl bg-primary text-white overflow-hidden relative">
+<!-- Decorative Faso Dan Fani patterns in background -->
+<div class="absolute top-0 right-0 w-64 h-full opacity-10 fani-pattern rotate-12"></div>
+<div class="absolute bottom-0 left-0 w-64 h-full opacity-10 fani-pattern -rotate-12"></div>
+<div class="max-w-container-max mx-auto px-gutter text-center relative z-10">
+<h2 class="font-headline-lg text-headline-lg mb-md">Rejoignez la Communauté du Sahel</h2>
+<p class="font-body-lg text-body-lg opacity-90 mb-lg max-w-2xl mx-auto">Recevez nos dernières collections et des invitations exclusives à nos ventes privées directement dans votre boîte mail.</p>
+<form class="flex flex-col md:flex-row gap-md max-w-xl mx-auto">
+<input class="flex-grow bg-white/10 border border-white/20 rounded-lg px-md py-md text-white placeholder:text-white/60 focus:ring-2 focus:ring-secondary-container outline-none transition-all" placeholder="Votre adresse email" type="email"/>
+<button class="bg-secondary-container text-on-secondary-container px-xl py-md rounded-lg font-label-lg text-label-lg hover:bg-secondary-container/90 transition-colors shadow-lg">S'abonner</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-high dark:bg-inverse-surface border-t border-outline-variant full-width mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg px-gutter py-xl max-w-container-max mx-auto w-full">
+<div class="space-y-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Artisanat du Sahel</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+                    Promouvoir l'excellence de l'artisanat burkinabé et soutenir les communautés locales à travers un commerce équitable et durable.
+                </p>
+<div class="flex gap-md">
+<a class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface hover:bg-primary hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">face_nod</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface hover:bg-primary hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">camera</span>
+</a>
+</div>
+</div>
+<div class="space-y-md">
+<h4 class="font-label-lg text-label-lg text-on-surface uppercase tracking-wider">Liens Rapides</h4>
+<div class="flex flex-col gap-xs">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors hover:underline decoration-secondary font-label-sm text-label-sm" href="#">À propos</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors hover:underline decoration-secondary font-label-sm text-label-sm" href="#">Livraison</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors hover:underline decoration-secondary font-label-sm text-label-sm" href="#">Paiements Sécurisés</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors hover:underline decoration-secondary font-label-sm text-label-sm" href="#">Conditions d'Utilisation</a>
+</div>
+</div>
+<div class="space-y-md">
+<h4 class="font-label-lg text-label-lg text-on-surface uppercase tracking-wider">Contact</h4>
+<div class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined">location_on</span>
+<span>Ouagadougou, Zone 1, Burkina Faso</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined">call</span>
+<span>+226 25 30 00 00</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined">mail</span>
+<span>contact@artisanat-sahel.bf</span>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter py-md border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Shopizi. Propulsé par la technologie locale.</p>
+<div class="flex gap-md opacity-50 grayscale hover:grayscale-0 transition-all">
+<span class="material-symbols-outlined">credit_card</span>
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+</div>
+</footer>
+<!-- WhatsApp Chat Bubble -->
+<a class="fixed bottom-gutter right-gutter w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform z-50 group" href="https://wa.me/22600000000" target="_blank">
+<svg fill="currentColor" height="32" viewbox="0 0 16 16" width="32" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path>
+</svg>
+<span class="absolute right-16 bg-white text-on-surface px-md py-sm rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none font-label-sm border border-outline-variant">
+            Besoin d'aide ? Discutons !
+        </span>
+</a>
+<script>
+        // Micro-interactions and subtle scroll effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    header.classList.add('shadow-md');
+                    header.classList.remove('shadow-sm');
+                } else {
+                    header.classList.add('shadow-sm');
+                    header.classList.remove('shadow-md');
+                }
+            });
+
+            // Smooth horizontal scroll for New Arrivals
+            const scrollContainer = document.querySelector('.custom-scrollbar');
+            if (scrollContainer) {
+                scrollContainer.addEventListener('wheel', (evt) => {
+                    evt.preventDefault();
+                    scrollContainer.scrollLeft += evt.deltaY;
+                });
+            }
+        });
+    </script>
+</body></html>

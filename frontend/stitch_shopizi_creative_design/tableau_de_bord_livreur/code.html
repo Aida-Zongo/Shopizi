@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Dashboard Livreur</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .faso-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        .transition-all { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#e4e2dd",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface": "#fbf9f4",
+                      "surface-dim": "#dbdad5",
+                      "primary-fixed-dim": "#60df81",
+                      "outline-variant": "#bdcaba",
+                      "on-secondary-fixed-variant": "#5e4200",
+                      "on-background": "#1b1c19",
+                      "tertiary-fixed": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#93000d",
+                      "background": "#fbf9f4",
+                      "tertiary-fixed-dim": "#ffb4ac",
+                      "on-secondary-fixed": "#271900",
+                      "primary-container": "#00873d",
+                      "primary-fixed": "#7efc9a",
+                      "on-tertiary-fixed": "#410002",
+                      "surface-variant": "#e4e2dd",
+                      "on-surface": "#1b1c19",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#006d30",
+                      "on-surface-variant": "#3e4a3e",
+                      "on-primary-fixed": "#00210a",
+                      "secondary-container": "#ffbb16",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#e32126",
+                      "secondary-fixed": "#ffdea6",
+                      "tertiary": "#bb0014",
+                      "inverse-surface": "#30312e",
+                      "burkina-green-light": "#E6F5ED",
+                      "surface-container": "#f0eee9",
+                      "inverse-primary": "#60df81",
+                      "secondary": "#7c5800",
+                      "saffron-glow": "#FFF8E6",
+                      "on-secondary-container": "#6c4d00",
+                      "burkina-green-deep": "#007A38",
+                      "surface-off-white": "#F9F7F2",
+                      "surface-container-high": "#eae8e3",
+                      "inverse-on-surface": "#f2f1ec",
+                      "secondary-fixed-dim": "#ffbb16",
+                      "primary": "#006b2f",
+                      "on-primary-container": "#f7fff3",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#005323",
+                      "error": "#ba1a1a",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#6d7a6d",
+                      "on-tertiary-container": "#fffbff",
+                      "text-muted": "#5C5F5A",
+                      "surface-container-low": "#f5f3ee",
+                      "text-main": "#1A1C19",
+                      "surface-bright": "#fbf9f4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "container-max": "1280px",
+                      "xl": "4rem",
+                      "sm": "1rem",
+                      "xs": "0.5rem",
+                      "lg": "2.5rem",
+                      "md": "1.5rem",
+                      "baseline": "4px"
+              },
+              "fontFamily": {
+                      "body-sm": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-sm": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "label-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-screen border-r border-outline-variant/30 dark:border-outline-variant/10 h-full w-64 fixed left-0 top-0 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] bg-surface z-50 overflow-y-auto">
+<div class="p-lg">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted">Burkinabé Deliveries</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg text-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-lg text-label-lg">Mes Gains</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-lg text-label-lg">Historique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-md mt-auto faso-pattern border-t border-outline-variant/20">
+<div class="bg-burkina-green-deep rounded-xl p-md text-on-primary shadow-lg">
+<p class="text-label-sm font-medium opacity-80">Niveau de Livreur</p>
+<h3 class="text-headline-sm font-headline-sm mb-2">Expert</h3>
+<div class="w-full bg-white/20 h-1 rounded-full mb-2">
+<div class="bg-secondary-container h-full w-[85%] rounded-full"></div>
+</div>
+<p class="text-[11px] opacity-90">Prochain bonus à 500 points</p>
+</div>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center px-gutter w-[calc(100%-16rem)] ml-64 h-16 fixed top-0 right-0 bg-surface/80 backdrop-blur-md z-40">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full" placeholder="Rechercher une commande..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right">
+<p class="text-label-lg font-label-lg leading-none">Moussa Traoré</p>
+<p class="text-[12px] text-burkina-green-deep font-semibold">En ligne</p>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-burkina-green-deep p-0.5 overflow-hidden">
+<img class="w-full h-full object-cover rounded-full" data-alt="A professional headshot of a smiling West African courier in a clean green company uniform. The lighting is warm and outdoor, with a soft-focus urban Ouagadougou street background. High-end photography style, modern corporate aesthetic for a SaaS delivery platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6ljO4OyofJanhyyRBajnsZlSVxENu3asZQHOqmGaB9Wsom8TDY3N8hRERTJQ9QRdvSzbBtYBNLlMsrFnqa6CFBuMI6WnS88SVE0FPC6mO17SRwZiUckfjXBbEq-ctdqwajh9k4ppkT4lEi_JBC-XAkT4OLz33I5Fd0fk48MFd5y8a-KJC15Fl_lkQfU8H9x1IkhAH_QbpMfhtuAD4bSGCZfixSWnpGYHigX5dTErekb1PYieU1GFtAfAuc8abbE8-bSJk-uSCYl8"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 p-gutter min-h-screen">
+<!-- Stats Hero Section (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md mb-lg">
+<div class="col-span-1 md:col-span-2 bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-label-lg font-label-lg text-text-muted mb-1">Gains Totaux d'Aujourd'hui</p>
+<h2 class="text-headline-lg font-headline-lg text-burkina-green-deep">12 450 FCFA</h2>
+<div class="flex items-center gap-2 mt-4">
+<span class="text-burkina-green-deep bg-burkina-green-light px-2 py-0.5 rounded text-label-sm font-bold">+12%</span>
+<span class="text-label-sm text-text-muted">vs hier</span>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]" data-icon="payments">payments</span>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-secondary mb-2" data-icon="route">route</span>
+<p class="text-label-lg font-label-lg text-text-muted">Distance parcourue</p>
+</div>
+<h3 class="text-headline-md font-headline-md">48.5 km</h3>
+</div>
+<div class="bg-white p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-burkina-green-deep mb-2" data-icon="verified_user">verified_user</span>
+<p class="text-label-lg font-label-lg text-text-muted">Taux de réussite</p>
+</div>
+<h3 class="text-headline-md font-headline-md">98%</h3>
+</div>
+</div>
+<!-- Orders Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- List of Available Orders (Left 2 Columns) -->
+<div class="lg:col-span-2 space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-2">
+                        Commandes à proximité 
+                        <span class="bg-secondary-container text-on-secondary-container text-[12px] px-2 py-0.5 rounded-full">3 disponibles</span>
+</h3>
+<button class="text-label-md font-label-md text-burkina-green-deep flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span> Filtrer
+                    </button>
+</div>
+<!-- Order Card 1 -->
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-md hover:shadow-md transition-all border border-outline-variant/10 group">
+<div class="flex flex-col md:flex-row gap-md">
+<!-- Merchant/Client Visual Flow -->
+<div class="flex-1">
+<div class="flex items-start justify-between mb-4">
+<div>
+<span class="bg-burkina-green-light text-burkina-green-deep text-[12px] font-bold px-2 py-1 rounded">PROCHE (1.2km)</span>
+<h4 class="text-headline-sm font-headline-sm mt-2">Commande #SHP-9021</h4>
+</div>
+<div class="text-right">
+<p class="text-label-sm text-text-muted">Course estimée</p>
+<p class="text-headline-sm font-headline-sm text-burkina-green-deep">1 800 FCFA</p>
+</div>
+</div>
+<!-- Connection visualization -->
+<div class="relative flex flex-col gap-4 pl-8 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30 before:border-dashed">
+<div class="relative">
+<span class="material-symbols-outlined absolute -left-10 text-burkina-green-deep bg-burkina-green-light p-1 rounded-full text-[18px]" data-icon="storefront">storefront</span>
+<p class="text-label-lg font-label-lg">Pâtisserie La Grace</p>
+<p class="text-body-sm text-text-muted">Avenue Kwamé Nkrumah</p>
+<p class="text-[11px] text-secondary font-medium">À 1.2 km de vous</p>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute -left-10 text-secondary bg-saffron-glow p-1 rounded-full text-[18px]" data-icon="person_pin_circle">person_pin_circle</span>
+<p class="text-label-lg font-label-lg">Mme. Sanou Alima</p>
+<p class="text-body-sm text-text-muted">Quartier Somgandé, Villa 42</p>
+<p class="text-[11px] text-secondary font-medium">À 4.5 km du commerçant</p>
+</div>
+</div>
+</div>
+<!-- Map Preview Side -->
+<div class="w-full md:w-64 h-48 md:h-auto rounded-lg overflow-hidden relative border border-outline-variant/20 bg-surface-container-low">
+<div class="absolute inset-0 grayscale opacity-40 bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')]"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="text-center">
+<span class="material-symbols-outlined text-burkina-green-deep text-[32px] animate-bounce" data-icon="location_on">location_on</span>
+<p class="text-[10px] uppercase tracking-wider font-bold">Aperçu Carte</p>
+</div>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<button class="w-full bg-secondary-container hover:bg-secondary text-on-secondary-container font-label-lg py-3 rounded-lg shadow-lg active:scale-95 transition-all">
+                                    Valider la livraison
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Order Card 2 -->
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-md hover:shadow-md transition-all border border-outline-variant/10 opacity-90">
+<div class="flex flex-col md:flex-row gap-md">
+<div class="flex-1">
+<div class="flex items-start justify-between mb-4">
+<div>
+<span class="bg-surface-container text-text-muted text-[12px] font-bold px-2 py-1 rounded">MOYEN (3.8km)</span>
+<h4 class="text-headline-sm font-headline-sm mt-2">Commande #SHP-8854</h4>
+</div>
+<div class="text-right">
+<p class="text-label-sm text-text-muted">Course estimée</p>
+<p class="text-headline-sm font-headline-sm text-burkina-green-deep">2 250 FCFA</p>
+</div>
+</div>
+<div class="relative flex flex-col gap-4 pl-8 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30">
+<div class="relative">
+<span class="material-symbols-outlined absolute -left-10 text-burkina-green-deep bg-burkina-green-light p-1 rounded-full text-[18px]" data-icon="shopping_basket">shopping_basket</span>
+<p class="text-label-lg font-label-lg">Supermarché Marina</p>
+<p class="text-body-sm text-text-muted">Zone du Bois</p>
+<p class="text-[11px] text-text-muted">À 3.8 km de vous</p>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute -left-10 text-secondary bg-saffron-glow p-1 rounded-full text-[18px]" data-icon="home">home</span>
+<p class="text-label-lg font-label-lg">Jean-Paul Ouedraogo</p>
+<p class="text-body-sm text-text-muted">Cité AZIMO, Ouaga 2000</p>
+<p class="text-[11px] text-text-muted">À 7.2 km du commerçant</p>
+</div>
+</div>
+</div>
+<div class="w-full md:w-64 flex flex-col justify-center">
+<button class="w-full bg-secondary-container hover:bg-secondary text-on-secondary-container font-label-lg py-3 rounded-lg shadow-sm active:scale-95 transition-all">
+                                Valider la livraison
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Statistics & History (Right Column) -->
+<div class="space-y-lg">
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
+<div class="p-md bg-burkina-green-light border-b border-burkina-green-deep/10">
+<h3 class="text-label-lg font-bold text-burkina-green-deep">Résumé Hebdomadaire</h3>
+</div>
+<div class="p-md space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-[11px] text-text-muted uppercase">Objectif hebdo</p>
+<p class="text-headline-sm font-headline-sm">75 000 FCFA</p>
+</div>
+<p class="text-label-sm font-bold text-burkina-green-deep">68%</p>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-burkina-green-deep h-full w-[68%] rounded-full"></div>
+</div>
+<div class="pt-4 border-t border-outline-variant/20">
+<div class="flex justify-between items-center mb-2">
+<span class="text-body-sm text-text-muted">Bonus de performance</span>
+<span class="text-label-lg font-bold text-secondary">+5 000 F</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-text-muted">Courses ce mois</span>
+<span class="text-label-lg font-bold">142</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="p-md flex justify-between items-center border-b border-outline-variant/10">
+<h3 class="text-label-lg font-bold">Historique Récent</h3>
+<a class="text-[12px] text-burkina-green-deep hover:underline" href="#">Tout voir</a>
+</div>
+<div class="p-0">
+<!-- History Item 1 -->
+<div class="p-md border-b border-outline-variant/10 flex items-center gap-3">
+<div class="w-10 h-10 bg-burkina-green-light flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-burkina-green-deep text-[20px]" data-icon="task_alt">task_alt</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-bold leading-tight">#SHP-7721</p>
+<p class="text-[12px] text-text-muted">Livré il y a 2h</p>
+</div>
+<p class="text-label-lg font-bold">+1 400 F</p>
+</div>
+<!-- History Item 2 -->
+<div class="p-md border-b border-outline-variant/10 flex items-center gap-3">
+<div class="w-10 h-10 bg-burkina-green-light flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-burkina-green-deep text-[20px]" data-icon="task_alt">task_alt</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-bold leading-tight">#SHP-7610</p>
+<p class="text-[12px] text-text-muted">Livré il y a 4h</p>
+</div>
+<p class="text-label-lg font-bold">+2 100 F</p>
+</div>
+<!-- History Item 3 -->
+<div class="p-md flex items-center gap-3">
+<div class="w-10 h-10 bg-error-container/20 flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-error text-[20px]" data-icon="cancel">cancel</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-bold leading-tight">#SHP-7555</p>
+<p class="text-[12px] text-text-muted">Annulé par client</p>
+</div>
+<p class="text-label-lg font-bold text-text-muted">0 F</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Map FAB for Mobile -->
+<button class="md:hidden fixed bottom-6 right-6 bg-burkina-green-deep text-on-primary w-14 h-14 rounded-full shadow-2xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+</button>
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.96)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = 'scale(1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inscription - Shopizi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f5f3ee",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#7efc9a",
+                        "on-background": "#1b1c19",
+                        "secondary": "#7c5800",
+                        "on-secondary-fixed": "#271900",
+                        "secondary-fixed": "#ffdea6",
+                        "primary-fixed-dim": "#60df81",
+                        "inverse-surface": "#30312e",
+                        "surface-tint": "#006d30",
+                        "on-secondary-fixed-variant": "#5e4200",
+                        "text-muted": "#5C5F5A",
+                        "on-surface-variant": "#3e4a3e",
+                        "on-secondary": "#ffffff",
+                        "background": "#fbf9f4",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#ffbb16",
+                        "secondary-fixed-dim": "#ffbb16",
+                        "text-main": "#1A1C19",
+                        "on-primary-fixed-variant": "#005323",
+                        "on-primary-fixed": "#00210a",
+                        "inverse-primary": "#60df81",
+                        "primary": "#006b2f",
+                        "surface-variant": "#e4e2dd",
+                        "error": "#ba1a1a",
+                        "surface": "#fbf9f4",
+                        "surface-dim": "#dbdad5",
+                        "primary-container": "#00873d",
+                        "tertiary": "#bb0014",
+                        "outline": "#6d7a6d",
+                        "on-secondary-container": "#6c4d00",
+                        "tertiary-fixed": "#ffdad6",
+                        "surface-bright": "#fbf9f4",
+                        "surface-off-white": "#F9F7F2",
+                        "on-primary-container": "#f7fff3",
+                        "surface-container": "#f0eee9",
+                        "on-surface": "#1b1c19",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f2f1ec",
+                        "burkina-green-light": "#E6F5ED",
+                        "burkina-green-deep": "#007A38",
+                        "on-tertiary-fixed": "#410002",
+                        "tertiary-container": "#e32126",
+                        "saffron-glow": "#FFF8E6",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "surface-container-high": "#eae8e3",
+                        "outline-variant": "#bdcaba",
+                        "on-tertiary-fixed-variant": "#93000d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e4e2dd",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "0.5rem",
+                        "container-max": "1280px",
+                        "md": "1.5rem",
+                        "baseline": "4px",
+                        "sm": "1rem",
+                        "xl": "4rem",
+                        "lg": "2.5rem",
+                        "gutter": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .fani-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .ethereal-blur {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .form-input-focus:focus {
+            border-color: #007A38 !important;
+            box-shadow: 0 0 0 4px rgba(0, 122, 56, 0.1);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-background min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- Left Side: Immersive Visual & Branding (Sahel Ethereal) -->
+<section class="hidden md:flex md:w-1/2 lg:w-3/5 relative bg-burkina-green-deep overflow-hidden items-center justify-center p-xl">
+<!-- Background Animation Layer -->
+<div class="absolute inset-0 z-0">
+
+</div>
+<!-- Subtle Pattern Overlay -->
+<div class="absolute inset-0 fani-pattern z-10 opacity-20"></div>
+<!-- Content Overlay -->
+<div class="relative z-20 text-on-primary max-w-xl">
+<div class="mb-lg">
+<span class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20 ethereal-blur text-label-lg font-label-lg uppercase tracking-widest">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                    Sahel Digital Ecosystem
+                </span>
+</div>
+<h1 class="text-headline-lg font-headline-lg mb-md leading-tight">
+                Propulsez votre boutique vers de nouveaux sommets avec <span class="text-secondary-fixed">Shopizi</span>.
+            </h1>
+<p class="text-body-lg font-body-lg opacity-90 mb-xl">
+                Rejoignez la plus grande communauté de marchands burkinabés et transformez votre commerce local en une entreprise digitale de classe mondiale.
+            </p>
+<!-- Testimonial / Stat Card -->
+<div class="grid grid-cols-2 gap-md">
+<div class="p-md bg-white/5 rounded-xl border border-white/10 ethereal-blur">
+<div class="text-headline-md font-headline-md text-secondary-fixed mb-xs">2.5k+</div>
+<div class="text-label-lg font-label-lg opacity-80">Marchands Actifs</div>
+</div>
+<div class="p-md bg-white/5 rounded-xl border border-white/10 ethereal-blur">
+<div class="text-headline-md font-headline-md text-secondary-fixed mb-xs">45%</div>
+<div class="text-label-lg font-label-lg opacity-80">Croissance Moyenne</div>
+</div>
+</div>
+</div>
+<!-- Bottom Brand Mark -->
+<div class="absolute bottom-10 left-10 flex items-center gap-2">
+<div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[18px]" data-icon="storefront">storefront</span>
+</div>
+<span class="text-label-lg font-label-lg font-bold uppercase tracking-tighter">Shopizi.bf</span>
+</div>
+</section>
+<!-- Right Side: Registration Form -->
+<main class="w-full md:w-1/2 lg:w-2/5 min-h-screen flex flex-col justify-center bg-surface-bright relative p-6 md:p-xl lg:p-24">
+<!-- Mobile Header (Visible only on small screens) -->
+<div class="md:hidden flex items-center gap-3 mb-lg">
+<div class="w-10 h-10 bg-burkina-green-deep rounded-xl flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-white" data-icon="storefront">storefront</span>
+</div>
+<span class="text-headline-md font-headline-md text-burkina-green-deep">Shopizi</span>
+</div>
+<div class="w-full max-w-md mx-auto">
+<header class="mb-lg">
+<h2 class="text-headline-md font-headline-md text-text-main mb-xs">Créer votre compte</h2>
+<p class="text-body-md font-body-md text-text-muted">Commencez votre voyage entrepreneurial dès aujourd'hui.</p>
+</header>
+<form class="space-y-md" onsubmit="event.preventDefault();">
+<!-- Nom Complet -->
+<div class="space-y-2">
+<label class="block text-label-lg font-label-lg text-on-surface-variant" for="full_name">Nom Complet</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="person">person</span>
+<input class="w-full pl-12 pr-4 py-3 bg-white border border-outline-variant rounded-xl text-body-md font-body-md form-input-focus transition-all" id="full_name" name="full_name" placeholder="Ex: Moussa Traoré" type="text"/>
+</div>
+</div>
+<!-- Email -->
+<div class="space-y-2">
+<label class="block text-label-lg font-label-lg text-on-surface-variant" for="email">Email Professionnel</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="mail">mail</span>
+<input class="w-full pl-12 pr-4 py-3 bg-white border border-outline-variant rounded-xl text-body-md font-body-md form-input-focus transition-all" id="email" name="email" placeholder="moussa@boutique.bf" type="email"/>
+</div>
+</div>
+<!-- Téléphone -->
+<div class="space-y-2">
+<label class="block text-label-lg font-label-lg text-on-surface-variant" for="phone">Numéro de Téléphone</label>
+<div class="relative flex">
+<div class="flex items-center px-4 bg-surface-container border border-outline-variant rounded-l-xl border-r-0 text-label-lg font-label-lg text-on-surface">
+                            +226
+                        </div>
+<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded-r-xl text-body-md font-body-md form-input-focus transition-all" id="phone" name="phone" placeholder="01 23 45 67" type="tel"/>
+</div>
+</div>
+<!-- Mot de passe -->
+<div class="space-y-2">
+<label class="block text-label-lg font-label-lg text-on-surface-variant" for="password">Mot de passe</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="lock">lock</span>
+<input class="w-full pl-12 pr-12 py-3 bg-white border border-outline-variant rounded-xl text-body-md font-body-md form-input-focus transition-all" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-burkina-green-deep transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+<p class="text-[11px] text-text-muted mt-1 px-1">Le mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.</p>
+</div>
+<!-- Terms Checkbox -->
+<div class="flex items-start gap-3 py-2">
+<div class="flex items-center h-5">
+<input class="w-4 h-4 text-burkina-green-deep border-outline rounded focus:ring-burkina-green-deep" id="terms" name="terms" type="checkbox"/>
+</div>
+<label class="text-label-sm font-label-sm text-text-muted leading-relaxed" for="terms">
+                        J'accepte les <a class="text-burkina-green-deep font-bold underline decoration-burkina-green-light hover:decoration-burkina-green-deep transition-all" href="#">conditions d'utilisation</a> et la <a class="text-burkina-green-deep font-bold underline decoration-burkina-green-light hover:decoration-burkina-green-deep transition-all" href="#">politique de confidentialité</a> de Shopizi.
+                    </label>
+</div>
+<!-- Submit Button -->
+<button class="w-full bg-secondary-container hover:bg-secondary text-on-secondary-container hover:text-white py-4 px-6 rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-lg shadow-secondary-container/20 active:scale-[0.98] transition-all duration-200" type="submit">
+                    Créer mon compte
+                    <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<div class="mt-lg flex flex-col items-center gap-md">
+<div class="flex items-center w-full gap-4">
+<div class="h-[1px] bg-outline-variant flex-grow"></div>
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Ou s'inscrire avec</span>
+<div class="h-[1px] bg-outline-variant flex-grow"></div>
+</div>
+<div class="grid grid-cols-2 gap-sm w-full">
+<button class="flex items-center justify-center gap-2 py-3 px-4 bg-white border border-outline-variant rounded-xl hover:bg-surface-container-low transition-colors text-label-lg font-label-lg">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKtfm4xeXAQa06gfFLpSo0-kIpIvzwaWCrkx7hcbilkY5qW2Zsc6lMQOSB6HYPVKnthen6wEMef3X9INYB4ovhYNF8s0nhLT1LSzSp1z7wqVxHFppVrZDG2sPyNaaUZUx3UJbyQHDoO9zVK_nojXGDKvDa-F_ZBDvto5CPNBqCB6kMV0wTUNKnjeaCLsTh-E7tuAr0LGSySTUK04ATBpNEGqgKjzNhtJKJOwPpJyEZhgN66_cvLA30yG0HOX2QO2dYYwcfoDyPdgw"/>
+                        Google
+                    </button>
+<button class="flex items-center justify-center gap-2 py-3 px-4 bg-white border border-outline-variant rounded-xl hover:bg-surface-container-low transition-colors text-label-lg font-label-lg">
+<span class="material-symbols-outlined text-[#1877F2]" data-icon="facebook" style="font-variation-settings: 'FILL' 1;">face_nod</span>
+                        Facebook
+                    </button>
+</div>
+<p class="text-body-md font-body-md text-text-muted mt-md">
+                    Déjà inscrit ? 
+                    <a class="text-burkina-green-deep font-bold hover:underline" href="#">Se connecter</a>
+</p>
+</div>
+</div>
+<!-- Footer Decoration (Mobile only) -->
+<div class="md:hidden mt-xl opacity-20 fani-pattern h-12 w-full"></div>
+</main>
+<!-- Success Feedback (Hidden by default) -->
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-burkina-green-deep text-white px-6 py-4 rounded-full shadow-2xl flex items-center gap-3 ethereal-blur opacity-0 pointer-events-none translate-y-10 transition-all duration-500 z-50" id="toast">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-lg font-label-lg">Compte créé avec succès !</span>
+</div>
+<script>
+        // Micro-interactions
+        const form = document.querySelector('form');
+        const toast = document.getElementById('toast');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Mock success animation
+            toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.</script></body></html>

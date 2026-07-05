@@ -1,0 +1,11 @@
+// Shopizi mini-site scripts
+document.addEventListener('DOMContentLoaded', function() {
+  // Mobile nav toggle
+  const navToggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.nav');
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+  }
+});

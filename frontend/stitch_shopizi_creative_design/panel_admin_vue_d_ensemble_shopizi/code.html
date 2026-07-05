@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi | Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#ffbb16",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-highest": "#e4e2dd",
+                    "surface-dim": "#dbdad5",
+                    "inverse-primary": "#60df81",
+                    "on-primary-fixed": "#00210a",
+                    "on-tertiary-container": "#fffbff",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface": "#fbf9f4",
+                    "burkina-green-deep": "#007A38",
+                    "secondary": "#7c5800",
+                    "tertiary": "#bb0014",
+                    "inverse-surface": "#30312e",
+                    "on-primary-fixed-variant": "#005323",
+                    "on-background": "#1b1c19",
+                    "secondary-fixed": "#ffdea6",
+                    "primary-container": "#00873d",
+                    "surface-container": "#f0eee9",
+                    "tertiary-container": "#e32126",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "burkina-green-light": "#E6F5ED",
+                    "on-error": "#ffffff",
+                    "text-muted": "#5C5F5A",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#60df81",
+                    "on-secondary-container": "#6c4d00",
+                    "surface-container-low": "#f5f3ee",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "surface-tint": "#006d30",
+                    "outline": "#6d7a6d",
+                    "surface-container-high": "#eae8e3",
+                    "tertiary-fixed": "#ffdad6",
+                    "inverse-on-surface": "#f2f1ec",
+                    "outline-variant": "#bdcaba",
+                    "saffron-glow": "#FFF8E6",
+                    "primary-fixed": "#7efc9a",
+                    "background": "#fbf9f4",
+                    "on-secondary-fixed": "#271900",
+                    "on-tertiary-fixed": "#410002",
+                    "text-main": "#1A1C19",
+                    "primary": "#006b2f",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#f7fff3",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fbf9f4",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "surface-off-white": "#F9F7F2",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1b1c19",
+                    "on-surface-variant": "#3e4a3e",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "1.5rem",
+                    "sm": "1rem",
+                    "xl": "4rem",
+                    "container-max": "1280px",
+                    "baseline": "4px",
+                    "gutter": "1.5rem",
+                    "lg": "2.5rem",
+                    "xs": "0.5rem"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fbf9f4; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .pattern-fani {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30-30-30z' fill='%23007A38' fill-opacity='0.03'/%3E%3C/svg%3E");
+        }
+        .bento-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 10px 32px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="text-text-main antialiased overflow-x-hidden">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-screen border-r border-outline-variant/30 fixed left-0 top-0 h-full w-64 bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="p-md flex items-center gap-3">
+<span class="text-headline-md font-bold text-burkina-green-deep">Shopizi</span>
+<span class="text-label-sm px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded-full uppercase tracking-wider">Admin</span>
+</div>
+<nav class="flex-1 mt-sm space-y-1">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 transition-all scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:bg-surface-container-low hover:text-burkina-green-deep px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg text-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:bg-surface-container-low hover:text-burkina-green-deep px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="font-label-lg text-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:bg-surface-container-low hover:text-burkina-green-deep px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:bg-surface-container-low hover:text-burkina-green-deep px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-label-lg text-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:bg-surface-container-low hover:text-burkina-green-deep px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="font-label-lg text-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:bg-surface-container-low hover:text-burkina-green-deep px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="font-label-lg text-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:bg-surface-container-low hover:text-burkina-green-deep px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-md mt-auto">
+<div class="pattern-fani p-4 rounded-xl border border-burkina-green-deep/10">
+<p class="text-label-sm text-text-muted mb-2">Statut Système</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-burkina-green-deep rounded-full animate-pulse"></span>
+<span class="text-label-lg font-bold text-burkina-green-deep">Opérationnel</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen relative">
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md z-40 flex justify-between items-center px-gutter">
+<div class="flex items-center bg-surface-container-low rounded-full px-4 py-1.5 border border-outline-variant/30 w-96">
+<span class="material-symbols-outlined text-text-muted text-[20px]" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md w-full ml-2" placeholder="Rechercher un marchand, une transaction..." type="text"/>
+</div>
+<div class="flex items-center gap-md">
+<button class="relative p-2 text-text-muted hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-tertiary rounded-full"></span>
+</button>
+<button class="p-2 text-text-muted hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-label-lg font-bold">Admin Central</p>
+<p class="text-label-sm text-text-muted">Burkinabé Merchant</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-burkina-green-deep/20 object-cover" data-alt="Professional portrait of a high-level Burkinabé administrator in a corporate setting, with soft natural lighting and a blurred modern office background. The administrator has a welcoming yet authoritative expression, representing leadership and trust in the Shopizi digital ecosystem. High-quality digital photography style with deep color tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDem7C6uKvrV5sGlxM-vJtaNfhUJ7zaJnLKRE0G7P3ZPDfL5r_E78kIBtnMRpgpoavEjnOl6BfXHQIzs_PKZqBBF737-vJiZb8hMW3zMrAMaPhNE9pjk-OoZv58vMHcBmCQ9zstv9EIBkE4zUFRzJLI-7Vkg4kVEP9y6Q46BYpC1nMBHE8CGl8XVAqwnzdda904WRUCy4euvlABFYjFn5280blpzL3jq4Z1BJ7pMQ1aW3Ti5uTAIvtpIV8ru09RYpaNb-oG-gsz7hU"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="pt-24 px-gutter pb-lg">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-text-main">Vue d'ensemble</h1>
+<p class="text-body-md text-text-muted">Bienvenue, voici les performances de Shopizi pour ce mois.</p>
+</div>
+<button class="flex items-center gap-2 bg-burkina-green-deep text-on-primary px-6 py-3 rounded-full font-label-lg shadow-sm hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+                    Exporter les Rapports
+                </button>
+</div>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md mb-lg">
+<!-- Stat 1 -->
+<div class="bento-card bg-surface-container-lowest p-md rounded-xl border-l-4 border-burkina-green-deep shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-2 bg-burkina-green-light text-burkina-green-deep rounded-lg">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</div>
+<span class="text-burkina-green-deep text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+                            +12%
+                        </span>
+</div>
+<p class="text-label-lg text-text-muted uppercase tracking-wider font-medium">Marchands Actifs</p>
+<h2 class="text-headline-lg font-headline-lg mt-1">1,284</h2>
+</div>
+<!-- Stat 2 -->
+<div class="bento-card bg-surface-container-lowest p-md rounded-xl border-l-4 border-secondary-container shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-2 bg-saffron-glow text-secondary rounded-lg">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</div>
+<span class="text-burkina-green-deep text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+                            +8.4%
+                        </span>
+</div>
+<p class="text-label-lg text-text-muted uppercase tracking-wider font-medium">Revenu Mensuel (MRR)</p>
+<h2 class="text-headline-lg font-headline-lg mt-1">8,450K <span class="text-body-md font-normal opacity-60">FCFA</span></h2>
+</div>
+<!-- Stat 3 -->
+<div class="bento-card bg-surface-container-lowest p-md rounded-xl border-l-4 border-tertiary shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-2 bg-tertiary/10 text-tertiary rounded-lg">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+</div>
+<span class="text-tertiary text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_down">trending_down</span>
+                            -2%
+                        </span>
+</div>
+<p class="text-label-lg text-text-muted uppercase tracking-wider font-medium">Nouveaux Inscrits (Hj)</p>
+<h2 class="text-headline-lg font-headline-lg mt-1">42</h2>
+</div>
+<!-- Stat 4 -->
+<div class="bento-card bg-surface-container-lowest p-md rounded-xl border-l-4 border-burkina-green-deep shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-2 bg-burkina-green-light text-burkina-green-deep rounded-lg">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+</div>
+<span class="text-burkina-green-deep text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+                            +15%
+                        </span>
+</div>
+<p class="text-label-lg text-text-muted uppercase tracking-wider font-medium">Transactions Totales</p>
+<h2 class="text-headline-lg font-headline-lg mt-1">15.2K</h2>
+</div>
+</div>
+<!-- Complex Grid: Analytics & Lists -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Main Growth Chart -->
+<div class="lg:col-span-2 bento-card bg-surface-container-lowest p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] relative overflow-hidden">
+<div class="flex justify-between items-start mb-lg">
+<div>
+<h3 class="text-headline-sm font-headline-sm">Croissance des revenus</h3>
+<p class="text-body-sm text-text-muted">Données consolidées des 6 derniers mois</p>
+</div>
+<select class="bg-surface-container-low border-none rounded-lg text-label-md focus:ring-2 focus:ring-burkina-green-deep">
+<option>6 Derniers Mois</option>
+<option>Année en cours</option>
+</select>
+</div>
+<div class="relative h-64 w-full">
+<!-- Custom SVG Chart Simulation -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="gradient-chart" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#007A38" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#007A38" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,250 Q100,220 200,230 T400,150 T600,180 T800,80 T1000,100 L1000,300 L0,300 Z" fill="url(#gradient-chart)"></path>
+<path d="M0,250 Q100,220 200,230 T400,150 T600,180 T800,80 T1000,100" fill="none" stroke="#007A38" stroke-linecap="round" stroke-width="4"></path>
+<!-- Dots -->
+<circle cx="200" cy="230" fill="#007A38" r="6" stroke="white" stroke-width="2"></circle>
+<circle cx="400" cy="150" fill="#007A38" r="6" stroke="white" stroke-width="2"></circle>
+<circle cx="600" cy="180" fill="#007A38" r="6" stroke="white" stroke-width="2"></circle>
+<circle cx="800" cy="80" fill="#007A38" r="6" stroke="white" stroke-width="2"></circle>
+<circle cx="1000" cy="100" fill="#007A38" r="6" stroke="white" stroke-width="2"></circle>
+</svg>
+<!-- Chart Labels -->
+<div class="flex justify-between mt-sm text-label-sm text-text-muted px-2">
+<span>Jan</span><span>Fév</span><span>Mar</span><span>Avr</span><span>Mai</span><span>Juin</span>
+</div>
+</div>
+</div>
+<!-- Limits & Usage -->
+<div class="bento-card bg-surface-container-lowest p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<h3 class="text-headline-sm font-headline-sm mb-lg">Capacité Serveur</h3>
+<div class="space-y-md">
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-label-lg font-medium">Base de données</span>
+<span class="text-label-lg text-burkina-green-deep">64%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-burkina-green-deep transition-all duration-1000" style="width: 64%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-label-lg font-medium">Bande Passante</span>
+<span class="text-label-lg text-secondary">82%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container transition-all duration-1000" style="width: 82%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-label-lg font-medium">Stockage Médias</span>
+<span class="text-label-lg text-tertiary font-bold">98%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary transition-all duration-1000" style="width: 98%"></div>
+</div>
+<button class="mt-4 text-tertiary font-bold text-label-lg hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="upgrade">upgrade</span>
+                                Augmenter la capacité
+                            </button>
+</div>
+</div>
+<div class="mt-lg p-4 bg-burkina-green-light rounded-lg">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-burkina-green-deep" data-icon="bolt">bolt</span>
+<div>
+<p class="text-label-lg font-bold text-burkina-green-deep">Optimisation Auto</p>
+<p class="text-body-sm text-burkina-green-deep/80">Le système a libéré 1.2 GB de cache aujourd'hui.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Registrations (Table-like modern view) -->
+<div class="lg:col-span-3 bento-card bg-surface-container-lowest p-lg rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="text-headline-sm font-headline-sm">Derniers Marchands Inscrits</h3>
+<a class="text-burkina-green-deep text-label-lg font-bold hover:opacity-70 transition-opacity" href="#">Voir tout</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="border-b border-outline-variant/30">
+<tr class="text-label-lg text-text-muted">
+<th class="pb-4 font-semibold">Marchand</th>
+<th class="pb-4 font-semibold">Secteur</th>
+<th class="pb-4 font-semibold">Date d'inscription</th>
+<th class="pb-4 font-semibold">Plan</th>
+<th class="pb-4 font-semibold text-right">Statut</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="group hover:bg-surface-off-white transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-burkina-green-light flex items-center justify-center text-burkina-green-deep font-bold">KT</div>
+<div>
+<p class="font-label-lg">Kadi Traoré</p>
+<p class="text-body-sm text-text-muted">kadi.boutique@mail.bf</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-body-md">Artisanat Textile</td>
+<td class="py-4 text-body-md">Aujourd'hui, 09:42</td>
+<td class="py-4">
+<span class="text-label-sm font-bold bg-saffron-glow text-secondary px-3 py-1 rounded-full border border-secondary/10">Pro</span>
+</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-burkina-green-light text-burkina-green-deep text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-burkina-green-deep"></span>
+                                            Confirmé
+                                        </span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-off-white transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-text-muted font-bold">OO</div>
+<div>
+<p class="font-label-lg">Oumar Ouédraogo</p>
+<p class="text-body-sm text-text-muted">oumar.agro@faso.com</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-body-md">Agro-alimentaire</td>
+<td class="py-4 text-body-md">Hier, 18:20</td>
+<td class="py-4">
+<span class="text-label-sm font-bold bg-surface-container-high text-text-muted px-3 py-1 rounded-full">Basique</span>
+</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-saffron-glow text-secondary text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            En attente
+                                        </span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-off-white transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-burkina-green-light flex items-center justify-center text-burkina-green-deep font-bold">MZ</div>
+<div>
+<p class="font-label-lg">Moussa Zongo</p>
+<p class="text-body-sm text-text-muted">zongo.services@net.bf</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-body-md">Électronique</td>
+<td class="py-4 text-body-md">12 Mai 2024</td>
+<td class="py-4">
+<span class="text-label-sm font-bold bg-burkina-green-light text-burkina-green-deep px-3 py-1 rounded-full border border-burkina-green-deep/10">Enterprise</span>
+</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-burkina-green-light text-burkina-green-deep text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-burkina-green-deep"></span>
+                                            Confirmé
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Component (Admin Help) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform group">
+<span class="material-symbols-outlined text-[28px]" data-icon="support_agent">support_agent</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface px-3 py-1.5 rounded-lg text-label-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Besoin d'aide ?</span>
+</button>
+</div>
+</main>
+<script>
+        // Micro-interactions and subtle effects
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Subtle scale effect already handled by CSS hover
+            });
+        });
+
+        // Simple animation for the progress bars on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const progressBars = document.querySelectorAll('.h-full.bg-burkina-green-deep, .h-full.bg-secondary-container, .h-full.bg-tertiary');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi Admin - Gestion des Marchands</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#ffbb16",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-highest": "#e4e2dd",
+                    "surface-dim": "#dbdad5",
+                    "inverse-primary": "#60df81",
+                    "on-primary-fixed": "#00210a",
+                    "on-tertiary-container": "#fffbff",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface": "#fbf9f4",
+                    "burkina-green-deep": "#007A38",
+                    "secondary": "#7c5800",
+                    "tertiary": "#bb0014",
+                    "inverse-surface": "#30312e",
+                    "on-primary-fixed-variant": "#005323",
+                    "on-background": "#1b1c19",
+                    "secondary-fixed": "#ffdea6",
+                    "primary-container": "#00873d",
+                    "surface-container": "#f0eee9",
+                    "tertiary-container": "#e32126",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "burkina-green-light": "#E6F5ED",
+                    "on-error": "#ffffff",
+                    "text-muted": "#5C5F5A",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#60df81",
+                    "on-secondary-container": "#6c4d00",
+                    "surface-container-low": "#f5f3ee",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "surface-tint": "#006d30",
+                    "outline": "#6d7a6d",
+                    "surface-container-high": "#eae8e3",
+                    "tertiary-fixed": "#ffdad6",
+                    "inverse-on-surface": "#f2f1ec",
+                    "outline-variant": "#bdcaba",
+                    "saffron-glow": "#FFF8E6",
+                    "primary-fixed": "#7efc9a",
+                    "background": "#fbf9f4",
+                    "on-secondary-fixed": "#271900",
+                    "on-tertiary-fixed": "#410002",
+                    "text-main": "#1A1C19",
+                    "primary": "#006b2f",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#f7fff3",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fbf9f4",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "surface-off-white": "#F9F7F2",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1b1c19",
+                    "on-surface-variant": "#3e4a3e",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "1.5rem",
+                    "sm": "1rem",
+                    "xl": "4rem",
+                    "container-max": "1280px",
+                    "baseline": "4px",
+                    "gutter": "1.5rem",
+                    "lg": "2.5rem",
+                    "xs": "0.5rem"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #bdcaba;
+        border-radius: 10px;
+      }
+      .fani-pattern {
+        background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+        background-size: 24px 24px;
+      }
+    </style>
+</head>
+<body class="bg-background font-body-md text-text-main antialiased overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-screen border-r border-outline-variant/30 dark:border-outline-variant/10 h-full w-64 fixed left-0 top-0 bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="p-md">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 px-sm space-y-1 overflow-y-auto custom-scrollbar">
+<!-- Dashboard Item (Inactive) -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<!-- Boutique Item (Active Mapping to Merchants list) -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 active:scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors hover:bg-surface-container-low rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-md relative overflow-hidden">
+<div class="fani-pattern absolute inset-0 opacity-10 pointer-events-none"></div>
+<div class="bg-secondary-container/10 p-sm rounded-xl border border-secondary-container/20">
+<p class="text-label-sm font-bold text-secondary mb-xs">Niveau Admin</p>
+<button class="w-full bg-secondary text-white py-2 px-4 rounded-md text-label-lg transition-transform active:scale-95">Passer à Pro</button>
+</div>
+</div>
+</aside>
+<!-- Top Navbar -->
+<header class="flex justify-between items-center px-gutter w-full ml-64 h-16 z-40 fixed top-0 right-0 w-[calc(100%-16rem)] bg-surface/80 backdrop-blur-md">
+<div class="flex items-center flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 focus:ring-2 focus:ring-burkina-green-deep text-body-sm transition-all" placeholder="Rechercher un marchand..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all text-on-surface-variant relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-tertiary rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="flex items-center gap-xs ml-sm">
+<img class="w-8 h-8 rounded-full border-2 border-burkina-green-light object-cover" data-alt="A professional headshot of a Burkinabé merchant administrator, wearing a sharp modern blazer with subtle traditional fabric accents. High-end studio lighting, soft cream background, focused gaze. Global color palette of deep greens and gold. High resolution, corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTixmEpK_GenBlFNBEgJIYpwUCO-hifIH-sJPyhVPzLswhdMOfnVueBkNEJxIpSfSaA344iEk8DQ1XHhRsktr3xiCCYlPOCKO4Z8fRVU-PdTlRIVhjkKM9ejKizDWFYX9SU-CXwEQ3D7s_iM4kpSo5Pu7sSw3xellaBrVVN7t_Pq1xTaDc27ioWXVh-7BRUOIZX1ZOCNhOQDBf0GlUazYFSkbulDvM1ticXmHuytitMTuIj_SdWMlPhjlLSZohWK7KhEYzhHnGagw"/>
+<div class="hidden lg:block text-left">
+<p class="text-label-sm font-bold leading-tight">Ibrahim S.</p>
+<p class="text-[10px] text-text-muted uppercase tracking-wider">Super Admin</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 p-lg h-screen overflow-y-auto custom-scrollbar bg-background fani-pattern">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-burkina-green-deep mb-xs">Gestion des Marchands</h2>
+<p class="text-body-md text-text-muted">Gérez les comptes marchands, surveillez les plans et le statut des boutiques.</p>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs bg-burkina-green-light text-burkina-green-deep px-4 py-2 rounded-lg font-label-lg hover:bg-burkina-green-deep hover:text-white transition-all shadow-sm">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Exporter
+                </button>
+<button class="flex items-center gap-xs bg-secondary text-on-secondary px-6 py-2 rounded-lg font-label-lg hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Nouveau Marchand
+                </button>
+</div>
+</div>
+<!-- Filters Section -->
+<section class="bg-surface p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] mb-md flex flex-wrap items-center gap-md border border-outline-variant/20">
+<div class="flex-1 min-w-[240px]">
+<label class="text-label-lg mb-1 block">Filtrer par Plan</label>
+<select class="w-full bg-white border-outline-variant rounded-lg text-body-sm focus:border-burkina-green-deep focus:ring-burkina-green-deep py-2">
+<option value="">Tous les plans</option>
+<option value="gratuit">Gratuit</option>
+<option value="standard">Standard</option>
+<option value="pro">Pro Plus</option>
+<option value="entreprise">Entreprise</option>
+</select>
+</div>
+<div class="flex-1 min-w-[240px]">
+<label class="text-label-lg mb-1 block">Filtrer par Statut</label>
+<select class="w-full bg-white border-outline-variant rounded-lg text-body-sm focus:border-burkina-green-deep focus:ring-burkina-green-deep py-2">
+<option value="">Tous les statuts</option>
+<option value="actif">Actif</option>
+<option value="inactif">Inactif</option>
+<option value="suspendu">Suspendu</option>
+</select>
+</div>
+<div class="flex-0 pt-6">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</section>
+<!-- Merchants Table (Modern Card Pattern) -->
+<div class="bg-surface rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border border-outline-variant/10 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low/50">
+<tr>
+<th class="px-md py-4 text-label-sm font-bold text-text-muted uppercase tracking-wider">Marchand</th>
+<th class="px-md py-4 text-label-sm font-bold text-text-muted uppercase tracking-wider">Boutique</th>
+<th class="px-md py-4 text-label-sm font-bold text-text-muted uppercase tracking-wider">Plan Actuel</th>
+<th class="px-md py-4 text-label-sm font-bold text-text-muted uppercase tracking-wider">Statut</th>
+<th class="px-md py-4 text-label-sm font-bold text-text-muted uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Merchant Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-4">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-lg object-cover border border-outline-variant/20" data-alt="Close-up portrait of a West African entrepreneur, female, with a modern professional hairstyle, warm confident smile. Photographed against a minimalist soft gray background with warm accent lighting. Representing a high-tier SaaS user persona. Soft focus on the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRPouEdOGrCokvVdB1_Nh6Xp0tJmy0mqERWkaH424tW4DSNBuAKlHWQ453HkG3tpLSG2ionNd65rlznPEc21VQpvwDwzgktymvOHPYj1yKe-uwqMxewzIzLIs27wyM7ZnhlkvSaD5VPd53YEVA4e3cerjroW_AZjnjv5dAs_bUiwte48EsqnRmvdZubWQys7WAfLjKcG6bqrkagIpewfLXMNR2olkv5tPaLk6z6DY6xy-kKHd8kzQ-pXvgsYrewOPImuG0KFjTVAk"/>
+<div>
+<p class="text-body-md font-bold">Fatou Traoré</p>
+<p class="text-label-sm text-text-muted">fatou.t@shop.bf</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">Faso Élégance</span>
+<span class="text-[10px] text-burkina-green-deep bg-burkina-green-light px-2 py-0.5 rounded-full self-start mt-1">Habillement</span>
+</div>
+</td>
+<td class="px-md py-4">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary" data-icon="star" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="text-body-sm font-semibold">Pro Plus</span>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm bg-burkina-green-light text-burkina-green-deep font-medium">
+<span class="w-2 h-2 rounded-full bg-burkina-green-deep"></span>
+                                    Actif
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<div class="flex items-center justify-end gap-xs">
+<button class="p-2 text-text-muted hover:text-burkina-green-deep hover:bg-burkina-green-light rounded-lg transition-all" title="Voir détails">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-2 text-text-muted hover:text-tertiary hover:bg-error-container/20 rounded-lg transition-all" title="Désactiver">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+</button>
+<button class="p-2 text-text-muted hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Merchant Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-4">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-lg object-cover border border-outline-variant/20" data-alt="Portrait of a young tech-savvy male entrepreneur in Ouagadougou, wearing a casual polo shirt. Bright natural window light, modern workspace environment visible in the background. Clean, high-quality digital photography emphasizing business growth. Burkinabé identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzKmFw03drgkqRV6z6bWGpLqIxgTW26E_Z5X99NVVUwlmHfztE2m5XDM5NCw5FVonhnBd4d4Xu36ECo53QCMfj72dnvOvqpeDyujjHCL_7CdWP3mLzPBo4VNjlOby457LtYWC1Yms2zWVT7Q9IjISijw9Q2SXUHZilnw6eMSHCqM4G0f-bGnLF1v_tdoRE5cZ5BNlb3YDo5WgrkBuN5p_VazTvMtTpi_OZ3axfHjAiEtmxrhkTgO5eguUn1yY9Yco5Fv4TxLzWXEI"/>
+<div>
+<p class="text-body-md font-bold">Moussa Zongo</p>
+<p class="text-label-sm text-text-muted">m.zongo@tech.bf</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">Zongo Gadgets</span>
+<span class="text-[10px] text-secondary bg-saffron-glow px-2 py-0.5 rounded-full self-start mt-1">Électronique</span>
+</div>
+</td>
+<td class="px-md py-4 text-body-sm">Gratuit</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm bg-surface-container-low text-text-muted font-medium">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+                                    Inactif
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<div class="flex items-center justify-end gap-xs">
+<button class="p-2 text-text-muted hover:text-burkina-green-deep hover:bg-burkina-green-light rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-2 text-burkina-green-deep hover:bg-burkina-green-light rounded-lg transition-all" title="Activer">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</button>
+<button class="p-2 text-text-muted hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Merchant Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-4">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-lg object-cover border border-outline-variant/20" data-alt="A portrait of a mature male artisan entrepreneur, dressed in traditional Bogolan fabric shirt, holding a smartphone. Authentic craftsmanship environment, warm golden hour lighting, blurred background showing workshop details. Professional, trustworthy, and culturally rooted aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP4o91OhEMELh1py6Wd4bvJZPLhMR3M3mTauyVPl3QZOkDs0ONcX1nkTx-As4LEHdkb5go3cApj8OuLc5MgjCFcTk2H_tOAw-LvT_2nkWn41-8VP044CVJTk0eIzlYBR5DRPazXL85UYiIG8BjtKC7v3boNit5TX8uY7Ulbpg9UhL6j0bSqvlGbFvjLn2lTyJqcYEYT70k0ZFT5zG3bGFRCs5IPDdrR5tEKVfbIw-t57RopQH8_ea5mQU269BSabHrgvWuvOsxCJc"/>
+<div>
+<p class="text-body-md font-bold">Adama Ouédraogo</p>
+<p class="text-label-sm text-text-muted">adama.artis@bf.com</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">Artisanat de l'Est</span>
+<span class="text-[10px] text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full self-start mt-1">Artisanat</span>
+</div>
+</td>
+<td class="px-md py-4 text-body-sm">Standard</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm bg-burkina-green-light text-burkina-green-deep font-medium">
+<span class="w-2 h-2 rounded-full bg-burkina-green-deep"></span>
+                                    Actif
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<div class="flex items-center justify-end gap-xs">
+<button class="p-2 text-text-muted hover:text-burkina-green-deep hover:bg-burkina-green-light rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-2 text-text-muted hover:text-tertiary hover:bg-error-container/20 rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+</button>
+<button class="p-2 text-text-muted hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Merchant Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-md py-4">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary font-bold">AK</div>
+<div>
+<p class="text-body-md font-bold">Aminata Kaboré</p>
+<p class="text-label-sm text-text-muted">amina@beauty.bf</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">Ami Beauty Care</span>
+<span class="text-[10px] text-burkina-green-deep bg-burkina-green-light px-2 py-0.5 rounded-full self-start mt-1">Cosmétiques</span>
+</div>
+</td>
+<td class="px-md py-4">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary" data-icon="star" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="text-body-sm font-semibold">Entreprise</span>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm bg-burkina-green-light text-burkina-green-deep font-medium">
+<span class="w-2 h-2 rounded-full bg-burkina-green-deep"></span>
+                                    Actif
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<div class="flex items-center justify-end gap-xs">
+<button class="p-2 text-text-muted hover:text-burkina-green-deep hover:bg-burkina-green-light rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-2 text-text-muted hover:text-tertiary hover:bg-error-container/20 rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+</button>
+<button class="p-2 text-text-muted hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-md py-4 bg-surface border-t border-outline-variant/10 flex items-center justify-between">
+<p class="text-label-sm text-text-muted">Affichage de <span class="font-bold text-text-main">1-4</span> sur <span class="font-bold text-text-main">124</span> marchands</p>
+<div class="flex items-center gap-xs">
+<button class="p-2 border border-outline-variant rounded-lg text-text-muted hover:bg-surface-container-low disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-burkina-green-deep text-white text-label-sm font-bold">1</button>
+<button class="w-8 h-8 rounded-lg border border-outline-variant hover:bg-surface-container-low text-label-sm">2</button>
+<button class="w-8 h-8 rounded-lg border border-outline-variant hover:bg-surface-container-low text-label-sm">3</button>
+<span class="text-text-muted">...</span>
+<button class="w-8 h-8 rounded-lg border border-outline-variant hover:bg-surface-container-low text-label-sm">12</button>
+<button class="p-2 border border-outline-variant rounded-lg text-text-muted hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- System Stats Bar (Bottom) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mt-lg">
+<div class="bg-surface-container-low p-sm rounded-xl border-l-4 border-burkina-green-deep flex items-center gap-sm">
+<div class="w-10 h-10 bg-burkina-green-light rounded-full flex items-center justify-center text-burkina-green-deep">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</div>
+<div>
+<p class="text-[10px] text-text-muted uppercase font-bold tracking-widest">Total Marchands</p>
+<p class="text-headline-sm font-bold">1,248</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-sm rounded-xl border-l-4 border-secondary-container flex items-center gap-sm">
+<div class="w-10 h-10 bg-saffron-glow rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<p class="text-[10px] text-text-muted uppercase font-bold tracking-widest">Taux de Croissance</p>
+<p class="text-headline-sm font-bold">+12.5%</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-sm rounded-xl border-l-4 border-tertiary flex items-center gap-sm">
+<div class="w-10 h-10 bg-tertiary-fixed rounded-full flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<div>
+<p class="text-[10px] text-text-muted uppercase font-bold tracking-widest">Marchands Suspendus</p>
+<p class="text-headline-sm font-bold">24</p>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple toggle for side nav active states and interaction mockups
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // If we had routing, this is where it would live.
+                // For now, we stay on the merchants list.
+            });
+        });
+
+        // Hover effects for the table rows
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.classList.add('scale-[1.002]', 'z-10', 'shadow-md');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.classList.remove('scale-[1.002]', 'z-10', 'shadow-md');
+            });
+        });
+    </script>
+</body></html>

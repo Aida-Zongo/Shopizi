@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Historique des Paiements</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f5f3ee",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#7efc9a",
+                    "on-background": "#1b1c19",
+                    "secondary": "#7c5800",
+                    "on-secondary-fixed": "#271900",
+                    "secondary-fixed": "#ffdea6",
+                    "primary-fixed-dim": "#60df81",
+                    "inverse-surface": "#30312e",
+                    "surface-tint": "#006d30",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "text-muted": "#5C5F5A",
+                    "on-surface-variant": "#3e4a3e",
+                    "on-secondary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#ffbb16",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "text-main": "#1A1C19",
+                    "on-primary-fixed-variant": "#005323",
+                    "on-primary-fixed": "#00210a",
+                    "inverse-primary": "#60df81",
+                    "primary": "#006b2f",
+                    "surface-variant": "#e4e2dd",
+                    "error": "#ba1a1a",
+                    "surface": "#fbf9f4",
+                    "surface-dim": "#dbdad5",
+                    "primary-container": "#00873d",
+                    "tertiary": "#bb0014",
+                    "outline": "#6d7a6d",
+                    "on-secondary-container": "#6c4d00",
+                    "tertiary-fixed": "#ffdad6",
+                    "surface-bright": "#fbf9f4",
+                    "surface-off-white": "#F9F7F2",
+                    "on-primary-container": "#f7fff3",
+                    "surface-container": "#f0eee9",
+                    "on-surface": "#1b1c19",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f2f1ec",
+                    "burkina-green-light": "#E6F5ED",
+                    "burkina-green-deep": "#007A38",
+                    "on-tertiary-fixed": "#410002",
+                    "tertiary-container": "#e32126",
+                    "saffron-glow": "#FFF8E6",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "surface-container-high": "#eae8e3",
+                    "outline-variant": "#bdcaba",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e4e2dd",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "0.5rem",
+                    "container-max": "1280px",
+                    "md": "1.5rem",
+                    "baseline": "4px",
+                    "sm": "1rem",
+                    "xl": "4rem",
+                    "lg": "2.5rem",
+                    "gutter": "1.5rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        
+        .fani-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20L20 0M20 40L40 20M10 30L30 10M0 10L10 0M30 40L40 30' stroke='%23007A38' stroke-width='0.5' fill='none' fill-rule='evenodd' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bdcaba;
+            border-radius: 10px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fbf9f4;
+        }
+    </style>
+</head>
+<body class="text-text-main antialiased overflow-x-hidden">
+<!-- Sidebar (Shared Component) -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col h-screen border-r border-outline-variant/30 bg-surface z-50">
+<div class="p-6 flex items-center gap-3">
+<span class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</span>
+</div>
+<nav class="flex-1 px-2 space-y-1 overflow-y-auto custom-scrollbar">
+<div class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</div>
+<div class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</div>
+<div class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</div>
+<div class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</div>
+<div class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</div>
+<!-- Active State for Subscription/History -->
+<div class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="loyalty" style="font-variation-settings: 'FILL' 1;">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</div>
+<div class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</div>
+<div class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</div>
+</nav>
+<div class="p-6 mt-auto">
+<div class="bg-secondary-container text-on-secondary-container p-4 rounded-xl shadow-sm">
+<p class="text-label-sm font-label-sm mb-2 opacity-80 uppercase tracking-wider">Abonnement Pro</p>
+<p class="text-body-sm font-body-sm mb-4 leading-relaxed">Boostez votre visibilité avec le plan Premium.</p>
+<button class="w-full bg-secondary text-on-secondary py-2 rounded-lg text-label-lg font-label-lg hover:opacity-90 transition-opacity">Passer à Pro</button>
+</div>
+<div class="fani-pattern h-12 w-full mt-4 rounded-lg opacity-40"></div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md flex justify-between items-center px-gutter z-40">
+<div class="flex items-center flex-1 max-w-md bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full" placeholder="Rechercher une facture..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-outline" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-outline" data-icon="help">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right">
+<p class="text-label-lg font-label-lg group-hover:text-burkina-green-deep transition-colors">Ibrahim Traoré</p>
+<p class="text-[10px] text-text-muted uppercase tracking-widest font-bold">Burkinabé Merchant</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" data-alt="A professional headshot of a stylish West African merchant with a warm, confident expression. He is wearing modern business attire with subtle local textile accents. The lighting is bright and clean, reflecting a professional SaaS dashboard environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNrYLbsuajWlRYIYg454iruuvOneINlH6Fn2VouW11oxhumttmedwBrk9aeO4LzD_2u7yAZ_SczuYQiU91aP7t0i6BulXH_XUAs_xfInJdnJUIrxD8whqxJ8wmXQqUZKZMf-eSvLMjpoTlQpn3iNlF0B3l5FPUaW8wsdPp5f0A2yK8IOJlpygQ7Qij-yUzti76d8ivJgPVQOa174pGR01MgzkS194HnKZb77ZRXB0HSncKOWQVyLf6WOuIcItKpm9H9ZfZR7XpbYY"/>
+</div>
+</div>
+</header>
+<!-- Canvas Content -->
+<div class="pt-24 px-gutter pb-xl max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-main mb-xs">Historique des paiements</h1>
+<p class="text-body-md text-text-muted max-w-2xl">
+                        Consultez et gérez l'historique de vos abonnements Shopizi. Téléchargez vos factures pour votre comptabilité.
+                    </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant text-text-main rounded-xl hover:bg-surface-container-low transition-all font-label-lg">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                        Filtrer
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-burkina-green-deep text-white rounded-xl shadow-md hover:opacity-90 transition-all font-label-lg">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                        Tout exporter
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-lg">
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-label-sm font-label-sm text-text-muted uppercase tracking-wider mb-2">Total Payé (2024)</p>
+<h3 class="text-headline-md font-headline-md text-main">154.000 FCFA</h3>
+<p class="text-body-sm text-burkina-green-deep mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                            +12% par rapport à 2023
+                        </p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="payments">payments</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-secondary-container relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-label-sm font-label-sm text-text-muted uppercase tracking-wider mb-2">Dernier Paiement</p>
+<h3 class="text-headline-md font-headline-md text-main">15.000 FCFA</h3>
+<p class="text-body-sm text-text-muted mt-2">Effectué le 12 Octobre 2023</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="event_available">event_available</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-label-sm font-label-sm text-text-muted uppercase tracking-wider mb-2">Prochaine Échéance</p>
+<h3 class="text-headline-md font-headline-md text-main">12 Nov. 2023</h3>
+<p class="text-body-sm text-text-muted mt-2">Plan Shopizi Premium</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="calendar_today">calendar_today</span>
+</div>
+</div>
+</div>
+<!-- Transaction Table Container -->
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4 text-label-lg font-label-lg text-text-muted">Transaction ID</th>
+<th class="px-6 py-4 text-label-lg font-label-lg text-text-muted">Date & Heure</th>
+<th class="px-6 py-4 text-label-lg font-label-lg text-text-muted">Plan / Service</th>
+<th class="px-6 py-4 text-label-lg font-label-lg text-text-muted">Méthode</th>
+<th class="px-6 py-4 text-label-lg font-label-lg text-text-muted">Montant</th>
+<th class="px-6 py-4 text-label-lg font-label-lg text-text-muted">Statut</th>
+<th class="px-6 py-4 text-label-lg font-label-lg text-text-muted text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Succès -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<span class="text-label-lg font-mono text-text-muted">#SHP-92841-BF</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-body-md font-semibold">12 Octobre 2023</span>
+<span class="text-label-sm text-text-muted">14:23:45</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-body-md">Abonnement Premium (Mensuel)</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-[10px]">OM</div>
+<span class="text-body-md">Orange Money</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-body-md font-bold">15.000 FCFA</span>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-[12px] font-bold bg-green-100 text-green-700 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-700"></span>
+                                        Succès
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-burkina-green-deep hover:bg-burkina-green-light rounded-lg transition-all" title="Télécharger la facture">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</button>
+</td>
+</tr>
+<!-- Succès -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<span class="text-label-lg font-mono text-text-muted">#SHP-91220-BF</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-body-md font-semibold">12 Septembre 2023</span>
+<span class="text-label-sm text-text-muted">09:12:00</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-body-md">Abonnement Premium (Mensuel)</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-[10px]">MV</div>
+<span class="text-body-md">Moov Money</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-body-md font-bold">15.000 FCFA</span>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-[12px] font-bold bg-green-100 text-green-700 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-700"></span>
+                                        Succès
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-burkina-green-deep hover:bg-burkina-green-light rounded-lg transition-all" title="Télécharger la facture">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</button>
+</td>
+</tr>
+<!-- Échec -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<span class="text-label-lg font-mono text-text-muted">#SHP-89540-BF</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-body-md font-semibold">11 Septembre 2023</span>
+<span class="text-label-sm text-text-muted">21:45:12</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-body-md">Abonnement Premium (Mensuel)</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-[10px]">OM</div>
+<span class="text-body-md">Orange Money</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-body-md font-bold">15.000 FCFA</span>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-[12px] font-bold bg-red-100 text-red-700 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-red-700"></span>
+                                        Échec
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-text-muted hover:bg-surface-container-low rounded-lg transition-all cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined" data-icon="error_outline">error_outline</span>
+</button>
+</td>
+</tr>
+<!-- Succès -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<span class="text-label-lg font-mono text-text-muted">#SHP-87112-BF</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-body-md font-semibold">12 Août 2023</span>
+<span class="text-label-sm text-text-muted">10:00:01</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-body-md">Abonnement Premium (Mensuel)</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-[10px]">OM</div>
+<span class="text-body-md">Orange Money</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="text-body-md font-bold">15.000 FCFA</span>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full text-[12px] font-bold bg-green-100 text-green-700 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-700"></span>
+                                        Succès
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-burkina-green-deep hover:bg-burkina-green-light rounded-lg transition-all" title="Télécharger la facture">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 bg-surface-container-low/30 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="text-body-sm text-text-muted">Affichage de 4 sur 12 transactions</span>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-white transition-all disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="px-4 py-2 bg-burkina-green-deep text-white rounded-lg text-label-lg">1</button>
+<button class="px-4 py-2 border border-outline-variant rounded-lg hover:bg-white text-label-lg">2</button>
+<button class="px-4 py-2 border border-outline-variant rounded-lg hover:bg-white text-label-lg">3</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-white transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pattern Accent Footer -->
+<div class="mt-xl text-center">
+<div class="fani-pattern h-1 w-32 mx-auto mb-md opacity-20"></div>
+<p class="text-label-sm text-text-muted uppercase tracking-widest">Shopizi Business Ecosystem • Ouagadougou, BF</p>
+</div>
+</div>
+</main>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // In a real app, this would open a side panel or modal with detail
+                console.log('Clicked transaction row');
+            });
+        });
+
+        // Search highlight effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('border-burkina-green-deep', 'shadow-[0_0_0_2px_rgba(0,122,56,0.1)]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('border-burkina-green-deep', 'shadow-[0_0_0_2px_rgba(0,122,56,0.1)]');
+        });
+    </script>
+</body></html>

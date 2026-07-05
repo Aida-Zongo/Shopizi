@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: shopizi
+      POSTGRES_USER: shopizi_user
+      POSTGRES_PASSWORD: shopizi_pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: ../api
+      dockerfile: ../docker/Dockerfile.api
+    environment:
+      DATABASE_URL: postgresql://shopizi_user:shopizi_pass@postgres:5432/shopizi
+      REDIS_URL: redis://redis:6379
+      PORT: 3000
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../uploads:/app/uploads
+      - shop_sites:/var/www/shops
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ../nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - shop_sites:/var/www/shops:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  shop_sites:

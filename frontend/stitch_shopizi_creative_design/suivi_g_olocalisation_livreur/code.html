@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Livraison en cours</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .faso-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .chat-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #E0E0E0;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e4e2dd",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface": "#fbf9f4",
+                        "surface-dim": "#dbdad5",
+                        "primary-fixed-dim": "#60df81",
+                        "outline-variant": "#bdcaba",
+                        "on-secondary-fixed-variant": "#5e4200",
+                        "on-background": "#1b1c19",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#93000d",
+                        "background": "#fbf9f4",
+                        "tertiary-fixed-dim": "#ffb4ac",
+                        "on-secondary-fixed": "#271900",
+                        "primary-container": "#00873d",
+                        "primary-fixed": "#7efc9a",
+                        "on-tertiary-fixed": "#410002",
+                        "surface-variant": "#e4e2dd",
+                        "on-surface": "#1b1c19",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#006d30",
+                        "on-surface-variant": "#3e4a3e",
+                        "on-primary-fixed": "#00210a",
+                        "secondary-container": "#ffbb16",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#e32126",
+                        "secondary-fixed": "#ffdea6",
+                        "tertiary": "#bb0014",
+                        "inverse-surface": "#30312e",
+                        "burkina-green-light": "#E6F5ED",
+                        "surface-container": "#f0eee9",
+                        "inverse-primary": "#60df81",
+                        "secondary": "#7c5800",
+                        "saffron-glow": "#FFF8E6",
+                        "on-secondary-container": "#6c4d00",
+                        "burkina-green-deep": "#007A38",
+                        "surface-off-white": "#F9F7F2",
+                        "surface-container-high": "#eae8e3",
+                        "inverse-on-surface": "#f2f1ec",
+                        "secondary-fixed-dim": "#ffbb16",
+                        "primary": "#006b2f",
+                        "on-primary-container": "#f7fff3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#005323",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#6d7a6d",
+                        "on-tertiary-container": "#fffbff",
+                        "text-muted": "#5C5F5A",
+                        "surface-container-low": "#f5f3ee",
+                        "text-main": "#1A1C19",
+                        "surface-bright": "#fbf9f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased overflow-hidden h-screen flex">
+<!-- Sidebar Navigation (Predicted Component) -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col bg-surface dark:bg-surface-container shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-r border-outline-variant/30 z-50">
+<div class="p-lg">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep dark:text-primary-fixed">Shopizi</h1>
+<p class="text-label-sm text-text-muted mt-1 uppercase tracking-wider">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Table de Bord -->
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<!-- My Walks (Mapped as Active since it's a delivery track) -->
+<a class="flex items-center gap-3 bg-burkina-green-light dark:bg-primary-container text-burkina-green-deep dark:text-on-primary-container rounded-full px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted dark:text-on-surface-variant hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-md mt-auto faso-pattern border-t border-outline-variant/10">
+<div class="bg-secondary-container p-sm rounded-lg flex items-center justify-between shadow-sm">
+<span class="text-label-lg font-bold text-on-secondary-container">Passer à Pro</span>
+<span class="material-symbols-outlined text-on-secondary-container">rocket_launch</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 relative flex flex-col h-screen">
+<!-- Top Nav (Predicted Component) -->
+<header class="flex justify-between items-center px-gutter w-full h-16 z-40 bg-surface/80 backdrop-blur-md sticky top-0">
+<div class="flex items-center gap-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary w-64 text-body-sm" placeholder="Rechercher..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help">help</span>
+</button>
+<div class="flex items-center gap-2 pl-2 border-l border-outline-variant/30">
+<div class="text-right hidden sm:block">
+<p class="text-label-lg font-bold text-main leading-tight">Ibrahim Diallo</p>
+<p class="text-label-sm text-text-muted">Livreur Certifié</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover border-2 border-primary/20" data-alt="A professional headshot of a smiling West African man in his late 20s, wearing a modern company polo shirt. The lighting is soft and natural, against a clean, minimalist background that complements the Shopizi light mode interface. The photo projects an image of reliability, warmth, and professionalism for a high-end delivery service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFBknfbI359OCxdZXO_1up83zTAQ3Ac204I-aIifOIWFj9vtlt13i4apDFkVTrHAX7c8WYiNF1YhQ2lpL0dYPgXn0KobkQ5Fi9jyYkHRV25fC1IHvuvc7soj6CBES9YIIFhLDP4Ci0eH4Ro47EcqHzaJ72T61fGV5Z3SMd5LatTvNNcwBejjhR0Vtz74r86IWg70Zy5eA9vrQfdaT878pgMMQaUjnKE-J_X_sQYeMF88h92AAMU9QskxqCuOFmijY0G6LaYY5EuoY"/>
+</div>
+</div>
+</header>
+<!-- Dynamic Viewport -->
+<div class="flex-1 relative flex overflow-hidden">
+<!-- Map Layer -->
+<div class="absolute inset-0 z-0 bg-surface-container-low">
+<div class="w-full h-full grayscale opacity-80 mix-blend-multiply" data-location="Ouagadougou" style=""></div>
+<!-- Path Simulation Over Map (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-10" preserveaspectratio="none">
+<path class="animate-[dash_20s_linear_infinite]" d="M 400,200 C 450,250 500,400 600,450" fill="none" stroke="#006b2f" stroke-dasharray="8 8" stroke-width="4"></path>
+<style>
+                        @keyframes dash {
+                            to { stroke-dashoffset: -1000; }
+                        }
+                    </style>
+</svg>
+<!-- Merchant Marker -->
+<div class="absolute top-[180px] left-[380px] z-20 flex flex-col items-center group">
+<div class="bg-white p-2 rounded-xl shadow-lg border-2 border-burkina-green-deep animate-bounce-slow">
+<span class="material-symbols-outlined text-burkina-green-deep" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+<div class="mt-2 bg-burkina-green-deep text-white px-3 py-1 rounded-full text-label-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                        Restaurant Le Gourmet
+                    </div>
+</div>
+<!-- Customer Marker -->
+<div class="absolute top-[430px] left-[580px] z-20 flex flex-col items-center group">
+<div class="bg-white p-2 rounded-xl shadow-lg border-2 border-secondary animate-pulse">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">person_pin_circle</span>
+</div>
+<div class="mt-2 bg-secondary text-white px-3 py-1 rounded-full text-label-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                        Mme. Traoré
+                    </div>
+</div>
+</div>
+<!-- Bento Information Overlay (Left) -->
+<div class="relative z-30 w-96 p-md flex flex-col gap-md h-full pointer-events-none">
+<div class="pointer-events-auto space-y-md">
+<!-- Journey Card -->
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-md border-l-4 border-burkina-green-deep">
+<div class="flex items-center justify-between mb-4">
+<span class="bg-burkina-green-light text-burkina-green-deep px-3 py-1 rounded-full text-label-sm font-bold">En Route</span>
+<div class="text-right">
+<p class="text-headline-sm font-bold text-main">12 min</p>
+<p class="text-label-sm text-text-muted">3.4 km restants</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-2.5 h-2.5 rounded-full bg-burkina-green-deep"></div>
+<div class="w-0.5 flex-1 bg-outline-variant/30 my-1"></div>
+</div>
+<div>
+<p class="text-label-sm text-text-muted">Retrait</p>
+<p class="text-body-sm font-bold">Restaurant Le Gourmet, Avenue Kwamé N'Krumah</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+</div>
+<div>
+<p class="text-label-sm text-text-muted">Livraison</p>
+<p class="text-body-sm font-bold">Villa 402, Quartier Ouaga 2000</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Details Accordion/Bento -->
+<div class="bg-white/90 backdrop-blur-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-md">
+<h3 class="text-label-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-burkina-green-deep">restaurant_menu</span>
+                            Détails de la Commande #4829
+                        </h3>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-text-muted">2x Poulet Braisé</span>
+<span class="font-medium">8 000 CFA</span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-text-muted">1x Jus de Bissap (1L)</span>
+<span class="font-medium">1 500 CFA</span>
+</div>
+<div class="pt-3 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-bold">Total à encaisser</span>
+<span class="font-bold text-burkina-green-deep">9 500 CFA</span>
+</div>
+</div>
+</div>
+<!-- Merchant Info Card -->
+<div class="bg-white/90 backdrop-blur-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-md flex items-center gap-4">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A stylized, modern restaurant logo for 'Le Gourmet' with West African design influences. It uses Burkina Green and Golden Saffron as primary colors. The background is a clean white circle, fitting perfectly into a SaaS merchant profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFdTYwpY3V9_jNTrUiQ6DvC5xtYg5Lgvh09m96LZqidDEjYOZSZSPbtpPl2ym8kppOfD2efvU0rrn2AWb981wyZ-0K2Sqq36DHYQv0NHk9I8ttEJ2HZ0Cma9RgvoEhVJqbOtnz9CVGetAWXcfEz1cRJq0-PmS9lVVGbXMSOn1cW2lUpPm29z0ssXRGEFLfZ_UFe0vP1JNuVWM5cHk5AC0vhTS2wIp4_jc7KbucY1NuHBRHQ6D-jf0DoLjJUxDHeKg1Ohv-6o1ybaE"/>
+<div class="flex-1">
+<p class="text-label-lg font-bold">Restaurant Le Gourmet</p>
+<p class="text-label-sm text-text-muted">Commerçant Vérifié</p>
+</div>
+<button class="w-10 h-10 bg-burkina-green-light text-burkina-green-deep rounded-full flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">call</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Chat Module (Right) -->
+<div class="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-[-10px_0_30px_rgba(0,0,0,0.04)] z-40 flex flex-col">
+<div class="p-md border-b border-outline-variant/30 flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A profile portrait of a stylish Burkinabé woman in a vibrant traditional headscarf, representing a customer in a high-end app environment. The photo is warm and professionally shot, with focus on her friendly expression. Soft daylight lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxo6JbJItQJtKmlDUf6bYe1QUi_9RrvBkBUsQL5-T7UbLqlexts7CNpKxTYLNb_u1gv8IaALqQ750lDc9oPC8P8MPBHOQ6vj3UNqei6Xj7dbb0r5Ip_5Sv6K4onaTAVJyfCgusPUVR_9PzQRPRhSpopJ8csj4Vii0itwnQFfu2ITlQhZMGI8py4mT6yH6Cvp-sULrIKIACnxpgdkDkW0Tti1iYXcpy2G144n00Wx7CXtqcZQrgwcWiEM9WHIneXseEoNf2p2Hpdfs"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-burkina-green-deep border-2 border-white rounded-full"></div>
+</div>
+<div>
+<p class="text-label-lg font-bold">Mme. Traoré</p>
+<p class="text-[10px] text-burkina-green-deep font-bold uppercase tracking-widest">Client</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-md space-y-4 chat-scroll">
+<!-- Received -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-surface-container-high rounded-2xl rounded-tl-none p-3">
+<p class="text-body-sm">Bonjour Ibrahim, est-ce que la commande est déjà prête ?</p>
+</div>
+<span class="text-[10px] text-text-muted mt-1 ml-1">14:20</span>
+</div>
+<!-- Sent -->
+<div class="flex flex-col items-end ml-auto max-w-[85%]">
+<div class="bg-burkina-green-deep text-white rounded-2xl rounded-tr-none p-3 shadow-md">
+<p class="text-body-sm">Bonjour ! Oui, je viens de la récupérer. Je suis en route pour votre domicile.</p>
+</div>
+<div class="flex items-center gap-1 mt-1 mr-1">
+<span class="text-[10px] text-text-muted">14:22</span>
+<span class="material-symbols-outlined text-[12px] text-burkina-green-deep">done_all</span>
+</div>
+</div>
+<!-- Received -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-surface-container-high rounded-2xl rounded-tl-none p-3">
+<p class="text-body-sm">Parfait, merci ! N'hésitez pas à m'appeler quand vous arrivez devant le portail vert.</p>
+</div>
+<span class="text-[10px] text-text-muted mt-1 ml-1">14:23</span>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="p-md border-t border-outline-variant/30">
+<div class="relative flex items-center gap-2">
+<div class="flex-1 relative">
+<input class="w-full pl-4 pr-10 py-3 bg-surface-container-low border-none rounded-xl text-body-sm focus:ring-1 focus:ring-burkina-green-deep" placeholder="Écrire un message..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-outline hover:text-burkina-green-deep">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+</div>
+<button class="w-11 h-11 bg-burkina-green-deep text-white rounded-xl flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Floating Action Bar (Contextual) -->
+<div class="absolute bottom-md left-1/2 -translate-x-1/2 z-40 w-full max-w-lg px-gutter pointer-events-none">
+<div class="bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-[0px_10px_32px_rgba(0,0,0,0.08)] pointer-events-auto border border-white/50 flex gap-md">
+<button class="flex-1 bg-secondary text-on-secondary py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-secondary/90 transition-all shadow-md">
+<span class="material-symbols-outlined">problem</span>
+                        Signaler un problème
+                    </button>
+<button class="flex-1 bg-burkina-green-deep text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-md">
+<span class="material-symbols-outlined">task_alt</span>
+                        Confirmer Livraison
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction for the markers or journey update
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Shopizi Delivery Interface Active");
+            
+            // Simple animation for the "En Route" indicator
+            const statusBadge = document.querySelector('.bg-burkina-green-light');
+            setInterval(() => {
+                statusBadge.classList.toggle('opacity-70');
+            }, 1000);
+        });
+    </script>
+</body></html>

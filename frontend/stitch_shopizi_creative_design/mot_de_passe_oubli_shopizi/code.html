@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Mot de passe oublié</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .sahel-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .ethereal-blur {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#ffbb16",
+                      "surface-variant": "#e4e2dd",
+                      "surface-container-highest": "#e4e2dd",
+                      "surface-dim": "#dbdad5",
+                      "inverse-primary": "#60df81",
+                      "on-primary-fixed": "#00210a",
+                      "on-tertiary-container": "#fffbff",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "surface": "#fbf9f4",
+                      "burkina-green-deep": "#007A38",
+                      "secondary": "#7c5800",
+                      "tertiary": "#bb0014",
+                      "inverse-surface": "#30312e",
+                      "on-primary-fixed-variant": "#005323",
+                      "on-background": "#1b1c19",
+                      "secondary-fixed": "#ffdea6",
+                      "primary-container": "#00873d",
+                      "surface-container": "#f0eee9",
+                      "tertiary-container": "#e32126",
+                      "on-secondary-fixed-variant": "#5e4200",
+                      "tertiary-fixed-dim": "#ffb4ac",
+                      "burkina-green-light": "#E6F5ED",
+                      "on-error": "#ffffff",
+                      "text-muted": "#5C5F5A",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#60df81",
+                      "on-secondary-container": "#6c4d00",
+                      "surface-container-low": "#f5f3ee",
+                      "on-tertiary-fixed-variant": "#93000d",
+                      "surface-tint": "#006d30",
+                      "outline": "#6d7a6d",
+                      "surface-container-high": "#eae8e3",
+                      "tertiary-fixed": "#ffdad6",
+                      "inverse-on-surface": "#f2f1ec",
+                      "outline-variant": "#bdcaba",
+                      "saffron-glow": "#FFF8E6",
+                      "primary-fixed": "#7efc9a",
+                      "background": "#fbf9f4",
+                      "on-secondary-fixed": "#271900",
+                      "on-tertiary-fixed": "#410002",
+                      "text-main": "#1A1C19",
+                      "primary": "#006b2f",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#f7fff3",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#fbf9f4",
+                      "secondary-fixed-dim": "#ffbb16",
+                      "surface-off-white": "#F9F7F2",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#1b1c19",
+                      "on-surface-variant": "#3e4a3e",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "1.5rem",
+                      "sm": "1rem",
+                      "xl": "4rem",
+                      "container-max": "1280px",
+                      "baseline": "4px",
+                      "gutter": "1.5rem",
+                      "lg": "2.5rem",
+                      "xs": "0.5rem"
+              },
+              "fontFamily": {
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "body-sm": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-sm": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface font-body-md text-text-main min-h-screen flex items-center justify-center sahel-pattern p-sm md:p-lg">
+<!-- Background Decorative Elements -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-burkina-green-light/30 rounded-full blur-3xl float-animation"></div>
+<div class="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] bg-secondary-fixed/20 rounded-full blur-3xl float-animation" style="animation-delay: -2s;"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 w-full max-w-[480px]">
+<div class="bg-surface-container-lowest/80 ethereal-blur border border-white/40 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] rounded-xl p-md md:p-lg transition-all duration-500 hover:shadow-[0px_10px_32px_rgba(0,0,0,0.08)]">
+<!-- Brand Identity -->
+<div class="flex flex-col items-center mb-lg">
+<div class="w-16 h-16 bg-burkina-green-deep rounded-xl flex items-center justify-center mb-md shadow-lg transform hover:rotate-6 transition-transform">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="lock_reset">lock_reset</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-burkina-green-deep mb-xs tracking-tight">Shopizi</h1>
+<p class="text-body-md text-text-muted text-center max-w-xs">
+                    Entrez votre email pour recevoir un lien de réinitialisation sécurisé.
+                </p>
+</div>
+<!-- Request Form -->
+<form class="space-y-md" id="resetForm">
+<div class="space-y-xs">
+<label class="text-label-lg font-label-lg text-on-surface-variant block ml-1" for="email">
+                        Adresse e-mail professionnelle
+                    </label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="mail">mail</span>
+<input class="w-full pl-12 pr-4 py-4 bg-white border border-outline-variant rounded-lg outline-none transition-all focus:border-burkina-green-deep focus:ring-4 focus:ring-burkina-green-light text-body-md" id="email" placeholder="nom@boutique.bf" required="" type="email"/>
+</div>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container font-label-lg text-label-lg py-4 rounded-lg shadow-sm hover:shadow-md hover:bg-[#E5A814] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2" type="submit">
+                    Envoyer le lien
+                    <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- Success State (Hidden by default) -->
+<div class="hidden text-center py-md space-y-md animate-in fade-in zoom-in duration-500" id="successMessage">
+<div class="w-12 h-12 bg-burkina-green-light rounded-full flex items-center justify-center mx-auto">
+<span class="material-symbols-outlined text-burkina-green-deep" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-burkina-green-deep">Lien envoyé !</h3>
+<p class="text-body-sm text-text-muted mt-2">
+                        Vérifiez votre boîte de réception (et vos spams) pour continuer.
+                    </p>
+</div>
+<button class="text-burkina-green-deep font-label-lg hover:underline" onclick="location.reload()">
+                    Renvoyer l'e-mail
+                </button>
+</div>
+<!-- Navigation Links -->
+<div class="mt-lg pt-md border-t border-outline-variant/30 flex flex-col items-center gap-4">
+<a class="group flex items-center gap-2 text-text-muted hover:text-burkina-green-deep transition-colors text-label-lg" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform" data-icon="arrow_back">arrow_back</span>
+                    Retour à la connexion
+                </a>
+<div class="flex items-center gap-2 opacity-40 grayscale pointer-events-none mt-2">
+<div class="w-8 h-[2px] bg-burkina-green-deep"></div>
+<span class="text-label-sm font-label-sm uppercase tracking-widest">Sahel Craft</span>
+<div class="w-8 h-[2px] bg-tertiary"></div>
+</div>
+</div>
+</div>
+<!-- Support Info -->
+<p class="mt-md text-center text-label-sm text-text-muted px-md">
+            Besoin d'aide ? Contactez notre support Burkinabé au <span class="text-burkina-green-deep font-semibold">+226 XX XX XX XX</span> ou visitez notre centre d'aide.
+        </p>
+</main>
+<!-- Visual Accents -->
+<div class="fixed bottom-0 left-0 w-full h-24 pointer-events-none opacity-5 overflow-hidden">
+<svg height="100%" preserveaspectratio="none" viewbox="0 0 1200 100" width="100%">
+<path d="M0,50 C150,20 350,80 500,50 C650,20 850,80 1000,50 L1200,50 L1200,100 L0,100 Z" fill="#007A38"></path>
+</svg>
+</div>
+<script>
+        // Micro-interaction for form submission
+        const form = document.getElementById('resetForm');
+        const success = document.getElementById('successMessage');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            const originalContent = btn.innerHTML;
+            
+            // Loading state
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="progress_activity">progress_activity</span>';
+            
+            setTimeout(() => {
+                form.classList.add('hidden');
+                success.classList.remove('hidden');
+            }, 1500);
+        });
+
+        // Hover effect for the card tracking mouse
+        const card = document.querySelector('.ethereal-blur');
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth > 768) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+    </script>
+</body></html>

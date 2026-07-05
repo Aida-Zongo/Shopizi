@@ -1,0 +1,1 @@
+# Shopizi Static Site Generator

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Tableau de Bord Marchand</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#f0eee9",
+                    "tertiary-container": "#e32126",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "outline-variant": "#bdcaba",
+                    "outline": "#6d7a6d",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#fffbff",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#00873d",
+                    "saffron-glow": "#FFF8E6",
+                    "background": "#fbf9f4",
+                    "primary": "#006b2f",
+                    "primary-fixed": "#7efc9a",
+                    "on-surface": "#1b1c19",
+                    "inverse-primary": "#60df81",
+                    "on-primary-fixed": "#00210a",
+                    "surface": "#fbf9f4",
+                    "tertiary": "#bb0014",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#60df81",
+                    "surface-dim": "#dbdad5",
+                    "inverse-surface": "#30312e",
+                    "surface-tint": "#006d30",
+                    "burkina-green-deep": "#007A38",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#ffdea6",
+                    "on-primary-fixed-variant": "#005323",
+                    "text-muted": "#5C5F5A",
+                    "on-background": "#1b1c19",
+                    "on-tertiary-fixed": "#410002",
+                    "on-secondary-container": "#6c4d00",
+                    "text-main": "#1A1C19",
+                    "surface-container-high": "#eae8e3",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#fbf9f4",
+                    "surface-container-low": "#f5f3ee",
+                    "on-error": "#ffffff",
+                    "burkina-green-light": "#E6F5ED",
+                    "surface-container-highest": "#e4e2dd",
+                    "inverse-on-surface": "#f2f1ec",
+                    "tertiary-fixed": "#ffdad6",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "on-secondary-fixed": "#271900",
+                    "on-surface-variant": "#3e4a3e",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "surface-off-white": "#F9F7F2",
+                    "secondary-container": "#ffbb16",
+                    "on-primary-container": "#f7fff3",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e4e2dd",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "secondary": "#7c5800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "1.5rem",
+                    "xs": "0.5rem",
+                    "baseline": "4px",
+                    "lg": "2.5rem",
+                    "md": "1.5rem",
+                    "xl": "4rem",
+                    "sm": "1rem",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .faso-pattern {
+            background-image: linear-gradient(45deg, #007A38 12%, transparent 12%, transparent 50%, #007A38 50%, #007A38 62%, transparent 62%, transparent 100%);
+            background-size: 8px 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bdcaba;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-text-main custom-scrollbar">
+<!-- SideNavBar -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col border-r border-outline-variant/30 bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="px-6 py-8 flex items-center gap-3">
+<div class="w-10 h-10 bg-burkina-green-deep rounded-xl flex items-center justify-center text-white font-bold text-headline-sm">S</div>
+<span class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</span>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-2 mt-4 overflow-y-auto custom-scrollbar">
+<!-- Active: Tableau de Bord -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2 scale-95 duration-150 ease-in-out transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep hover:bg-surface-container-low px-4 py-3 mx-2 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-primary-container p-4 rounded-xl text-white relative overflow-hidden group cursor-pointer transition-transform hover:scale-[1.02]">
+<div class="faso-pattern absolute inset-0 opacity-10"></div>
+<div class="relative z-10">
+<p class="text-label-sm opacity-90 mb-1">Passer au niveau supérieur</p>
+<p class="text-label-lg font-bold mb-3">Shopizi Pro Plan</p>
+<button class="bg-secondary-container text-on-secondary-container text-label-sm px-4 py-2 rounded-lg font-bold transition-all hover:bg-secondary-fixed">Passer à Pro</button>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-6 px-2">
+<div class="w-10 h-10 rounded-full border-2 border-burkina-green-deep p-0.5 overflow-hidden">
+<img class="w-full h-full object-cover rounded-full" data-alt="A professional portrait of a West African merchant, smiling warmly, dressed in elegant traditional attire with a modern touch. The lighting is soft and natural, emphasizing a trustworthy and successful business persona. The background is a clean, blurred modern office interior in Burkina Faso." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARZUJeaYM3JUAQiIo8u6NLBqRF9B0BcMyaMEK1C8ZRRJEeG0cmyo0pE8Lqz9ieb2UudLaktktGyPSnFTKfFVXS1tX5HkR8zdElzgXRAoCK-9i1DteU5b7DF9QeS9Lmh23hz4t8F_Lsic_Dtwj21GF2XXZFQEcsC2R_nYdHoxUwFJiRk4Yalyy2eiZs3shBok9SVBW_ybjuohfwQnOoOfPvCjdxNLCZKOJHnkaW-auVwQWw68XQQZkyUjWHtQkujbnlK4rGdtv9BEc"/>
+</div>
+<div class="flex flex-col">
+<span class="text-label-lg font-bold leading-none">Moussa Traoré</span>
+<span class="text-label-sm text-text-muted leading-none mt-1">Burkinabé Merchant</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-4 bg-surface-container-low rounded-full px-4 py-2 w-96">
+<span class="material-symbols-outlined text-text-muted" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full" placeholder="Rechercher des produits, clients..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest/50 transition-all text-text-muted">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest/50 transition-all text-text-muted">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div>
+<div class="flex items-center gap-3 pl-2">
+<span class="text-label-md font-label-md text-burkina-green-deep bg-burkina-green-light px-3 py-1 rounded-full">Boutique Ouverte</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="max-w-container-max mx-auto p-gutter">
+<!-- Welcome Header -->
+<section class="mb-lg animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-text-main">Bonjour, Moussa Traoré !</h1>
+<p class="text-body-lg text-text-muted mt-2">Voici ce qui se passe dans votre boutique aujourd'hui.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant text-text-main px-4 py-2.5 rounded-lg text-label-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="ios_share">ios_share</span>
+                            Exporter
+                        </button>
+<button class="flex items-center gap-2 bg-secondary-container text-on-secondary-container px-5 py-2.5 rounded-lg text-label-lg font-bold shadow-sm hover:shadow-md transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                            Ajouter un produit
+                        </button>
+</div>
+</div>
+</section>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md mb-xl">
+<!-- Ventes Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border-l-4 border-burkina-green-deep">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-burkina-green-light flex items-center justify-center text-burkina-green-deep">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</div>
+<span class="text-label-sm text-primary flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span>
+                            +12%
+                        </span>
+</div>
+<p class="text-label-lg text-text-muted">Ventes du mois</p>
+<div class="flex items-baseline gap-2 mt-1">
+<h3 class="text-headline-md font-bold">1,250,000</h3>
+<span class="text-label-sm font-bold text-text-muted">XOF</span>
+</div>
+<div class="mt-6 h-12 w-full flex items-end gap-1">
+<!-- Tiny Sparkline Mock -->
+<div class="flex-1 bg-burkina-green-light rounded-t-sm h-[30%] transition-all hover:h-[45%]"></div>
+<div class="flex-1 bg-burkina-green-light rounded-t-sm h-[45%] transition-all hover:h-[60%]"></div>
+<div class="flex-1 bg-burkina-green-light rounded-t-sm h-[35%] transition-all hover:h-[50%]"></div>
+<div class="flex-1 bg-burkina-green-light rounded-t-sm h-[55%] transition-all hover:h-[70%]"></div>
+<div class="flex-1 bg-burkina-green-deep rounded-t-sm h-[75%] transition-all hover:h-[90%]"></div>
+<div class="flex-1 bg-burkina-green-light rounded-t-sm h-[65%] transition-all hover:h-[80%]"></div>
+<div class="flex-1 bg-burkina-green-light rounded-t-sm h-[85%] transition-all hover:h-[100%]"></div>
+</div>
+</div>
+<!-- Commandes Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-saffron-glow flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="pending_actions">pending_actions</span>
+</div>
+<span class="text-label-sm text-tertiary flex items-center gap-1 font-bold">
+                            Urgent
+                        </span>
+</div>
+<p class="text-label-lg text-text-muted">Commandes en attente</p>
+<h3 class="text-headline-md font-bold mt-1">24</h3>
+<div class="mt-4 flex items-center gap-2">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-white bg-slate-200"></div>
+</div></div></div></section></div></main></body></html>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}À propos — {{ shop.name }}{% endblock %}
+{% block content %}
+<section class="page-header">
+  <h1>À propos de nous</h1>
+</section>
+<section class="about">
+  <div class="container">
+    <p>{{ shop.description or 'Bienvenue dans notre boutique en ligne.' }}</p>
+    <ul class="info-list">
+      {% if shop.whatsapp_number %}<li>WhatsApp: {{ shop.whatsapp_number }}</li>{% endif %}
+      {% if shop.phone_number %}<li>Téléphone: {{ shop.phone_number }}</li>{% endif %}
+      {% if shop.address %}<li>Adresse: {{ shop.address }}, {{ shop.city or '' }}</li>{% endif %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,265 @@
+const { query, getClient } = require('../../db/pool');
+const { NotFoundError, BadRequestError, PaymentError } = require('../../utils/errors');
+const { getIO } = require('../../realtime/socket');
+const eventBus = require('../../events');
+const config = require('../../config/index');
+
+const PAYMENT_TYPES = ['order', 'subscription', 'ads'];
+
+/**
+ * Mode courant : 'paydunya' dès qu'une vraie clé Master PayDunya est présente
+ * dans .env, 'sandbox' sinon. Permet de basculer sans changement de code.
+ */
+function getMode() {
+  const key = process.env.PAYDUNYA_MASTER_KEY;
+  return key && key !== 'change-me' ? 'paydunya' : 'sandbox';
+}
+
+function generateTransactionId(prefix) {
+  return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+}
+
+/**
+ * Point d'entrée unique pour démarrer un paiement (commande, abonnement ou pub).
+ */
+async function initiatePayment({ type, amount, customerId, shopId, metadata }) {
+  if (!PAYMENT_TYPES.includes(type)) throw new BadRequestError('Type de paiement invalide');
+  if (!amount || amount <= 0) throw new BadRequestError('Montant invalide');
+
+  return getMode() === 'sandbox'
+    ? initiateSandbox({ type, amount, customerId, shopId, metadata })
+    : initiatePaydunya({ type, amount, customerId, shopId, metadata });
+}
+
+async function initiateSandbox({ type, amount, customerId, shopId, metadata }) {
+  const transactionId = generateTransactionId('SANDBOX');
+  await query(
+    `INSERT INTO payment_transactions (transaction_id, type, amount, customer_id, shop_id, status, metadata)
+     VALUES ($1,$2,$3,$4,$5,'pending',$6)`,
+    [transactionId, type, amount, customerId || null, shopId || null, metadata ? JSON.stringify(metadata) : null]
+  );
+
+  return {
+    mode: 'sandbox',
+    transaction_id: transactionId,
+    payment_url: null,
+    sandbox_url: `/api/v1/payments/sandbox/confirm/${transactionId}`,
+  };
+}
+
+/**
+ * Démarre un paiement via PayDunya (Orange Money, Moov, Wave... Burkina Faso).
+ * On persiste d'abord la transaction en base ('pending') puis on crée la
+ * facture PayDunya. Le transaction_id est passé en custom_data pour que le
+ * webhook puisse retrouver et confirmer la transaction. Idempotent côté order
+ * via processConfirmedPayment.
+ *
+ * NB : le SDK paydunya lit `returnURL`/`cancelURL`/`callbackURL` et
+ * `logoURL`/`websiteURL` (URL en majuscules) — un mauvais casing serait
+ * silencieusement ignoré et le webhook ne serait jamais enregistré.
+ */
+async function initiatePaydunya({ type, amount, customerId, shopId, metadata }) {
+  const paydunya = require('paydunya');
+
+  const transactionId = generateTransactionId('PD');
+  await query(
+    `INSERT INTO payment_transactions (transaction_id, type, amount, customer_id, shop_id, status, metadata)
+     VALUES ($1,$2,$3,$4,$5,'pending',$6)`,
+    [transactionId, type, amount, customerId || null, shopId || null, metadata ? JSON.stringify(metadata) : null]
+  );
+
+  const setup = new paydunya.Setup({
+    masterKey: process.env.PAYDUNYA_MASTER_KEY,
+    privateKey: process.env.PAYDUNYA_PRIVATE_KEY,
+    token: process.env.PAYDUNYA_TOKEN,
+    publicKey: process.env.PAYDUNYA_PUBLIC_KEY,
+    mode: process.env.PAYDUNYA_MODE || 'test',
+  });
+
+  const store = new paydunya.Store({
+    name: 'Shopizi',
+    tagline: 'La marketplace digitale du Burkina Faso',
+    phoneNumber: '+22666869010',
+    postalAddress: 'Ouagadougou, Burkina Faso',
+    logoURL: 'https://shopizi.bf/logo-shopizi.png',
+    websiteURL: 'https://shopizi.bf',
+  });
+
+  const frontendUrl = process.env.FRONTEND_URL || config.frontend.url;
+  const backendUrl = process.env.BACKEND_URL || `http://localhost:${config.server.port}`;
+
+  const invoice = new paydunya.CheckoutInvoice(setup, store);
+  invoice.description = 'Shopizi - ' + type;
+  invoice.totalAmount = amount;
+  invoice.addItem('Shopizi ' + type, 1, amount, amount);
+  invoice.addCustomData('transaction_id', transactionId);
+  invoice.cancelURL = frontendUrl + '/payment/cancel';
+  invoice.returnURL = frontendUrl + '/payment/success?ref=' + transactionId;
+  invoice.callbackURL = backendUrl + '/api/v1/payments/webhook/paydunya';
+
+  try {
+    await invoice.create();
+  } catch (err) {
+    await query(`UPDATE payment_transactions SET status = 'failed' WHERE transaction_id = $1`, [transactionId]);
+    throw new PaymentError(err.message || "Échec de l'initialisation du paiement PayDunya");
+  }
+
+  return {
+    mode: 'paydunya',
+    transaction_id: transactionId,
+    payment_url: invoice.url,
+    paydunya_token: invoice.token,
+  };
+}
+
+/**
+ * Confirme une transaction (sandbox ou webhook CinetPay) et déclenche
+ * les actions métier correspondant à son type. Idempotent.
+ */
+async function processConfirmedPayment(transactionId, status = 'completed') {
+  const txRes = await query('SELECT * FROM payment_transactions WHERE transaction_id = $1', [transactionId]);
+  if (txRes.rows.length === 0) throw new NotFoundError('Transaction introuvable');
+  const tx = txRes.rows[0];
+
+  if (tx.status !== 'pending') return tx; // déjà traité
+
+  await query(
+    `UPDATE payment_transactions SET status = $1, confirmed_at = NOW() WHERE transaction_id = $2`,
+    [status, transactionId]
+  );
+  tx.status = status;
+
+  if (status !== 'completed') return tx;
+
+  const metadata = tx.metadata || {};
+  if (tx.type === 'order') await processOrderPayment(tx, metadata);
+  else if (tx.type === 'subscription') await processSubscriptionPayment(tx, metadata);
+  else if (tx.type === 'ads') await processAdsPayment(tx, metadata);
+
+  return tx;
+}
+
+/**
+ * Commande client payée : confirme la commande et crédite le solde du
+ * marchand. La répartition (5% Shopizi / 95% livreur sur la livraison,
+ * 100% marchand sur le produit) a déjà été calculée à la création de la
+ * commande dans order_financials — on ne fait ici que débloquer le paiement.
+ */
+async function processOrderPayment(tx, metadata) {
+  const orderId = metadata.order_id;
+  if (!orderId) throw new BadRequestError('order_id manquant dans les métadonnées de paiement');
+
+  const client = await getClient();
+  let order, merchantEarnings;
+  try {
+    await client.query('BEGIN');
+
+    const orderRes = await client.query('SELECT * FROM orders WHERE id = $1 FOR UPDATE', [orderId]);
+    if (orderRes.rows.length === 0) throw new NotFoundError('Commande introuvable');
+    order = orderRes.rows[0];
+
+    const finRes = await client.query('SELECT merchant_earnings_xof FROM order_financials WHERE order_id = $1', [orderId]);
+    merchantEarnings = finRes.rows[0]?.merchant_earnings_xof || 0;
+
+    const updated = await client.query(
+      `UPDATE orders SET payment_status = 'paid', status = CASE WHEN status = 'new' THEN 'confirmed' ELSE status END
+       WHERE id = $1 RETURNING *`,
+      [orderId]
+    );
+    order = updated.rows[0];
+
+    await client.query(
+      `UPDATE shops SET pending_balance = pending_balance + $1, total_earned = total_earned + $1 WHERE id = $2`,
+      [merchantEarnings, order.shop_id]
+    );
+
+    await client.query('COMMIT');
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+
+  getIO().emit('new:order', {
+    order_id: order.id,
+    product_name: metadata.product_name || null,
+    delivery_address: order.delivery_address,
+    driver_amount: metadata.driver_amount_xof || 0,
+  });
+  getIO().emit('order:confirmed', { order_id: order.id, shop_id: order.shop_id });
+  eventBus.emit('order:status_changed', { shopId: order.shop_id, orderId: order.id, oldStatus: 'new', newStatus: order.status });
+}
+
+/**
+ * Abonnement payé : active le plan pour 30 jours. Les fonctionnalités
+ * (produits illimités, rapports, équipe...) se déduisent automatiquement
+ * du plan actif via subscriptions.plan_id — aucune table de flags séparée.
+ */
+async function processSubscriptionPayment(tx, metadata) {
+  const planSlug = metadata.plan_slug;
+  const shopId = metadata.shop_id || tx.shop_id;
+  if (!planSlug || !shopId) throw new BadRequestError('plan_slug ou shop_id manquant dans les métadonnées de paiement');
+
+  const shopRes = await query('SELECT user_id FROM shops WHERE id = $1', [shopId]);
+  if (shopRes.rows.length === 0) throw new NotFoundError('Boutique introuvable');
+  const userId = shopRes.rows[0].user_id;
+
+  const planRes = await query('SELECT * FROM plans WHERE slug = $1 AND is_active = true', [planSlug]);
+  if (planRes.rows.length === 0) throw new NotFoundError('Plan introuvable');
+  const plan = planRes.rows[0];
+
+  const client = await getClient();
+  try {
+    await client.query('BEGIN');
+    await client.query(
+      `UPDATE subscriptions SET status = 'cancelled' WHERE user_id = $1 AND status IN ('trial','active','past_due')`,
+      [userId]
+    );
+    await client.query(
+      `INSERT INTO subscriptions (user_id, plan_id, status, starts_at, ends_at)
+       VALUES ($1,$2,'active',NOW(),NOW() + INTERVAL '30 days')`,
+      [userId, plan.id]
+    );
+    await client.query('COMMIT');
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+
+  eventBus.emit('payment:completed', { userId, payment: { amount: tx.amount, method: 'payment_transactions' }, planSlug: plan.slug });
+  eventBus.emit('subscription:activated', { userId, planSlug: plan.slug });
+}
+
+/**
+ * Publicité payée : crée la campagne active. Elle apparaît immédiatement
+ * comme "sponsorisée" via customer.routes.js (GET /customer/products/featured),
+ * qui ne joint que les ads au statut 'active'.
+ */
+async function processAdsPayment(tx, metadata) {
+  const { product_id, budget_xof } = metadata;
+  const shop_id = metadata.shop_id || tx.shop_id;
+  if (!product_id || !budget_xof || !shop_id) {
+    throw new BadRequestError('product_id, budget_xof ou shop_id manquant dans les métadonnées de paiement');
+  }
+
+  const adRes = await query(
+    `INSERT INTO ads (shop_id, product_id, budget_xof, status) VALUES ($1,$2,$3,'active') RETURNING *`,
+    [shop_id, product_id, budget_xof]
+  );
+
+  getIO().emit('ads:activated', { shop_id, product_id, ad_id: adRes.rows[0].id });
+}
+
+module.exports = {
+  getMode,
+  initiatePayment,
+  initiateSandbox,
+  initiatePaydunya,
+  processConfirmedPayment,
+  processOrderPayment,
+  processSubscriptionPayment,
+  processAdsPayment,
+};

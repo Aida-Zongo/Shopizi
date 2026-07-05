@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopizi - Messagerie Marchande</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#e4e2dd",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "surface-dim": "#dbdad5",
+                    "primary-fixed-dim": "#60df81",
+                    "outline-variant": "#bdcaba",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "on-background": "#1b1c19",
+                    "tertiary-fixed": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "background": "#fbf9f4",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "on-secondary-fixed": "#271900",
+                    "primary-container": "#00873d",
+                    "primary-fixed": "#7efc9a",
+                    "on-tertiary-fixed": "#410002",
+                    "surface-variant": "#e4e2dd",
+                    "on-surface": "#1b1c19",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#006d30",
+                    "on-surface-variant": "#3e4a3e",
+                    "on-primary-fixed": "#00210a",
+                    "secondary-container": "#ffbb16",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#e32126",
+                    "secondary-fixed": "#ffdea6",
+                    "tertiary": "#bb0014",
+                    "inverse-surface": "#30312e",
+                    "burkina-green-light": "#E6F5ED",
+                    "surface-container": "#f0eee9",
+                    "inverse-primary": "#60df81",
+                    "secondary": "#7c5800",
+                    "saffron-glow": "#FFF8E6",
+                    "on-secondary-container": "#6c4d00",
+                    "burkina-green-deep": "#007A38",
+                    "surface-off-white": "#F9F7F2",
+                    "surface-container-high": "#eae8e3",
+                    "inverse-on-surface": "#f2f1ec",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "primary": "#006b2f",
+                    "on-primary-container": "#f7fff3",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#005323",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#6d7a6d",
+                    "on-tertiary-container": "#fffbff",
+                    "text-muted": "#5C5F5A",
+                    "surface-container-low": "#f5f3ee",
+                    "text-main": "#1A1C19",
+                    "surface-bright": "#fbf9f4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "1.5rem",
+                    "container-max": "1280px",
+                    "xl": "4rem",
+                    "sm": "1rem",
+                    "xs": "0.5rem",
+                    "lg": "2.5rem",
+                    "md": "1.5rem",
+                    "baseline": "4px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fbf9f4; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .faso-dan-fani-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 122, 56, 0.05) 1px, transparent 0);
+            background-size: 16px 16px;
+        }
+        .chat-scroll::-webkit-scrollbar { width: 4px; }
+        .chat-scroll::-webkit-scrollbar-track { background: transparent; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: #bdcaba; border-radius: 10px; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Sidebar Navigation (From JSON) -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col border-r border-outline-variant/30 bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="p-6">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 px-2 space-y-1 overflow-y-auto">
+<!-- Table of Dashboard (Inactive) -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<!-- Commandes (Active for this Chat Context) -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 mt-auto faso-dan-fani-pattern">
+<button class="w-full bg-secondary-container text-on-secondary-container font-label-lg py-3 rounded-xl hover:shadow-md transition-all">
+                Passer à Pro
+            </button>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 flex justify-between items-center px-gutter bg-surface/80 backdrop-blur-md z-40">
+<div class="flex items-center bg-surface-container-low rounded-full px-4 py-2 w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full ml-2" placeholder="Rechercher une discussion..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a West African merchant, smiling warmly, wearing traditional attire with modern accents. The lighting is soft and golden, echoing a Sahelian sunset. The background is a clean, minimalist white office space with a touch of Faso Dan Fani textile art." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa_V6N7MrKJZsuDmnAvKtrCd3r0E_o-Z-uJpnURlakHuVfdl1J2ep7b35NY2OWw-3l9YGSceu_6U3TOq8yvuN3TPZXZE3MNKOrQ2EfXtc4LU70bg-AD0WxiGpp878cgCylTOAobwc97qKxdePUBCd1Aw09bhcxRTlbD2OfnLS1MemT3g8C7ihvVahc6Zy6nxaP23HCK4iYLoGEtKjxy778NddhSr1WNS3bVK69EOtvaLqowXqHrm0lYi38AI2EzdBW0keRyu9Q_vM"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area: Chat Layout -->
+<main class="ml-64 pt-16 h-screen flex overflow-hidden">
+<!-- Discussions List Panel -->
+<section class="w-80 flex flex-col border-r border-outline-variant/30 bg-surface-container-lowest">
+<div class="p-4 border-b border-outline-variant/10">
+<h2 class="text-headline-sm font-headline-sm text-text-main">Discussions</h2>
+</div>
+<div class="flex-1 overflow-y-auto">
+<!-- Active Chat -->
+<div class="p-4 bg-burkina-green-light border-l-4 border-burkina-green-deep cursor-pointer">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A candid close-up of a stylish young client from Ouagadougou, looking friendly and approachable. High-resolution photography with natural daylight, soft bokeh background showing a bustling market street in Burkina Faso. Vibrant colors, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf_5hVzHTm0tW0Q-LTEKOzrlb7gj4dsLnN9qCzgyxpJELUaJVbDfdOY9jirGUoPPijZXZCDy5k1GMc9u0AHHilK2YrgJrxdlTxk1p-TEYGZEgNCBsvzWHB1bgwFmyKfd6is7nyzyIDVidxWsOdXFxVmRba8y8iTIjUyAmWmbNp076ncRE52AS3oZuAAi1swQgrds9bome1J6x26pG4tnrKIWIYLYR2F5hO9QZwCZurChx0K75IU8iTz9NYNjPqlXW1-NDqlvuUVf8"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="text-label-lg font-label-lg text-burkina-green-deep truncate">Issouf Sawadogo</h3>
+<span class="text-[10px] text-text-muted">12:45</span>
+</div>
+<p class="text-body-sm text-text-main truncate font-semibold">Le tissu est-il de bonne qualité ?</p>
+</div>
+</div>
+</div>
+<!-- Other Chats -->
+<div class="p-4 hover:bg-surface-container-low transition-colors cursor-pointer border-b border-outline-variant/10">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-dim overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of a middle-aged female customer with a gracious expression, wearing elegant local jewelry and a headwrap. The photography is professional with soft, clean lighting and a minimalist cream-colored background. Modern Sahelian corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwtJWCoIqn8dWHhXMzST0upmkKM2wnc3LlbaKjcczlXJ1bP2bQz0ciPG4IASIqLsMQ3jCYddzGOPpBNeL9IKo2_6AXfnAEmZcWVTeyDyxUQbakRoT9bW4nyfmCpyYFlLyox71_hT-HvX9vbunC_GFEK73jpkUGeFSilwmzMevpVmoMolJ8eSCcWVJ-ak_YLws9znK8hqYwSYUO0sGaVswEltq4Fr3jm5OmI_6tbf1k9-U9rCOO5K5jXXgjw0NT5B1z6nwFZAyLsZ4"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="text-label-lg font-label-lg text-text-main truncate">Mariam Koné</h3>
+<span class="text-[10px] text-text-muted">Hier</span>
+</div>
+<p class="text-body-sm text-text-muted truncate">Merci pour la livraison rapide !</p>
+</div>
+</div>
+</div>
+<div class="p-4 hover:bg-surface-container-low transition-colors cursor-pointer border-b border-outline-variant/10">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-dim overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A cheerful local entrepreneur in a bright colorful shop, captured with a high-end digital camera. The scene is bright, airy, and professional, reflecting the modern Shopizi brand identity. The lighting is crisp and the composition is minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUDDHQ5ol-HZBMpV7WF1Zwvma-LE2D5n6QQ4w2nX-4ZJcHgzYT-Q8vmbd_VItrOdjOfkJ6hhMqu6Pag4EXrig-eIa-KGmxjdZ0JEUvYjBDSIQeyftpAzidROD6l5y_geR0v5VzIswTNLBoUnK8MQWLOJFZHqoalsnN5G6IxfGh0Qoge5U6v8CDmbHMImumHq7wgUFBV_quNhnj5UUahDixOvzh7vMCyAHjHaz4NDi0yv0U7S1sXomnDCCvN_8Gx0aRbV8_EwrFIYc"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="text-label-lg font-label-lg text-text-main truncate">Abdoulaye Traoré</h3>
+<span class="text-[10px] text-text-muted">Mar.</span>
+</div>
+<p class="text-body-sm text-text-muted truncate">Je souhaite négocier le prix de gros.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Chat Window -->
+<section class="flex-1 flex flex-col bg-surface-off-white relative">
+<!-- Chat Header -->
+<div class="h-16 px-6 flex items-center justify-between bg-surface border-b border-outline-variant/20 shadow-sm z-10">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="The same young client from Ouagadougou, profile view, in a bright studio setting. Minimalist white background with a thin green border frame. Sophisticated corporate Sahelian aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCookeQaAGqV08qCy5mZMsU2FhJQHh6ePRsbNuWaZBnU4Jshdhm7OUheKb__yy6jdYiZv5hVAqlS5rush5W2zxZ5PjBXDuLAP0yGG_ArtQFknuSiodqjye4PKgCU-Rxmkpa-amsvaG5a5sMybUbDHeDKB2JWgDW_HMU5FtJ-Qm0ni2vkKRGA6kz0dlQT0rhK4RpnK2aPzak1SudOg4xGdXz55kma5v-otaRx4oNVAnV-FUVINmV6Tz1DPwIIZeuwX1D4W53GgrAHh8"/>
+</div>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-primary-fixed-dim rounded-full border-2 border-surface"></div>
+</div>
+<div>
+<h2 class="text-label-lg font-label-lg text-text-main leading-tight">Issouf Sawadogo</h2>
+<span class="text-label-sm text-burkina-green-deep">En ligne</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-burkina-green-light text-burkina-green-deep rounded-full text-label-md font-label-md hover:bg-burkina-green-deep hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-md">call</span>
+                        Appel direct
+                    </button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-full transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Chat Content -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6 chat-scroll">
+<!-- Product Preview Card -->
+<div class="flex justify-center">
+<div class="w-full max-w-md bg-surface border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
+<div class="flex">
+<div class="w-32 h-32 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A high-quality studio shot of authentic Faso Dan Fani hand-woven fabric, featuring vibrant green and golden saffron stripes. The texture is palpable and luxurious. Minimalist presentation against a soft cream background, representing high-end Burkinabé textile craft." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjBo3dushAj1qWVCJnf36gaFNHOp_BaQCZkQL2Ud8c877BGwO3zINWEpXB7JmHTbP9aID0pFQaH1I3F7psGsPcFAoXdeBe8s4OX9t66eWDKasva7D-9Req6U1DT40NfSyKcJlJVAubwy8JRyQP3Edi-3rC-ZF2OVlxdPEw-OIcALmuvqtd0Wh5XhQPFY1ahHHdhbKCADrFMxjhkJlxw2RexKR6gmk1Z7U0oSsm-slNDjKLOai030Pd0zIxPJc4z7iAK6ULlvO1SYs"/>
+</div>
+<div class="p-4 flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-sm text-text-muted">Réf: FDF-2024-01</p>
+<h4 class="text-label-lg font-label-lg text-text-main">Faso Dan Fani Premium</h4>
+</div>
+<span class="bg-saffron-glow text-secondary px-2 py-0.5 rounded text-[12px] font-bold">New</span>
+</div>
+<div class="mt-2 flex justify-between items-center">
+<span class="text-headline-sm text-burkina-green-deep">15,000 FCFA</span>
+<button class="text-label-sm text-primary font-bold hover:underline">Voir détails</button>
+</div>
+</div>
+</div>
+<div class="flex border-t border-outline-variant/10">
+<button class="flex-1 py-2 text-label-sm font-label-lg text-text-muted hover:bg-surface-container-low transition-colors border-r border-outline-variant/10">Discuter qualité</button>
+<button class="flex-1 py-2 text-label-sm font-label-lg text-secondary hover:bg-saffron-glow transition-colors">Négocier prix</button>
+</div>
+</div>
+</div>
+<!-- Messages -->
+<!-- Recipient Message -->
+<div class="flex items-end gap-2 max-w-[80%]">
+<div class="p-4 bg-surface rounded-2xl rounded-bl-none shadow-sm text-body-md text-text-main border border-outline-variant/10">
+                        Bonjour ! Je suis intéressé par ce tissu. Est-ce que la couleur résiste bien au lavage ?
+                        <div class="mt-1 text-[10px] text-text-muted text-right">12:40</div>
+</div>
+</div>
+<!-- My Message (Merchant) -->
+<div class="flex items-end justify-end gap-2 ml-auto max-w-[80%]">
+<div class="p-4 bg-burkina-green-deep text-on-primary rounded-2xl rounded-br-none shadow-md text-body-md">
+                        Absolument, Monsieur Sawadogo. C'est du coton 100% tissé main avec des teintures naturelles fixées. La qualité est garantie.
+                        <div class="mt-1 text-[10px] text-white/70 text-right">12:42</div>
+</div>
+</div>
+<!-- Recipient Message -->
+<div class="flex items-end gap-2 max-w-[80%]">
+<div class="p-4 bg-surface rounded-2xl rounded-bl-none shadow-sm text-body-md text-text-main border border-outline-variant/10">
+                        C'est parfait. Pour 3 pagnes, est-ce qu'on peut s'entendre sur 40,000 FCFA au lieu de 45,000 ?
+                        <div class="mt-1 text-[10px] text-text-muted text-right">12:45</div>
+</div>
+</div>
+<!-- Quick Actions Chips -->
+<div class="flex flex-wrap gap-2 py-4 justify-center">
+<button class="px-4 py-1.5 border border-burkina-green-deep text-burkina-green-deep rounded-full text-label-sm hover:bg-burkina-green-light transition-all">Accepter 40,000 FCFA</button>
+<button class="px-4 py-1.5 border border-secondary text-secondary rounded-full text-label-sm hover:bg-saffron-glow transition-all">Contre-offre</button>
+<button class="px-4 py-1.5 border border-outline text-text-muted rounded-full text-label-sm hover:bg-surface-container-low transition-all">Demander un acompte</button>
+</div>
+<!-- Location Share (Special Bubble) -->
+<div class="flex items-end justify-end gap-2 ml-auto max-w-[80%]">
+<div class="bg-surface border border-outline-variant/30 rounded-2xl rounded-br-none shadow-sm overflow-hidden w-64">
+<div class="h-32 bg-surface-container-high relative">
+<!-- Placeholder for actual map -->
+<div class="absolute inset-0 bg-cover bg-center" data-location="Ouagadougou" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9re8SD8iLYLXNyuOvcXrQHQu2eO2yomSid7wswbWfCzk1rf4CW3fXxRNYdBm4racS7s8CyHYWixHfkGaYxis8eswHsOhzafX7q7so9Ab7Hs2H6d3GYzQunhBrMNPT9YgL8eMfFEPMCa65eF32szp0IRdwL4HJkkwFuwyF2dIWwF60vXmn02tyybdeib7dltiKmbMx1zictJ4YxFmsdJqPKiZDfsBjNZGXtbYfzj_Bg8HFvp8ygYgU1TxDnXrTxe7H2ZKdK8kCEp0')"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-burkina-green-deep p-2 rounded-full shadow-lg animate-bounce">
+<span class="material-symbols-outlined text-white">location_on</span>
+</div>
+</div>
+</div>
+<div class="p-3">
+<p class="text-label-md font-label-lg text-text-main">Ma Boutique (Sankariaré)</p>
+<p class="text-[11px] text-text-muted">Partagé à 12:47</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-6 bg-surface border-t border-outline-variant/20">
+<div class="flex items-center gap-4 bg-surface-container-low rounded-2xl px-4 py-2 border border-outline-variant/10 focus-within:border-burkina-green-deep focus-within:ring-2 focus-within:ring-burkina-green-light transition-all">
+<button class="p-1 text-on-surface-variant hover:text-burkina-green-deep">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:text-burkina-green-deep">
+<span class="material-symbols-outlined">image</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:text-burkina-green-deep" onclick="shareLocation()" title="Partager ma localisation">
+<span class="material-symbols-outlined">location_on</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-body-md py-2 resize-none" placeholder="Écrivez votre message..." rows="1"></textarea>
+<button class="w-10 h-10 bg-burkina-green-deep text-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Right Detail Panel (Optional/Contextual) -->
+<aside class="w-72 border-l border-outline-variant/30 bg-surface hidden xl:flex flex-col p-6">
+<h3 class="text-label-lg font-label-lg text-text-main mb-4">Informations Client</h3>
+<div class="text-center mb-6">
+<div class="w-20 h-20 rounded-full mx-auto mb-3 overflow-hidden border-2 border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="Issouf Sawadogo portrait for sidebar info panel. Clear, clean corporate lighting, neutral background, centered composition. Modern Burkinabé merchant app style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGUSSYyY0oBktVjZOPE1_cvI-BwubQGD3_Xg7RMDwRnnTSPcw20-LqbHmNn6pcub9Pdj3h0-pBtDLE4kBbq42mY2LI5OlV8XbktbQRr9oSMW3mjLqE0j0By0-OiRYVPTjRnJwbU56Q3mnw2ahrwA6aiTXyQv545HyvOsNZ2f0fWK6d1jINOQFYWoDXLHKLY2tjUBqtZxHf1hwXX_lPERQsrYdQGmWt8dZdPf_4XLAJOudql-g7qvuyp91PMkCcRtFojWg-qx7GIcE"/>
+</div>
+<h4 class="text-headline-sm text-text-main">Issouf Sawadogo</h4>
+<p class="text-label-sm text-text-muted">Client Fidèle (Niveau Or)</p>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-label-sm text-text-muted mb-1">Total des commandes</p>
+<p class="text-headline-sm text-burkina-green-deep">245,000 FCFA</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-label-sm text-text-muted mb-1">Dernier achat</p>
+<p class="text-label-md font-label-lg">Tissu Bazin (12 fév.)</p>
+</div>
+</div>
+<div class="mt-8">
+<h3 class="text-label-lg font-label-lg text-text-main mb-3">Notes privées</h3>
+<textarea class="w-full bg-surface-off-white border-outline-variant/30 rounded-lg text-body-sm p-3 focus:ring-burkina-green-deep focus:border-burkina-green-deep h-32" placeholder="Ajouter une note sur ce client..."></textarea>
+</div>
+<div class="mt-auto">
+<button class="w-full py-2 border border-error text-error rounded-lg text-label-sm hover:bg-error-container/20 transition-all">Bloquer le contact</button>
+</div>
+</aside>
+</main>
+<!-- Floating Action Button (Contextual) -->
+<button class="fixed bottom-24 right-8 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<script>
+        // Micro-interactions and UI Logic
+        function shareLocation() {
+            console.log("Location share triggered");
+            // Animated feedback could be added here
+        }
+
+        // Auto-expand textarea
+        const tx = document.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+          tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+          tx[i].addEventListener("input", OnInput, false);
+        }
+
+        function OnInput() {
+          this.style.height = 0;
+          this.style.height = (this.scrollHeight) + "px";
+        }
+    </script>
+</body></html>

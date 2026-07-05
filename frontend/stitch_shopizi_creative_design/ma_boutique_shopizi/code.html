@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f5f3ee",
+                    "text-main": "#1A1C19",
+                    "primary-container": "#00873d",
+                    "surface-container-highest": "#e4e2dd",
+                    "primary-fixed-dim": "#60df81",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#60df81",
+                    "surface-tint": "#006d30",
+                    "surface-off-white": "#F9F7F2",
+                    "primary": "#006b2f",
+                    "on-tertiary-fixed-variant": "#93000d",
+                    "burkina-green-deep": "#007A38",
+                    "on-primary-fixed-variant": "#005323",
+                    "secondary-fixed": "#ffdea6",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-variant": "#e4e2dd",
+                    "surface-dim": "#dbdad5",
+                    "on-surface": "#1b1c19",
+                    "tertiary-fixed": "#ffdad6",
+                    "primary-fixed": "#7efc9a",
+                    "on-secondary-fixed-variant": "#5e4200",
+                    "surface-bright": "#fbf9f4",
+                    "on-secondary-container": "#6c4d00",
+                    "tertiary": "#bb0014",
+                    "saffron-glow": "#FFF8E6",
+                    "on-primary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#f0eee9",
+                    "text-muted": "#5C5F5A",
+                    "inverse-surface": "#30312e",
+                    "on-secondary-fixed": "#271900",
+                    "outline": "#6d7a6d",
+                    "on-error": "#ffffff",
+                    "burkina-green-light": "#E6F5ED",
+                    "on-background": "#1b1c19",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#ffbb16",
+                    "outline-variant": "#bdcaba",
+                    "inverse-on-surface": "#f2f1ec",
+                    "secondary": "#7c5800",
+                    "tertiary-container": "#e32126",
+                    "on-primary-container": "#f7fff3",
+                    "on-tertiary-container": "#fffbff",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#3e4a3e",
+                    "tertiary-fixed-dim": "#ffb4ac",
+                    "surface": "#fbf9f4",
+                    "secondary-fixed-dim": "#ffbb16",
+                    "on-tertiary-fixed": "#410002",
+                    "surface-container-high": "#eae8e3",
+                    "on-primary-fixed": "#00210a",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "0.5rem",
+                    "xl": "4rem",
+                    "sm": "1rem",
+                    "md": "1.5rem",
+                    "gutter": "1.5rem",
+                    "baseline": "4px",
+                    "lg": "2.5rem",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ethereal-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(0, 107, 47, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .sahel-gradient {
+            background: linear-gradient(135deg, #fbf9f4 0%, #f5f3ee 100%);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-text-main ethereal-pattern">
+<!-- SideNavBar Anchor -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col border-r border-outline-variant/30 bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] z-50">
+<div class="p-6">
+<h1 class="text-headline-md font-headline-md font-bold text-burkina-green-deep">Shopizi</h1>
+<p class="text-label-sm text-text-muted mt-1">Burkinabé Merchant</p>
+</div>
+<nav class="flex-1 px-2 space-y-1 mt-4">
+<!-- Table de Bord -->
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-lg font-label-lg">Tableau de Bord</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-lg font-label-lg">Produits</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="text-label-lg font-label-lg">Catégories</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-label-lg font-label-lg">Commandes</span>
+</a>
+<!-- Active State: Boutique -->
+<a class="flex items-center gap-3 bg-burkina-green-light text-burkina-green-deep rounded-full px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined" data-icon="storefront" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="text-label-lg font-label-lg">Boutique</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="loyalty">loyalty</span>
+<span class="text-label-lg font-label-lg">Abonnement</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="perm_media">perm_media</span>
+<span class="text-label-lg font-label-lg">Médias</span>
+</a>
+<a class="flex items-center gap-3 text-text-muted hover:text-burkina-green-deep px-4 py-3 mx-2 transition-colors rounded-full hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-lg font-label-lg">Paramètres</span>
+</a>
+</nav>
+<div class="p-6 mt-auto">
+<div class="bg-secondary-container/10 p-4 rounded-xl border border-secondary-container/20">
+<p class="text-label-sm font-bold text-secondary mb-2 uppercase tracking-wider">Abonnement</p>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden mb-3">
+<div class="h-full bg-secondary-container w-[85%]"></div>
+</div>
+<button class="w-full py-2 bg-secondary-container text-on-secondary-container rounded-lg font-label-lg text-sm transition-transform active:scale-95">Passer à Pro</button>
+</div>
+<div class="mt-6 flex items-center gap-3 opacity-80">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a Burkinabé entrepreneur, smiling warmly, wearing a modern shirt with subtle traditional West African embroidery details. The background is a clean, bright minimalist office studio with soft natural lighting and warm earthy tones consistent with the Shopizi brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF-pgft6GFFQSaLThsvodAXjZxqigH9OsGTGaXpQCwySzM6D48a19ItXvYY2KojupS2cxpMFjX4FObLPy16ft3S8M5Wb9z9kALamH-bdxpgNB9CeQ5BHQmNwMJPE8AN-W-F8smA85QICf06Cj4WdIm7A30G61sVhOMA_Kxt0qGIAyACmFfkpjzyXS9eOYgz5IgUTj4FYkghE5isXrDf2vef0XYmvIHCxouetY4-MtaAe48_SWN8kAo0RJMaNdzKNA7G5DntZyK_zo"/>
+</div>
+<div>
+<p class="text-label-lg text-text-main truncate w-32">Merchant Name</p>
+<p class="text-[10px] text-text-muted">ID: 492021</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Anchor -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 backdrop-blur-md flex justify-between items-center px-gutter z-40">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant/50 rounded-full focus:ring-2 focus:ring-burkina-green-deep/20 focus:border-burkina-green-deep outline-none transition-all text-body-sm" placeholder="Rechercher dans la boutique..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-highest/50 text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-highest/50 text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-container/10 border border-secondary-container/20 hover:bg-secondary-container/20 transition-all">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-label-lg text-secondary">Aide IA</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-gutter min-h-screen">
+<!-- Header Section -->
+<div class="mb-10 flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-text-main">Ma Boutique</h2>
+<div class="flex items-center gap-3 mt-2">
+<span class="flex items-center gap-1.5 text-body-md text-text-muted bg-surface-container-lowest px-3 py-1 rounded-full border border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px]">language</span>
+                        maboutique.shopizi.bf
+                    </span>
+<button class="p-1.5 text-burkina-green-deep hover:bg-burkina-green-light rounded-md transition-colors">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 bg-surface-container-lowest border border-outline-variant text-text-main rounded-lg font-label-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">visibility</span>
+                    Voir le site
+                </button>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-burkina-green-deep text-white rounded-lg font-label-lg shadow-sm hover:brightness-110 transition-all">
+<span class="material-symbols-outlined">edit</span>
+                    Modifier la boutique
+                </button>
+</div>
+</div>
+<!-- Dashboard Bento Grid -->
+<div class="bento-grid">
+<!-- Store Status Hero -->
+<div class="col-span-8 bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/10 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] relative overflow-hidden flex flex-col justify-between">
+<!-- Background pattern accent -->
+<div class="absolute -bottom-10 -right-10 opacity-5 pointer-events-none select-none">
+<span class="material-symbols-outlined text-[240px]" style="font-variation-settings: 'wght' 100;">storefront</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex items-center gap-2 bg-burkina-green-light px-4 py-2 rounded-full border border-burkina-green-deep/20">
+<span class="w-2.5 h-2.5 bg-burkina-green-deep rounded-full animate-pulse"></span>
+<span class="text-label-lg text-burkina-green-deep uppercase tracking-wide">Boutique Publiée</span>
+</div>
+<span class="text-body-sm text-text-muted italic">Dernière mise à jour : il y a 2 heures</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Artisanat de l'Est</h3>
+<p class="text-body-md text-text-muted max-w-lg">Votre vitrine digitale est optimisée pour les clients locaux. Vous proposez actuellement 42 produits répartis dans 5 catégories majeures.</p>
+</div>
+<div class="flex gap-8 mt-12 relative z-10 border-t border-outline-variant/20 pt-8">
+<div>
+<p class="text-label-sm text-text-muted mb-1">Visiteurs aujourd'hui</p>
+<p class="text-headline-sm font-bold text-text-main">1,284 <span class="text-burkina-green-deep text-label-sm font-medium ml-1">+12%</span></p>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant/30"></div>
+<div>
+<p class="text-label-sm text-text-muted mb-1">Ventes mensuelles</p>
+<p class="text-headline-sm font-bold text-text-main">85,400 FCFA</p>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant/30"></div>
+<div>
+<p class="text-label-sm text-text-muted mb-1">Note clients</p>
+<p class="text-headline-sm font-bold text-text-main flex items-center gap-1">4.8 <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span></p>
+</div>
+</div>
+</div>
+<!-- Quick Action Card -->
+<div class="col-span-4 bg-burkina-green-deep rounded-xl p-8 text-white shadow-xl relative overflow-hidden">
+</div></div></main></body></html>

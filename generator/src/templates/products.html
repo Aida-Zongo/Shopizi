@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Produits — {{ shop.name }}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Notre catalogue</h1>
+  <p>Découvrez tous nos produits disponibles</p>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="product-grid">
+      {% for p in all_products %}
+      <a href="./produits/{{ p.slug }}.html" class="product-card">
+        <div class="img-wrapper">
+          <img src="{{ p.thumbnail_url or p.image_url or './static/img/placeholder.png' }}" alt="{{ p.name }}">
+        </div>
+        <h3>{{ p.name }}</h3>
+        <p class="price">{{ "{:,.0f}".format(p.price_xof).replace(',', ' ') }} FCFA</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
