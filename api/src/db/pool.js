@@ -1,12 +1,24 @@
 const { Pool } = require('pg');
 const config = require('../config/index');
 
+// En production (Render, etc.) la base est fournie via DATABASE_URL (connection
+// string) et impose SSL. En local on garde les champs séparés si DATABASE_URL
+// est absente. On préfère DATABASE_URL dès qu'elle est présente.
+const poolConfig = config.database.url
+  ? {
+      connectionString: config.database.url,
+      ssl: config.env === 'production' ? { rejectUnauthorized: false } : false,
+    }
+  : {
+      host: config.database.host,
+      port: config.database.port,
+      database: config.database.name,
+      user: config.database.user,
+      password: config.database.password,
+    };
+
 const pool = new Pool({
-  host: config.database.host,
-  port: config.database.port,
-  database: config.database.name,
-  user: config.database.user,
-  password: config.database.password,
+  ...poolConfig,
   max: config.database.maxPoolSize,
   idleTimeoutMillis: config.database.idleTimeoutMillis,
   connectionTimeoutMillis: config.database.connectionTimeoutMillis,
