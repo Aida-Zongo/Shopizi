@@ -21,10 +21,11 @@ services:
       - key: JWT_REFRESH_SECRET
         generateValue: true
       # CORS_ORIGIN REQUIS : sinon l'API bloque le frontend Vercel.
+      # Le domaine de prod Vercel réel est shopizi-bf.vercel.app.
       - key: CORS_ORIGIN
-        value: https://shopizi.vercel.app
+        value: https://shopizi-bf.vercel.app,https://shopizi.vercel.app
       - key: FRONTEND_URL
-        value: https://shopizi.vercel.app
+        value: https://shopizi-bf.vercel.app
       - key: BACKEND_URL
         value: https://shopizi-api.onrender.com
       # CinetPay : valeurs saisies dans le dashboard Render (sync: false),
