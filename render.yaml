@@ -27,6 +27,14 @@ services:
         value: https://shopizi.vercel.app
       - key: BACKEND_URL
         value: https://shopizi-api.onrender.com
+      # CinetPay : valeurs saisies dans le dashboard Render (sync: false),
+      # jamais commitées. notify/return dérivent de BACKEND_URL/FRONTEND_URL.
+      - key: CINETPAY_API_KEY
+        sync: false
+      - key: CINETPAY_SITE_ID
+        sync: false
+      - key: CINETPAY_BASE_URL
+        value: https://api-checkout.cinetpay.net/v2
       # Connexion à la base Render (sinon pas de DATABASE_URL en prod).
       - key: DATABASE_URL
         fromDatabase:

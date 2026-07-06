@@ -45,8 +45,12 @@ const config = {
     siteId: process.env.CINETPAY_SITE_ID || '',
     secret: process.env.CINETPAY_SECRET || '',
     baseUrl: process.env.CINETPAY_BASE_URL || 'https://api-checkout.cinetpay.com/v2',
-    notifyUrl: process.env.CINETPAY_NOTIFY_URL || '',
-    returnUrl: process.env.CINETPAY_RETURN_URL || '',
+    // Par défaut, suivre le déploiement réel (Render/Vercel) via BACKEND_URL /
+    // FRONTEND_URL plutôt que d'exiger deux variables de plus.
+    notifyUrl: process.env.CINETPAY_NOTIFY_URL ||
+      (process.env.BACKEND_URL ? process.env.BACKEND_URL + '/api/v1/payments/webhook/cinetpay' : ''),
+    returnUrl: process.env.CINETPAY_RETURN_URL ||
+      (process.env.FRONTEND_URL ? process.env.FRONTEND_URL + '/payment/success' : ''),
   },
   upload: {
     dir: path.resolve(__dirname, '../../', process.env.UPLOAD_DIR || './uploads'),

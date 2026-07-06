@@ -7,10 +7,20 @@ const config = require('../../config/index');
 const PAYMENT_TYPES = ['order', 'subscription', 'ads'];
 
 /**
- * Mode courant : 'paydunya' dès qu'une vraie clé Master PayDunya est présente
- * dans .env, 'sandbox' sinon. Permet de basculer sans changement de code.
+ * Mode courant, sans changement de code :
+ * - 'cinetpay' dès que CINETPAY_API_KEY ET CINETPAY_SITE_ID sont de vraies
+ *   valeurs (le Site ID est obligatoire pour l'API CinetPay — une clé seule
+ *   ne suffit pas, tous les appels seraient rejetés) ;
+ * - sinon 'paydunya' si une vraie clé Master PayDunya est présente ;
+ * - sinon 'sandbox'.
  */
 function getMode() {
+  const cpKey = process.env.CINETPAY_API_KEY;
+  const cpSite = process.env.CINETPAY_SITE_ID;
+  if (cpKey && !cpKey.startsWith('change-me') &&
+      cpSite && !cpSite.startsWith('change-me') && cpSite !== 'SITE_ID_ICI') {
+    return 'cinetpay';
+  }
   const key = process.env.PAYDUNYA_MASTER_KEY;
   return key && key !== 'change-me' ? 'paydunya' : 'sandbox';
 }
@@ -26,9 +36,10 @@ async function initiatePayment({ type, amount, customerId, shopId, metadata }) {
   if (!PAYMENT_TYPES.includes(type)) throw new BadRequestError('Type de paiement invalide');
   if (!amount || amount <= 0) throw new BadRequestError('Montant invalide');
 
-  return getMode() === 'sandbox'
-    ? initiateSandbox({ type, amount, customerId, shopId, metadata })
-    : initiatePaydunya({ type, amount, customerId, shopId, metadata });
+  const mode = getMode();
+  if (mode === 'cinetpay') return initiateCinetpay({ type, amount, customerId, shopId, metadata });
+  if (mode === 'paydunya') return initiatePaydunya({ type, amount, customerId, shopId, metadata });
+  return initiateSandbox({ type, amount, customerId, shopId, metadata });
 }
 
 async function initiateSandbox({ type, amount, customerId, shopId, metadata }) {
@@ -44,6 +55,46 @@ async function initiateSandbox({ type, amount, customerId, shopId, metadata }) {
     transaction_id: transactionId,
     payment_url: null,
     sandbox_url: `/api/v1/payments/sandbox/confirm/${transactionId}`,
+  };
+}
+
+/**
+ * Démarre un paiement via CinetPay (Orange Money, Moov Money, cartes).
+ * Même schéma que PayDunya : transaction persistée 'pending' d'abord, puis
+ * création du paiement chez CinetPay ; le webhook /webhook/cinetpay confirme.
+ * CinetPay impose un montant multiple de 5 en XOF — on rejette en amont
+ * plutôt que de laisser l'API renvoyer une erreur opaque.
+ */
+async function initiateCinetpay({ type, amount, customerId, shopId, metadata }) {
+  const cinetpay = require('./gateways/cinetpay.gateway');
+
+  if (amount % 5 !== 0) {
+    throw new BadRequestError('CinetPay exige un montant multiple de 5 XOF');
+  }
+
+  const transactionId = generateTransactionId('CP');
+  await query(
+    `INSERT INTO payment_transactions (transaction_id, type, amount, customer_id, shop_id, status, metadata)
+     VALUES ($1,$2,$3,$4,$5,'pending',$6)`,
+    [transactionId, type, amount, customerId || null, shopId || null, metadata ? JSON.stringify(metadata) : null]
+  );
+
+  const result = await cinetpay.initiatePayment({
+    amount,
+    phoneNumber: metadata?.customer_phone || '',
+    reference: transactionId,
+  });
+
+  if (!result.success) {
+    await query(`UPDATE payment_transactions SET status = 'failed' WHERE transaction_id = $1`, [transactionId]);
+    throw new PaymentError(result.error || "Échec de l'initialisation du paiement CinetPay");
+  }
+
+  return {
+    mode: 'cinetpay',
+    transaction_id: transactionId,
+    payment_url: result.paymentUrl,
+    payment_token: result.paymentToken,
   };
 }
 
@@ -257,6 +308,7 @@ module.exports = {
   getMode,
   initiatePayment,
   initiateSandbox,
+  initiateCinetpay,
   initiatePaydunya,
   processConfirmedPayment,
   processOrderPayment,

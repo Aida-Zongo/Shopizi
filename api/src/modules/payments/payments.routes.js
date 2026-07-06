@@ -69,14 +69,22 @@ router.post('/webhook/paydunya', async (req, res) => {
   }
 });
 
-// Webhook CinetPay (déprécié - conservé pour compatibilité).
+// Webhook CinetPay (notify_url). On ne fait JAMAIS confiance au corps du POST
+// (cpm_result est falsifiable) : on re-vérifie le statut auprès de l'API
+// CinetPay (/payment/check) et on ne confirme que sur ACCEPTED. Les statuts
+// intermédiaires (WAITING_FOR_CUSTOMER...) sont ignorés — CinetPay re-notifiera.
 router.post('/webhook/cinetpay', asyncHandler(async (req, res) => {
-  const { cpm_trans_id, cpm_result, cpm_error_message } = req.body;
-  if (!cpm_trans_id) throw new BadRequestError('cpm_trans_id manquant');
+  const cinetpayGateway = require('./gateways/cinetpay.gateway');
+  const transactionId = req.body.cpm_trans_id || req.body.transaction_id;
+  if (!transactionId) throw new BadRequestError('cpm_trans_id manquant');
 
-  const status = cpm_result === 'ACCEPTED' ? 'completed' : 'failed';
-  await paymentService.processConfirmedPayment(cpm_trans_id, status);
-  return successResponse(res, { received: true, error_message: cpm_error_message || null });
+  const check = await cinetpayGateway.verifyPayment(transactionId);
+  if (check.status === 'ACCEPTED') {
+    await paymentService.processConfirmedPayment(transactionId, 'completed');
+  } else if (check.status === 'REFUSED') {
+    await paymentService.processConfirmedPayment(transactionId, 'failed');
+  }
+  return successResponse(res, { received: true, status: check.status || null });
 }));
 
 // Statut d'une transaction (utilisé par le dashboard marchand).

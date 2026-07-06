@@ -34,7 +34,8 @@ class CinetPayGateway extends PaymentGateway {
       });
       const data = await response.json();
 
-      if (data.code !== 201) {
+      // CinetPay renvoie `code` en chaîne ('201') — comparer en chaîne.
+      if (String(data.code) !== '201') {
         logger.error('CinetPay initiation failed:', data);
         return { success: false, error: data.message || 'Erreur de paiement' };
       }
@@ -63,7 +64,9 @@ class CinetPayGateway extends PaymentGateway {
         }),
       });
       const data = await response.json();
-      return { success: data.code === 200 || data.code === 201, data };
+      // /payment/check renvoie code '00' (SUCCES) quand la transaction existe ;
+      // le statut réel (ACCEPTED / REFUSED / WAITING...) est dans data.data.status.
+      return { success: String(data.code) === '00', status: data.data?.status || null, data };
     } catch (err) {
       logger.error('CinetPay verify error:', err);
       return { success: false, error: 'Vérification indisponible' };
