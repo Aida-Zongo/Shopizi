@@ -13,8 +13,8 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 3000
+      # NE PAS fixer PORT : Render injecte son propre port (10000) et route
+      # le trafic dessus. server.js lit process.env.PORT automatiquement.
       # Secrets JWT générés par Render (noms EXACTS lus par config/index.js).
       - key: JWT_ACCESS_SECRET
         generateValue: true
