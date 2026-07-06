@@ -36,11 +36,12 @@ async function start() {
     const server = http.createServer(app);
     initSocket(server);
 
-    // Start server
-    server.listen(config.server.port, config.server.host, () => {
-      logger.info(`Shopizi API running on http://${config.server.host}:${config.server.port}`);
+    // Start server — Render injects PORT (e.g. 10000); fall back to 3000 locally.
+    const PORT = process.env.PORT || 3000;
+    server.listen(PORT, config.server.host, () => {
+      logger.info(`Shopizi API running on http://${config.server.host}:${PORT}`);
       logger.info(`Environment: ${config.env}`);
-      logger.info(`API docs: http://localhost:${config.server.port}/health`);
+      logger.info(`API docs: http://localhost:${PORT}/health`);
       
       if (!process.env.GEMINI_API_KEY) {
         logger.warn('⚠️ GEMINI_API_KEY est manquante. Kèra (Assistant IA) fonctionnera en mode dégradé.');
