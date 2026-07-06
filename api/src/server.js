@@ -67,7 +67,12 @@ async function start() {
     process.on('SIGTERM', () => shutdown('SIGTERM'));
     process.on('SIGINT', () => shutdown('SIGINT'));
   } catch (err) {
-    logger.error('Failed to start server:', err);
+    // Interpoler err dans le message : le format JSON de production n'a pas
+    // format.splat(), un err passé en 2e argument serait silencieusement perdu
+    // et les logs Render n'afficheraient aucune cause avant "Exited with status 1".
+    logger.error(`Failed to start server: ${err.message}`);
+    if (err.stack) logger.error(err.stack);
+    logger.error(`Diagnostic: DATABASE_URL présent=${Boolean(process.env.DATABASE_URL)}, NODE_ENV=${process.env.NODE_ENV || 'non défini'}`);
     process.exit(1);
   }
 }
