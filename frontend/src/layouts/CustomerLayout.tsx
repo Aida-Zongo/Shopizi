@@ -141,7 +141,7 @@ export default function CustomerLayout() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-white/10">
             {/* Logo + desc */}
             <div className="md:col-span-2">
-              <img src="/logo-shopizi.png" alt="Shopizi" className="h-10 object-contain mb-4 brightness-0 invert" />
+              <span className="block font-black text-2xl text-white mb-4">Shopizi</span>
               <p className="text-white/60 text-sm leading-relaxed max-w-xs">
                 La marketplace digitale du Burkina Faso. Connectons commerçants et clients pour une économie locale plus forte.
               </p>

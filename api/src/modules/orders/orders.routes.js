@@ -180,8 +180,13 @@ router.get('/', authenticate, asyncHandler(async (req, res) => {
 
 // Stats (MUST be before /:id to avoid 'stats' being captured as an order ID)
 router.get('/stats', authenticate, asyncHandler(async (req, res) => {
-  const r = await query(`SELECT status, COUNT(*)::int AS count FROM orders WHERE shop_id = $1 GROUP BY status`, [req.user.shopId]);
-  const stats = {}; r.rows.forEach(row => { stats[row.status] = row.count; });
+  const [byStatus, revenue] = await Promise.all([
+    query(`SELECT status, COUNT(*)::int AS count FROM orders WHERE shop_id = $1 GROUP BY status`, [req.user.shopId]),
+    query(`SELECT COALESCE(SUM(total_amount_xof), 0)::int AS revenue_month_xof FROM orders
+           WHERE shop_id = $1 AND payment_status = 'paid' AND created_at >= date_trunc('month', now())`, [req.user.shopId]),
+  ]);
+  const stats = { revenue_month_xof: revenue.rows[0].revenue_month_xof };
+  byStatus.rows.forEach(row => { stats[row.status] = row.count; });
   return successResponse(res, stats);
 }));
 

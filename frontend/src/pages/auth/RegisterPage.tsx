@@ -135,7 +135,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setForm({ ...form, role: 'customer' })}
-                  className={`px-4 py-3 rounded-2xl border-2 text-sm font-medium transition-all ${
+                  className={`px-2 sm:px-4 py-3 rounded-2xl border-2 text-xs sm:text-sm font-medium transition-all ${
                     form.role === 'customer'
                       ? 'border-accent-forest bg-accent-forest/8 text-accent-forest'
                       : 'border-text-secondary/20 bg-white text-text-secondary hover:border-text-secondary/40'
@@ -147,7 +147,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setForm({ ...form, role: 'merchant' })}
-                  className={`px-4 py-3 rounded-2xl border-2 text-sm font-medium transition-all ${
+                  className={`px-2 sm:px-4 py-3 rounded-2xl border-2 text-xs sm:text-sm font-medium transition-all ${
                     form.role === 'merchant'
                       ? 'border-accent-forest bg-accent-forest/8 text-accent-forest'
                       : 'border-text-secondary/20 bg-white text-text-secondary hover:border-text-secondary/40'
@@ -159,7 +159,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setForm({ ...form, role: 'driver' })}
-                  className={`px-4 py-3 rounded-2xl border-2 text-sm font-medium transition-all ${
+                  className={`px-2 sm:px-4 py-3 rounded-2xl border-2 text-xs sm:text-sm font-medium transition-all ${
                     form.role === 'driver'
                       ? 'border-accent-forest bg-accent-forest/8 text-accent-forest'
                       : 'border-text-secondary/20 bg-white text-text-secondary hover:border-text-secondary/40'

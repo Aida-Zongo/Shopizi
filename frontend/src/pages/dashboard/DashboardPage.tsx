@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
-  TrendingUp,
   ArrowUpRight,
   Loader2,
   AlertCircle,
@@ -16,15 +15,19 @@ interface Shop {
   slug: string;
   is_published: boolean;
   subdomain?: string;
+  total_earned?: number;
 }
 
+// /orders/stats ne renvoie que les statuts présents en base (GROUP BY) :
+// tous les champs sont optionnels, sinon new + confirmed donne NaN.
 interface OrderStats {
-  new: number;
-  confirmed: number;
-  processing: number;
-  ready: number;
-  delivered: number;
-  completed: number;
+  new?: number;
+  confirmed?: number;
+  processing?: number;
+  ready?: number;
+  delivered?: number;
+  completed?: number;
+  revenue_month_xof?: number;
 }
 
 interface Product {
@@ -92,7 +95,9 @@ export default function DashboardPage() {
   }
 
   const { shop, orderStats, products } = data || { shop: null, orderStats: null, products: [] };
-  const pendingOrders = orderStats ? orderStats.new + orderStats.confirmed : 0;
+  const pendingOrders = (Number(orderStats?.new) || 0) + (Number(orderStats?.confirmed) || 0);
+  const monthSales = Number(orderStats?.revenue_month_xof) || 0;
+  const totalEarned = Number(shop?.total_earned) || 0;
 
   return (
     <div className="space-y-8">
@@ -131,25 +136,11 @@ export default function DashboardPage() {
             <div className="w-10 h-10 rounded-lg bg-burkina-green-light flex items-center justify-center text-burkina-green-deep">
               <span className="material-symbols-outlined">payments</span>
             </div>
-            <span className="text-label-sm text-primary flex items-center gap-1 font-bold">
-              <TrendingUp className="w-4 h-4" />
-              +12%
-            </span>
           </div>
           <p className="text-label-lg text-text-muted">Ventes du mois</p>
           <div className="flex items-baseline gap-2 mt-1">
-            <h3 className="text-headline-md font-bold text-text-main">1,250,000</h3>
+            <h3 className="text-headline-md font-bold text-text-main">{monthSales.toLocaleString()}</h3>
             <span className="text-label-sm font-bold text-text-muted">XOF</span>
-          </div>
-          <div className="mt-6 h-12 w-full flex items-end gap-1">
-            {/* Tiny Sparkline Mock */}
-            <div className="flex-1 bg-burkina-green-light rounded-t-sm h-[30%] transition-all hover:h-[45%]" />
-            <div className="flex-1 bg-burkina-green-light rounded-t-sm h-[45%] transition-all hover:h-[60%]" />
-            <div className="flex-1 bg-burkina-green-light rounded-t-sm h-[35%] transition-all hover:h-[50%]" />
-            <div className="flex-1 bg-burkina-green-light rounded-t-sm h-[55%] transition-all hover:h-[70%]" />
-            <div className="flex-1 bg-burkina-green-deep rounded-t-sm h-[75%] transition-all hover:h-[90%]" />
-            <div className="flex-1 bg-burkina-green-light rounded-t-sm h-[65%] transition-all hover:h-[80%]" />
-            <div className="flex-1 bg-burkina-green-light rounded-t-sm h-[85%] transition-all hover:h-[100%]" />
           </div>
         </div>
 
@@ -188,7 +179,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <p className="text-label-lg text-text-muted">Revenus totaux</p>
-          <h3 className="text-headline-md font-bold mt-1 text-text-main">0 XOF</h3>
+          <h3 className="text-headline-md font-bold mt-1 text-text-main">{totalEarned.toLocaleString()} XOF</h3>
         </div>
       </section>
 

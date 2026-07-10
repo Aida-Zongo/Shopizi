@@ -3,6 +3,7 @@ const { query, getClient } = require('../../db/pool');
 const { hash, compare } = require('../../utils/password');
 const { signAccessToken, signRefreshToken, verifyRefreshToken } = require('../../utils/jwt');
 const { PLANS } = require('../../constants/plans');
+const { seedDefaultCategories } = require('../categories/default-categories');
 const eventBus = require('../../events');
 const {
   ConflictError,
@@ -61,6 +62,9 @@ async function register({ email, password, full_name, phone_number, role }) {
         [user.id, tempSubdomain, full_name, tempSlug, phone_number]
       );
       shop = shopResult.rows[0];
+
+      // Seed default categories so the product form isn't empty
+      await seedDefaultCategories((text, params) => client.query(text, params), shop.id);
 
       // Create free subscription
       const now = new Date();

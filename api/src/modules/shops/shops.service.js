@@ -3,6 +3,7 @@ const { slugify, isValidSubdomain } = require('../../utils/slug');
 const eventBus = require('../../events');
 const { ConflictError, NotFoundError, BadRequestError } = require('../../utils/errors');
 const { cacheDel } = require('../../services/redis.service');
+const { seedDefaultCategories } = require('../categories/default-categories');
 
 async function createShop(userId, data) {
   const existing = await query('SELECT id FROM shops WHERE user_id = $1', [userId]);
@@ -22,6 +23,7 @@ async function createShop(userId, data) {
      data.address || null, data.city || null, data.neighborhood || null,
      JSON.stringify(data.opening_hours || {})]
   );
+  await seedDefaultCategories(query, result.rows[0].id);
   eventBus.emit('shop:created', { shopId: result.rows[0].id, userId, subdomain: data.subdomain });
   return result.rows[0];
 }
