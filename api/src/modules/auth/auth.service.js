@@ -17,7 +17,7 @@ const {
  * -- Merchant: creates user + shop + free subscription.
  * -- Driver: creates user + delivery_driver record.
  */
-async function register({ email, password, full_name, phone_number, role }) {
+async function register({ email, password, full_name, phone_number, role, vehicle_type, license_plate, city_id }) {
   // Check existing user
   const existing = await query('SELECT id FROM users WHERE email = $1', [email]);
   if (existing.rows.length > 0) {
@@ -75,16 +75,27 @@ async function register({ email, password, full_name, phone_number, role }) {
         [user.id, freePlanId, now, endsAt]
       );
     } else if (userRole === 'driver') {
-      // Get city of Ouagadougou or fallback
-      const cityResult = await client.query("SELECT id, name FROM cities WHERE name ILIKE 'Ouagadougou' LIMIT 1");
-      const cityId = cityResult.rows[0]?.id || null;
-      const cityName = cityResult.rows[0]?.name || 'Ouagadougou';
+      // Ville de service choisie à l'inscription, sinon Ouagadougou par défaut
+      let cityRow = null;
+      if (city_id) {
+        const r = await client.query('SELECT id, name FROM cities WHERE id = $1', [city_id]);
+        cityRow = r.rows[0] || null;
+      }
+      if (!cityRow) {
+        const r = await client.query("SELECT id, name FROM cities WHERE name ILIKE 'Ouagadougou' LIMIT 1");
+        cityRow = r.rows[0] || null;
+      }
+      const cityId = cityRow?.id || null;
+      const cityName = cityRow?.name || 'Ouagadougou';
+
+      // La contrainte CHECK de delivery_drivers utilise 'bicycle' pour vélo
+      const dbVehicleType = vehicle_type === 'velo' ? 'bicycle' : (vehicle_type || 'moto');
 
       // Create delivery driver profile
       const driverResult = await client.query(
-        `INSERT INTO delivery_drivers (user_id, full_name, phone_number, email, status, commission_rate, city_id, city_name)
-         VALUES ($1, $2, $3, $4, 'pending', 95, $5, $6) RETURNING id, status`,
-        [user.id, full_name, phone_number, email, cityId, cityName]
+        `INSERT INTO delivery_drivers (user_id, full_name, phone_number, email, status, commission_rate, city_id, city_name, vehicle_type, vehicle_plate)
+         VALUES ($1, $2, $3, $4, 'pending', 95, $5, $6, $7, $8) RETURNING id, status`,
+        [user.id, full_name, phone_number, email, cityId, cityName, dbVehicleType, license_plate || null]
       );
       driverRow = driverResult.rows[0];
     }

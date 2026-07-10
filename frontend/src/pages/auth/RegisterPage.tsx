@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../../lib/api'
 import { useAuthStore } from '../../store/authStore'
@@ -13,10 +13,20 @@ export default function RegisterPage() {
     password: '',
     confirmPassword: '',
     role: 'customer' as 'merchant' | 'driver' | 'customer',
+    vehicle_type: '',
+    license_plate: '',
+    city_id: '',
   })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [cities, setCities] = useState<{ id: string; name: string }[]>([])
+
+  useEffect(() => {
+    if (form.role === 'driver' && cities.length === 0) {
+      api.get('/cities').then(res => setCities(res.data.data || [])).catch(() => {})
+    }
+  }, [form.role, cities.length])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,6 +49,11 @@ export default function RegisterPage() {
         phone_number: cleanPhone,
         password: form.password,
         role: form.role,
+        ...(form.role === 'driver' && {
+          vehicle_type: form.vehicle_type,
+          license_plate: form.license_plate.trim(),
+          city_id: form.city_id,
+        }),
       })
       if (res.data?.success && res.data.data) {
         const { accessToken, refreshToken, user } = res.data.data
@@ -262,6 +277,63 @@ export default function RegisterPage() {
                 />
               </div>
             </div>
+
+            {/* Infos véhicule (livreur uniquement) */}
+            {form.role === 'driver' && (
+              <>
+                <div className="space-y-2">
+                  <label className="block text-label-lg font-label-lg text-text-primary" htmlFor="vehicle_type">Type de véhicule</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary">two_wheeler</span>
+                    <select
+                      className="w-full pl-12 pr-4 py-3 bg-white border border-text-secondary/20 rounded-2xl text-body-md font-body-md focus:outline-none focus:ring-2 focus:ring-accent-forest/25 focus:border-accent-forest transition-all"
+                      id="vehicle_type" name="vehicle_type"
+                      value={form.vehicle_type}
+                      onChange={e => setForm({ ...form, vehicle_type: e.target.value })}
+                      required
+                    >
+                      <option value="">Choisir un véhicule</option>
+                      <option value="moto">Moto</option>
+                      <option value="velo">Vélo</option>
+                      <option value="voiture">Voiture</option>
+                      <option value="tricycle">Tricycle</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-label-lg font-label-lg text-text-primary" htmlFor="license_plate">Plaque d'immatriculation</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary">pin</span>
+                    <input
+                      className="w-full pl-12 pr-4 py-3 bg-white border border-text-secondary/20 rounded-2xl text-body-md font-body-md focus:outline-none focus:ring-2 focus:ring-accent-forest/25 focus:border-accent-forest transition-all"
+                      id="license_plate" name="license_plate" type="text"
+                      placeholder="Ex: 12AB3456"
+                      value={form.license_plate}
+                      onChange={e => setForm({ ...form, license_plate: e.target.value.toUpperCase() })}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-label-lg font-label-lg text-text-primary" htmlFor="city_id">Ville de service</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary">location_on</span>
+                    <select
+                      className="w-full pl-12 pr-4 py-3 bg-white border border-text-secondary/20 rounded-2xl text-body-md font-body-md focus:outline-none focus:ring-2 focus:ring-accent-forest/25 focus:border-accent-forest transition-all"
+                      id="city_id" name="city_id"
+                      value={form.city_id}
+                      onChange={e => setForm({ ...form, city_id: e.target.value })}
+                      required
+                    >
+                      <option value="">Choisir une ville</option>
+                      {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                    </select>
+                  </div>
+                </div>
+              </>
+            )}
 
             {/* Terms Checkbox */}
             <div className="flex items-start gap-3 py-2">

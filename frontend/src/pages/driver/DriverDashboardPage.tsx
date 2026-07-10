@@ -397,7 +397,7 @@ export default function DriverDashboardPage() {
             </p>
           </div>
           <h3 className="text-headline-md font-headline-md">
-            {stats.rating.toFixed(1)} / 5
+            {stats.rating > 0 ? `${stats.rating.toFixed(1)} / 5` : '—'}
           </h3>
         </div>
       </div>
@@ -518,7 +518,7 @@ export default function DriverDashboardPage() {
                     Note moyenne
                   </span>
                   <span className="text-label-lg font-bold">
-                    {stats.rating.toFixed(1)} / 5
+                    {stats.rating > 0 ? `${stats.rating.toFixed(1)} / 5` : '—'}
                   </span>
                 </div>
               </div>

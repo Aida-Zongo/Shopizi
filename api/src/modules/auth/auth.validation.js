@@ -8,6 +8,16 @@ const registerSchema = z.object({
   full_name: z.string().min(2, 'Le nom doit avoir au moins 2 caractères').max(255),
   phone_number: z.string().regex(phoneRegex, 'Numéro de téléphone invalide'),
   role: z.enum(['merchant', 'driver', 'customer']).default('customer').optional(),
+  // Champs livreur (obligatoires quand role === 'driver', cf. superRefine)
+  vehicle_type: z.enum(['moto', 'velo', 'voiture', 'tricycle']).optional(),
+  license_plate: z.string().min(2, "Plaque d'immatriculation invalide").max(20).optional(),
+  city_id: z.string().uuid('Ville invalide').optional(),
+}).superRefine((data, ctx) => {
+  if (data.role === 'driver') {
+    if (!data.vehicle_type) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['vehicle_type'], message: 'Le type de véhicule est requis pour un livreur' });
+    if (!data.license_plate) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['license_plate'], message: "La plaque d'immatriculation est requise pour un livreur" });
+    if (!data.city_id) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['city_id'], message: 'La ville de service est requise pour un livreur' });
+  }
 });
 
 const loginSchema = z.object({
