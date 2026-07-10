@@ -183,4 +183,16 @@ router.get('/search', asyncHandler(async (req, res) => {
   });
 }));
 
+// GET /api/v1/customer/stats - public counts for the homepage hero
+router.get('/stats', asyncHandler(async (req, res) => {
+  const result = await query(`
+    SELECT
+      (SELECT COUNT(*)::int FROM shops WHERE is_published = true) AS shops,
+      (SELECT COUNT(*)::int FROM products p
+       JOIN shops s ON p.shop_id = s.id
+       WHERE p.is_published = true AND s.is_published = true) AS products
+  `);
+  return successResponse(res, result.rows[0]);
+}));
+
 module.exports = router;

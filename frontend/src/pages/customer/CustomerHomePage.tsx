@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../../lib/api';
 import { getCategoryLabel, getCategoryGradient, getShopBannerStyle } from '../../lib/categories';
 import StarRating from '../../components/StarRating';
@@ -43,11 +43,13 @@ const CATEGORIES = [
 
 export default function CustomerHomePage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [shops, setShops] = useState<Shop[]>([]);
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  const [stats, setStats] = useState({ shops: 0, products: 0 });
 
   const normalizeText = (text: string) => {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -71,6 +73,12 @@ export default function CustomerHomePage() {
   useEffect(() => {
     loadData();
   }, [activeCategory]);
+
+  useEffect(() => {
+    api.get('/customer/stats')
+      .then(res => { if (res.data.success) setStats(res.data.data); })
+      .catch(() => {});
+  }, []);
 
   const loadData = async () => {
     setIsLoading(true);
@@ -133,7 +141,10 @@ export default function CustomerHomePage() {
             {['Riz local', 'Tissu Faso Dan Fani', 'Téléphone', 'Médicaments', 'Décoration'].map(term => (
               <button
                 key={term}
-                onClick={() => setSearchQuery(term)}
+                onClick={() => {
+                  setSearchQuery(term);
+                  navigate(`/shops?q=${encodeURIComponent(term)}`);
+                }}
                 className="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white/80 text-xs font-medium transition-all"
               >
                 {term}
@@ -143,12 +154,12 @@ export default function CustomerHomePage() {
 
           <div className="flex items-center justify-center gap-8 mt-8">
             <div className="text-center">
-              <p className="text-2xl font-black text-white">{shops.length || '6'}+</p>
+              <p className="text-2xl font-black text-white">{stats.shops}+</p>
               <p className="text-white/60 text-xs">Boutiques</p>
             </div>
             <div className="w-px h-8 bg-white/20" />
             <div className="text-center">
-              <p className="text-2xl font-black text-white">{featuredProducts.length || '12'}+</p>
+              <p className="text-2xl font-black text-white">{stats.products}+</p>
               <p className="text-white/60 text-xs">Produits</p>
             </div>
             <div className="w-px h-8 bg-white/20" />
