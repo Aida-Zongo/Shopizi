@@ -80,6 +80,11 @@ export default function CustomerHomePage() {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) setSearchQuery(q);
+  }, [searchParams]);
+
   const loadData = async () => {
     setIsLoading(true);
     try {
@@ -150,7 +155,7 @@ export default function CustomerHomePage() {
                 key={term}
                 onClick={() => {
                   setSearchQuery(term);
-                  navigate(`/shops?q=${encodeURIComponent(term)}`);
+                  navigate(`/marketplace?q=${encodeURIComponent(term)}`);
                 }}
                 className="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white/80 text-xs font-medium transition-all"
               >
