@@ -7,7 +7,8 @@
 @theme {
   /* ── Colors — Emerald Canopy palette (site-wide, since 2026-07-03) ──
      Primaire #00A86B · Secondaire (mint) #A2E4B8 · Foncé #0A504A ·
-     Fond #F7F7F2 · Texte #1a1a1a · Or accent #ca8a04.
+     Fond #F7F7F2 · Texte #1a1a1a · Accent corail #F97316 (depuis 2026-07-11,
+     inspiré mamantontine.com — teal + corail).
      M3 token names are kept (huge existing class surface — ~32 files
      consume them by class name) but repointed to the new palette so
      every consumer cascades without per-file edits. ───────────────── */
@@ -41,15 +42,15 @@
   --color-burkina-green-light:             #A2E4B8;
   --color-burkina-green:                   #00A86B;
 
-  --color-secondary:                       #ca8a04;
+  --color-secondary:                       #F97316;
   --color-on-secondary:                    #ffffff;
-  --color-secondary-container:             #ca8a04;
+  --color-secondary-container:             #F97316;
   --color-on-secondary-container:          #ffffff;
-  --color-saffron-glow:                    #FFF8E6;
-  --color-secondary-fixed:                 #ffdea6;
-  --color-secondary-fixed-dim:             #ca8a04;
-  --color-on-secondary-fixed:              #271900;
-  --color-on-secondary-fixed-variant:      #5e4200;
+  --color-saffron-glow:                    #FFF4ED;
+  --color-secondary-fixed:                 #FED7AA;
+  --color-secondary-fixed-dim:             #F97316;
+  --color-on-secondary-fixed:              #431407;
+  --color-on-secondary-fixed-variant:      #9A3412;
 
   --color-tertiary:                        #bb0014;
   --color-on-tertiary:                     #ffffff;
@@ -71,7 +72,7 @@
   --color-text-main:                       #1a1a1a;
   --color-text-muted:                      #6b7280;
   --color-border:                          #e5e7eb;
-  --color-accent:                          #ca8a04;
+  --color-accent:                          #F97316;
 
   --color-primary-light:                   #A2E4B8;
   --color-primary-dark:                    #0A504A;
@@ -79,7 +80,7 @@
   --color-shopizi-light:                   #A2E4B8;
   --color-shopizi-dark:                    #0A504A;
   --color-shopizi-bg:                      #F7F7F2;
-  --color-shopizi-accent:                  #ca8a04;
+  --color-shopizi-accent:                  #F97316;
 
   /* ── Emerald Canopy tokens (Login/Register prototype) ──────────
      Kept as aliases so LoginPage.tsx/RegisterPage.tsx keep working
@@ -89,7 +90,7 @@
   --color-accent-emerald:                  #00A86B;
   --color-accent-mint:                     #A2E4B8;
   --color-accent-forest:                   #0A504A;
-  --color-accent-gold:                     #ca8a04;
+  --color-accent-gold:                     #F97316;
   --color-text-primary:                    #0A504A;
   --color-text-secondary:                  #457A74;
 

@@ -32,8 +32,16 @@ interface Product {
 
 const HERO_IMAGES = [
   'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&q=80&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1531217132659-9b2a1875a5aa?w=1400&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1521566652839-697aa473761a?w=1400&q=80&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1400&q=80&auto=format&fit=crop',
+];
+
+const SOCIAL_AVATARS = [
+  'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&q=60&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=80&q=60&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=80&q=60&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=60&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=60&auto=format&fit=crop',
 ];
 
 const CATEGORIES = [
@@ -146,7 +154,7 @@ export default function CustomerHomePage() {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Trouvez tout ce dont<br />
-            <span className="text-amber-300">vous avez besoin</span>
+            <span className="text-orange-300">vous avez besoin</span>
           </h1>
           <p className="text-white/80 text-lg mb-8">
             Des milliers de produits disponibles chez nos commerçants partenaires à Ouagadougou et partout au Burkina.
@@ -180,6 +188,18 @@ export default function CustomerHomePage() {
                 {term}
               </button>
             ))}
+          </div>
+
+          {/* Preuve sociale */}
+          <div className="flex items-center justify-center gap-3 mt-8">
+            <div className="flex -space-x-3">
+              {SOCIAL_AVATARS.map(src => (
+                <img key={src} src={src} alt="" className="w-9 h-9 rounded-full border-2 border-white object-cover" />
+              ))}
+            </div>
+            <p className="text-white/80 text-sm text-left">
+              Déjà adopté par des <span className="font-bold text-white">milliers de Burkinabè</span>
+            </p>
           </div>
 
         </div>
@@ -244,6 +264,7 @@ export default function CustomerHomePage() {
               title: 'Recherchez',
               desc: 'Trouvez des produits et boutiques locales près de chez vous à Ouagadougou et partout au Burkina Faso',
               gradient: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)',
+              image: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&q=70&auto=format&fit=crop',
             },
             {
               icon: 'shopping_cart',
@@ -251,22 +272,30 @@ export default function CustomerHomePage() {
               title: 'Commandez',
               desc: 'Passez commande sur la plateforme et payez via Orange Money ou Moov Money en toute sécurité',
               gradient: 'linear-gradient(135deg, #00A86B 0%, #A2E4B8 100%)',
+              image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=70&auto=format&fit=crop',
             },
             {
               icon: 'local_shipping',
               step: '03',
               title: 'Recevez',
               desc: 'Un livreur partenaire récupère votre commande et vous la livre rapidement à domicile',
-              gradient: 'linear-gradient(135deg, #ca8a04 0%, #eab308 100%)',
+              gradient: 'linear-gradient(135deg, #F97316 0%, #FB923C 100%)',
+              image: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=70&auto=format&fit=crop',
             },
           ].map((item, i) => (
             <div key={i} className="relative bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all group">
-              {/* Illustration gradient + icône */}
-              <div className="relative h-36 flex items-center justify-center" style={{ background: item.gradient }}>
-                <span className="absolute top-4 right-5 text-6xl font-black text-white opacity-20 select-none">
+              {/* Photo + voile dégradé + icône */}
+              <div className="relative h-40 flex items-center justify-center overflow-hidden">
+                <img
+                  src={item.image}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0" style={{ background: item.gradient, opacity: 0.75 }} />
+                <span className="absolute top-4 right-5 text-6xl font-black text-white opacity-25 select-none">
                   {item.step}
                 </span>
-                <span className="material-symbols-outlined text-white drop-shadow-md" style={{ fontSize: '48px' }}>
+                <span className="material-symbols-outlined relative text-white drop-shadow-md" style={{ fontSize: '48px' }}>
                   {item.icon}
                 </span>
               </div>
@@ -476,7 +505,7 @@ export default function CustomerHomePage() {
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(202,138,4,0.15) 0%, transparent 40%)`,
+              backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(249,115,22,0.2) 0%, transparent 40%)`,
             }}
           />
 
@@ -501,7 +530,7 @@ export default function CustomerHomePage() {
               <Link
                 to="/register"
                 className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-sm transition-all hover:opacity-90 hover:scale-105"
-                style={{ backgroundColor: '#ca8a04', color: 'white' }}
+                style={{ backgroundColor: '#F97316', color: 'white' }}
               >
                 <span className="material-symbols-outlined text-sm">add_business</span>
                 Créer ma boutique
@@ -534,22 +563,22 @@ export default function CustomerHomePage() {
                 name: 'Aminata Ouédraogo',
                 role: 'Marchande de mode, Ouagadougou',
                 text: 'Depuis que j\'ai rejoint Shopizi, mes ventes ont doublé. Je reçois des commandes de tout Ouaga !',
-                avatar: 'A',
+                photo: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=160&q=70&auto=format&fit=crop',
                 color: '#00A86B',
               },
               {
                 name: 'Ibrahim Kaboré',
                 role: 'Client fidèle, Bobo-Dioulasso',
                 text: 'Je commande mes produits locaux sans bouger de chez moi. La livraison est toujours rapide.',
-                avatar: 'I',
+                photo: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=160&q=70&auto=format&fit=crop',
                 color: '#0A504A',
               },
               {
                 name: 'Fatou Traoré',
                 role: 'Livreur partenaire, Ouagadougou',
                 text: 'Shopizi m\'a permis d\'avoir un revenu stable. Je gère mes courses comme je veux.',
-                avatar: 'F',
-                color: '#ca8a04',
+                photo: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=160&q=70&auto=format&fit=crop',
+                color: '#F97316',
               },
             ].map((t, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all" style={{ borderTop: `3px solid ${t.color}` }}>
@@ -564,12 +593,12 @@ export default function CustomerHomePage() {
                   "{t.text}"
                 </p>
                 <div className="flex items-center gap-3">
-                  <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-sm"
-                    style={{ background: `linear-gradient(135deg, ${t.color} 0%, #A2E4B8 100%)` }}
-                  >
-                    {t.avatar}
-                  </div>
+                  <img
+                    src={t.photo}
+                    alt={t.name}
+                    className="w-14 h-14 rounded-full object-cover shadow-sm border-2"
+                    style={{ borderColor: t.color }}
+                  />
                   <div>
                     <p className="font-bold text-sm" style={{ color: '#0A504A' }}>
                       {t.name}
