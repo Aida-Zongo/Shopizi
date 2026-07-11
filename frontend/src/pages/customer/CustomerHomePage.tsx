@@ -108,6 +108,13 @@ export default function CustomerHomePage() {
     <div>
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 px-4" style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 60%, #A2E4B8 100%)' }}>
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&q=80&auto=format&fit=crop"
+            alt=""
+            className="w-full h-full object-cover opacity-10"
+          />
+        </div>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
         <div className="relative max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20 text-white/90 text-sm mb-6">
@@ -209,39 +216,42 @@ export default function CustomerHomePage() {
               step: '01',
               title: 'Recherchez',
               desc: 'Trouvez des produits et boutiques locales près de chez vous à Ouagadougou et partout au Burkina Faso',
+              gradient: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)',
             },
             {
               icon: 'shopping_cart',
               step: '02',
               title: 'Commandez',
               desc: 'Passez commande sur la plateforme et payez via Orange Money ou Moov Money en toute sécurité',
+              gradient: 'linear-gradient(135deg, #00A86B 0%, #A2E4B8 100%)',
             },
             {
               icon: 'local_shipping',
               step: '03',
               title: 'Recevez',
               desc: 'Un livreur partenaire récupère votre commande et vous la livre rapidement à domicile',
+              gradient: 'linear-gradient(135deg, #ca8a04 0%, #eab308 100%)',
             },
           ].map((item, i) => (
-            <div key={i} className="relative bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all group">
-              {/* Numéro étape */}
-              <span className="absolute top-6 right-6 text-6xl font-black opacity-5 select-none" style={{ color: '#00A86B' }}>
-                {item.step}
-              </span>
-
-              {/* Icône */}
-              <div className="w-14 h-14 rounded-2xl mb-6 flex items-center justify-center" style={{ backgroundColor: '#A2E4B8' }}>
-                <span className="material-symbols-outlined text-3xl" style={{ color: '#0A504A' }}>
+            <div key={i} className="relative bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all group">
+              {/* Illustration gradient + icône */}
+              <div className="relative h-36 flex items-center justify-center" style={{ background: item.gradient }}>
+                <span className="absolute top-4 right-5 text-6xl font-black text-white opacity-20 select-none">
+                  {item.step}
+                </span>
+                <span className="material-symbols-outlined text-white drop-shadow-md" style={{ fontSize: '48px' }}>
                   {item.icon}
                 </span>
               </div>
 
-              <h3 className="text-lg font-bold mb-3" style={{ color: '#0A504A' }}>
-                {item.title}
-              </h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                {item.desc}
-              </p>
+              <div className="p-6">
+                <h3 className="text-lg font-bold mb-3" style={{ color: '#0A504A' }}>
+                  {item.title}
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
 
               {/* Connecteur entre cartes */}
               {i < 2 && (
@@ -388,56 +398,47 @@ export default function CustomerHomePage() {
 
       {/* Pourquoi Shopizi */}
       <section className="max-w-6xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-black mb-3" style={{ color: '#0A504A' }}>
-            Pourquoi choisir Shopizi ?
-          </h2>
-          <p className="text-gray-500">
-            La marketplace pensée pour le Burkina Faso
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            {
-              icon: 'storefront',
-              title: 'Commerçants locaux',
-              desc: 'Soutenez directement l\'économie et les entrepreneurs du Burkina Faso',
-              color: '#00A86B',
-            },
-            {
-              icon: 'verified_user',
-              title: 'Paiements sécurisés',
-              desc: 'Transactions protégées via Orange Money et Moov Money',
-              color: '#0A504A',
-            },
-            {
-              icon: 'bolt',
-              title: 'Livraison rapide',
-              desc: 'Des livreurs partenaires disponibles dès 500 FCFA dans votre ville',
-              color: '#ca8a04',
-            },
-            {
-              icon: 'support_agent',
-              title: 'Support réactif',
-              desc: 'Contactez les marchands directement via WhatsApp ou le chat intégré',
-              color: '#00A86B',
-            },
-          ].map((item, i) => (
-            <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-              <div className="w-12 h-12 rounded-xl mb-4 flex items-center justify-center" style={{ backgroundColor: item.color + '15' }}>
-                <span className="material-symbols-outlined" style={{ color: item.color, fontSize: '24px' }}>
-                  {item.icon}
-                </span>
-              </div>
-              <h3 className="font-bold mb-2 text-sm" style={{ color: '#0A504A' }}>
-                {item.title}
-              </h3>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                {item.desc}
-              </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Image gauche */}
+          <div className="relative rounded-3xl overflow-hidden h-80 lg:h-96 shadow-2xl">
+            <img
+              src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&q=80&auto=format&fit=crop"
+              alt="Commerçant Burkina Faso"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            <div className="absolute bottom-4 left-4 text-white">
+              <p className="font-bold">+500 marchands</p>
+              <p className="text-sm opacity-80">nous font confiance</p>
             </div>
-          ))}
+          </div>
+
+          {/* Contenu droite */}
+          <div>
+            <h2 className="text-3xl font-black mb-6" style={{ color: '#0A504A' }}>
+              Pourquoi choisir Shopizi ?
+            </h2>
+            {[
+              { icon: 'storefront', title: 'Commerçants locaux', desc: 'Soutenez directement l\'économie burkinabè' },
+              { icon: 'verified_user', title: 'Paiements sécurisés', desc: 'Orange Money et Moov Money acceptés' },
+              { icon: 'bolt', title: 'Livraison rapide', desc: 'Dès 500 FCFA partout au Burkina' },
+              { icon: 'support_agent', title: 'Support réactif', desc: 'Chat intégré et WhatsApp disponible' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-4 mb-5">
+                <div className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center" style={{ backgroundColor: '#A2E4B8' }}>
+                  <span className="material-symbols-outlined text-sm" style={{ color: '#0A504A' }}>
+                    {item.icon}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-bold text-sm mb-0.5" style={{ color: '#0A504A' }}>
+                    {item.title}
+                  </p>
+                  <p className="text-sm text-gray-500">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -486,6 +487,68 @@ export default function CustomerHomePage() {
                 Voir les boutiques
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Témoignages */}
+      <section className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl font-black text-center mb-3" style={{ color: '#0A504A' }}>
+            Ils nous font confiance
+          </h2>
+          <p className="text-center text-gray-500 mb-10">
+            Ce que disent nos marchands et clients
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: 'Aminata Ouédraogo',
+                role: 'Marchande de mode, Ouagadougou',
+                text: 'Depuis que j\'ai rejoint Shopizi, mes ventes ont doublé. Je reçois des commandes de tout Ouaga !',
+                avatar: 'A',
+                color: '#00A86B',
+              },
+              {
+                name: 'Ibrahim Kaboré',
+                role: 'Client fidèle, Bobo-Dioulasso',
+                text: 'Je commande mes produits locaux sans bouger de chez moi. La livraison est toujours rapide.',
+                avatar: 'I',
+                color: '#0A504A',
+              },
+              {
+                name: 'Fatou Traoré',
+                role: 'Livreur partenaire, Ouagadougou',
+                text: 'Shopizi m\'a permis d\'avoir un revenu stable. Je gère mes courses comme je veux.',
+                avatar: 'F',
+                color: '#ca8a04',
+              },
+            ].map((t, i) => (
+              <div key={i} className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                <div className="flex items-center gap-1 mb-4">
+                  {[1, 2, 3, 4, 5].map(s => (
+                    <span key={s} className="material-symbols-outlined" style={{ fontSize: '16px', color: '#ca8a04' }}>
+                      star
+                    </span>
+                  ))}
+                </div>
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  "{t.text}"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: t.color }}>
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm" style={{ color: '#0A504A' }}>
+                      {t.name}
+                    </p>
+                    <p className="text-xs text-gray-400">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
