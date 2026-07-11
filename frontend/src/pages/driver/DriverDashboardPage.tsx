@@ -15,9 +15,15 @@ interface LiveOrder {
   order_id: string;
   product_name: string;
   shop_name?: string | null;
+  shop_city?: string | null;
+  shop_address?: string | null;
+  customer_name?: string | null;
+  customer_city?: string | null;
   delivery_address: string | null;
   driver_amount: number;
   distance_km?: number | null;
+  estimated_minutes?: number | null;
+  note?: string | null;
 }
 
 interface MyLiveOrder extends LiveOrder {
@@ -179,16 +185,29 @@ export default function DriverDashboardPage() {
     setIsLoading(true);
     setError("");
     try {
-      const [statsRes, availableRes, historyRes] = await Promise.all([
+      const [statsRes, availableRes, historyRes, activeRes] = await Promise.all([
         api.get("/drivers/me/stats"),
         api.get("/delivery/available"),
         api.get("/delivery/my/history"),
+        api.get("/orders/driver/active").catch(() => null),
       ]);
       if (statsRes?.data?.success) setStats(statsRes.data.data);
       if (availableRes?.data?.success)
         setAvailableOrders(availableRes.data.data || []);
       if (historyRes?.data?.success)
         setRecentHistory((historyRes.data.data || []).slice(0, 3));
+      if (activeRes?.data?.success) {
+        // Rehydrate in-progress deliveries after a reload; DB has no
+        // 'accepted' status (accept only sets driver_id), so anything
+        // before pickup maps back to the UI step "accepted".
+        setMyLiveOrders(
+          (activeRes.data.data || []).map((o: any): MyLiveOrder => ({
+            ...o,
+            product_name: o.product_name || "Commande",
+            status: o.status === "pickup" || o.status === "picked_up" ? o.status : "accepted",
+          }))
+        );
+      }
     } catch (err: any) {
       setError(getApiError(err));
     } finally {
@@ -283,14 +302,26 @@ export default function DriverDashboardPage() {
                   <div key={order.order_id} className="p-md flex items-center justify-between gap-3">
                     <div>
                       <p className="font-bold text-text-main">{order.product_name}</p>
-                      {order.shop_name && (
-                        <p className="text-body-sm text-text-muted">{order.shop_name}</p>
+                      {order.note && (
+                        <p className="text-body-sm text-error">{order.note}</p>
                       )}
-                      <p className="text-body-sm text-text-muted">{order.delivery_address || "Adresse non précisée"}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <p className="text-label-sm text-burkina-green-deep font-bold">+{order.driver_amount.toLocaleString()} FCFA</p>
+                      <p className="text-body-sm text-text-muted">
+                        Collecte chez : <span className="text-text-main font-medium">{order.shop_name || "Boutique"}</span>
+                        {order.shop_city ? ` (${order.shop_city})` : ""}
+                        {order.shop_address ? ` — ${order.shop_address}` : ""}
+                      </p>
+                      <p className="text-body-sm text-text-muted">
+                        Livraison à : <span className="text-text-main font-medium">{order.customer_name || "Client"}</span>
+                        {order.customer_city ? ` (${order.customer_city})` : ""}
+                        {order.delivery_address ? ` — ${order.delivery_address}` : ""}
+                      </p>
+                      <div className="flex items-center gap-2 mt-1 flex-wrap">
+                        <p className="text-label-sm text-burkina-green-deep font-bold">Vos gains : +{order.driver_amount.toLocaleString()} FCFA</p>
                         {order.distance_km != null && (
-                          <span className="text-[11px] text-text-muted">· {order.distance_km.toFixed(1)} km</span>
+                          <span className="text-[11px] text-text-muted">· Distance : {Number(order.distance_km).toFixed(1)} km</span>
+                        )}
+                        {order.estimated_minutes != null && (
+                          <span className="text-[11px] text-text-muted">· Durée estimée : ~{order.estimated_minutes} min</span>
                         )}
                       </div>
                     </div>
@@ -325,11 +356,25 @@ export default function DriverDashboardPage() {
                   <div key={order.order_id} className="p-md flex items-center justify-between gap-3">
                     <div>
                       <p className="font-bold text-text-main">{order.product_name}</p>
-                      {order.shop_name && (
-                        <p className="text-body-sm text-text-muted">{order.shop_name}</p>
-                      )}
-                      <p className="text-body-sm text-text-muted">{order.delivery_address || "Adresse non précisée"}</p>
-                      <p className="text-label-sm text-burkina-green-deep font-bold">+{order.driver_amount.toLocaleString()} FCFA</p>
+                      <p className="text-body-sm text-text-muted">
+                        Collecte chez : <span className="text-text-main font-medium">{order.shop_name || "Boutique"}</span>
+                        {order.shop_city ? ` (${order.shop_city})` : ""}
+                        {order.shop_address ? ` — ${order.shop_address}` : ""}
+                      </p>
+                      <p className="text-body-sm text-text-muted">
+                        Livraison à : <span className="text-text-main font-medium">{order.customer_name || "Client"}</span>
+                        {order.customer_city ? ` (${order.customer_city})` : ""}
+                        {order.delivery_address ? ` — ${order.delivery_address}` : ""}
+                      </p>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="text-label-sm text-burkina-green-deep font-bold">Vos gains : +{order.driver_amount.toLocaleString()} FCFA</p>
+                        {order.distance_km != null && (
+                          <span className="text-[11px] text-text-muted">· {Number(order.distance_km).toFixed(1)} km</span>
+                        )}
+                        {order.estimated_minutes != null && (
+                          <span className="text-[11px] text-text-muted">· ~{order.estimated_minutes} min</span>
+                        )}
+                      </div>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       {order.customer_user_id && (

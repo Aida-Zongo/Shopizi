@@ -1,6 +1,7 @@
 const { query, getClient } = require('../../db/pool');
 const { NotFoundError, BadRequestError, PaymentError } = require('../../utils/errors');
 const { getIO } = require('../../realtime/socket');
+const { broadcastNewOrder } = require('../orders/order-broadcast');
 const eventBus = require('../../events');
 const config = require('../../config/index');
 
@@ -232,12 +233,7 @@ async function processOrderPayment(tx, metadata) {
     client.release();
   }
 
-  getIO().emit('new:order', {
-    order_id: order.id,
-    product_name: metadata.product_name || null,
-    delivery_address: order.delivery_address,
-    driver_amount: metadata.driver_amount_xof || 0,
-  });
+  await broadcastNewOrder(order, metadata.product_name || null);
   getIO().emit('order:confirmed', { order_id: order.id, shop_id: order.shop_id });
   eventBus.emit('order:status_changed', { shopId: order.shop_id, orderId: order.id, oldStatus: 'new', newStatus: order.status });
 }

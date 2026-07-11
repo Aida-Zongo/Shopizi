@@ -47,7 +47,7 @@ export default function CustomerMessagesPage() {
   const fetchMessages = async (roomId: string) => {
     try {
       const res = await api.get(`/chat/rooms/${roomId}/messages`);
-      if (res.data.success) setMessages(res.data.data || []);
+      if (res.data.success) setMessages((res.data.data || []).reverse()); // API returns DESC, we want ASC for display
     } catch (err: any) {
       setError(getApiError(err));
     }

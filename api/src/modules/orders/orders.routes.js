@@ -11,6 +11,7 @@ const { ORDER_TRANSITIONS } = require('../../constants/enums');
 const eventBus = require('../../events');
 const { calculateHaversineDistance, calculateDeliveryFee } = require('../delivery/delivery.service');
 const { getIO } = require('../../realtime/socket');
+const { broadcastNewOrder } = require('./order-broadcast');
 
 const router = Router();
 
@@ -126,14 +127,7 @@ async function customerCreateOrder(req, res) {
     await client.query('COMMIT');
 
     eventBus.emit('order:created', { shopId: shop_id, orderId: order.id });
-    getIO().emit('new:order', {
-      order_id: order.id,
-      product_name,
-      shop_name: shop.name,
-      delivery_address: delivery_address || null,
-      driver_amount,
-      distance_km: distanceKm,
-    });
+    await broadcastNewOrder(order, product_name);
 
     return successResponse(res, {
       ...order,
@@ -188,6 +182,52 @@ router.get('/stats', authenticate, asyncHandler(async (req, res) => {
   const stats = { revenue_month_xof: revenue.rows[0].revenue_month_xof };
   byStatus.rows.forEach(row => { stats[row.status] = row.count; });
   return successResponse(res, stats);
+}));
+
+// Driver: list own in-progress orders (MUST be before /:id).
+// No 'accepted' status exists in DB: accepting only sets driver_id,
+// so "active" = assigned to this driver and not yet delivered/completed/cancelled.
+router.get('/driver/active', authenticate, asyncHandler(async (req, res) => {
+  const driverRes = await query('SELECT id FROM delivery_drivers WHERE user_id = $1', [req.user.userId]);
+  if (driverRes.rows.length === 0) throw new NotFoundError('Profil livreur introuvable');
+  const driverId = driverRes.rows[0].id;
+
+  const r = await query(
+    `SELECT o.id AS order_id, o.status, o.customer_name, o.customer_phone, o.customer_user_id,
+            o.delivery_address, o.client_latitude, o.client_longitude, o.delivery_fee_xof,
+            s.name AS shop_name, COALESCE(s.city_name, s.city) AS shop_city, s.address AS shop_address,
+            s.latitude AS shop_latitude, s.longitude AS shop_longitude,
+            c.name AS customer_city,
+            f.driver_amount_xof,
+            (SELECT oi.product_name FROM order_items oi WHERE oi.order_id = o.id ORDER BY oi.created_at LIMIT 1) AS product_name
+     FROM orders o
+     JOIN shops s ON s.id = o.shop_id
+     LEFT JOIN cities c ON c.id = o.delivery_city_id
+     LEFT JOIN order_financials f ON f.order_id = o.id
+     WHERE o.driver_id = $1 AND o.status NOT IN ('delivered', 'completed', 'cancelled')
+     ORDER BY o.created_at DESC`,
+    [driverId]
+  );
+
+  const orders = r.rows.map(row => {
+    let distanceKm = null;
+    if (row.client_latitude != null && row.client_longitude != null && row.shop_latitude != null && row.shop_longitude != null) {
+      distanceKm = calculateHaversineDistance(
+        Number(row.shop_latitude), Number(row.shop_longitude),
+        Number(row.client_latitude), Number(row.client_longitude)
+      );
+    }
+    return {
+      ...row,
+      customer_city: row.customer_city || 'Non précisée',
+      driver_amount: Number(row.driver_amount_xof) || 0,
+      delivery_fee: Number(row.delivery_fee_xof) || 0,
+      distance_km: distanceKm,
+      estimated_minutes: distanceKm != null ? Math.round(distanceKm * 3) : null,
+    };
+  });
+
+  return successResponse(res, orders);
 }));
 
 // Get order
