@@ -134,74 +134,90 @@ export default function CustomerHomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 px-4" style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 60%, #A2E4B8 100%)' }}>
-        <div className="absolute inset-0 overflow-hidden">
-          {HERO_IMAGES.map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-              style={{ opacity: i === heroIndex ? 0.15 : 0 }}
-            />
-          ))}
-        </div>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
-        <div className="relative max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20 text-white/90 text-sm mb-6">
-            <span className="material-symbols-outlined text-[16px]">public</span>
-            <span>La marketplace digitale du Burkina Faso</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-            Trouvez tout ce dont<br />
-            <span className="text-orange-300">vous avez besoin</span>
-          </h1>
-          <p className="text-white/80 text-lg mb-8">
-            Des milliers de produits disponibles chez nos commerçants partenaires à Ouagadougou et partout au Burkina.
-          </p>
-          <form onSubmit={handleSearch} className="flex gap-2 max-w-xl mx-auto">
-            <div className="flex-1 relative">
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">search</span>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Ex: riz local, tissu faso dan fani, téléphone..."
-                className="w-full pl-12 pr-4 py-4 rounded-2xl text-text-main bg-white focus:outline-none focus:ring-2 focus:ring-shopizi-primary text-base"
-              />
+      <section className="relative overflow-hidden py-14 lg:py-20 px-4" style={{ backgroundColor: '#F7F7F2' }}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          {/* Texte + recherche */}
+          <div className="text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm text-sm mb-6" style={{ color: '#0A504A' }}>
+              <span className="material-symbols-outlined text-[16px]">public</span>
+              <span>La marketplace digitale du Burkina Faso</span>
             </div>
-            <button type="submit" className="px-6 py-4 bg-shopizi-accent hover:brightness-90 text-white font-bold rounded-2xl transition-all active:scale-95">
-              Chercher
-            </button>
-          </form>
-
-          <div className="flex flex-wrap gap-2 justify-center mt-4">
-            {['Riz local', 'Tissu Faso Dan Fani', 'Téléphone', 'Médicaments', 'Décoration'].map(term => (
-              <button
-                key={term}
-                onClick={() => {
-                  setSearchQuery(term);
-                  navigate(`/marketplace?q=${encodeURIComponent(term)}`);
-                }}
-                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white/80 text-xs font-medium transition-all"
-              >
-                {term}
+            <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight" style={{ color: '#0A504A' }}>
+              Trouvez tout ce dont<br />
+              <span style={{ color: '#F97316' }}>vous avez besoin</span>
+            </h1>
+            <p className="text-gray-600 text-lg mb-8">
+              Des milliers de produits disponibles chez nos commerçants partenaires à Ouagadougou et partout au Burkina.
+            </p>
+            <form onSubmit={handleSearch} className="flex gap-2 max-w-xl mx-auto lg:mx-0">
+              <div className="flex-1 relative">
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">search</span>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Ex: riz local, tissu faso dan fani, téléphone..."
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl text-text-main bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-shopizi-accent text-base"
+                />
+              </div>
+              <button type="submit" className="px-6 py-4 bg-shopizi-accent hover:brightness-90 text-white font-bold rounded-2xl transition-all active:scale-95">
+                Chercher
               </button>
-            ))}
-          </div>
+            </form>
 
-          {/* Preuve sociale */}
-          <div className="flex items-center justify-center gap-3 mt-8">
-            <div className="flex -space-x-3">
-              {SOCIAL_AVATARS.map(src => (
-                <img key={src} src={src} alt="" className="w-9 h-9 rounded-full border-2 border-white object-cover" />
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start mt-4">
+              {['Riz local', 'Tissu Faso Dan Fani', 'Téléphone', 'Médicaments', 'Décoration'].map(term => (
+                <button
+                  key={term}
+                  onClick={() => {
+                    setSearchQuery(term);
+                    navigate(`/marketplace?q=${encodeURIComponent(term)}`);
+                  }}
+                  className="px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-600 text-xs font-medium transition-all"
+                >
+                  {term}
+                </button>
               ))}
             </div>
-            <p className="text-white/80 text-sm text-left">
-              Déjà adopté par des <span className="font-bold text-white">milliers de Burkinabè</span>
-            </p>
+
+            {/* Preuve sociale */}
+            <div className="flex items-center justify-center lg:justify-start gap-3 mt-8">
+              <div className="flex -space-x-3">
+                {SOCIAL_AVATARS.map(src => (
+                  <img key={src} src={src} alt="" className="w-9 h-9 rounded-full border-2 border-white object-cover" />
+                ))}
+              </div>
+              <p className="text-gray-600 text-sm text-left">
+                Déjà adopté par des <span className="font-bold" style={{ color: '#0A504A' }}>milliers de Burkinabè</span>
+              </p>
+            </div>
           </div>
 
+          {/* Visuel — image nette, cadre arrondi, carte flottante */}
+          <div className="relative hidden sm:block">
+            <div className="absolute -top-8 -right-8 w-56 h-56 rounded-full opacity-15" style={{ backgroundColor: '#F97316' }} />
+            <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full opacity-10" style={{ backgroundColor: '#0A504A' }} />
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl h-72 md:h-96">
+              {HERO_IMAGES.map((src, i) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+                  style={{ opacity: i === heroIndex ? 1 : 0 }}
+                />
+              ))}
+            </div>
+            <div className="absolute -bottom-5 left-6 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#FFF4ED' }}>
+                <span className="material-symbols-outlined" style={{ color: '#F97316' }}>moped</span>
+              </div>
+              <div>
+                <p className="text-sm font-bold" style={{ color: '#0A504A' }}>Livraison rapide</p>
+                <p className="text-xs text-gray-500">dès 500 FCFA</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -215,11 +231,11 @@ export default function CustomerHomePage() {
             { icon: 'groups', value: '21M+', label: 'Burkinabè' },
           ].map((item, i) => (
             <div key={i} className="text-center">
-              <span className="material-symbols-outlined text-[32px] mb-2" style={{ color: '#A2E4B8' }}>
+              <span className="material-symbols-outlined text-[32px] mb-2" style={{ color: '#FDBA74' }}>
                 {item.icon}
               </span>
               <p className="text-2xl md:text-3xl font-black text-white">{item.value}</p>
-              <p className="text-sm" style={{ color: '#A2E4B8' }}>{item.label}</p>
+              <p className="text-sm text-white/70">{item.label}</p>
             </div>
           ))}
         </div>
@@ -237,7 +253,7 @@ export default function CustomerHomePage() {
                   ? 'text-white shadow-md'
                   : 'bg-surface-container text-text-muted hover:bg-surface-container-high'
               }`}
-              style={activeCategory === cat.value ? { backgroundColor: '#00A86B' } : {}}
+              style={activeCategory === cat.value ? { backgroundColor: '#0A504A' } : {}}
             >
               {cat.label}
             </button>
@@ -263,7 +279,6 @@ export default function CustomerHomePage() {
               step: '01',
               title: 'Recherchez',
               desc: 'Trouvez des produits et boutiques locales près de chez vous à Ouagadougou et partout au Burkina Faso',
-              gradient: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)',
               image: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&q=70&auto=format&fit=crop',
             },
             {
@@ -271,7 +286,6 @@ export default function CustomerHomePage() {
               step: '02',
               title: 'Commandez',
               desc: 'Passez commande sur la plateforme et payez via Orange Money ou Moov Money en toute sécurité',
-              gradient: 'linear-gradient(135deg, #00A86B 0%, #A2E4B8 100%)',
               image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=70&auto=format&fit=crop',
             },
             {
@@ -279,25 +293,24 @@ export default function CustomerHomePage() {
               step: '03',
               title: 'Recevez',
               desc: 'Un livreur partenaire récupère votre commande et vous la livre rapidement à domicile',
-              gradient: 'linear-gradient(135deg, #F97316 0%, #FB923C 100%)',
               image: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=70&auto=format&fit=crop',
             },
           ].map((item, i) => (
             <div key={i} className="relative bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all group">
-              {/* Photo + voile dégradé + icône */}
-              <div className="relative h-40 flex items-center justify-center overflow-hidden">
+              {/* Photo nette + badge étape + pastille icône */}
+              <div className="relative h-40 overflow-hidden">
                 <img
                   src={item.image}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0" style={{ background: item.gradient, opacity: 0.75 }} />
-                <span className="absolute top-4 right-5 text-6xl font-black text-white opacity-25 select-none">
-                  {item.step}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                <span className="absolute top-3 right-3 bg-white/95 text-xs font-black px-2.5 py-1 rounded-full" style={{ color: '#F97316' }}>
+                  Étape {item.step}
                 </span>
-                <span className="material-symbols-outlined relative text-white drop-shadow-md" style={{ fontSize: '48px' }}>
-                  {item.icon}
-                </span>
+                <div className="absolute bottom-3 left-4 w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#F97316' }}>
+                  <span className="material-symbols-outlined text-white" style={{ fontSize: '22px' }}>{item.icon}</span>
+                </div>
               </div>
 
               <div className="p-6">
@@ -312,7 +325,7 @@ export default function CustomerHomePage() {
               {/* Connecteur entre cartes */}
               {i < 2 && (
                 <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00A86B' }}>
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F97316' }}>
                     <span className="material-symbols-outlined text-white text-sm">arrow_forward</span>
                   </div>
                 </div>
@@ -481,7 +494,7 @@ export default function CustomerHomePage() {
               { icon: 'support_agent', title: 'Support réactif', desc: 'Chat intégré et WhatsApp disponible' },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-4 mb-5">
-                <div className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center" style={{ backgroundColor: '#A2E4B8' }}>
+                <div className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center" style={{ backgroundColor: 'rgba(10, 80, 74, 0.08)' }}>
                   <span className="material-symbols-outlined text-sm" style={{ color: '#0A504A' }}>
                     {item.icon}
                   </span>
@@ -500,7 +513,7 @@ export default function CustomerHomePage() {
 
       {/* CTA Commerçant */}
       <section className="max-w-6xl mx-auto px-4 pb-16">
-        <div className="rounded-3xl overflow-hidden relative" style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)' }}>
+        <div className="rounded-3xl overflow-hidden relative" style={{ backgroundColor: '#0A504A' }}>
           {/* Motif géométrique */}
           <div
             className="absolute inset-0"
@@ -564,24 +577,21 @@ export default function CustomerHomePage() {
                 role: 'Marchande de mode, Ouagadougou',
                 text: 'Depuis que j\'ai rejoint Shopizi, mes ventes ont doublé. Je reçois des commandes de tout Ouaga !',
                 photo: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=160&q=70&auto=format&fit=crop',
-                color: '#00A86B',
               },
               {
                 name: 'Ibrahim Kaboré',
                 role: 'Client fidèle, Bobo-Dioulasso',
                 text: 'Je commande mes produits locaux sans bouger de chez moi. La livraison est toujours rapide.',
                 photo: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=160&q=70&auto=format&fit=crop',
-                color: '#0A504A',
               },
               {
                 name: 'Fatou Traoré',
                 role: 'Livreur partenaire, Ouagadougou',
                 text: 'Shopizi m\'a permis d\'avoir un revenu stable. Je gère mes courses comme je veux.',
                 photo: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=160&q=70&auto=format&fit=crop',
-                color: '#F97316',
               },
             ].map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all" style={{ borderTop: `3px solid ${t.color}` }}>
+              <div key={i} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all border border-gray-100">
                 <div className="flex items-center gap-1 mb-4">
                   {[1, 2, 3, 4, 5].map(s => (
                     <span key={s} className="material-symbols-outlined" style={{ fontSize: '18px', color: '#ca8a04', fontVariationSettings: "'FILL' 1" }}>
@@ -596,8 +606,7 @@ export default function CustomerHomePage() {
                   <img
                     src={t.photo}
                     alt={t.name}
-                    className="w-14 h-14 rounded-full object-cover shadow-sm border-2"
-                    style={{ borderColor: t.color }}
+                    className="w-14 h-14 rounded-full object-cover shadow-md border-2 border-white"
                   />
                   <div>
                     <p className="font-bold text-sm" style={{ color: '#0A504A' }}>
