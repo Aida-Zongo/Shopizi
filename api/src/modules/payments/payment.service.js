@@ -54,7 +54,7 @@ async function initiateSandbox({ type, amount, customerId, shopId, metadata }) {
     mode: 'sandbox',
     transaction_id: transactionId,
     payment_url: null,
-    sandbox_url: `/api/v1/payments/sandbox/confirm/${transactionId}`,
+    sandbox_url: `${process.env.BACKEND_URL || `http://localhost:${config.server.port}`}/api/v1/payments/sandbox/confirm/${transactionId}`,
   };
 }
 
