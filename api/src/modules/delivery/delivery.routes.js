@@ -56,16 +56,17 @@ router.get('/calculate-fee', asyncHandler(async (req, res) => {
   if (shopRes.rows.length === 0) throw new NotFoundError('Shop introuvable');
   const shop = shopRes.rows[0];
 
-  if (!shop.latitude || !shop.longitude) {
-    throw new BadRequestError('La boutique n\'a pas configuré sa position géographique');
-  }
+  // Boutique sans position configurée : centre de Ouagadougou par défaut (distance estimée)
+  const estimated = !shop.latitude || !shop.longitude;
+  const shopLat = estimated ? 12.3714 : Number(shop.latitude);
+  const shopLng = estimated ? -1.5197 : Number(shop.longitude);
 
   const result = await calculateDeliveryFee(
-    Number(shop.latitude), Number(shop.longitude),
+    shopLat, shopLng,
     Number(lat), Number(lng)
   );
 
-  return successResponse(res, result);
+  return successResponse(res, { ...result, estimated });
 }));
 
 // List available delivery jobs (for drivers)

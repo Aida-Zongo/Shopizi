@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import api, { getApiError } from '../../lib/api';
 import { useAuthStore } from '../../store/authStore';
 import { getSocket } from '../../lib/socket';
-import { MessageCircle, Send, Store, MapPin } from 'lucide-react';
+import { MessageCircle, Send, Store, MapPin, ArrowLeft } from 'lucide-react';
 
 interface ChatMessage {
   id: string;
@@ -114,7 +114,7 @@ export default function CustomerMessagesPage() {
       } catch (err: any) {
         setError(getApiError(err));
       }
-    }, () => alert("Impossible de récupérer votre position."));
+    }, () => setError('Impossible de récupérer votre position.'));
   };
 
   if (isLoading) {
@@ -137,8 +137,8 @@ export default function CustomerMessagesPage() {
       )}
 
       <div className="flex-1 flex bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
-        {/* Rooms list */}
-        <div className="w-full md:w-80 border-r border-outline-variant/20 flex flex-col">
+        {/* Rooms list (on mobile, hidden once a conversation is open) */}
+        <div className={`${selectedRoom ? 'hidden md:flex' : 'flex'} w-full md:w-80 border-r border-outline-variant/20 flex-col`}>
           <div className="p-4 border-b border-outline-variant/20">
             <h2 className="text-label-lg font-label-lg text-text-main">Conversations</h2>
           </div>
@@ -172,10 +172,18 @@ export default function CustomerMessagesPage() {
           </div>
         </div>
 
-        {/* Messages area */}
-        <div className="hidden md:flex flex-1 flex-col">
+        {/* Messages area (on mobile, shown only when a conversation is open) */}
+        <div className={`${selectedRoom ? 'flex' : 'hidden'} md:flex flex-1 flex-col w-full`}>
           {selectedRoom ? (
             <>
+              <div className="flex items-center gap-2 p-3 border-b border-outline-variant/20 md:hidden">
+                <button type="button" onClick={() => setSelectedRoom(null)} className="p-1 text-text-muted hover:text-text-main" aria-label="Retour aux conversations">
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+                <span className="text-body-md font-medium text-text-main truncate">
+                  {rooms.find(r => r.id === selectedRoom)?.shop_name || rooms.find(r => r.id === selectedRoom)?.title || 'Conversation'}
+                </span>
+              </div>
               <div className="flex-1 overflow-y-auto p-4 space-y-3">
                 {messages.map(msg => {
                   const isMe = msg.sender_id === user?.id;

@@ -53,6 +53,8 @@ export default function CustomerShopPage() {
   const [deliveryFee, setDeliveryFee] = useState<number | null>(null);
   const [distanceKm, setDistanceKm] = useState<number | null>(null);
   const [isLocating, setIsLocating] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [isFeeEstimated, setIsFeeEstimated] = useState(false);
   
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
@@ -180,11 +182,24 @@ export default function CustomerShopPage() {
     setShowCheckout(true);
     setDeliveryFee(null);
     setDistanceKm(null);
+    setCheckoutError(null);
+    setIsFeeEstimated(false);
+  };
+
+  const DEFAULT_DELIVERY_FEE = 1000;
+
+  const handleGeoUnavailable = () => {
+    setCheckoutError('Géolocalisation non disponible. Entrez votre adresse.');
+    setDeliveryFee(DEFAULT_DELIVERY_FEE);
+    setIsFeeEstimated(true);
+    setDeliveryMode('manual');
+    setIsLocating(false);
   };
 
   const handleLocate = () => {
+    setCheckoutError(null);
     if (!navigator.geolocation) {
-      alert("La géolocalisation n'est pas supportée par votre navigateur.");
+      handleGeoUnavailable();
       return;
     }
     setIsLocating(true);
@@ -193,7 +208,7 @@ export default function CustomerShopPage() {
         setClientLat(pos.coords.latitude);
         setClientLng(pos.coords.longitude);
         setDeliveryAddress("Position GPS");
-        
+
         try {
           const res = await api.get('/delivery/calculate-fee', {
             params: {
@@ -205,18 +220,19 @@ export default function CustomerShopPage() {
           if (res.data.success) {
             setDeliveryFee(res.data.data.fee);
             setDistanceKm(res.data.data.distance);
+            setIsFeeEstimated(!!res.data.data.estimated);
           }
         } catch (err) {
           console.error(err);
-          alert("Erreur lors du calcul des frais de livraison.");
+          // Calcul indisponible (boutique sans coordonnées, réseau...) : frais par défaut
+          setDeliveryFee(DEFAULT_DELIVERY_FEE);
+          setDistanceKm(null);
+          setIsFeeEstimated(true);
         } finally {
           setIsLocating(false);
         }
       },
-      () => {
-        alert("Impossible de récupérer la position.");
-        setIsLocating(false);
-      }
+      handleGeoUnavailable
     );
   };
 
@@ -264,7 +280,7 @@ export default function CustomerShopPage() {
       }
     } catch (err) {
       console.error(err);
-      alert("Erreur lors de la création de la commande.");
+      setCheckoutError('Erreur lors de la création de la commande. Veuillez réessayer.');
     } finally {
       setIsSubmittingOrder(false);
     }
@@ -626,15 +642,22 @@ export default function CustomerShopPage() {
                       </button>
                     </div>
 
+                    {checkoutError && (
+                      <div className="mb-3 p-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800 flex items-start gap-2">
+                        <span className="material-symbols-outlined text-[18px]">info</span>
+                        <span>{checkoutError}</span>
+                      </div>
+                    )}
+
                     {deliveryMode === 'geo' && (
                       <div className="space-y-3">
                         <button type="button" onClick={handleLocate} disabled={isLocating} className="w-full py-2 flex items-center justify-center gap-2 bg-burkina-green-deep text-white rounded-xl text-sm font-medium hover:bg-opacity-90">
                           {isLocating ? 'Recherche en cours...' : <><span className="material-symbols-outlined text-[18px]">my_location</span> Utiliser ma position GPS</>}
                         </button>
-                        {distanceKm !== null && deliveryFee !== null && (
+                        {deliveryFee !== null && (
                           <div className="p-3 bg-tertiary-container/30 border border-burkina-green-deep/20 rounded-xl">
-                            <p className="text-sm font-medium text-tertiary-dark flex items-center gap-1"><span className="material-symbols-outlined text-[16px]">distance</span> Distance : {distanceKm} km</p>
-                            <p className="text-sm font-bold text-burkina-green-deep mt-1">Frais de livraison : {deliveryFee === 0 ? 'Gratuit' : `${deliveryFee.toLocaleString()} FCFA`}</p>
+                            <p className="text-sm font-medium text-tertiary-dark flex items-center gap-1"><span className="material-symbols-outlined text-[16px]">distance</span> {distanceKm !== null ? `Distance : ${distanceKm} km` : 'Distance estimée'}</p>
+                            <p className="text-sm font-bold text-burkina-green-deep mt-1">Frais de livraison{isFeeEstimated ? ' (estimés)' : ''} : {deliveryFee === 0 ? 'Gratuit' : `${deliveryFee.toLocaleString()} FCFA`}</p>
                           </div>
                         )}
                       </div>
@@ -645,14 +668,14 @@ export default function CustomerShopPage() {
                     )}
                   </div>
 
-                  {deliveryMode === 'geo' && deliveryFee !== null && (
+                  {deliveryFee !== null && (
                     <div className="border-t border-outline-variant/30 pt-3 space-y-1 text-sm">
                       <div className="flex justify-between text-text-muted">
                         <span>Produit</span>
                         <span>{(checkoutProduct.sale_price_xof || checkoutProduct.price_xof).toLocaleString()} FCFA</span>
                       </div>
                       <div className="flex justify-between text-text-muted">
-                        <span>Livraison</span>
+                        <span>Livraison{isFeeEstimated ? ' (estimée)' : ''}</span>
                         <span>{deliveryFee === 0 ? 'Gratuit' : `${deliveryFee.toLocaleString()} FCFA`}</span>
                       </div>
                       <div className="flex justify-between font-bold text-text-main text-base pt-1 border-t border-outline-variant/20">
