@@ -28,6 +28,7 @@ const updateShopSchema = z.object({
   email: z.string().email().optional().nullable(),
   address: z.string().max(500).optional().nullable(),
   city: z.string().max(100).optional().nullable(),
+  city_id: z.string().uuid('Ville invalide').optional().nullable(),
   neighborhood: z.string().max(100).optional().nullable(),
   primary_color: z.string().regex(hexColorRegex).optional(),
   secondary_color: z.string().regex(hexColorRegex).optional(),

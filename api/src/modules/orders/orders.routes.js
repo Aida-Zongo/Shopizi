@@ -66,6 +66,7 @@ const customerOrderSchema = z.object({
   customer_name: z.string().min(2),
   customer_phone: z.string().min(6),
   delivery_address: z.string().optional().nullable(),
+  delivery_city_id: z.string().uuid().optional().nullable(),
   client_latitude: z.number().optional().nullable(),
   client_longitude: z.number().optional().nullable(),
 });
@@ -77,7 +78,7 @@ async function customerCreateOrder(req, res) {
   const body = customerOrderSchema.parse(req.body);
   const {
     shop_id, product_id, product_name, price_xof, quantity,
-    customer_name, customer_phone, delivery_address, client_latitude, client_longitude,
+    customer_name, customer_phone, delivery_address, delivery_city_id, client_latitude, client_longitude,
   } = body;
 
   const shopRes = await query('SELECT name, latitude, longitude FROM shops WHERE id = $1', [shop_id]);
@@ -106,9 +107,9 @@ async function customerCreateOrder(req, res) {
   try {
     await client.query('BEGIN');
     const orderR = await client.query(
-      `INSERT INTO orders (shop_id, order_number, customer_name, customer_phone, delivery_address, delivery_fee_xof, client_latitude, client_longitude, source, status, total_amount_xof, customer_user_id)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'website_form','new',$9,$10) RETURNING *`,
-      [shop_id, orderNum, customer_name, customer_phone, delivery_address || null, deliveryFee, client_latitude || null, client_longitude || null, totalAmount, req.user?.role === 'customer' ? req.user.userId : null]
+      `INSERT INTO orders (shop_id, order_number, customer_name, customer_phone, delivery_address, delivery_city_id, delivery_fee_xof, client_latitude, client_longitude, source, status, total_amount_xof, customer_user_id)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'website_form','new',$10,$11) RETURNING *`,
+      [shop_id, orderNum, customer_name, customer_phone, delivery_address || null, delivery_city_id || null, deliveryFee, client_latitude || null, client_longitude || null, totalAmount, req.user?.role === 'customer' ? req.user.userId : null]
     );
     const order = orderR.rows[0];
 
@@ -347,6 +348,91 @@ router.put('/:id/status', authenticate, validate({ body: z.object({ status: z.en
   });
 
   return successResponse(res, updated.rows[0]);
+}));
+
+// Driver: generate the delivery confirmation QR code for an assigned order.
+// The QR encodes a one-time token URL that the customer scans to confirm.
+router.get('/:id/qrcode', authenticate, asyncHandler(async (req, res) => {
+  const QRCode = require('qrcode');
+  const crypto = require('crypto');
+  const config = require('../../config/index');
+
+  const driverRes = await query('SELECT id FROM delivery_drivers WHERE user_id = $1', [req.user.userId]);
+  if (driverRes.rows.length === 0) throw new NotFoundError('Profil livreur introuvable');
+  const driverId = driverRes.rows[0].id;
+
+  const orderRes = await query('SELECT id, driver_id, status FROM orders WHERE id = $1 AND driver_id = $2', [req.params.id, driverId]);
+  if (orderRes.rows.length === 0) throw new NotFoundError('Commande introuvable');
+
+  const confirmToken = crypto.randomBytes(32).toString('hex');
+  await query('UPDATE orders SET delivery_confirm_token = $1 WHERE id = $2', [confirmToken, req.params.id]);
+
+  const confirmUrl = `${config.frontend.url}/confirm-delivery/${req.params.id}?token=${confirmToken}`;
+  const qrDataUrl = await QRCode.toDataURL(confirmUrl, {
+    width: 300,
+    margin: 2,
+    color: { dark: '#0A504A', light: '#FFFFFF' },
+  });
+
+  return successResponse(res, { qr_code: qrDataUrl, confirm_url: confirmUrl });
+}));
+
+// Customer scans the QR code (public, secured by the one-time token):
+// marks the order delivered, credits the driver, notifies everyone.
+router.post('/:id/confirm-delivery', validate({ body: z.object({ token: z.string().min(10) }) }), asyncHandler(async (req, res) => {
+  const orderRes = await query(
+    `SELECT * FROM orders WHERE id = $1 AND delivery_confirm_token = $2 AND status = 'picked_up'`,
+    [req.params.id, req.body.token]
+  );
+  if (orderRes.rows.length === 0) throw new BadRequestError('Lien invalide ou commande déjà confirmée');
+  const order = orderRes.rows[0];
+
+  const client = await getClient();
+  try {
+    await client.query('BEGIN');
+    await client.query(
+      `UPDATE orders SET status = 'delivered', payment_status = 'paid', delivered_at = NOW(), delivery_confirm_token = NULL WHERE id = $1`,
+      [req.params.id]
+    );
+
+    // Same crediting flow as the manual 'delivered' status update
+    if (order.driver_id) {
+      const finRes = await client.query('SELECT driver_amount_xof FROM order_financials WHERE order_id = $1', [req.params.id]);
+      const driverAmount = finRes.rows[0]?.driver_amount_xof || 0;
+
+      await client.query(
+        `INSERT INTO driver_payments (driver_id, amount_xof, type, status) VALUES ($1, $2, 'earning', 'completed')`,
+        [order.driver_id, driverAmount]
+      );
+      await client.query(
+        `UPDATE delivery_drivers SET balance_xof = balance_xof + $1, total_earnings_xof = total_earnings_xof + $1, total_deliveries = total_deliveries + 1 WHERE id = $2`,
+        [driverAmount, order.driver_id]
+      );
+    }
+
+    await client.query('COMMIT');
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+
+  const io = getIO();
+  io.to('customer:' + order.customer_phone).emit('order:update', {
+    order_id: order.id,
+    status: 'delivered',
+    message: 'Votre commande a été livrée ! ✅',
+  });
+  if (order.driver_id) {
+    io.to('driver:' + order.driver_id).emit('delivery:confirmed', {
+      order_id: order.id,
+      message: 'Livraison confirmée ! Vos gains ont été crédités.',
+    });
+  }
+  eventBus.emit('order:status_changed', { shopId: order.shop_id, orderId: order.id, oldStatus: 'picked_up', newStatus: 'delivered' });
+
+  return successResponse(res, { confirmed: true, order_id: order.id });
 }));
 
 // Orders webhook (no auth)

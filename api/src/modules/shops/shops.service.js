@@ -42,11 +42,24 @@ async function updateShop(userId, data, isPartial = false) {
     data.slug = slugify(data.name);
   }
 
+  // Ville choisie dans la liste : synchronise city_id, city_name et le
+  // champ legacy city (utilisés pour le ciblage géographique des livreurs)
+  if (data.city_id !== undefined) {
+    if (data.city_id) {
+      const r = await query('SELECT id, name FROM cities WHERE id = $1', [data.city_id]);
+      if (r.rows.length === 0) throw new BadRequestError('Ville invalide');
+      data.city_name = r.rows[0].name;
+      data.city = r.rows[0].name;
+    } else {
+      data.city_name = null;
+    }
+  }
+
   const updates = [];
   const params = [];
   let idx = 1;
   const allowedFields = ['name','slug','category','description','whatsapp_number','phone_number',
-    'email','address','city','neighborhood','primary_color','secondary_color',
+    'email','address','city','city_id','city_name','neighborhood','primary_color','secondary_color',
     'opening_hours','social_links','latitude','longitude'];
 
   for (const field of allowedFields) {

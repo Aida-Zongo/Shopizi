@@ -10,6 +10,7 @@ interface Shop {
   email: string | null;
   address: string | null;
   city: string | null;
+  city_id: string | null;
   neighborhood: string | null;
   primary_color: string | null;
   secondary_color: string | null;
@@ -25,6 +26,7 @@ export default function SettingsPage() {
   const [success, setSuccess] = useState('');
 
   const [form, setForm] = useState<Partial<Shop>>({});
+  const [cities, setCities] = useState<{ id: string; name: string }[]>([]);
 
   const fetchShop = async () => {
     setIsLoading(true);
@@ -41,6 +43,7 @@ export default function SettingsPage() {
           email: data.email || '',
           address: data.address || '',
           city: data.city || '',
+          city_id: data.city_id || '',
           neighborhood: data.neighborhood || '',
           primary_color: data.primary_color || '#D97706',
           secondary_color: data.secondary_color || '#92400E',
@@ -57,6 +60,7 @@ export default function SettingsPage() {
 
   useEffect(() => {
     fetchShop();
+    api.get('/cities').then(res => setCities(res.data.data || [])).catch(() => {});
   }, []);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -72,7 +76,8 @@ export default function SettingsPage() {
         phone_number: form.phone_number?.trim() || null,
         email: form.email?.trim() || null,
         address: form.address?.trim() || null,
-        city: form.city?.trim() || null,
+        city: undefined,
+        city_id: form.city_id || null,
         neighborhood: form.neighborhood?.trim() || null,
         latitude: form.latitude || null,
         longitude: form.longitude || null,
@@ -202,12 +207,14 @@ export default function SettingsPage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-text-main mb-1">Ville</label>
-            <input
-              type="text"
-              className="w-full px-3 py-2 border border-outline-variant rounded-xl focus:outline-none focus:ring-2 focus:ring-burkina-green-deep/50 focus:border-burkina-green-deep"
-              value={form.city || ''}
-              onChange={e => setForm({ ...form, city: e.target.value })}
-            />
+            <select
+              className="w-full px-3 py-2 border border-outline-variant rounded-xl focus:outline-none focus:ring-2 focus:ring-burkina-green-deep/50 focus:border-burkina-green-deep bg-white"
+              value={form.city_id || ''}
+              onChange={e => setForm({ ...form, city_id: e.target.value })}
+            >
+              <option value="">Choisir une ville</option>
+              {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-text-main mb-1">Quartier</label>

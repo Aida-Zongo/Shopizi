@@ -55,15 +55,16 @@ async function broadcastNewOrder(order, productName) {
     };
 
     const io = getIO();
+    const cityIds = [shop.city_id, order.delivery_city_id].filter(Boolean);
     const cityNames = [shop.city, customerCity].filter(Boolean);
     let drivers = [];
-    if (shop.city_id || cityNames.length > 0) {
+    if (cityIds.length > 0 || cityNames.length > 0) {
       const driversRes = await query(
         `SELECT dd.id FROM delivery_drivers dd
          JOIN users u ON u.id = dd.user_id
          WHERE u.is_online = true
-           AND (dd.city_id = $1 OR dd.city_name ILIKE ANY($2::text[]))`,
-        [shop.city_id || null, cityNames]
+           AND (dd.city_id = ANY($1::uuid[]) OR dd.city_name ILIKE ANY($2::text[]))`,
+        [cityIds, cityNames]
       );
       drivers = driversRes.rows;
     }

@@ -55,11 +55,19 @@ async function register({ email, password, full_name, phone_number, role, vehicl
       const baseSlug = full_name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-+$)/g, '') || 'shop';
       const tempSlug = `${baseSlug}-${uniqueSuffix}`;
 
+      // Ville de la boutique choisie à l'inscription (utilisée pour le
+      // ciblage géographique des livreurs)
+      let shopCity = null;
+      if (city_id) {
+        const r = await client.query('SELECT id, name FROM cities WHERE id = $1', [city_id]);
+        shopCity = r.rows[0] || null;
+      }
+
       const shopResult = await client.query(
-        `INSERT INTO shops (user_id, subdomain, name, slug, category, whatsapp_number)
-         VALUES ($1, $2, $3, $4, 'other', $5)
+        `INSERT INTO shops (user_id, subdomain, name, slug, category, whatsapp_number, city_id, city_name, city)
+         VALUES ($1, $2, $3, $4, 'other', $5, $6, $7, $7)
          RETURNING id`,
-        [user.id, tempSubdomain, full_name, tempSlug, phone_number]
+        [user.id, tempSubdomain, full_name, tempSlug, phone_number, shopCity ? shopCity.id : null, shopCity ? shopCity.name : null]
       );
       shop = shopResult.rows[0];
 

@@ -9,6 +9,8 @@ import {
   TrendingUp,
   Route,
   MessageCircle,
+  QrCode,
+  X,
 } from "lucide-react";
 
 interface LiveOrder {
@@ -94,6 +96,8 @@ export default function DriverDashboardPage() {
   const [acceptingLiveId, setAcceptingLiveId] = useState<string | null>(null);
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
   const [contactingId, setContactingId] = useState<string | null>(null);
+  const [qrModal, setQrModal] = useState<{ orderId: string; image: string } | null>(null);
+  const [loadingQrId, setLoadingQrId] = useState<string | null>(null);
 
   useEffect(() => {
     const socket = getSocket();
@@ -101,11 +105,30 @@ export default function DriverDashboardPage() {
     const handleNewOrder = (payload: LiveOrder) => {
       setIncomingOrders((prev) => [payload, ...prev]);
     };
+    const handleDeliveryConfirmed = (payload: { order_id: string }) => {
+      setMyLiveOrders((prev) => prev.filter((o) => o.order_id !== payload.order_id));
+      setQrModal((prev) => (prev && prev.orderId === payload.order_id ? null : prev));
+      fetchData();
+    };
     socket.on("new:order", handleNewOrder);
+    socket.on("delivery:confirmed", handleDeliveryConfirmed);
     return () => {
       socket.off("new:order", handleNewOrder);
+      socket.off("delivery:confirmed", handleDeliveryConfirmed);
     };
   }, [user?.driver_id]);
+
+  const handleShowQr = async (orderId: string) => {
+    setLoadingQrId(orderId);
+    try {
+      const res = await api.get(`/orders/${orderId}/qrcode`);
+      if (res.data.success) setQrModal({ orderId, image: res.data.data.qr_code });
+    } catch (err: any) {
+      setError(getApiError(err));
+    } finally {
+      setLoadingQrId(null);
+    }
+  };
 
   const handleAcceptLive = async (orderId: string) => {
     setAcceptingLiveId(orderId);
@@ -391,6 +414,20 @@ export default function DriverDashboardPage() {
                           )}
                         </button>
                       )}
+                      {order.status === "picked_up" && (
+                        <button
+                          onClick={() => handleShowQr(order.order_id)}
+                          disabled={loadingQrId === order.order_id}
+                          className="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg text-label-md font-label-md active:scale-95 disabled:opacity-50 flex items-center gap-2"
+                        >
+                          {loadingQrId === order.order_id ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <QrCode className="w-4 h-4" />
+                          )}
+                          Afficher QR Code livraison
+                        </button>
+                      )}
                       <button
                         onClick={() => handleDriverStatus(order.order_id, DRIVER_STATUS_FLOW[order.status].next)}
                         disabled={updatingStatusId === order.order_id}
@@ -635,6 +672,33 @@ export default function DriverDashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* QR code delivery confirmation modal */}
+      {qrModal && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={() => setQrModal(null)}>
+          <div
+            className="bg-white rounded-2xl p-6 max-w-sm w-full text-center border-4 border-[#A2E4B8]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-headline-sm font-headline-sm text-burkina-green-deep">Confirmation de livraison</h3>
+              <button onClick={() => setQrModal(null)} className="text-text-muted hover:text-text-main">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <img src={qrModal.image} alt="QR code de confirmation" className="w-48 h-48 mx-auto rounded-lg" />
+            <p className="text-body-sm text-text-muted mt-4">
+              Demandez au client de scanner ce QR code avec son téléphone pour confirmer la livraison. Vos gains seront crédités automatiquement.
+            </p>
+            <button
+              onClick={() => setQrModal(null)}
+              className="mt-4 w-full py-3 bg-[#0A504A] text-white rounded-xl font-label-lg active:scale-95 transition-all"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

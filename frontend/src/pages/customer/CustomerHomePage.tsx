@@ -30,6 +30,12 @@ interface Product {
   category?: string;
 }
 
+const HERO_IMAGES = [
+  'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1531217132659-9b2a1875a5aa?w=1400&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1400&q=80&auto=format&fit=crop',
+];
+
 const CATEGORIES = [
   { value: '', label: 'Tout', icon: 'storefront' },
   { value: 'food', label: 'Alimentation', icon: 'restaurant' },
@@ -50,6 +56,14 @@ export default function CustomerHomePage() {
   const [activeCategory, setActiveCategory] = useState('');
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [stats, setStats] = useState({ shops: 0, products: 0 });
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroIndex(prev => (prev + 1) % HERO_IMAGES.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   const normalizeText = (text: string) => {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -114,11 +128,15 @@ export default function CustomerHomePage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 px-4" style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 60%, #A2E4B8 100%)' }}>
         <div className="absolute inset-0 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&q=80&auto=format&fit=crop"
-            alt=""
-            className="w-full h-full object-cover opacity-10"
-          />
+          {HERO_IMAGES.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+              style={{ opacity: i === heroIndex ? 0.15 : 0 }}
+            />
+          ))}
         </div>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
         <div className="relative max-w-3xl mx-auto text-center">
@@ -164,22 +182,26 @@ export default function CustomerHomePage() {
             ))}
           </div>
 
-          <div className="flex items-center justify-center gap-8 mt-8">
-            <div className="text-center">
-              <p className="text-2xl font-black text-white">{stats.shops}+</p>
-              <p className="text-white/60 text-xs">Boutiques</p>
+        </div>
+      </section>
+
+      {/* Stats band */}
+      <section className="py-10 px-4" style={{ backgroundColor: '#0A504A' }}>
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { icon: 'storefront', value: `${stats.shops}+`, label: 'Boutiques actives' },
+            { icon: 'inventory_2', value: `${stats.products}+`, label: 'Produits disponibles' },
+            { icon: 'local_shipping', value: '500 FCFA', label: 'Livraison dès' },
+            { icon: 'groups', value: '21M+', label: 'Burkinabè' },
+          ].map((item, i) => (
+            <div key={i} className="text-center">
+              <span className="material-symbols-outlined text-[32px] mb-2" style={{ color: '#A2E4B8' }}>
+                {item.icon}
+              </span>
+              <p className="text-2xl md:text-3xl font-black text-white">{item.value}</p>
+              <p className="text-sm" style={{ color: '#A2E4B8' }}>{item.label}</p>
             </div>
-            <div className="w-px h-8 bg-white/20" />
-            <div className="text-center">
-              <p className="text-2xl font-black text-white">{stats.products}+</p>
-              <p className="text-white/60 text-xs">Produits</p>
-            </div>
-            <div className="w-px h-8 bg-white/20" />
-            <div className="text-center">
-              <p className="text-2xl font-black text-amber-300">500 FCFA</p>
-              <p className="text-white/60 text-xs">Livraison dès</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -497,7 +519,7 @@ export default function CustomerHomePage() {
       </section>
 
       {/* Témoignages */}
-      <section className="bg-white py-16">
+      <section className="py-16" style={{ backgroundColor: '#F7F7F2' }}>
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-black text-center mb-3" style={{ color: '#0A504A' }}>
             Ils nous font confiance
@@ -530,19 +552,22 @@ export default function CustomerHomePage() {
                 color: '#ca8a04',
               },
             ].map((t, i) => (
-              <div key={i} className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <div key={i} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all" style={{ borderTop: `3px solid ${t.color}` }}>
                 <div className="flex items-center gap-1 mb-4">
                   {[1, 2, 3, 4, 5].map(s => (
-                    <span key={s} className="material-symbols-outlined" style={{ fontSize: '16px', color: '#ca8a04' }}>
+                    <span key={s} className="material-symbols-outlined" style={{ fontSize: '18px', color: '#ca8a04', fontVariationSettings: "'FILL' 1" }}>
                       star
                     </span>
                   ))}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">
                   "{t.text}"
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: t.color }}>
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-sm"
+                    style={{ background: `linear-gradient(135deg, ${t.color} 0%, #A2E4B8 100%)` }}
+                  >
                     {t.avatar}
                   </div>
                   <div>

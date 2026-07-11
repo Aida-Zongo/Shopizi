@@ -23,7 +23,7 @@ export default function RegisterPage() {
   const [cities, setCities] = useState<{ id: string; name: string }[]>([])
 
   useEffect(() => {
-    if (form.role === 'driver' && cities.length === 0) {
+    if ((form.role === 'driver' || form.role === 'merchant') && cities.length === 0) {
       api.get('/cities').then(res => setCities(res.data.data || [])).catch(() => {})
     }
   }, [form.role, cities.length])
@@ -52,6 +52,9 @@ export default function RegisterPage() {
         ...(form.role === 'driver' && {
           vehicle_type: form.vehicle_type,
           license_plate: form.license_plate.trim(),
+          city_id: form.city_id,
+        }),
+        ...(form.role === 'merchant' && form.city_id && {
           city_id: form.city_id,
         }),
       })
@@ -277,6 +280,27 @@ export default function RegisterPage() {
                 />
               </div>
             </div>
+
+            {/* Ville de la boutique (commerçant uniquement) */}
+            {form.role === 'merchant' && (
+              <div className="space-y-2">
+                <label className="block text-label-lg font-label-lg text-text-primary" htmlFor="city_id">Ville de la boutique</label>
+                <div className="relative">
+                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary">location_on</span>
+                  <select
+                    className="w-full pl-12 pr-4 py-3 bg-white border border-text-secondary/20 rounded-2xl text-body-md font-body-md focus:outline-none focus:ring-2 focus:ring-accent-forest/25 focus:border-accent-forest transition-all"
+                    id="city_id" name="city_id"
+                    value={form.city_id}
+                    onChange={e => setForm({ ...form, city_id: e.target.value })}
+                    required
+                  >
+                    <option value="">Choisir une ville</option>
+                    {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                  </select>
+                </div>
+                <p className="text-xs text-text-secondary pl-1">Les livreurs de cette ville recevront vos demandes de livraison</p>
+              </div>
+            )}
 
             {/* Infos véhicule (livreur uniquement) */}
             {form.role === 'driver' && (

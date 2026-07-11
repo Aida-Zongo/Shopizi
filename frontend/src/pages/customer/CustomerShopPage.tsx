@@ -48,6 +48,8 @@ export default function CustomerShopPage() {
   const [showCheckout, setShowCheckout] = useState(false);
   const [deliveryMode, setDeliveryMode] = useState<'geo' | 'manual'>('geo');
   const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryCityId, setDeliveryCityId] = useState('');
+  const [cities, setCities] = useState<{ id: string; name: string }[]>([]);
   const [clientLat, setClientLat] = useState<number | null>(null);
   const [clientLng, setClientLng] = useState<number | null>(null);
   const [deliveryFee, setDeliveryFee] = useState<number | null>(null);
@@ -98,6 +100,12 @@ export default function CustomerShopPage() {
   useEffect(() => {
     if (data?.shop.id) fetchReviews(data.shop.id);
   }, [data?.shop.id]);
+
+  useEffect(() => {
+    if (showCheckout && cities.length === 0) {
+      api.get('/cities').then(res => setCities(res.data.data || [])).catch(() => {});
+    }
+  }, [showCheckout, cities.length]);
 
   useEffect(() => {
     if (data?.shop.id && isAuthenticated && user?.role === 'customer') {
@@ -250,6 +258,7 @@ export default function CustomerShopPage() {
         customer_name: customerName,
         customer_phone: customerPhone,
         delivery_address: deliveryAddress,
+        delivery_city_id: deliveryCityId || null,
         client_latitude: clientLat,
         client_longitude: clientLng,
       };
@@ -629,6 +638,15 @@ export default function CustomerShopPage() {
                   <div>
                     <label className="block text-sm font-medium mb-1">Téléphone</label>
                     <input type="tel" required value={customerPhone} onChange={e => setCustomerPhone(e.target.value)} className="w-full px-3 py-2 border border-outline-variant rounded-xl focus:ring-2 focus:ring-burkina-green-deep" placeholder="Ex: 70000000" />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Ville de livraison</label>
+                    <select required value={deliveryCityId} onChange={e => setDeliveryCityId(e.target.value)} className="w-full px-3 py-2 border border-outline-variant rounded-xl focus:ring-2 focus:ring-burkina-green-deep bg-white text-sm">
+                      <option value="">Choisir votre ville</option>
+                      {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                    </select>
+                    <p className="text-xs text-text-muted mt-1">Les livreurs de cette ville seront notifiés</p>
                   </div>
 
                   <div className="border-t border-outline-variant/30 pt-4 mt-2">

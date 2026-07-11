@@ -126,7 +126,7 @@ export default function CustomerMessagesPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 h-[calc(100vh-4rem)] flex flex-col">
+    <div className="max-w-6xl mx-auto px-4 py-8 h-[calc(100dvh-4rem)] flex flex-col">
       <div className="mb-4">
         <h1 className="text-headline-sm font-headline-sm text-text-main">Messagerie</h1>
         <p className="text-body-md text-text-muted mt-1">Vos conversations avec les boutiques</p>
@@ -209,7 +209,7 @@ export default function CustomerMessagesPage() {
                 })}
                 <div ref={messagesEndRef} />
               </div>
-              <form onSubmit={handleSend} className="p-4 border-t border-outline-variant/20 flex gap-2">
+              <form onSubmit={handleSend} className="px-4 pt-4 border-t border-outline-variant/20 flex gap-2" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}>
                 <button
                   type="button"
                   onClick={handleShareLocation}

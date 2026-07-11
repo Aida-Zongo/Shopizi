@@ -34,6 +34,7 @@ import CustomerShopPage from './pages/customer/CustomerShopPage'
 import CustomerProfilePage from './pages/customer/CustomerProfilePage'
 import CustomerOrdersPage from './pages/customer/CustomerOrdersPage'
 import CustomerMessagesPage from './pages/customer/CustomerMessagesPage'
+import ConfirmDeliveryPage from './pages/ConfirmDeliveryPage'
 import NotFound from './pages/NotFound'
 
 function AuthGuard() {
@@ -150,6 +151,9 @@ function AppContent() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
       </Route>
+
+      {/* Public: QR code delivery confirmation (scanned by the customer) */}
+      <Route path="/confirm-delivery/:orderId" element={<ConfirmDeliveryPage />} />
 
       {/* Public / Customer Routes */}
       <Route element={<CustomerLayout />}>
