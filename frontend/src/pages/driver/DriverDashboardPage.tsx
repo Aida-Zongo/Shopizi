@@ -640,7 +640,7 @@ export default function DriverDashboardPage() {
                       style={{
                         color:
                           item.status === "delivered"
-                            ? "#00A86B"
+                            ? "#0A504A"
                             : "#ba1a1a",
                       }}
                     >
@@ -677,7 +677,7 @@ export default function DriverDashboardPage() {
       {qrModal && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={() => setQrModal(null)}>
           <div
-            className="bg-white rounded-2xl p-6 max-w-sm w-full text-center border-4 border-[#A2E4B8]"
+            className="bg-white rounded-2xl p-6 max-w-sm w-full text-center border-4 border-[#D6E9E2]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-4">

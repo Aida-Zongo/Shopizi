@@ -5,10 +5,11 @@
    ============================================================= */
 
 @theme {
-  /* ── Colors — Emerald Canopy palette (site-wide, since 2026-07-03) ──
-     Primaire #00A86B · Secondaire (mint) #A2E4B8 · Foncé #0A504A ·
-     Fond #F7F7F2 · Texte #1a1a1a · Accent corail #F97316 (depuis 2026-07-11,
-     inspiré mamantontine.com — teal + corail).
+  /* ── Colors — palette unifiée (depuis 2026-07-12, inspirée mamantontine.com) ──
+     UN SEUL vert : #0A504A (foncé, marque) · Teinte claire #D6E9E2 ·
+     Accent corail #F97316 · Fond #F7F7F2 · Texte #1a1a1a.
+     L'émeraude #00A86B et le menthe #A2E4B8 sont retirés — tous les
+     anciens tokens verts pointent vers la même famille #0A504A.
      M3 token names are kept (huge existing class surface — ~32 files
      consume them by class name) but repointed to the new palette so
      every consumer cascades without per-file edits. ───────────────── */
@@ -29,18 +30,18 @@
   --color-inverse-surface:                 #30312e;
   --color-inverse-on-surface:              #f2f1ec;
 
-  --color-primary:                         #00A86B;
+  --color-primary:                         #0A504A;
   --color-on-primary:                      #ffffff;
-  --color-primary-container:               #A2E4B8;
+  --color-primary-container:               #D6E9E2;
   --color-on-primary-container:            #0A504A;
-  --color-inverse-primary:                 #60df81;
-  --color-primary-fixed:                   #A2E4B8;
-  --color-primary-fixed-dim:               #00A86B;
+  --color-inverse-primary:                 #D6E9E2;
+  --color-primary-fixed:                   #D6E9E2;
+  --color-primary-fixed-dim:               #0A504A;
   --color-on-primary-fixed:                #0A504A;
   --color-on-primary-fixed-variant:        #0A504A;
-  --color-burkina-green-deep:              #00A86B;
-  --color-burkina-green-light:             #A2E4B8;
-  --color-burkina-green:                   #00A86B;
+  --color-burkina-green-deep:              #0A504A;
+  --color-burkina-green-light:             #D6E9E2;
+  --color-burkina-green:                   #0A504A;
 
   --color-secondary:                       #F97316;
   --color-on-secondary:                    #ffffff;
@@ -74,10 +75,10 @@
   --color-border:                          #e5e7eb;
   --color-accent:                          #F97316;
 
-  --color-primary-light:                   #A2E4B8;
+  --color-primary-light:                   #D6E9E2;
   --color-primary-dark:                    #0A504A;
-  --color-shopizi-primary:                 #00A86B;
-  --color-shopizi-light:                   #A2E4B8;
+  --color-shopizi-primary:                 #0A504A;
+  --color-shopizi-light:                   #D6E9E2;
   --color-shopizi-dark:                    #0A504A;
   --color-shopizi-bg:                      #F7F7F2;
   --color-shopizi-accent:                  #F97316;
@@ -87,8 +88,8 @@
      unchanged; values match the site-wide tokens above. ─────────── */
   --color-bg:                              #F7F7F2;
   --color-bg-dark:                         #0A504A;
-  --color-accent-emerald:                  #00A86B;
-  --color-accent-mint:                     #A2E4B8;
+  --color-accent-emerald:                  #0A504A;
+  --color-accent-mint:                     #D6E9E2;
   --color-accent-forest:                   #0A504A;
   --color-accent-gold:                     #F97316;
   --color-text-primary:                    #0A504A;
@@ -198,18 +199,18 @@
 
 /* ── Sahel Ethereal helpers ─────────────────────────── */
 @utility faso-pattern {
-  background-image: radial-gradient(circle at 2px 2px, rgba(0, 168, 107, 0.05) 1px, transparent 0);
+  background-image: radial-gradient(circle at 2px 2px, rgba(10, 80, 74, 0.05) 1px, transparent 0);
   background-size: 24px 24px;
 }
 
 @utility fani-pattern {
-  background-image: radial-gradient(circle at 2px 2px, rgba(0, 168, 107, 0.05) 1px, transparent 0);
+  background-image: radial-gradient(circle at 2px 2px, rgba(10, 80, 74, 0.05) 1px, transparent 0);
   background-size: 24px 24px;
 }
 
 /* Flat single-colour diamond lattice — no gradient, low-opacity texture only */
 @utility kente-lattice {
-  background-image: url("data:image/svg+xml,%3Csvg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 4 L52 28 L28 52 L4 28 Z' fill='none' stroke='%23A2E4B8' stroke-width='1' stroke-opacity='0.3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='56' height='56' viewBox='0 0 56 56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 4 L52 28 L28 52 L4 28 Z' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.12'/%3E%3C/svg%3E");
   background-size: 56px 56px;
 }
 
@@ -225,8 +226,8 @@
 @utility py-gutter { padding-top: 1.5rem; padding-bottom: 1.5rem; }
 
 @utility form-input-focus {
-  border-color: #00A86B !important;
-  box-shadow: 0 0 0 4px rgba(0, 168, 107, 0.1);
+  border-color: #0A504A !important;
+  box-shadow: 0 0 0 4px rgba(10, 80, 74, 0.1);
   outline: none;
 }
 

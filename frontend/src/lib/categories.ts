@@ -39,7 +39,7 @@ export const CATEGORY_GRADIENTS: Record<string, string> = {
   food: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
   fashion: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
   electronics: 'linear-gradient(135deg, #0369a1 0%, #0284c7 100%)',
-  health: 'linear-gradient(135deg, #00A86B 0%, #0A504A 100%)',
+  health: 'linear-gradient(135deg, #0A504A 0%, #063733 100%)',
   home: 'linear-gradient(135deg, #0f766e 0%, #0d9488 100%)',
   beauty: 'linear-gradient(135deg, #db2777 0%, #ec4899 100%)',
   services: 'linear-gradient(135deg, #ca8a04 0%, #d97706 100%)',
@@ -47,7 +47,7 @@ export const CATEGORY_GRADIENTS: Record<string, string> = {
 };
 
 const DEFAULT_GRADIENTS = [
-  'linear-gradient(135deg, #00A86B 0%, #0A504A 100%)',
+  'linear-gradient(135deg, #0A504A 0%, #063733 100%)',
   'linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%)',
   'linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)',
   'linear-gradient(135deg, #ca8a04 0%, #f59e0b 100%)',
@@ -66,17 +66,17 @@ const SHOP_BANNER_CATEGORY_STYLES: Record<string, string> = {
   food: 'linear-gradient(135deg, #c2410c 0%, #f97316 100%)',
   fashion: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
   electronics: 'linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%)',
-  health: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)',
+  health: 'linear-gradient(135deg, #063733 0%, #0A504A 100%)',
   home: 'linear-gradient(135deg, #134e4a 0%, #0f766e 100%)',
   beauty: 'linear-gradient(135deg, #9d174d 0%, #db2777 100%)',
   services: 'linear-gradient(135deg, #78350f 0%, #ca8a04 100%)',
   service: 'linear-gradient(135deg, #78350f 0%, #ca8a04 100%)',
-  pharmacy: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)',
+  pharmacy: 'linear-gradient(135deg, #063733 0%, #0A504A 100%)',
   artisan: 'linear-gradient(135deg, #78350f 0%, #b45309 100%)',
 };
 
 const SHOP_BANNER_DEFAULTS = [
-  'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)',
+  'linear-gradient(135deg, #063733 0%, #0A504A 100%)',
   'linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%)',
   'linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)',
   'linear-gradient(135deg, #713f12 0%, #ca8a04 100%)',

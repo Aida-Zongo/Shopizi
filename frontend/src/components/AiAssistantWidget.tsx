@@ -152,7 +152,7 @@ export default function AiAssistantWidget({ cityName }: AiAssistantWidgetProps) 
         onClick={() => { setIsOpen(o => !o); setHasNewMessage(false); }}
         id="ai-assistant-toggle"
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
-        style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)' }}
+        style={{ backgroundColor: '#0A504A' }}
         aria-label="Ouvrir l'assistant IA"
       >
         {isOpen
@@ -173,7 +173,7 @@ export default function AiAssistantWidget({ cityName }: AiAssistantWidgetProps) 
         style={{ maxHeight: '600px' }}
       >
         {/* Header */}
-        <div className="p-4 flex items-center gap-3" style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)' }}>
+        <div className="p-4 flex items-center gap-3" style={{ backgroundColor: '#0A504A' }}>
           <img src="/kera-avatar.svg" alt="Kèra" className="w-9 h-9 rounded-full border border-white/20 shadow-sm flex-shrink-0" />
           <div className="flex-1">
             <p className="text-white font-bold text-label-lg">Kèra</p>

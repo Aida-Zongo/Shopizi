@@ -39,7 +39,7 @@ export default function ConfirmDeliveryPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#F7F7F2' }}>
-      <div className="bg-white rounded-2xl shadow-sm p-8 max-w-md w-full text-center border border-[#A2E4B8]">
+      <div className="bg-white rounded-2xl shadow-sm p-8 max-w-md w-full text-center border border-[#D6E9E2]">
         {status === 'loading' && (
           <>
             <div className="w-12 h-12 border-4 border-[#0A504A] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
@@ -50,8 +50,8 @@ export default function ConfirmDeliveryPage() {
 
         {status === 'success' && (
           <>
-            <div className="w-20 h-20 rounded-full bg-[#A2E4B8]/40 flex items-center justify-center mx-auto mb-4">
-              <span className="material-symbols-outlined text-[48px]" style={{ color: '#00A86B' }}>check_circle</span>
+            <div className="w-20 h-20 rounded-full bg-[#D6E9E2] flex items-center justify-center mx-auto mb-4">
+              <span className="material-symbols-outlined text-[48px]" style={{ color: '#0A504A' }}>check_circle</span>
             </div>
             <h1 className="text-2xl font-bold text-[#0A504A] mb-2">Livraison confirmée !</h1>
             <p className="text-sm text-gray-600 mb-6">

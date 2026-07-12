@@ -321,7 +321,7 @@ export default function CustomerShopPage() {
 
   const { shop, products, categories } = data;
   const hash = shop.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const generatedColor = hash % 2 === 0 ? '#00A86B' : '#ca8a04';
+  const generatedColor = hash % 2 === 0 ? '#0A504A' : '#F97316';
   const primaryColor = shop.primary_color || generatedColor;
 
   return (

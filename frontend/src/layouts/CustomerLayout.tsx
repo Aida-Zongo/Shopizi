@@ -151,7 +151,7 @@ export default function CustomerLayout() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80"
-                  style={{ backgroundColor: '#00A86B', color: 'white' }}
+                  style={{ backgroundColor: '#F97316', color: 'white' }}
                 >
                   <span className="material-symbols-outlined text-sm">chat</span>
                   WhatsApp
@@ -187,17 +187,17 @@ export default function CustomerLayout() {
               <h4 className="text-white font-bold text-sm mb-4">Contact</h4>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-sm mt-0.5" style={{ color: '#00A86B' }}>location_on</span>
+                  <span className="material-symbols-outlined text-sm mt-0.5" style={{ color: '#FDBA74' }}>location_on</span>
                   <span className="text-white/60 text-sm">Ouagadougou, Burkina Faso</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-sm" style={{ color: '#00A86B' }}>mail</span>
+                  <span className="material-symbols-outlined text-sm" style={{ color: '#FDBA74' }}>mail</span>
                   <a href="mailto:contact@shopizi.bf" className="text-white/60 text-sm hover:text-white transition-colors">
                     contact@shopizi.bf
                   </a>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-sm" style={{ color: '#00A86B' }}>phone</span>
+                  <span className="material-symbols-outlined text-sm" style={{ color: '#FDBA74' }}>phone</span>
                   <a href="tel:+22666869010" className="text-white/60 text-sm hover:text-white transition-colors">
                     +226 66 86 90 10
                   </a>

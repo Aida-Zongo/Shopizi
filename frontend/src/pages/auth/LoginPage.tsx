@@ -50,7 +50,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-bg font-body-md text-text-primary overflow-x-hidden">
       {/* Left Side: Immersive Visual & Branding */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col items-center justify-center p-12 h-auto min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #0A504A 0%, #00A86B 60%, #A2E4B8 100%)' }}>
+      <div className="hidden lg:flex lg:w-1/2 flex-col items-center justify-center p-12 h-auto min-h-screen relative overflow-hidden" style={{ backgroundColor: '#0A504A' }}>
         {/* Motif géométrique — losanges plats façon bogolan */}
         <div className="absolute inset-0 kente-lattice" />
 
@@ -64,35 +64,35 @@ export default function LoginPage() {
             />
           </div>
 
-          <p className="text-accent-mint font-semibold text-lg mb-2">
+          <p className="text-white/90 font-semibold text-lg mb-2">
             shopizi.bf
           </p>
           <p className="text-bg/70 text-base mb-12 max-w-xs">
             Le commerce digital du Burkina Faso
           </p>
 
-          {/* Stats */}
+          {/* Engagements */}
           <div className="grid grid-cols-3 gap-6 w-full max-w-sm">
             <div className="text-center">
-              <p className="font-display text-2xl font-semibold text-accent-mint">2.5K+</p>
-              <p className="text-bg/60 text-xs mt-1">Marchands</p>
+              <p className="font-display text-2xl font-semibold" style={{ color: '#FDBA74' }}>0%</p>
+              <p className="text-bg/60 text-xs mt-1">Commission sur ventes</p>
             </div>
             <div className="text-center border-x border-bg/15">
-              <p className="font-display text-2xl font-semibold text-accent-mint">10K+</p>
-              <p className="text-bg/60 text-xs mt-1">Produits</p>
+              <p className="font-display text-2xl font-semibold" style={{ color: '#FDBA74' }}>100%</p>
+              <p className="text-bg/60 text-xs mt-1">Mobile Money</p>
             </div>
             <div className="text-center">
-              <p className="font-display text-2xl font-semibold text-accent-mint">21M+</p>
-              <p className="text-bg/60 text-xs mt-1">Burkinabè</p>
+              <p className="font-display text-2xl font-semibold" style={{ color: '#FDBA74' }}>24/7</p>
+              <p className="text-bg/60 text-xs mt-1">Boutique ouverte</p>
             </div>
           </div>
 
           {/* Témoignage */}
-          <div className="mt-12 p-5 bg-bg/8 border-l-4 border-accent-mint rounded-3xl max-w-xs text-left">
+          <div className="mt-12 p-5 bg-bg/8 border-l-4 rounded-3xl max-w-xs text-left" style={{ borderLeftColor: '#F97316' }}>
             <p className="text-bg/85 text-sm italic">
               "Shopizi a transformé mon commerce. Je reçois des commandes de tout Ouagadougou !"
             </p>
-            <p className="text-accent-mint text-xs font-bold mt-2">
+            <p className="text-xs font-bold mt-2" style={{ color: '#FDBA74' }}>
               — Kadi O., Marchande de mode
             </p>
           </div>

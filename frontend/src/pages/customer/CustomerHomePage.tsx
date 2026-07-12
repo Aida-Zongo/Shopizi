@@ -228,7 +228,7 @@ export default function CustomerHomePage() {
             { icon: 'storefront', value: `${stats.shops}+`, label: 'Boutiques actives' },
             { icon: 'inventory_2', value: `${stats.products}+`, label: 'Produits disponibles' },
             { icon: 'local_shipping', value: '500 FCFA', label: 'Livraison dès' },
-            { icon: 'groups', value: '21M+', label: 'Burkinabè' },
+            { icon: 'percent', value: '0%', label: 'Commission sur ventes' },
           ].map((item, i) => (
             <div key={i} className="text-center">
               <span className="material-symbols-outlined text-[32px] mb-2" style={{ color: '#FDBA74' }}>
@@ -477,7 +477,7 @@ export default function CustomerHomePage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
             <div className="absolute bottom-4 left-4 text-white">
-              <p className="font-bold">+500 marchands</p>
+              <p className="font-bold">Des marchands locaux</p>
               <p className="text-sm opacity-80">nous font confiance</p>
             </div>
           </div>
