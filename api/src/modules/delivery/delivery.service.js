@@ -1,5 +1,36 @@
 const { query } = require('../../db/pool');
 
+// Shopizi ne gere que la livraison intra-ville : les frais sont plafonnes.
+const DELIVERY_FEE_CAP_FCFA = 2000;
+
+// Centres approximatifs des principales villes couvertes. Sert de position
+// de repli quand une boutique n'a pas configure ses coordonnees GPS, et a
+// deduire la ville d'un client depuis sa position.
+const CITY_CENTERS = {
+  'ouagadougou':    { lat: 12.3714, lng: -1.5197 },
+  'bobo-dioulasso': { lat: 11.1771, lng: -4.2979 },
+  'koudougou':      { lat: 12.2540, lng: -2.3636 },
+  'banfora':        { lat: 10.6333, lng: -4.7500 },
+};
+
+// Au-dela de ce rayon autour d'un centre-ville, on considere qu'on n'est
+// plus dans cette ville.
+const SAME_CITY_RADIUS_KM = 30;
+
+function getCityCenter(cityName) {
+  if (!cityName) return null;
+  return CITY_CENTERS[cityName.toLowerCase().trim()] || null;
+}
+
+function findNearestCity(lat, lng) {
+  let best = null;
+  for (const [slug, c] of Object.entries(CITY_CENTERS)) {
+    const d = calculateHaversineDistance(lat, lng, c.lat, c.lng);
+    if (d !== null && (best === null || d < best.distance)) best = { slug, distance: d };
+  }
+  return best;
+}
+
 /**
  * Calculates the great-circle distance between two points on the Earth's surface
  * using the Haversine formula.
@@ -53,19 +84,67 @@ async function calculateDeliveryFee(lat1, lng1, lat2, lng2) {
   let fee = 0;
 
   if (zoneRes.rows.length > 0) {
-    fee = zoneRes.rows[0].price_fcfa;
+    fee = Number(zoneRes.rows[0].price_fcfa);
   } else {
-    // If distance > 30km (max in our DB currently), calculate dynamically:
-    // Base 3000 FCFA for 30km + 500 FCFA per additional 5km tranche
-    const extraDistance = distance - 30;
-    const extraTranches = Math.ceil(extraDistance / 5);
-    fee = 3000 + (extraTranches * 500);
+    // Distance au-dela de la derniere zone en base : plafond direct
+    fee = DELIVERY_FEE_CAP_FCFA;
   }
 
-  return { fee, distance };
+  return { fee: Math.min(fee, DELIVERY_FEE_CAP_FCFA), distance };
+}
+
+/**
+ * Calculates the delivery fee for a shop, enforcing the same-city rule.
+ * Falls back to the shop's city center when it has no GPS coordinates.
+ *
+ * @param {{latitude: any, longitude: any, city_name: string|null}} shop
+ * @param {number} clientLat - Client latitude
+ * @param {number} clientLng - Client longitude
+ * @returns {Promise<{fee: number|null, distance: number|null, estimated: boolean, same_city: boolean, shop_city: string|null}>}
+ */
+async function calculateShopDeliveryFee(shop, clientLat, clientLng) {
+  const hasCoords = !!(Number(shop.latitude) && Number(shop.longitude));
+  const cityCenter = getCityCenter(shop.city_name);
+  const origin = hasCoords
+    ? { lat: Number(shop.latitude), lng: Number(shop.longitude) }
+    : (cityCenter || CITY_CENTERS['ouagadougou']);
+  const estimated = !hasCoords;
+
+  // Ville de la boutique : sa ville declaree si connue, sinon la ville la
+  // plus proche de ses coordonnees reelles.
+  let shopSlug = null;
+  if (cityCenter) {
+    shopSlug = shop.city_name.toLowerCase().trim();
+  } else if (hasCoords) {
+    const nearest = findNearestCity(origin.lat, origin.lng);
+    if (nearest && nearest.distance <= SAME_CITY_RADIUS_KM) shopSlug = nearest.slug;
+  }
+
+  // Ville du client : centre connu le plus proche de sa position GPS.
+  const clientNearest = findNearestCity(Number(clientLat), Number(clientLng));
+  const clientSlug = clientNearest && clientNearest.distance <= SAME_CITY_RADIUS_KM
+    ? clientNearest.slug
+    : null;
+
+  const distance = calculateHaversineDistance(origin.lat, origin.lng, Number(clientLat), Number(clientLng));
+
+  // Meme ville si les deux villes sont connues et identiques ; sinon on se
+  // rabat sur la distance brute (une livraison intra-ville reste courte).
+  const sameCity = (shopSlug && clientSlug)
+    ? shopSlug === clientSlug
+    : (distance !== null && distance <= SAME_CITY_RADIUS_KM);
+
+  if (!sameCity) {
+    return { fee: null, distance, estimated, same_city: false, shop_city: shop.city_name || null };
+  }
+
+  const result = await calculateDeliveryFee(origin.lat, origin.lng, Number(clientLat), Number(clientLng));
+  return { ...result, estimated, same_city: true, shop_city: shop.city_name || null };
 }
 
 module.exports = {
   calculateHaversineDistance,
-  calculateDeliveryFee
+  calculateDeliveryFee,
+  calculateShopDeliveryFee,
+  DELIVERY_FEE_CAP_FCFA
 };

@@ -57,6 +57,7 @@ export default function CustomerShopPage() {
   const [isLocating, setIsLocating] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [isFeeEstimated, setIsFeeEstimated] = useState(false);
+  const [gpsInterCity, setGpsInterCity] = useState(false);
   
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
@@ -192,6 +193,9 @@ export default function CustomerShopPage() {
     setDistanceKm(null);
     setCheckoutError(null);
     setIsFeeEstimated(false);
+    setGpsInterCity(false);
+    setIsSubmittingOrder(false);
+    setIsLocating(false);
   };
 
   const DEFAULT_DELIVERY_FEE = 1000;
@@ -226,13 +230,22 @@ export default function CustomerShopPage() {
             }
           });
           if (res.data.success) {
-            setDeliveryFee(res.data.data.fee);
-            setDistanceKm(res.data.data.distance);
-            setIsFeeEstimated(!!res.data.data.estimated);
+            const fee = res.data.data;
+            if (fee.same_city === false) {
+              // Client dans une autre ville que la boutique : pas de livraison Shopizi
+              setGpsInterCity(true);
+              setDeliveryFee(null);
+              setDistanceKm(null);
+            } else {
+              setGpsInterCity(false);
+              setDeliveryFee(Math.min(fee.fee, 2000));
+              setDistanceKm(fee.distance);
+              setIsFeeEstimated(!!fee.estimated);
+            }
           }
         } catch (err) {
           console.error(err);
-          // Calcul indisponible (boutique sans coordonnées, réseau...) : frais par défaut
+          // Calcul indisponible (réseau...) : frais par défaut
           setDeliveryFee(DEFAULT_DELIVERY_FEE);
           setDistanceKm(null);
           setIsFeeEstimated(true);
@@ -240,7 +253,8 @@ export default function CustomerShopPage() {
           setIsLocating(false);
         }
       },
-      handleGeoUnavailable
+      handleGeoUnavailable,
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
     );
   };
 
@@ -320,6 +334,10 @@ export default function CustomerShopPage() {
   }
 
   const { shop, products, categories } = data;
+  // Livraison intra-ville uniquement : ville choisie différente de celle de
+  // la boutique, ou position GPS détectée dans une autre ville
+  const selectedDeliveryCity = cities.find(c => c.id === deliveryCityId);
+  const isInterCity = gpsInterCity || !!(shop.city_name && selectedDeliveryCity && selectedDeliveryCity.name !== shop.city_name);
   const hash = shop.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const generatedColor = hash % 2 === 0 ? '#0A504A' : '#F97316';
   const primaryColor = shop.primary_color || generatedColor;
@@ -602,8 +620,8 @@ export default function CustomerShopPage() {
 
       {/* Checkout Modal */}
       {showCheckout && checkoutProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-surface w-full max-w-md rounded-3xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={() => setShowCheckout(false)}>
+          <div className="bg-surface w-full max-w-md max-h-[90vh] overflow-y-auto rounded-3xl shadow-xl animate-in fade-in zoom-in duration-200" onClick={e => e.stopPropagation()}>
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-headline-sm font-headline-sm">Commander</h2>
@@ -624,7 +642,7 @@ export default function CustomerShopPage() {
               ) : (
                 <form onSubmit={handleSubmitOrder} className="space-y-4">
                   <div className="flex items-center gap-4 p-3 bg-surface-container rounded-xl">
-                    <img src={checkoutProduct.image_url || ''} alt="" className="w-16 h-16 rounded-lg object-cover bg-outline-variant/30" />
+                    <img src={checkoutProduct.image_url || undefined} alt="" className="w-16 h-16 rounded-lg object-cover bg-outline-variant/30" />
                     <div>
                       <p className="font-bold text-text-main line-clamp-1">{checkoutProduct.name}</p>
                       <p className="text-burkina-green-deep font-bold">{(checkoutProduct.sale_price_xof || checkoutProduct.price_xof).toLocaleString()} FCFA</p>
@@ -649,6 +667,28 @@ export default function CustomerShopPage() {
                     <p className="text-xs text-text-muted mt-1">Les livreurs de cette ville seront notifiés</p>
                   </div>
 
+                  {isInterCity && (
+                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800 space-y-2">
+                      <p className="flex items-start gap-2">
+                        <span className="material-symbols-outlined text-[18px] flex-shrink-0">local_shipping</span>
+                        <span>
+                          Cette boutique est à <strong>{shop.city_name}</strong>. Shopizi ne gère pas les livraisons inter-villes.
+                          Contactez le commerçant pour une expédition par société de transport.
+                        </span>
+                      </p>
+                      {shop.whatsapp_number && (
+                        <button
+                          type="button"
+                          onClick={() => handleWhatsApp(checkoutProduct)}
+                          className="w-full py-2 bg-burkina-green-deep text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+                        >
+                          <span className="material-symbols-outlined text-[18px]">chat</span>
+                          Contacter le commerçant
+                        </button>
+                      )}
+                    </div>
+                  )}
+
                   <div className="border-t border-outline-variant/30 pt-4 mt-2">
                     <h4 className="font-medium text-text-main mb-2">Où voulez-vous être livré ?</h4>
                     <div className="flex gap-2 mb-3">
@@ -672,7 +712,7 @@ export default function CustomerShopPage() {
                         <button type="button" onClick={handleLocate} disabled={isLocating} className="w-full py-2 flex items-center justify-center gap-2 bg-burkina-green-deep text-white rounded-xl text-sm font-medium hover:bg-opacity-90">
                           {isLocating ? 'Recherche en cours...' : <><span className="material-symbols-outlined text-[18px]">my_location</span> Utiliser ma position GPS</>}
                         </button>
-                        {deliveryFee !== null && (
+                        {deliveryFee !== null && !isInterCity && (
                           <div className="p-3 bg-tertiary-container/30 border border-burkina-green-deep/20 rounded-xl">
                             <p className="text-sm font-medium text-tertiary-dark flex items-center gap-1"><span className="material-symbols-outlined text-[16px]">distance</span> {distanceKm !== null ? `Distance : ${distanceKm} km` : 'Distance estimée'}</p>
                             <p className="text-sm font-bold text-burkina-green-deep mt-1">Frais de livraison{isFeeEstimated ? ' (estimés)' : ''} : {deliveryFee === 0 ? 'Gratuit' : `${deliveryFee.toLocaleString()} FCFA`}</p>
@@ -686,7 +726,7 @@ export default function CustomerShopPage() {
                     )}
                   </div>
 
-                  {deliveryFee !== null && (
+                  {deliveryFee !== null && !isInterCity && (
                     <div className="border-t border-outline-variant/30 pt-3 space-y-1 text-sm">
                       <div className="flex justify-between text-text-muted">
                         <span>Produit</span>
@@ -703,9 +743,14 @@ export default function CustomerShopPage() {
                     </div>
                   )}
 
-                  <button type="submit" disabled={isSubmittingOrder || (deliveryMode === 'geo' && !clientLat)} className="w-full py-3 bg-burkina-green-deep text-white rounded-xl font-bold uppercase tracking-wider disabled:opacity-50 mt-4">
+                  <button type="submit" disabled={isSubmittingOrder || isInterCity || (deliveryMode === 'geo' && !clientLat)} className="w-full py-3 bg-burkina-green-deep text-white rounded-xl font-bold uppercase tracking-wider disabled:opacity-50 mt-4">
                     {isSubmittingOrder ? 'Création en cours...' : 'Confirmer la commande'}
                   </button>
+                  {!isInterCity && deliveryMode === 'geo' && !clientLat && !isSubmittingOrder && (
+                    <p className="text-xs text-text-muted text-center">
+                      Utilisez le bouton « Ma position GPS » ci-dessus, ou passez en mode « Adresse ».
+                    </p>
+                  )}
                 </form>
               )}
             </div>

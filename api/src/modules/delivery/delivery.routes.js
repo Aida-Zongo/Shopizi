@@ -4,7 +4,7 @@ const { authenticate } = require('../../middleware/authenticate');
 const asyncHandler = require('../../middleware/asyncHandler');
 const { successResponse } = require('../../utils/response');
 const { NotFoundError, BadRequestError } = require('../../utils/errors');
-const { calculateDeliveryFee } = require('./delivery.service');
+const { calculateDeliveryFee, calculateShopDeliveryFee } = require('./delivery.service');
 
 const router = Router();
 
@@ -52,21 +52,14 @@ router.get('/calculate-fee', asyncHandler(async (req, res) => {
     throw new BadRequestError('shop_id, lat, and lng are required');
   }
 
-  const shopRes = await query('SELECT latitude, longitude FROM shops WHERE id = $1', [shop_id]);
+  const shopRes = await query('SELECT latitude, longitude, COALESCE(city_name, city) AS city_name FROM shops WHERE id = $1', [shop_id]);
   if (shopRes.rows.length === 0) throw new NotFoundError('Shop introuvable');
-  const shop = shopRes.rows[0];
 
-  // Boutique sans position configurée : centre de Ouagadougou par défaut (distance estimée)
-  const estimated = !shop.latitude || !shop.longitude;
-  const shopLat = estimated ? 12.3714 : Number(shop.latitude);
-  const shopLng = estimated ? -1.5197 : Number(shop.longitude);
+  // Boutique sans position configurée : centre de sa ville comme approximation.
+  // Livraison intra-ville uniquement : same_city=false si le client est ailleurs.
+  const result = await calculateShopDeliveryFee(shopRes.rows[0], Number(lat), Number(lng));
 
-  const result = await calculateDeliveryFee(
-    shopLat, shopLng,
-    Number(lat), Number(lng)
-  );
-
-  return successResponse(res, { ...result, estimated });
+  return successResponse(res, result);
 }));
 
 // List available delivery jobs (for drivers)

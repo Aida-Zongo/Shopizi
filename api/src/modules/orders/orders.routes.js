@@ -9,7 +9,7 @@ const { parsePagination } = require('../../utils/pagination');
 const { NotFoundError, BadRequestError, ForbiddenError } = require('../../utils/errors');
 const { ORDER_TRANSITIONS } = require('../../constants/enums');
 const eventBus = require('../../events');
-const { calculateHaversineDistance, calculateDeliveryFee } = require('../delivery/delivery.service');
+const { calculateHaversineDistance, calculateShopDeliveryFee } = require('../delivery/delivery.service');
 const { getIO } = require('../../realtime/socket');
 const { broadcastNewOrder } = require('./order-broadcast');
 
@@ -81,19 +81,18 @@ async function customerCreateOrder(req, res) {
     customer_name, customer_phone, delivery_address, delivery_city_id, client_latitude, client_longitude,
   } = body;
 
-  const shopRes = await query('SELECT name, latitude, longitude FROM shops WHERE id = $1', [shop_id]);
+  const shopRes = await query('SELECT name, latitude, longitude, COALESCE(city_name, city) AS city_name FROM shops WHERE id = $1', [shop_id]);
   if (shopRes.rows.length === 0) throw new NotFoundError('Boutique introuvable');
   const shop = shopRes.rows[0];
 
   let deliveryFee = 0;
   let distanceKm = null;
-  if (client_latitude != null && client_longitude != null && shop.latitude && shop.longitude) {
-    const feeResult = await calculateDeliveryFee(
-      Number(shop.latitude), Number(shop.longitude),
-      Number(client_latitude), Number(client_longitude)
-    );
-    deliveryFee = feeResult.fee || 0;
-    distanceKm = feeResult.distance;
+  if (client_latitude != null && client_longitude != null) {
+    const feeResult = await calculateShopDeliveryFee(shop, Number(client_latitude), Number(client_longitude));
+    if (feeResult.same_city && feeResult.fee != null) {
+      deliveryFee = feeResult.fee;
+      distanceKm = feeResult.distance;
+    }
   }
 
   const productAmount = price_xof * quantity;

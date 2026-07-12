@@ -103,7 +103,7 @@ async function publishShop(userId, isPublished) {
 async function getShopBySubdomain(subdomain) {
   const result = await query(
     `SELECT id, subdomain, name, slug, category, description, whatsapp_number, phone_number,
-            email, address, city, neighborhood, latitude, longitude,
+            email, address, city, COALESCE(city_name, city) AS city_name, neighborhood, latitude, longitude,
             logo_url, banner_url, primary_color, secondary_color,
             opening_hours, social_links, is_published, custom_domain
      FROM shops WHERE subdomain = $1 AND is_published = true`,
