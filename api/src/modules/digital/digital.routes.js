@@ -52,8 +52,11 @@ function resolveFileType(mimetype) {
 /**
  * Cloudinary ne sait rendre la page d'un document que sur un asset stocké en
  * resource_type 'image' : les PDF y sont donc rangés là, les autres formats
- * restant en 'raw'. Upload et téléchargement DOIVENT dériver le type de la même
- * façon, sinon l'URL signée pointe vers un asset inexistant.
+ * restant en 'raw'.
+ *
+ * Le type retenu est enregistré en base (file_resource_type) et jamais redéduit
+ * au téléchargement : les produits publiés avant ce changement ont leur PDF en
+ * 'raw', et les relire en 'image' pointerait vers un asset inexistant.
  */
 function resolveResourceType(fileType) {
   return fileType === 'pdf' ? 'image' : 'raw';
@@ -118,6 +121,7 @@ router.post('/upload', authenticate, asyncHandler(async (req, res) => {
 
   const shopId = await getShopIdOfUser(req.user.userId);
   const fileType = resolveFileType(file.mimetype);
+  const resourceType = resolveResourceType(fileType);
 
   // type: 'authenticated' (et non access_mode) : c'est le type de diffusion qui
   // rend l'asset inaccessible sans URL signée. Un asset 'upload' avec
@@ -125,7 +129,7 @@ router.post('/upload', authenticate, asyncHandler(async (req, res) => {
   // et nos liens de téléchargement signés ne fonctionneraient pas.
   const uploaded = await uploadBuffer(file.buffer, {
     folder: `shopizi/digital/${shopId}`,
-    resource_type: resolveResourceType(fileType),
+    resource_type: resourceType,
     type: 'authenticated',
     use_filename: true,
     unique_filename: true,
@@ -141,11 +145,11 @@ router.post('/upload', authenticate, asyncHandler(async (req, res) => {
   const result = await query(
     `INSERT INTO digital_products
        (shop_id, name, description, price_xof, file_url, file_public_id, file_type,
-        file_size_bytes, cover_image_url, category, is_published)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,true) RETURNING *`,
+        file_resource_type, file_size_bytes, cover_image_url, category, is_published)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,true) RETURNING *`,
     [
       shopId, name, description || null, price,
-      uploaded.secure_url, uploaded.public_id, fileType,
+      uploaded.secure_url, uploaded.public_id, fileType, resourceType,
       file.size, coverUrl, category || null,
     ]
   );
@@ -252,7 +256,7 @@ router.get('/purchase/:token', asyncHandler(async (req, res) => {
 router.get('/download/:token', asyncHandler(async (req, res) => {
   const result = await query(
     `SELECT pu.id, pu.payment_status, pu.download_expires_at,
-            dp.file_public_id, dp.file_type, dp.name
+            dp.file_public_id, dp.file_resource_type, dp.name
      FROM digital_purchases pu
      JOIN digital_products dp ON dp.id = pu.digital_product_id
      WHERE pu.download_token = $1`,
@@ -269,13 +273,15 @@ router.get('/download/:token', asyncHandler(async (req, res) => {
   }
 
   // Lien Cloudinary signé, valable 1h : même si l'URL fuite, elle périme vite.
-  // Un asset 'image' porte son extension dans le champ format, pas dans le
-  // public_id : sans elle, Cloudinary renverrait un fichier sans extension.
+  // Le type de stockage est relu en base, jamais redéduit : les PDF publiés
+  // avant la couverture automatique sont en 'raw' (cf. migration 040).
+  // Un asset 'image' porte son extension dans le champ format et non dans le
+  // public_id ; un asset 'raw' l'a déjà dans son public_id.
   const signedUrl = cloudinary.utils.private_download_url(
     purchase.file_public_id,
-    purchase.file_type === 'pdf' ? 'pdf' : '',
+    purchase.file_resource_type === 'image' ? 'pdf' : '',
     {
-      resource_type: resolveResourceType(purchase.file_type),
+      resource_type: purchase.file_resource_type,
       type: 'authenticated',
       expires_at: Math.floor(Date.now() / 1000) + 3600,
     }
