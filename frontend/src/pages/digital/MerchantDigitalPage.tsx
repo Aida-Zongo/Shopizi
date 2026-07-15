@@ -39,7 +39,6 @@ export default function MerchantDigitalPage() {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [file, setFile] = useState<File | null>(null);
-  const [cover, setCover] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [formError, setFormError] = useState('');
@@ -56,7 +55,7 @@ export default function MerchantDigitalPage() {
 
   const resetForm = () => {
     setName(''); setDescription(''); setPrice(''); setCategory(CATEGORIES[0]);
-    setFile(null); setCover(null); setProgress(0); setFormError('');
+    setFile(null); setProgress(0); setFormError('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -75,7 +74,6 @@ export default function MerchantDigitalPage() {
     form.append('price_xof', String(priceXof));
     form.append('category', category);
     form.append('file', file);
-    if (cover) form.append('cover', cover);
 
     setIsUploading(true);
     setFormError('');
@@ -218,15 +216,6 @@ export default function MerchantDigitalPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Image de couverture (optionnel)</label>
-                <input
-                  type="file" accept="image/*"
-                  onChange={e => setCover(e.target.files?.[0] || null)}
-                  className="w-full text-sm text-text-muted"
-                />
-              </div>
-
-              <div>
                 <label className="block text-sm font-medium mb-1">Fichier à vendre</label>
                 <input
                   type="file" required
@@ -234,6 +223,9 @@ export default function MerchantDigitalPage() {
                   className="w-full text-sm text-text-muted"
                 />
                 <p className="text-xs text-text-muted mt-1">PDF, ZIP, audio, vidéo, Word · max {MAX_FILE_MB} Mo</p>
+                <p className="text-xs text-text-muted mt-1">
+                  Pour un PDF, la première page sert automatiquement de couverture.
+                </p>
               </div>
 
               {isUploading && (

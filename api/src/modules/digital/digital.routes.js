@@ -49,6 +49,57 @@ function resolveFileType(mimetype) {
   return 'autre';
 }
 
+/**
+ * Cloudinary ne sait rendre la page d'un document que sur un asset stocké en
+ * resource_type 'image' : les PDF y sont donc rangés là, les autres formats
+ * restant en 'raw'. Upload et téléchargement DOIVENT dériver le type de la même
+ * façon, sinon l'URL signée pointe vers un asset inexistant.
+ */
+function resolveResourceType(fileType) {
+  return fileType === 'pdf' ? 'image' : 'raw';
+}
+
+/**
+ * Couverture = première page du document, rendue en JPEG par Cloudinary.
+ *
+ * Le rendu est récupéré via une URL signée (l'asset vendu est en diffusion
+ * 'authenticated'), puis re-publié en image publique. Stocker directement
+ * l'URL signée serait plus court, mais elle est calculée avec le secret API :
+ * toute rotation du secret casserait les couvertures déjà en base.
+ *
+ * Un échec ici ne doit jamais empêcher la publication : on retombe sur l'icône
+ * de type de fichier côté client.
+ */
+async function buildCoverFromFirstPage(uploaded, shopId) {
+  // Cloudinary ne renvoie 'pages' que s'il a su paginer le document.
+  if (!uploaded.pages) return null;
+  try {
+    const rendered = cloudinary.url(uploaded.public_id, {
+      resource_type: 'image',
+      type: 'authenticated',
+      sign_url: true,
+      format: 'jpg',
+      page: 1,
+      width: 400,
+      height: 560,
+      crop: 'fit', // 'fit' et non 'fill' : la page entière, sans rien rogner
+      quality: 'auto',
+    });
+    const response = await fetch(rendered);
+    if (!response.ok) {
+      logger.warn(`Rendu de la page 1 refusé par Cloudinary (HTTP ${response.status}) pour ${uploaded.public_id}`);
+      return null;
+    }
+    const cover = await uploadBuffer(Buffer.from(await response.arrayBuffer()), {
+      folder: `shopizi/covers/${shopId}`,
+    });
+    return cover.secure_url;
+  } catch (err) {
+    logger.warn(`Couverture automatique impossible pour ${uploaded.public_id} : ${err.message}`);
+    return null;
+  }
+}
+
 // Upload d'un produit digital (marchand)
 router.post('/upload', authenticate, asyncHandler(async (req, res) => {
   if (!isCloudinaryEnabled()) {
@@ -57,8 +108,7 @@ router.post('/upload', authenticate, asyncHandler(async (req, res) => {
 
   await runUpload(req, res);
 
-  const file = req.files?.file?.[0];
-  const cover = req.files?.cover?.[0];
+  const file = req.file;
   if (!file) throw new BadRequestError('Fichier du produit requis');
 
   const { name, description, price_xof, category } = req.body;
@@ -67,6 +117,7 @@ router.post('/upload', authenticate, asyncHandler(async (req, res) => {
   if (!Number.isInteger(price) || price <= 0) throw new BadRequestError('Prix invalide');
 
   const shopId = await getShopIdOfUser(req.user.userId);
+  const fileType = resolveFileType(file.mimetype);
 
   // type: 'authenticated' (et non access_mode) : c'est le type de diffusion qui
   // rend l'asset inaccessible sans URL signée. Un asset 'upload' avec
@@ -74,18 +125,18 @@ router.post('/upload', authenticate, asyncHandler(async (req, res) => {
   // et nos liens de téléchargement signés ne fonctionneraient pas.
   const uploaded = await uploadBuffer(file.buffer, {
     folder: `shopizi/digital/${shopId}`,
-    resource_type: 'raw',
+    resource_type: resolveResourceType(fileType),
     type: 'authenticated',
     use_filename: true,
     unique_filename: true,
-    transformation: undefined, // sans objet sur un asset raw
+    // uploadBuffer applique par défaut quality/fetch_format. Sans objet sur un
+    // asset raw, mais sur un PDF stocké en 'image' cette transformation est
+    // appliquée A L'UPLOAD : Cloudinary aplatit le document en PNG et le
+    // fichier vendu n'est plus le PDF d'origine. Ne jamais retirer.
+    transformation: undefined,
   });
 
-  let coverUrl = null;
-  if (cover) {
-    const uploadedCover = await uploadBuffer(cover.buffer, { folder: `shopizi/covers/${shopId}` });
-    coverUrl = uploadedCover.secure_url;
-  }
+  const coverUrl = await buildCoverFromFirstPage(uploaded, shopId);
 
   const result = await query(
     `INSERT INTO digital_products
@@ -94,7 +145,7 @@ router.post('/upload', authenticate, asyncHandler(async (req, res) => {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,true) RETURNING *`,
     [
       shopId, name, description || null, price,
-      uploaded.secure_url, uploaded.public_id, resolveFileType(file.mimetype),
+      uploaded.secure_url, uploaded.public_id, fileType,
       file.size, coverUrl, category || null,
     ]
   );
@@ -201,7 +252,7 @@ router.get('/purchase/:token', asyncHandler(async (req, res) => {
 router.get('/download/:token', asyncHandler(async (req, res) => {
   const result = await query(
     `SELECT pu.id, pu.payment_status, pu.download_expires_at,
-            dp.file_public_id, dp.name
+            dp.file_public_id, dp.file_type, dp.name
      FROM digital_purchases pu
      JOIN digital_products dp ON dp.id = pu.digital_product_id
      WHERE pu.download_token = $1`,
@@ -218,11 +269,17 @@ router.get('/download/:token', asyncHandler(async (req, res) => {
   }
 
   // Lien Cloudinary signé, valable 1h : même si l'URL fuite, elle périme vite.
-  const signedUrl = cloudinary.utils.private_download_url(purchase.file_public_id, '', {
-    resource_type: 'raw',
-    type: 'authenticated',
-    expires_at: Math.floor(Date.now() / 1000) + 3600,
-  });
+  // Un asset 'image' porte son extension dans le champ format, pas dans le
+  // public_id : sans elle, Cloudinary renverrait un fichier sans extension.
+  const signedUrl = cloudinary.utils.private_download_url(
+    purchase.file_public_id,
+    purchase.file_type === 'pdf' ? 'pdf' : '',
+    {
+      resource_type: resolveResourceType(purchase.file_type),
+      type: 'authenticated',
+      expires_at: Math.floor(Date.now() / 1000) + 3600,
+    }
+  );
 
   await query('UPDATE digital_purchases SET download_count = download_count + 1 WHERE id = $1', [purchase.id]);
 

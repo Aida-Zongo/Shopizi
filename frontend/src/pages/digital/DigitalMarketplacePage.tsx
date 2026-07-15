@@ -137,7 +137,10 @@ export default function DigitalMarketplacePage() {
             <div key={p.id} className="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden shadow-sm flex flex-col">
               <div className="relative h-40 bg-surface-container flex items-center justify-center">
                 {p.cover_image_url ? (
-                  <img src={p.cover_image_url} alt={p.name} className="w-full h-full object-cover" />
+                  // object-contain : la couverture est la page 1 du document, en
+                  // portrait dans une carte en paysage. object-cover la rognerait
+                  // jusqu'a n'en montrer que le milieu, titre compris.
+                  <img src={p.cover_image_url} alt={p.name} className="w-full h-full object-contain" />
                 ) : (
                   <span className="material-symbols-outlined text-[56px] text-outline">
                     {FILE_TYPE_ICONS[p.file_type] || 'draft'}

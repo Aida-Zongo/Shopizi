@@ -54,9 +54,10 @@ const singleUpload = multer({
 }).single('file');
 
 /**
- * Produits digitaux : le fichier vendu (pdf, zip, audio, vidéo...) et sa
- * couverture (image). Types et taille diffèrent des uploads images, d'où un
- * filtre et une limite dédiés.
+ * Produits digitaux : le fichier vendu (pdf, zip, audio, vidéo...). Pas de
+ * champ couverture : elle est dérivée de la première page du document.
+ * Types et taille diffèrent des uploads images, d'où un filtre et une limite
+ * dédiés.
  *
  * La limite reste très en deçà des 500 Mo demandés : memoryStorage garde le
  * fichier entier en RAM et Render (plan free) ne dispose que de 512 Mo — un
@@ -81,14 +82,12 @@ const DIGITAL_ALLOWED_TYPES = [
 ];
 
 function digitalFileFilter(req, file, cb) {
-  // La couverture est une image d'illustration : mêmes règles que les autres images.
-  const allowed = file.fieldname === 'cover' ? ALLOWED_TYPES : DIGITAL_ALLOWED_TYPES;
-  if (allowed.includes(file.mimetype)) {
+  if (DIGITAL_ALLOWED_TYPES.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(
       new UnprocessableEntityError(
-        `Type de fichier non supporté : ${file.mimetype}. Types acceptés : ${allowed.join(', ')}`
+        `Type de fichier non supporté : ${file.mimetype}. Types acceptés : ${DIGITAL_ALLOWED_TYPES.join(', ')}`
       ),
       false
     );
@@ -98,10 +97,7 @@ function digitalFileFilter(req, file, cb) {
 const digitalUpload = multer({
   storage: memoryStorage,
   fileFilter: digitalFileFilter,
-  limits: { fileSize: DIGITAL_MAX_FILE_SIZE, files: 2 },
-}).fields([
-  { name: 'file', maxCount: 1 },
-  { name: 'cover', maxCount: 1 },
-]);
+  limits: { fileSize: DIGITAL_MAX_FILE_SIZE, files: 1 },
+}).single('file');
 
 module.exports = { productImageUpload, shopImageUpload, singleUpload, digitalUpload, DIGITAL_MAX_FILE_SIZE };
