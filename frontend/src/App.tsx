@@ -35,6 +35,10 @@ import CustomerProfilePage from './pages/customer/CustomerProfilePage'
 import CustomerOrdersPage from './pages/customer/CustomerOrdersPage'
 import CustomerMessagesPage from './pages/customer/CustomerMessagesPage'
 import ConfirmDeliveryPage from './pages/ConfirmDeliveryPage'
+import DigitalMarketplacePage from './pages/digital/DigitalMarketplacePage'
+import DownloadPage from './pages/digital/DownloadPage'
+import MerchantDigitalPage from './pages/digital/MerchantDigitalPage'
+import MyPurchasesPage from './pages/digital/MyPurchasesPage'
 import NotFound from './pages/NotFound'
 
 function AuthGuard() {
@@ -92,6 +96,7 @@ function MerchantRoutes() {
         <Route path="ads" element={<AdsPage />} />
         <Route path="chat" element={<ChatPage />} />
         <Route path="reviews" element={<ReviewsPage />} />
+        <Route path="digital" element={<MerchantDigitalPage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
@@ -155,6 +160,10 @@ function AppContent() {
       {/* Public: QR code delivery confirmation (scanned by the customer) */}
       <Route path="/confirm-delivery/:orderId" element={<ConfirmDeliveryPage />} />
 
+      {/* Public: lien de téléchargement d'un produit digital acheté.
+          Le token d'achat fait office de secret — pas d'authentification. */}
+      <Route path="/download/:token" element={<DownloadPage />} />
+
       {/* Public / Customer Routes */}
       <Route element={<CustomerLayout />}>
         <Route path="/marketplace" element={<CustomerHomePage />} />
@@ -163,7 +172,12 @@ function AppContent() {
         
         {/* If customer or guest, root goes to marketplace */}
         {(!user || isCustomer) && (
-          <Route path="/" element={<CustomerHomePage />} />
+          <>
+            <Route path="/" element={<CustomerHomePage />} />
+            {/* Les marchands ont leur propre page /digital (tableau de bord),
+                comme pour /orders : la route publique ne doit pas la masquer. */}
+            <Route path="/digital" element={<DigitalMarketplacePage />} />
+          </>
         )}
 
         {/* Customer account pages */}
@@ -172,6 +186,7 @@ function AppContent() {
             <Route path="/profile" element={<CustomerProfilePage />} />
             <Route path="/orders" element={<CustomerOrdersPage />} />
             <Route path="/messages" element={<CustomerMessagesPage />} />
+            <Route path="/purchases" element={<MyPurchasesPage />} />
           </>
         )}
       </Route>

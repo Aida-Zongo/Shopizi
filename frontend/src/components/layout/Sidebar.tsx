@@ -7,6 +7,7 @@ const navItems = [
   { to: '/products', icon: 'inventory_2', label: 'Produits' },
   { to: '/categories', icon: 'category', label: 'Catégories' },
   { to: '/orders', icon: 'shopping_cart', label: 'Commandes' },
+  { to: '/digital', icon: 'cloud_download', label: 'Produits Digitaux' },
   { to: '/chat', icon: 'chat', label: 'Messages' },
   { to: '/reviews', icon: 'star', label: 'Avis' },
   { to: '/ads', icon: 'campaign', label: 'Publicités' },

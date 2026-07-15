@@ -24,6 +24,23 @@ interface ShopData {
   categories: Array<{ id: string; name: string; slug: string }>;
 }
 
+interface DigitalProduct {
+  id: string;
+  name: string;
+  price_xof: number;
+  file_type: string;
+  cover_image_url: string | null;
+}
+
+const DIGITAL_TYPE_ICONS: Record<string, string> = {
+  pdf: 'picture_as_pdf',
+  video: 'play_circle',
+  audio: 'music_note',
+  zip: 'folder_zip',
+  image: 'image',
+  word: 'description',
+};
+
 interface Review {
   id: string;
   rating: number;
@@ -45,6 +62,7 @@ export default function CustomerShopPage() {
 
   // Checkout State
   const [checkoutProduct, setCheckoutProduct] = useState<ShopData['products'][0] | null>(null);
+  const [digitalProducts, setDigitalProducts] = useState<DigitalProduct[]>([]);
   const [showCheckout, setShowCheckout] = useState(false);
   const [deliveryMode, setDeliveryMode] = useState<'geo' | 'manual'>('geo');
   const [deliveryAddress, setDeliveryAddress] = useState('');
@@ -100,6 +118,13 @@ export default function CustomerShopPage() {
 
   useEffect(() => {
     if (data?.shop.id) fetchReviews(data.shop.id);
+  }, [data?.shop.id]);
+
+  useEffect(() => {
+    if (!data?.shop.id) return;
+    api.get(`/digital/shop/${data.shop.id}`)
+      .then(res => { if (res.data.success) setDigitalProducts(res.data.data || []); })
+      .catch(() => {});
   }, [data?.shop.id]);
 
   useEffect(() => {
@@ -505,6 +530,48 @@ export default function CustomerShopPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {/* Produits digitaux de la boutique */}
+            {digitalProducts.length > 0 && (
+              <div className="mt-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <h2 className="text-lg font-bold text-text-main">Produits Digitaux</h2>
+                  <span className="px-2 py-0.5 bg-burkina-green-light text-burkina-green-deep text-[10px] font-bold rounded-full flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[12px]">bolt</span>
+                    Téléchargement instantané
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {digitalProducts.map(dp => (
+                    <Link
+                      key={dp.id}
+                      to="/digital"
+                      className="bg-white rounded-2xl border border-outline-variant/20 overflow-hidden hover:shadow-xl transition-all group"
+                    >
+                      <div className="aspect-square overflow-hidden relative bg-surface-container flex items-center justify-center">
+                        {dp.cover_image_url ? (
+                          <img src={dp.cover_image_url} alt={dp.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        ) : (
+                          <span className="material-symbols-outlined text-[40px] text-outline">
+                            {DIGITAL_TYPE_ICONS[dp.file_type] || 'draft'}
+                          </span>
+                        )}
+                        <span className="absolute top-2 right-2 px-2 py-0.5 bg-black/70 text-white text-[10px] font-bold rounded-full">
+                          {dp.file_type.toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="p-3">
+                        <p className="text-sm font-medium text-text-main line-clamp-2">{dp.name}</p>
+                        <div className="mt-1.5">
+                          <span className="font-bold" style={{ color: primaryColor }}>{Number(dp.price_xof).toLocaleString()}</span>
+                          <span className="text-xs text-text-muted"> FCFA</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
           </div>

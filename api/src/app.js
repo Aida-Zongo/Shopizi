@@ -30,6 +30,7 @@ const driversRoutes = require('./modules/drivers/drivers.routes');
 const aiRoutes = require('./modules/ai/ai.routes');
 const customerRoutes = require('./modules/customer/customer.routes');
 const adsRoutes = require('./modules/ads/ads.routes');
+const digitalRoutes = require('./modules/digital/digital.routes');
 
 /**
  * Create and configure the Express application.
@@ -107,6 +108,7 @@ function createApp() {
   app.use('/api/v1/ai', aiRoutes);
   app.use('/api/v1/customer', customerRoutes);
   app.use('/api/v1/ads', adsRoutes);
+  app.use('/api/v1/digital', digitalRoutes);
 
   // 404 handler
   app.use((req, res) => {

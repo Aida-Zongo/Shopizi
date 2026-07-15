@@ -70,6 +70,11 @@ export default function CustomerLayout() {
               Boutiques
             </Link>
 
+            <Link to="/digital" className="hidden sm:flex items-center gap-1 px-3 py-2 text-sm text-text-muted hover:text-burkina-green-deep hover:bg-surface-container rounded-lg transition-all">
+              <span className="material-symbols-outlined text-[18px]">cloud_download</span>
+              Produits Digitaux
+            </Link>
+
             {user ? (
               <div className="relative">
                 <button
@@ -98,6 +103,10 @@ export default function CustomerLayout() {
                       <Link to="/orders" className="flex items-center gap-2 px-4 py-3 text-sm text-text-main hover:bg-surface-container transition-all" onClick={() => setMenuOpen(false)}>
                         <span className="material-symbols-outlined text-[18px]">package_2</span>
                         Mes commandes
+                      </Link>
+                      <Link to="/purchases" className="flex items-center gap-2 px-4 py-3 text-sm text-text-main hover:bg-surface-container transition-all" onClick={() => setMenuOpen(false)}>
+                        <span className="material-symbols-outlined text-[18px]">cloud_download</span>
+                        Mes achats digitaux
                       </Link>
                       <Link to="/messages" className="flex items-center gap-2 px-4 py-3 text-sm text-text-main hover:bg-surface-container transition-all" onClick={() => setMenuOpen(false)}>
                         <span className="material-symbols-outlined text-[18px]">chat</span>

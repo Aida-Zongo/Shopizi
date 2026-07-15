@@ -36,6 +36,16 @@ services:
         sync: false
       - key: CINETPAY_BASE_URL
         value: https://api-checkout.cinetpay.net/v2
+      # Cloudinary : héberge les fichiers des produits digitaux. Mêmes règles
+      # que CinetPay — secrets saisis dans le dashboard Render, jamais commités.
+      # La clé API doit avoir les permissions d'upload (actions "create"),
+      # sinon toute publication de produit digital échoue en 403.
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
       # Connexion à la base Render (sinon pas de DATABASE_URL en prod).
       - key: DATABASE_URL
         fromDatabase:

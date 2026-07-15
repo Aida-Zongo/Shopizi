@@ -4,8 +4,9 @@ const { getIO } = require('../../realtime/socket');
 const { broadcastNewOrder } = require('../orders/order-broadcast');
 const eventBus = require('../../events');
 const config = require('../../config/index');
+const logger = require('../../config/logger');
 
-const PAYMENT_TYPES = ['order', 'subscription', 'ads'];
+const PAYMENT_TYPES = ['order', 'subscription', 'ads', 'digital_product'];
 
 /**
  * Mode courant, sans changement de code :
@@ -187,6 +188,7 @@ async function processConfirmedPayment(transactionId, status = 'completed') {
   if (tx.type === 'order') await processOrderPayment(tx, metadata);
   else if (tx.type === 'subscription') await processSubscriptionPayment(tx, metadata);
   else if (tx.type === 'ads') await processAdsPayment(tx, metadata);
+  else if (tx.type === 'digital_product') await processDigitalPurchase(tx, metadata);
 
   return tx;
 }
@@ -300,6 +302,76 @@ async function processAdsPayment(tx, metadata) {
   getIO().emit('ads:activated', { shop_id, product_id, ad_id: adRes.rows[0].id });
 }
 
+/**
+ * Produit digital payé : débloque le lien de téléchargement, crédite le
+ * marchand (95%, Shopizi garde 5%) et incrémente le compteur de ventes.
+ * Tout en transaction : un achat à moitié validé donnerait soit un fichier
+ * gratuit, soit un paiement sans fichier.
+ */
+async function processDigitalPurchase(tx, metadata) {
+  const purchaseId = metadata.purchase_id;
+  if (!purchaseId) throw new BadRequestError('purchase_id manquant dans les métadonnées de paiement');
+
+  const client = await getClient();
+  let purchase, product;
+  try {
+    await client.query('BEGIN');
+
+    const purchaseRes = await client.query(
+      'SELECT * FROM digital_purchases WHERE id = $1 FOR UPDATE',
+      [purchaseId]
+    );
+    if (purchaseRes.rows.length === 0) throw new NotFoundError('Achat digital introuvable');
+    purchase = purchaseRes.rows[0];
+
+    const productRes = await client.query(
+      'SELECT id, name, shop_id FROM digital_products WHERE id = $1',
+      [purchase.digital_product_id]
+    );
+    if (productRes.rows.length === 0) throw new NotFoundError('Produit digital introuvable');
+    product = productRes.rows[0];
+
+    // Le compte à rebours des 48h démarre au paiement, pas à l'initiation :
+    // un client bloqué 30 min sur son mobile money ne perd pas son délai.
+    const updated = await client.query(
+      `UPDATE digital_purchases
+       SET payment_status = 'completed',
+           download_expires_at = NOW() + INTERVAL '48 hours'
+       WHERE id = $1 RETURNING *`,
+      [purchaseId]
+    );
+    purchase = updated.rows[0];
+
+    await client.query(
+      `UPDATE shops SET pending_balance = pending_balance + $1, total_earned = total_earned + $1 WHERE id = $2`,
+      [purchase.merchant_amount, product.shop_id]
+    );
+
+    await client.query(
+      'UPDATE digital_products SET total_sales = total_sales + 1 WHERE id = $1',
+      [product.id]
+    );
+
+    await client.query('COMMIT');
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+
+  const frontendUrl = process.env.FRONTEND_URL || config.frontend.url;
+  logger.info(
+    `Produit digital payé: ${product.name} — lien ${frontendUrl}/download/${purchase.download_token} (expire ${purchase.download_expires_at.toISOString()})`
+  );
+
+  getIO().emit('digital:purchased', {
+    purchase_id: purchase.id,
+    digital_product_id: product.id,
+    shop_id: product.shop_id,
+  });
+}
+
 module.exports = {
   getMode,
   initiatePayment,
@@ -310,4 +382,5 @@ module.exports = {
   processOrderPayment,
   processSubscriptionPayment,
   processAdsPayment,
+  processDigitalPurchase,
 };
