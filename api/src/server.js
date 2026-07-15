@@ -46,6 +46,12 @@ async function start() {
       if (!process.env.GEMINI_API_KEY) {
         logger.warn('⚠️ GEMINI_API_KEY est manquante. Kèra (Assistant IA) fonctionnera en mode dégradé.');
       }
+
+      // Garde le service Render (plan free) éveillé : évite le cold start ~24s.
+      if (process.env.NODE_ENV === 'production') {
+        const warmup = require('./utils/warmup');
+        warmup.start(PORT);
+      }
     });
 
     // Graceful shutdown
