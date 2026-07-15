@@ -80,7 +80,11 @@ export default function MerchantDigitalPage() {
     setIsUploading(true);
     setFormError('');
     try {
+      // L'instance api impose Content-Type: application/json, ce qui pousse axios
+      // a serialiser le FormData en JSON et a perdre le fichier. On neutralise ce
+      // defaut ici : axios laisse alors le navigateur poser le boundary multipart.
       await api.post('/digital/upload', form, {
+        headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: e => {
           if (e.total) setProgress(Math.round((e.loaded / e.total) * 100));
         },
