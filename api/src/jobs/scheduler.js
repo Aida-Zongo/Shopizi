@@ -1,6 +1,7 @@
 const cron = require('node-cron');
 const { runRenewalReminders } = require('./renewalReminder.job');
 const { runExpireSubscriptions } = require('./expireSubscriptions.job');
+const { runCleanupAbandonedOrders } = require('./cleanupAbandonedOrders.job');
 const logger = require('../config/logger');
 
 /**
@@ -19,6 +20,12 @@ function initScheduler() {
   cron.schedule('0 * * * *', async () => {
     logger.info('[Job] Running subscription expiration check...');
     try { await runExpireSubscriptions(); } catch (err) { logger.error('[Job] Expiration check failed:', err); }
+  });
+
+  // Run every 15 minutes
+  cron.schedule('*/15 * * * *', async () => {
+    logger.info('[Job] Running abandoned orders cleanup...');
+    try { await runCleanupAbandonedOrders(); } catch (err) { logger.error('[Job] Abandoned orders cleanup failed:', err); }
   });
 
   logger.info('Scheduled jobs initialized.');
