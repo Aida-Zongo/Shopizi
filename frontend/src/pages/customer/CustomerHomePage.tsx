@@ -68,16 +68,15 @@ const CATEGORIES = [
   { value: 'services', label: 'Services', icon: 'build' },
 ];
 
-// Le paiement en ligne passe par CinetPay (channels: 'ALL'), qui expose
-// Orange Money, Moov Money et carte sur sa page hebergee : ce ne sont pas des
-// passerelles concurrentes mais les canaux d'une seule. Le hors-ligne se limite
-// au paiement a la livraison, marque paye au scan du QR (orders confirm-delivery).
-// Pas de virement : rien dans le backend ne sait detecter un virement bancaire.
+// Paiement 100% en ligne : le checkout redirige vers CinetPay (channels: 'ALL'),
+// qui expose Orange Money, Moov Money et carte sur sa page hebergee. Ce ne sont
+// pas des passerelles concurrentes mais les canaux d'une seule. Le webhook marque
+// la commande payee automatiquement, sans action du marchand. Pas de cash ni de
+// virement : le backend ne sait confirmer que les paiements en ligne.
 const PAYMENT_METHODS = [
   { name: 'Orange Money', color: '#FF6600', icon: 'smartphone' },
   { name: 'Moov Money', color: '#0052A5', icon: 'phone_android' },
   { name: 'Carte bancaire', color: '#1A1F71', icon: 'credit_card' },
-  { name: 'Paiement à la livraison', color: '#ca8a04', icon: 'local_atm' },
 ];
 
 const FAQ_ITEMS = [
