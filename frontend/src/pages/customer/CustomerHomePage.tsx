@@ -30,18 +30,31 @@ interface Product {
   category?: string;
 }
 
-const HERO_IMAGES = [
-  'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&q=80&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1521566652839-697aa473761a?w=1400&q=80&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1400&q=80&auto=format&fit=crop',
-];
-
-const SOCIAL_AVATARS = [
-  'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&q=60&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=80&q=60&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=80&q=60&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=60&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=60&auto=format&fit=crop',
+const heroSlides = [
+  {
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&q=80',
+    title: 'Trouvez tout ce dont',
+    highlight: 'vous avez besoin',
+    subtitle: 'Des milliers de produits chez vos commerçants locaux au Burkina Faso',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1531217132659-9b2a1875a5aa?w=1400&q=80',
+    title: 'Livraison rapide',
+    highlight: 'dès 500 FCFA',
+    subtitle: 'Des livreurs partenaires disponibles à Ouagadougou et dans toutes les villes',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1400&q=80',
+    title: 'Vendez vos produits',
+    highlight: '100% en ligne',
+    subtitle: 'Créez votre boutique gratuitement et touchez des milliers de clients',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&q=80',
+    title: 'Produits digitaux',
+    highlight: 'livraison instantanée',
+    subtitle: 'Livres, formations, musique — téléchargement immédiat après paiement',
+  },
 ];
 
 const CATEGORIES = [
@@ -55,6 +68,93 @@ const CATEGORIES = [
   { value: 'services', label: 'Services', icon: 'build' },
 ];
 
+const PAYMENT_METHODS = [
+  { name: 'Orange Money', color: '#FF6600', icon: 'smartphone' },
+  { name: 'Moov Money', color: '#0052A5', icon: 'phone_android' },
+  { name: 'CinetPay', color: '#FF4500', icon: 'payment' },
+  { name: 'Carte Bancaire', color: '#1A1F71', icon: 'credit_card' },
+  { name: 'Virement', color: '#00A86B', icon: 'account_balance' },
+  { name: 'Cash à la livraison', color: '#ca8a04', icon: 'local_atm' },
+];
+
+const FAQ_ITEMS = [
+  {
+    question: "C'est quoi Shopizi ?",
+    answer: "Shopizi est la première marketplace digitale du Burkina Faso. Elle connecte les commerçants locaux, les clients et les livreurs sur une seule plateforme. Achetez, vendez et faites livrer partout au Burkina.",
+    icon: 'storefront',
+    color: '#00A86B',
+  },
+  {
+    question: 'Pourquoi choisir Shopizi ?',
+    answer: "Shopizi ne prend aucune commission sur vos ventes de produits physiques. Les marchands gardent 100% de leurs revenus. Seuls les frais de livraison font l'objet d'un partage équitable avec les livreurs.",
+    icon: 'star',
+    color: '#ca8a04',
+  },
+  {
+    question: 'Comment ça marche ?',
+    answer: '1. Cherchez un produit ou une boutique. 2. Commandez et payez via Orange Money ou Moov Money. 3. Un livreur partenaire vient chercher votre commande et vous la livre à domicile en un temps record.',
+    icon: 'help',
+    color: '#0A504A',
+  },
+  {
+    question: 'La livraison est disponible où ?',
+    answer: 'Shopizi gère les livraisons dans la même ville. Pour Ouagadougou, Bobo-Dioulasso, Koudougou et d\'autres villes. Les frais commencent à 500 FCFA et ne dépassent jamais 2,000 FCFA en ville.',
+    icon: 'local_shipping',
+    color: '#00A86B',
+  },
+  {
+    question: 'Comment devenir marchand ?',
+    answer: "L'inscription est 100% gratuite. Créez votre compte en moins de 2 minutes, configurez votre boutique, ajoutez vos produits et commencez à vendre immédiatement. Aucun document requis pour démarrer.",
+    icon: 'add_business',
+    color: '#ca8a04',
+  },
+  {
+    question: "C'est quoi les produits digitaux ?",
+    answer: 'Vendez et achetez des livres PDF, formations en ligne, musique, templates et bien plus. Après paiement, le client reçoit immédiatement son lien de téléchargement. Pas de livreur, livraison instantanée.',
+    icon: 'download',
+    color: '#0A504A',
+  },
+];
+
+const DIFFERENTIATORS = [
+  {
+    icon: 'percent',
+    title: '0% de commission',
+    desc: 'Shopizi ne prend aucune commission sur vos ventes de produits. Vous gardez 100% de vos revenus.',
+    highlight: '0%',
+  },
+  {
+    icon: 'chat',
+    title: 'Chat intégré',
+    desc: "Discutez directement avec les marchands et les livreurs depuis l'application. Partagez votre position GPS en un clic.",
+    highlight: 'Direct',
+  },
+  {
+    icon: 'qr_code_scanner',
+    title: 'Confirmation QR Code',
+    desc: 'À la livraison, le client scanne le QR code du livreur pour confirmer la réception. Simple, rapide et sécurisé.',
+    highlight: 'Sécurisé',
+  },
+  {
+    icon: 'download',
+    title: 'Produits digitaux',
+    desc: 'Vendez des livres, formations et fichiers digitaux avec livraison instantanée. Unique au Burkina Faso.',
+    highlight: 'Unique',
+  },
+  {
+    icon: 'smart_toy',
+    title: 'IA Kèra',
+    desc: 'Notre assistante shopping intelligente parle votre langue et vous aide à trouver les meilleurs produits locaux.',
+    highlight: 'IA locale',
+  },
+  {
+    icon: 'verified',
+    title: 'Made in Burkina',
+    desc: 'Conçu par et pour les Burkinabè. Support en français, prix en FCFA, paiements via Orange Money et Moov Money.',
+    highlight: 'Local',
+  },
+];
+
 export default function CustomerHomePage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -64,30 +164,35 @@ export default function CustomerHomePage() {
   const [activeCategory, setActiveCategory] = useState('');
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [stats, setStats] = useState({ shops: 0, products: 0 });
-  const [heroIndex, setHeroIndex] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setHeroIndex(prev => (prev + 1) % HERO_IMAGES.length);
-    }, 4000);
-    return () => clearInterval(interval);
+    const timer = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide(i => (i + 1) % heroSlides.length);
+        setIsTransitioning(false);
+      }, 500);
+    }, 5000);
+    return () => clearInterval(timer);
   }, []);
 
   const normalizeText = (text: string) => {
-    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    return text.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   };
 
   const filteredFeaturedProducts = featuredProducts.filter(p => {
     if (!searchQuery.trim()) return true;
     const q = normalizeText(searchQuery);
-    return normalizeText(p.name).includes(q) || 
+    return normalizeText(p.name).includes(q) ||
            (p.shop_name && normalizeText(p.shop_name).includes(q));
   });
 
   const filteredShops = shops.filter(s => {
     if (!searchQuery.trim()) return true;
     const q = normalizeText(searchQuery);
-    return normalizeText(s.name).includes(q) || 
+    return normalizeText(s.name).includes(q) ||
            (s.category && normalizeText(s.category).includes(q)) ||
            (s.description && normalizeText(s.description).includes(q));
   });
@@ -126,122 +231,164 @@ export default function CustomerHomePage() {
     }
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Real-time filtering handles the display
-  };
-
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-14 lg:py-20 px-4" style={{ backgroundColor: '#F7F7F2' }}>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          {/* Texte + recherche */}
-          <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm text-sm mb-6" style={{ color: '#0A504A' }}>
-              <span className="material-symbols-outlined text-[16px]">public</span>
-              <span>La marketplace digitale du Burkina Faso</span>
+      {/* Hero avec carrousel d'images */}
+      <section className="relative min-h-[600px] flex items-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)' }}>
+        {/* Images carrousel */}
+        {heroSlides.map((slide, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 transition-opacity duration-1000"
+            style={{ opacity: i === currentSlide ? 0.2 : 0 }}
+          >
+            <img src={slide.image} alt="" className="w-full h-full object-cover" />
+          </div>
+        ))}
+
+        {/* Overlay dégradé */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,80,74,0.95) 50%, rgba(10,80,74,0.7) 100%)' }} />
+
+        {/* Contenu */}
+        <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border border-white/20 bg-white/10">
+              <span className="material-symbols-outlined text-sm" style={{ color: '#A2E4B8' }}>storefront</span>
+              <span className="text-white/80 text-sm font-medium">
+                La marketplace du Burkina Faso
+              </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-black mb-4 leading-tight" style={{ color: '#0A504A' }}>
-              Trouvez tout ce dont<br />
-              <span style={{ color: '#F97316' }}>vous avez besoin</span>
+
+            {/* Titre animé */}
+            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+              {heroSlides[currentSlide].title}
+              <span className="block" style={{ color: '#ca8a04' }}>
+                {heroSlides[currentSlide].highlight}
+              </span>
             </h1>
-            <p className="text-gray-600 text-lg mb-8">
-              Des milliers de produits disponibles chez nos commerçants partenaires à Ouagadougou et partout au Burkina.
+
+            <p className={`text-white/70 text-lg mb-8 leading-relaxed transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+              {heroSlides[currentSlide].subtitle}
             </p>
-            <form onSubmit={handleSearch} className="flex gap-2 max-w-xl mx-auto lg:mx-0">
-              <div className="flex-1 relative">
-                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">search</span>
+
+            {/* Barre de recherche */}
+            <div className="flex gap-2 mb-6">
+              <div className="flex-1 flex items-center gap-3 bg-white rounded-2xl px-4 py-3 shadow-xl">
+                <span className="material-symbols-outlined text-gray-400">search</span>
                 <input
-                  type="text"
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  placeholder="Ex: riz local, tissu faso dan fani, téléphone..."
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl text-text-main bg-white border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-shopizi-accent text-base"
+                  onKeyDown={e => e.key === 'Enter' && navigate(`/marketplace?q=${encodeURIComponent(searchQuery)}`)}
+                  placeholder="Rechercher un produit, une boutique..."
+                  className="flex-1 outline-none text-gray-700 bg-transparent"
                 />
               </div>
-              <button type="submit" className="px-6 py-4 bg-shopizi-accent hover:brightness-90 text-white font-bold rounded-2xl transition-all active:scale-95">
+              <button
+                onClick={() => navigate(`/marketplace?q=${encodeURIComponent(searchQuery)}`)}
+                className="px-6 py-3 rounded-2xl font-bold text-white shadow-xl hover:opacity-90 transition-all"
+                style={{ backgroundColor: '#ca8a04' }}
+              >
                 Chercher
               </button>
-            </form>
+            </div>
 
-            <div className="flex flex-wrap gap-2 justify-center lg:justify-start mt-4">
-              {['Riz local', 'Tissu Faso Dan Fani', 'Téléphone', 'Médicaments', 'Décoration'].map(term => (
+            {/* Suggestions */}
+            <div className="flex flex-wrap gap-2">
+              {['Riz local', 'Tissu Faso Dan Fani', 'Téléphone', 'Médicaments', 'Formation'].map(term => (
                 <button
                   key={term}
-                  onClick={() => {
-                    setSearchQuery(term);
-                    navigate(`/marketplace?q=${encodeURIComponent(term)}`);
-                  }}
-                  className="px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-600 text-xs font-medium transition-all"
+                  onClick={() => navigate(`/marketplace?q=${encodeURIComponent(term)}`)}
+                  className="px-3 py-1.5 rounded-full text-white/80 text-xs font-medium border border-white/20 hover:bg-white/10 transition-all"
                 >
                   {term}
                 </button>
               ))}
             </div>
-
-            {/* Preuve sociale */}
-            <div className="flex items-center justify-center lg:justify-start gap-3 mt-8">
-              <div className="flex -space-x-3">
-                {SOCIAL_AVATARS.map(src => (
-                  <img key={src} src={src} alt="" className="w-9 h-9 rounded-full border-2 border-white object-cover" />
-                ))}
-              </div>
-              <p className="text-gray-600 text-sm text-left">
-                Déjà adopté par des <span className="font-bold" style={{ color: '#0A504A' }}>milliers de Burkinabè</span>
-              </p>
-            </div>
           </div>
 
-          {/* Visuel — image nette, cadre arrondi, carte flottante */}
-          <div className="relative hidden sm:block">
-            <div className="absolute -top-8 -right-8 w-56 h-56 rounded-full opacity-15" style={{ backgroundColor: '#F97316' }} />
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full opacity-10" style={{ backgroundColor: '#0A504A' }} />
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl h-72 md:h-96">
-              {HERO_IMAGES.map((src, i) => (
-                <img
-                  key={src}
-                  src={src}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-                  style={{ opacity: i === heroIndex ? 1 : 0 }}
-                />
-              ))}
-            </div>
-            <div className="absolute -bottom-5 left-6 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#FFF4ED' }}>
-                <span className="material-symbols-outlined" style={{ color: '#F97316' }}>moped</span>
+          {/* Stats droite */}
+          <div className="hidden lg:grid grid-cols-2 gap-4">
+            {[
+              { icon: 'storefront', value: stats.shops + '+', label: 'Boutiques actives' },
+              { icon: 'inventory_2', value: stats.products + '+', label: 'Produits disponibles' },
+              { icon: 'local_shipping', value: '500 FCFA', label: 'Livraison dès' },
+              { icon: 'groups', value: '21M+', label: 'Burkinabè servis' },
+            ].map((stat, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20 hover:bg-white/20 transition-all">
+                <span className="material-symbols-outlined text-3xl mb-2 block" style={{ color: '#A2E4B8' }}>
+                  {stat.icon}
+                </span>
+                <p className="text-2xl font-black text-white">{stat.value}</p>
+                <p className="text-xs mt-1" style={{ color: '#A2E4B8' }}>
+                  {stat.label}
+                </p>
               </div>
-              <div>
-                <p className="text-sm font-bold" style={{ color: '#0A504A' }}>Livraison rapide</p>
-                <p className="text-xs text-gray-500">dès 500 FCFA</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      </section>
 
-      {/* Stats band */}
-      <section className="py-10 px-4" style={{ backgroundColor: '#0A504A' }}>
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { icon: 'storefront', value: `${stats.shops}+`, label: 'Boutiques actives' },
-            { icon: 'inventory_2', value: `${stats.products}+`, label: 'Produits disponibles' },
-            { icon: 'local_shipping', value: '500 FCFA', label: 'Livraison dès' },
-            { icon: 'percent', value: '0%', label: 'Commission sur ventes' },
-          ].map((item, i) => (
-            <div key={i} className="text-center">
-              <span className="material-symbols-outlined text-[32px] mb-2" style={{ color: '#FDBA74' }}>
-                {item.icon}
-              </span>
-              <p className="text-2xl md:text-3xl font-black text-white">{item.value}</p>
-              <p className="text-sm text-white/70">{item.label}</p>
-            </div>
+        {/* Indicateurs carrousel */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className="transition-all duration-300 rounded-full"
+              style={{
+                width: i === currentSlide ? '24px' : '8px',
+                height: '8px',
+                backgroundColor: i === currentSlide ? '#ca8a04' : 'rgba(255,255,255,0.4)',
+              }}
+            />
           ))}
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Bande défilante moyens de paiement */}
+      <div className="bg-white border-y border-gray-100 py-4 overflow-hidden">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-px h-6 bg-gray-200 mx-4" />
+          <span className="text-xs font-bold text-gray-400 uppercase tracking-widest whitespace-nowrap px-4">
+            Moyens de paiement acceptés
+          </span>
+          <div className="w-px h-6 bg-gray-200" />
+        </div>
+
+        <style>{`
+          @keyframes payment-scroll-kf {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .payment-scroll {
+            animation: payment-scroll-kf 20s linear infinite;
+            display: flex;
+            width: max-content;
+          }
+          .payment-scroll:hover { animation-play-state: paused; }
+        `}</style>
+
+        <div className="overflow-hidden">
+          <div className="payment-scroll">
+            {[...Array(2)].map((_, repeat) => (
+              <div key={repeat} className="flex items-center gap-8 px-4">
+                {PAYMENT_METHODS.map((pay, i) => (
+                  <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-50 border border-gray-100 whitespace-nowrap hover:shadow-sm transition-all">
+                    <span className="material-symbols-outlined text-sm" style={{ color: pay.color }}>
+                      {pay.icon}
+                    </span>
+                    <span className="text-sm font-medium text-gray-600">
+                      {pay.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Catégories de produits */}
       <section className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           {CATEGORIES.map(cat => (
@@ -255,8 +402,29 @@ export default function CustomerHomePage() {
               }`}
               style={activeCategory === cat.value ? { backgroundColor: '#0A504A' } : {}}
             >
+              <span className="material-symbols-outlined text-[18px]">{cat.icon}</span>
               {cat.label}
             </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Stats band */}
+      <section className="py-10 px-4" style={{ backgroundColor: '#0A504A' }}>
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { icon: 'storefront', value: `${stats.shops}+`, label: 'Boutiques actives' },
+            { icon: 'inventory_2', value: `${stats.products}+`, label: 'Produits disponibles' },
+            { icon: 'local_shipping', value: '500 FCFA', label: 'Livraison dès' },
+            { icon: 'percent', value: '0%', label: 'Commission sur ventes' },
+          ].map((item, i) => (
+            <div key={i} className="text-center">
+              <span className="material-symbols-outlined text-[32px] mb-2" style={{ color: '#A2E4B8' }}>
+                {item.icon}
+              </span>
+              <p className="text-2xl md:text-3xl font-black text-white">{item.value}</p>
+              <p className="text-sm text-white/70">{item.label}</p>
+            </div>
           ))}
         </div>
       </section>
@@ -305,10 +473,10 @@ export default function CustomerHomePage() {
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-                <span className="absolute top-3 right-3 bg-white/95 text-xs font-black px-2.5 py-1 rounded-full" style={{ color: '#F97316' }}>
+                <span className="absolute top-3 right-3 bg-white/95 text-xs font-black px-2.5 py-1 rounded-full" style={{ color: '#ca8a04' }}>
                   Étape {item.step}
                 </span>
-                <div className="absolute bottom-3 left-4 w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#F97316' }}>
+                <div className="absolute bottom-3 left-4 w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style={{ backgroundColor: '#00A86B' }}>
                   <span className="material-symbols-outlined text-white" style={{ fontSize: '22px' }}>{item.icon}</span>
                 </div>
               </div>
@@ -325,7 +493,7 @@ export default function CustomerHomePage() {
               {/* Connecteur entre cartes */}
               {i < 2 && (
                 <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F97316' }}>
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#00A86B' }}>
                     <span className="material-symbols-outlined text-white text-sm">arrow_forward</span>
                   </div>
                 </div>
@@ -335,7 +503,7 @@ export default function CustomerHomePage() {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* Produits en vedette */}
       {featuredProducts.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 pb-10">
           <div className="flex items-center justify-between mb-4">
@@ -378,7 +546,7 @@ export default function CustomerHomePage() {
         </section>
       )}
 
-      {/* Shops Grid */}
+      {/* Boutiques partenaires */}
       <section className="max-w-6xl mx-auto px-4 pb-16">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-text-main"><span className="material-symbols-outlined align-middle mr-1">storefront</span> Boutiques partenaires</h2>
@@ -465,97 +633,79 @@ export default function CustomerHomePage() {
         )}
       </section>
 
-      {/* Pourquoi Shopizi */}
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Image gauche */}
-          <div className="relative rounded-3xl overflow-hidden h-80 lg:h-96 shadow-2xl">
-            <img
-              src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&q=80&auto=format&fit=crop"
-              alt="Commerçant Burkina Faso"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            <div className="absolute bottom-4 left-4 text-white">
-              <p className="font-bold">Des marchands locaux</p>
-              <p className="text-sm opacity-80">nous font confiance</p>
-            </div>
-          </div>
+      {/* Pourquoi Shopizi (FAQ visuelle) */}
+      <section className="max-w-6xl mx-auto px-4 py-20">
+        <div className="text-center mb-16">
+          <span className="text-sm font-bold uppercase tracking-widest" style={{ color: '#00A86B' }}>
+            Vos questions
+          </span>
+          <h2 className="text-4xl font-black mt-2 mb-4" style={{ color: '#0A504A' }}>
+            Tout savoir sur Shopizi
+          </h2>
+          <p className="text-gray-500 max-w-xl mx-auto">
+            La marketplace digitale pensée pour les Burkinabè
+          </p>
+        </div>
 
-          {/* Contenu droite */}
-          <div>
-            <h2 className="text-3xl font-black mb-6" style={{ color: '#0A504A' }}>
-              Pourquoi choisir Shopizi ?
-            </h2>
-            {[
-              { icon: 'storefront', title: 'Commerçants locaux', desc: 'Soutenez directement l\'économie burkinabè' },
-              { icon: 'verified_user', title: 'Paiements sécurisés', desc: 'Orange Money et Moov Money acceptés' },
-              { icon: 'bolt', title: 'Livraison rapide', desc: 'Dès 500 FCFA partout au Burkina' },
-              { icon: 'support_agent', title: 'Support réactif', desc: 'Chat intégré et WhatsApp disponible' },
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-4 mb-5">
-                <div className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center" style={{ backgroundColor: 'rgba(10, 80, 74, 0.08)' }}>
-                  <span className="material-symbols-outlined text-sm" style={{ color: '#0A504A' }}>
-                    {item.icon}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {FAQ_ITEMS.map((faq, i) => (
+            <div key={i} className="bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 group cursor-pointer">
+              <div className="flex items-start gap-4">
+                <div
+                  className="w-12 h-12 rounded-2xl flex-shrink-0 flex items-center justify-center transition-all group-hover:scale-110"
+                  style={{ backgroundColor: faq.color + '15' }}
+                >
+                  <span className="material-symbols-outlined" style={{ color: faq.color, fontSize: '24px' }}>
+                    {faq.icon}
                   </span>
                 </div>
                 <div>
-                  <p className="font-bold text-sm mb-0.5" style={{ color: '#0A504A' }}>
-                    {item.title}
+                  <h3 className="font-black text-lg mb-2" style={{ color: '#0A504A' }}>
+                    {faq.question}
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    {faq.answer}
                   </p>
-                  <p className="text-sm text-gray-500">{item.desc}</p>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* CTA Commerçant */}
-      <section className="max-w-6xl mx-auto px-4 pb-16">
-        <div className="rounded-3xl overflow-hidden relative" style={{ backgroundColor: '#0A504A' }}>
-          {/* Motif géométrique */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(249,115,22,0.2) 0%, transparent 40%)`,
-            }}
-          />
+      {/* La particularité de Shopizi */}
+      <section style={{ backgroundColor: '#0A504A' }} className="py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <span className="text-sm font-bold uppercase tracking-widest" style={{ color: '#A2E4B8' }}>
+              Notre différence
+            </span>
+            <h2 className="text-4xl font-black text-white mt-2 mb-4">
+              La particularité de Shopizi
+            </h2>
+          </div>
 
-          <div className="relative z-10 px-8 py-12 md:px-16 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="text-center md:text-left">
-              <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-1.5 mb-4">
-                <span className="material-symbols-outlined text-white text-sm">rocket_launch</span>
-                <span className="text-white/90 text-xs font-medium">
-                  Inscription 100% gratuite
-                </span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {DIFFERENTIATORS.map((item, i) => (
+              <div key={i} className="relative group">
+                <div className="absolute top-4 right-4 text-5xl font-black opacity-5 text-white select-none">
+                  {item.highlight}
+                </div>
+                <div className="p-6">
+                  <div className="w-14 h-14 rounded-2xl mb-4 flex items-center justify-center" style={{ backgroundColor: 'rgba(162,228,184,0.15)' }}>
+                    <span className="material-symbols-outlined text-3xl" style={{ color: '#A2E4B8' }}>
+                      {item.icon}
+                    </span>
+                  </div>
+                  <h3 className="font-black text-xl text-white mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/60 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-black text-white mb-3">
-                Vous êtes commerçant ?
-              </h2>
-              <p className="text-white/70 max-w-md text-sm leading-relaxed">
-                Créez votre boutique en ligne en quelques minutes et touchez des milliers de clients au Burkina Faso.
-                Gardez 100% de vos revenus — Shopizi ne prend aucune commission sur vos ventes.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3 flex-shrink-0">
-              <Link
-                to="/register"
-                className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-sm transition-all hover:opacity-90 hover:scale-105"
-                style={{ backgroundColor: '#F97316', color: 'white' }}
-              >
-                <span className="material-symbols-outlined text-sm">add_business</span>
-                Créer ma boutique
-              </Link>
-              <Link
-                to="/shops"
-                className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold text-sm border-2 border-white/40 text-white hover:bg-white/10 transition-all"
-              >
-                <span className="material-symbols-outlined text-sm">storefront</span>
-                Voir les boutiques
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -617,6 +767,55 @@ export default function CustomerHomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Double CTA (Client + Marchand) */}
+      <section className="max-w-6xl mx-auto px-4 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* CTA Client */}
+          <div className="rounded-3xl p-8 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #00A86B 0%, #0A504A 100%)' }}>
+            <div className="absolute -right-8 -bottom-8 w-32 h-32 rounded-full opacity-10 bg-white" />
+            <span className="material-symbols-outlined text-4xl text-white/60 mb-4 block">
+              shopping_bag
+            </span>
+            <h3 className="text-2xl font-black text-white mb-3">
+              Vous êtes client ?
+            </h3>
+            <p className="text-white/70 text-sm mb-6">
+              Découvrez des milliers de produits locaux et faites-vous livrer où vous voulez au Burkina.
+            </p>
+            <Link
+              to="/marketplace"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all hover:opacity-90"
+              style={{ backgroundColor: '#ca8a04', color: 'white' }}
+            >
+              <span className="material-symbols-outlined text-sm">explore</span>
+              Explorer la marketplace
+            </Link>
+          </div>
+
+          {/* CTA Marchand */}
+          <div className="rounded-3xl p-8 relative overflow-hidden border-2 border-gray-100 bg-white">
+            <div className="absolute -right-8 -bottom-8 w-32 h-32 rounded-full opacity-5" style={{ backgroundColor: '#00A86B' }} />
+            <span className="material-symbols-outlined text-4xl mb-4 block" style={{ color: '#ca8a04' }}>
+              add_business
+            </span>
+            <h3 className="text-2xl font-black mb-3" style={{ color: '#0A504A' }}>
+              Vous êtes marchand ?
+            </h3>
+            <p className="text-gray-500 text-sm mb-6">
+              Créez votre boutique gratuitement et vendez à des milliers de clients. 0% de commission.
+            </p>
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
+              style={{ backgroundColor: '#00A86B' }}
+            >
+              <span className="material-symbols-outlined text-sm">rocket_launch</span>
+              Créer ma boutique — Gratuit
+            </Link>
           </div>
         </div>
       </section>
