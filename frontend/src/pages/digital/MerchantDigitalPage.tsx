@@ -42,6 +42,8 @@ export default function MerchantDigitalPage() {
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [formError, setFormError] = useState('');
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [tableError, setTableError] = useState('');
 
   const loadProducts = () => {
     setIsLoading(true);
@@ -97,6 +99,20 @@ export default function MerchantDigitalPage() {
     }
   };
 
+  const handleDelete = async (id: string, name: string) => {
+    if (!window.confirm(`Supprimer definitivement "${name}" ? Cette action est irreversible.`)) return;
+    setDeletingId(id);
+    setTableError('');
+    try {
+      await api.delete(`/digital/${id}`);
+      loadProducts();
+    } catch (err) {
+      setTableError(getApiError(err));
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   const totalRevenus = products.reduce((sum, p) => sum + Number(p.revenus_xof || 0), 0);
 
   return (
@@ -130,6 +146,10 @@ export default function MerchantDigitalPage() {
           </p>
         </div>
       ) : (
+        <>
+        {tableError && (
+          <div className="p-3 bg-error-container border border-error/20 rounded-xl text-error text-sm mb-4">{tableError}</div>
+        )}
         <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden shadow-sm">
           <table className="w-full text-left">
             <thead className="bg-surface-container text-text-muted text-label-sm uppercase">
@@ -138,6 +158,7 @@ export default function MerchantDigitalPage() {
                 <th className="px-4 py-3 font-medium">Prix</th>
                 <th className="px-4 py-3 font-medium">Ventes</th>
                 <th className="px-4 py-3 font-medium text-right">Revenus</th>
+                <th className="px-4 py-3 font-medium text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/10">
@@ -163,11 +184,22 @@ export default function MerchantDigitalPage() {
                   <td className="px-4 py-3 text-right font-medium text-burkina-green-deep">
                     {Number(p.revenus_xof).toLocaleString()} FCFA
                   </td>
+                  <td className="px-4 py-3 text-right">
+                    <button
+                      onClick={() => handleDelete(p.id, p.name)}
+                      disabled={deletingId === p.id}
+                      className="p-2 text-error hover:bg-error-container/50 rounded-lg transition-colors disabled:opacity-50"
+                      title="Supprimer"
+                    >
+                      <span className="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        </>
       )}
 
       {showForm && (

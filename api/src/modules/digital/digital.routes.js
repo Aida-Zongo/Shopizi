@@ -6,7 +6,7 @@ const asyncHandler = require('../../middleware/asyncHandler');
 const { digitalUpload } = require('../../middleware/upload');
 const { successResponse, paginationMeta } = require('../../utils/response');
 const { parsePagination } = require('../../utils/pagination');
-const { AppError, NotFoundError, BadRequestError, ForbiddenError, PaymentError } = require('../../utils/errors');
+const { AppError, NotFoundError, BadRequestError, ForbiddenError, PaymentError, ConflictError } = require('../../utils/errors');
 const { cloudinary, isCloudinaryEnabled, uploadBuffer } = require('../../services/cloudinary.service');
 const paymentService = require('../payments/payment.service');
 const logger = require('../../config/logger');
@@ -233,6 +233,45 @@ router.get('/merchant/products', authenticate, asyncHandler(async (req, res) => 
     [shopId]
   );
   return successResponse(res, result.rows);
+}));
+
+// Suppression d'un produit digital (marchand). Refusée si le produit a déjà
+// été acheté : le supprimer effacerait l'historique des ventes/commissions et
+// casserait les liens de téléchargement des clients (FK sans ON DELETE).
+router.delete('/:id', authenticate, asyncHandler(async (req, res) => {
+  const shopId = await getShopIdOfUser(req.user.userId);
+
+  const productRes = await query(
+    'SELECT id, file_public_id, file_resource_type FROM digital_products WHERE id = $1 AND shop_id = $2',
+    [req.params.id, shopId]
+  );
+  if (productRes.rows.length === 0) throw new NotFoundError('Produit digital introuvable');
+  const product = productRes.rows[0];
+
+  const salesRes = await query(
+    'SELECT COUNT(*)::int AS c FROM digital_purchases WHERE digital_product_id = $1',
+    [product.id]
+  );
+  if (salesRes.rows[0].c > 0) {
+    throw new ConflictError("Ce produit a déjà été acheté : il ne peut pas être supprimé, pour préserver l'historique des ventes et les liens des clients.");
+  }
+
+  // Supprime l'asset payant sur Cloudinary (diffusion 'authenticated'). Un échec
+  // ne doit pas bloquer la suppression en base : on le journalise seulement.
+  if (isCloudinaryEnabled() && product.file_public_id) {
+    try {
+      await cloudinary.uploader.destroy(product.file_public_id, {
+        resource_type: product.file_resource_type,
+        type: 'authenticated',
+      });
+    } catch (err) {
+      logger.warn(`Suppression Cloudinary échouée pour ${product.file_public_id}: ${err.message}`);
+    }
+  }
+
+  await query('DELETE FROM digital_products WHERE id = $1', [product.id]);
+
+  return successResponse(res, { id: product.id });
 }));
 
 // Détail d'un achat depuis son token, pour la page de téléchargement.
