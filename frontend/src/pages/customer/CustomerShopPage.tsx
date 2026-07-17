@@ -465,7 +465,7 @@ export default function CustomerShopPage() {
               )}
               <div className="flex items-center gap-3 text-white/80 text-sm mt-1">
                 <span className="px-2 py-0.5 bg-white/20 rounded-full font-medium">{getCategoryLabel(shop.category)}</span>
-                {shop.city_name && <span>📍 {shop.city_name}</span>}
+                <span className="flex items-center gap-1" style={{ color: shop.city_name ? undefined : '#ca8a04' }}><span className="material-symbols-outlined text-[16px]">location_on</span> {shop.city_name || 'Ville non précisée'}</span>
                 {shop.allows_delivery && <span className="bg-white/20 px-2 py-0.5 rounded-full flex items-center"><span className="material-symbols-outlined text-[14px] mr-1">moped</span> Livraison disponible</span>}
                 <span className="bg-white/20 px-2 py-0.5 rounded-full flex items-center"><span className="material-symbols-outlined text-[14px] mr-1">inventory_2</span> {products.length} produit{products.length !== 1 ? 's' : ''} disponible{products.length !== 1 ? 's' : ''}</span>
               </div>
@@ -669,12 +669,17 @@ export default function CustomerShopPage() {
               <h3 className="font-bold text-text-main mb-3 flex items-center"><span className="material-symbols-outlined text-[18px] mr-1">info</span> Infos boutique</h3>
               {shop.description && <p className="text-sm text-text-muted mb-3">{shop.description}</p>}
               <div className="space-y-2 text-sm">
-                {shop.city_name && (
-                  <div className="flex items-center gap-2 text-text-muted">
-                    <span className="material-symbols-outlined text-[16px]">location_on</span>
-                    {shop.city_name}
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-sm" style={{ color: '#00A86B' }}>location_on</span>
+                  <span className="font-medium">
+                    {shop.city_name || 'Ville non précisée'}
+                  </span>
+                  {shop.city_name && (
+                    <span className="text-xs text-gray-500">
+                      — Livraison disponible dans cette ville
+                    </span>
+                  )}
+                </div>
                 {shop.address && (
                   <div className="flex items-center gap-2 text-text-muted">
                     <span className="material-symbols-outlined text-[16px]">home</span>

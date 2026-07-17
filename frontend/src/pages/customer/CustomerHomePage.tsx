@@ -652,13 +652,21 @@ export default function CustomerHomePage() {
                   <div className="flex items-center gap-2 mt-1.5 text-xs text-text-muted">
                     <span className="px-2 py-0.5 bg-shopizi-light/30 border border-shopizi-light rounded-full text-[10px] font-bold text-shopizi-dark">{getCategoryLabel(shop.category)}</span>
                     <span className="flex items-center"><span className="material-symbols-outlined text-[14px] mr-0.5">inventory_2</span> {(shop as any).product_count > 0 ? `${(shop as any).product_count} produits` : 'Catalogue en préparation'}</span>
-                    <span className="flex items-center ml-auto"><span className="material-symbols-outlined text-[14px] mr-0.5">location_on</span> {shop.city_name || 'Burkina Faso'}</span>
+                    <span className="flex items-center ml-auto" style={{ color: shop.city_name ? '#0A504A' : '#ca8a04' }}><span className="material-symbols-outlined text-[14px] mr-0.5">location_on</span> {shop.city_name || 'Ville non précisée'}</span>
                   </div>
                   <p className="text-sm text-text-muted mt-2 line-clamp-2">{(shop.description && shop.description !== 'null' && shop.description !== 'undefined') ? shop.description : 'Boutique partenaire Shopizi'}</p>
-                  <p className="text-xs text-burkina-green-deep mt-2 font-medium">
-                    <span className="material-symbols-outlined text-[16px] align-middle mr-1">moped</span>
-                    Livraison : {shop.delivery_fee_xof ? `${Number(shop.delivery_fee_xof).toLocaleString()} FCFA` : 'à partir de 500 FCFA'}
-                  </p>
+                  {shop.city_name ? (
+                    <p className="text-xs text-burkina-green-deep mt-2 font-medium flex items-center">
+                      <span className="material-symbols-outlined text-[16px] mr-1">moped</span>
+                      Livraison à {shop.city_name}
+                      <span className="text-text-muted ml-1">· {shop.delivery_fee_xof ? `${Number(shop.delivery_fee_xof).toLocaleString()} FCFA` : 'dès 500 FCFA'}</span>
+                    </p>
+                  ) : (
+                    <p className="text-xs mt-2 font-medium flex items-center" style={{ color: '#ca8a04' }}>
+                      <span className="material-symbols-outlined text-[16px] mr-1">warning</span>
+                      Ville à préciser
+                    </p>
+                  )}
                 </div>
               </Link>
             ))}

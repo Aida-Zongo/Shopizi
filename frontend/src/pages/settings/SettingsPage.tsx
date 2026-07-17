@@ -67,6 +67,10 @@ export default function SettingsPage() {
     e.preventDefault();
     setError('');
     setSuccess('');
+    if (!form.city_id) {
+      setError('Veuillez selectionner votre ville pour que les clients sachent ou vous etes situe.');
+      return;
+    }
     setSubmitting(true);
 
     try {
@@ -206,15 +210,22 @@ export default function SettingsPage() {
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium text-text-main mb-1">Ville</label>
+            <label className="block text-sm font-medium text-text-main mb-1">Ville <span className="text-error">*</span></label>
             <select
-              className="w-full px-3 py-2 border border-outline-variant rounded-xl focus:outline-none focus:ring-2 focus:ring-burkina-green-deep/50 focus:border-burkina-green-deep bg-white"
+              required
+              className={`w-full px-3 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-burkina-green-deep/50 focus:border-burkina-green-deep bg-white ${form.city_id ? 'border-outline-variant' : 'border-[#ca8a04]'}`}
               value={form.city_id || ''}
               onChange={e => setForm({ ...form, city_id: e.target.value })}
             >
               <option value="">Choisir une ville</option>
               {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
+            {!form.city_id && (
+              <p className="text-xs mt-1 flex items-center gap-1" style={{ color: '#ca8a04' }}>
+                <span className="material-symbols-outlined text-[14px]">warning</span>
+                Ajoutez votre ville pour que les clients sachent où vous êtes situé
+              </p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-text-main mb-1">Quartier</label>
