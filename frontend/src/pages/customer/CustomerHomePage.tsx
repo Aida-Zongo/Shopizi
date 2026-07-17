@@ -74,10 +74,35 @@ const CATEGORIES = [
 // la commande payee automatiquement, sans action du marchand. Pas de cash ni de
 // virement : le backend ne sait confirmer que les paiements en ligne.
 const PAYMENT_METHODS = [
-  { name: 'Orange Money', color: '#FF6600', icon: 'smartphone' },
-  { name: 'Moov Money', color: '#0052A5', icon: 'phone_android' },
-  { name: 'Carte bancaire', color: '#1A1F71', icon: 'credit_card' },
+  { name: 'Orange Money', logo: 'orange' as const },
+  { name: 'Moov Money', logo: 'moov' as const },
+  { name: 'Carte bancaire', logo: 'card' as const },
 ];
+
+// Marques SVG fidèles aux couleurs officielles : le carré Orange (#FF7900)
+// et le badge wordmark Moov (bleu marine). Rendues inline pour rester nettes
+// a toute taille et sans dependance a un fichier image externe.
+function PaymentLogo({ logo }: { logo: 'orange' | 'moov' | 'card' }) {
+  if (logo === 'orange') {
+    return (
+      <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true" className="rounded-[5px] shrink-0">
+        <rect width="100" height="100" rx="12" fill="#FF7900" />
+        <rect x="50" y="50" width="40" height="40" fill="#FFFFFF" />
+      </svg>
+    );
+  }
+  if (logo === 'moov') {
+    return (
+      <svg width="34" height="20" viewBox="0 0 150 90" aria-hidden="true" className="rounded-[5px] shrink-0">
+        <rect width="150" height="90" rx="18" fill="#0A1F44" />
+        <text x="75" y="62" fontFamily="Arial, Helvetica, sans-serif" fontWeight="800" fontSize="46" fill="#FFFFFF" textAnchor="middle">moov</text>
+      </svg>
+    );
+  }
+  return (
+    <span className="material-symbols-outlined text-base" style={{ color: '#1A1F71' }}>credit_card</span>
+  );
+}
 
 const FAQ_ITEMS = [
   {
@@ -204,9 +229,17 @@ export default function CustomerHomePage() {
   }, [activeCategory]);
 
   useEffect(() => {
-    api.get('/customer/stats')
-      .then(res => { if (res.data.success) setStats(res.data.data); })
-      .catch(() => {});
+    // Resilience au demarrage a froid de Render : si la 1re requete echoue
+    // (serveur en cours de reveil), on reessaie une fois apres un court delai,
+    // sinon le hero resterait bloque sur 0 jusqu'a un rechargement manuel.
+    let cancelled = false;
+    const fetchStats = (attempt: number) => {
+      api.get('/customer/stats')
+        .then(res => { if (!cancelled && res.data.success) setStats(res.data.data); })
+        .catch(() => { if (!cancelled && attempt < 2) setTimeout(() => fetchStats(attempt + 1), 3000); });
+    };
+    fetchStats(1);
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
@@ -376,9 +409,7 @@ export default function CustomerHomePage() {
               <div key={repeat} className="flex items-center gap-8 px-4">
                 {PAYMENT_METHODS.map((pay, i) => (
                   <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-50 border border-gray-100 whitespace-nowrap hover:shadow-sm transition-all">
-                    <span className="material-symbols-outlined text-sm" style={{ color: pay.color }}>
-                      {pay.icon}
-                    </span>
+                    <PaymentLogo logo={pay.logo} />
                     <span className="text-sm font-medium text-gray-600">
                       {pay.name}
                     </span>
