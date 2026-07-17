@@ -65,7 +65,8 @@ async function updateShop(userId, data, isPartial = false) {
   for (const field of allowedFields) {
     if (data[field] !== undefined) {
       updates.push(`${field} = $${idx++}`);
-      params.push(typeof data[field] === 'object' ? JSON.stringify(data[field]) : data[field]);
+      const value = data[field];
+      params.push(value !== null && typeof value === 'object' ? JSON.stringify(value) : value);
     }
   }
   if (updates.length === 0) return shop;
