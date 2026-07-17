@@ -1,0 +1,31 @@
+{
+  "name": "Shopizi — Marketplace Burkina Faso",
+  "short_name": "Shopizi",
+  "description": "Creez votre boutique en ligne au Burkina Faso, vendez vos produits physiques et digitaux, et faites livrer partout au Faso.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F7F7F2",
+  "theme_color": "#0A504A",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["shopping", "lifestyle", "business"],
+  "icons": [
+    { "src": "/logo-shopizi.png", "sizes": "72x72", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-shopizi.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-shopizi.png", "sizes": "128x128", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-shopizi.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-shopizi.png", "sizes": "152x152", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-shopizi.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-shopizi.png", "sizes": "384x384", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-shopizi.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-shopizi.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/logo-shopizi.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Marketplace", "short_name": "Marketplace", "url": "/marketplace", "icons": [{ "src": "/logo-shopizi.png", "sizes": "192x192" }] },
+    { "name": "Mes commandes", "short_name": "Commandes", "url": "/orders", "icons": [{ "src": "/logo-shopizi.png", "sizes": "192x192" }] },
+    { "name": "Ma boutique", "short_name": "Boutique", "url": "/", "icons": [{ "src": "/logo-shopizi.png", "sizes": "192x192" }] }
+  ]
+}

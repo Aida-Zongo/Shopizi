@@ -23,3 +23,12 @@ createRoot(document.getElementById('root')!).render(
     </QueryClientProvider>
   </StrictMode>,
 )
+
+// Enregistrement du service worker (PWA installable + cache hors-ligne).
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => {
+      console.error('Echec enregistrement service worker:', err)
+    })
+  })
+}

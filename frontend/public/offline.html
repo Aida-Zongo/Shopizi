@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hors ligne — Shopizi</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        background: #F7F7F2;
+        color: #0A504A;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+      }
+      .card { max-width: 360px; }
+      img { width: 88px; height: 88px; object-fit: contain; margin-bottom: 24px; }
+      h1 { font-size: 24px; font-weight: 700; color: #0A504A; margin-bottom: 12px; }
+      p { font-size: 15px; color: #555; line-height: 1.5; margin-bottom: 28px; }
+      button {
+        background: #0A504A;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 28px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      button:active { opacity: 0.85; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <img src="/logo-shopizi.png" alt="Shopizi" />
+      <h1>Vous etes hors ligne</h1>
+      <p>Impossible de charger cette page. Verifiez votre connexion internet et reessayez.</p>
+      <button onclick="location.reload()">Reessayer</button>
+    </div>
+  </body>
+</html>
