@@ -80,4 +80,42 @@ router.delete('/:id', authenticate, asyncHandler(async (req, res) => {
   return successResponse(res, { message: 'Review supprimée' });
 }));
 
+// --- Fil de discussion entre clients sous un avis ---
+
+// List replies for a review (public)
+router.get('/:reviewId/replies', asyncHandler(async (req, res) => {
+  const r = await query(
+    `SELECT rr.id, rr.review_id, rr.content, rr.anonymous_name, rr.user_id, rr.created_at,
+            u.full_name AS author_name
+     FROM review_replies rr
+     LEFT JOIN users u ON rr.user_id = u.id
+     WHERE rr.review_id = $1 AND rr.status = 'approved'
+     ORDER BY rr.created_at ASC`,
+    [req.params.reviewId]
+  );
+  return successResponse(res, r.rows);
+}));
+
+// Post a reply to a review (authenticated)
+router.post('/:reviewId/replies', authenticate, asyncHandler(async (req, res) => {
+  const content = (req.body.content || '').trim();
+  if (!content) throw new BadRequestError('Le message est requis');
+
+  const parent = await query('SELECT id FROM reviews WHERE id = $1', [req.params.reviewId]);
+  if (parent.rows.length === 0) throw new NotFoundError('Avis introuvable');
+
+  const r = await query(
+    `INSERT INTO review_replies (review_id, user_id, content, status)
+     VALUES ($1, $2, $3, 'approved') RETURNING *`,
+    [req.params.reviewId, req.user.userId, content]
+  );
+  return successResponse(res, r.rows[0], null, 201);
+}));
+
+// Delete own reply
+router.delete('/replies/:id', authenticate, asyncHandler(async (req, res) => {
+  await query('DELETE FROM review_replies WHERE id = $1 AND user_id = $2', [req.params.id, req.user.userId]);
+  return successResponse(res, { message: 'Réponse supprimée' });
+}));
+
 module.exports = router;

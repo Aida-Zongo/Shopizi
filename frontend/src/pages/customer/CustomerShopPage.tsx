@@ -50,6 +50,14 @@ interface Review {
   created_at: string;
 }
 
+interface Reply {
+  id: string;
+  content: string;
+  author_name: string | null;
+  user_id: string | null;
+  created_at: string;
+}
+
 export default function CustomerShopPage() {
   const { subdomain } = useParams<{ subdomain: string }>();
   const navigate = useNavigate();
@@ -93,6 +101,12 @@ export default function CustomerShopPage() {
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
   const [myOrderIdForShop, setMyOrderIdForShop] = useState<string | null>(null);
 
+  // Fil de discussion entre clients sous un avis
+  const [openReplies, setOpenReplies] = useState<string | null>(null);
+  const [repliesByReview, setRepliesByReview] = useState<Record<string, Reply[]>>({});
+  const [replyText, setReplyText] = useState('');
+  const [isSubmittingReply, setIsSubmittingReply] = useState(false);
+
   useEffect(() => {
     if (subdomain) {
       setIsLoading(true);
@@ -113,6 +127,38 @@ export default function CustomerShopPage() {
       if (statsRes.data.success) setReviewStats(statsRes.data.data);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const toggleReplies = async (reviewId: string) => {
+    setReplyText('');
+    if (openReplies === reviewId) { setOpenReplies(null); return; }
+    setOpenReplies(reviewId);
+    if (!repliesByReview[reviewId]) {
+      try {
+        const res = await api.get(`/reviews/${reviewId}/replies`);
+        if (res.data.success) setRepliesByReview(prev => ({ ...prev, [reviewId]: res.data.data || [] }));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+  const handleSubmitReply = async (reviewId: string) => {
+    const content = replyText.trim();
+    if (!content) return;
+    setIsSubmittingReply(true);
+    try {
+      const res = await api.post(`/reviews/${reviewId}/replies`, { content });
+      if (res.data.success) {
+        const added: Reply = { ...res.data.data, author_name: user?.full_name || null };
+        setRepliesByReview(prev => ({ ...prev, [reviewId]: [...(prev[reviewId] || []), added] }));
+        setReplyText('');
+      }
+    } catch (err) {
+      alert("Impossible d'envoyer votre message.");
+    } finally {
+      setIsSubmittingReply(false);
     }
   };
 
@@ -675,6 +721,57 @@ export default function CustomerShopPage() {
                         </span>
                       )}
                       {r.comment && <p className="text-sm text-text-muted">{r.comment}</p>}
+
+                      <button
+                        type="button"
+                        onClick={() => toggleReplies(r.id)}
+                        className="mt-1.5 inline-flex items-center gap-1 text-xs font-medium text-burkina-green-deep hover:underline"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">forum</span>
+                        {openReplies === r.id
+                          ? 'Masquer la discussion'
+                          : (repliesByReview[r.id]?.length
+                              ? `${repliesByReview[r.id].length} réponse${repliesByReview[r.id].length > 1 ? 's' : ''}`
+                              : 'Discuter')}
+                      </button>
+
+                      {openReplies === r.id && (
+                        <div className="mt-2 pl-3 border-l-2 border-burkina-green-light/50 space-y-2">
+                          {(repliesByReview[r.id] || []).length === 0 ? (
+                            <p className="text-xs text-text-muted">Aucune réponse. Lancez la discussion.</p>
+                          ) : (
+                            (repliesByReview[r.id] || []).map(rep => (
+                              <div key={rep.id}>
+                                <span className="text-xs font-medium text-text-main">{rep.author_name || 'Client'}</span>
+                                <p className="text-xs text-text-muted">{rep.content}</p>
+                              </div>
+                            ))
+                          )}
+
+                          {isAuthenticated ? (
+                            <div className="flex gap-2 pt-1">
+                              <input
+                                type="text"
+                                value={replyText}
+                                onChange={e => setReplyText(e.target.value)}
+                                onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleSubmitReply(r.id); } }}
+                                placeholder="Votre réponse..."
+                                className="flex-1 px-3 py-1.5 border border-outline-variant rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-burkina-green-deep/40"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleSubmitReply(r.id)}
+                                disabled={!replyText.trim() || isSubmittingReply}
+                                className="px-3 py-1.5 text-xs font-medium bg-burkina-green-deep text-white rounded-lg disabled:opacity-50"
+                              >
+                                {isSubmittingReply ? '...' : 'Envoyer'}
+                              </button>
+                            </div>
+                          ) : (
+                            <p className="text-xs text-text-muted italic">Connectez-vous pour répondre.</p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
