@@ -3,6 +3,7 @@ const { query } = require('../../db/pool');
 const { authenticate } = require('../../middleware/authenticate');
 const asyncHandler = require('../../middleware/asyncHandler');
 const { successResponse } = require('../../utils/response');
+const { ForbiddenError } = require('../../utils/errors');
 const { getIO } = require('../../realtime/socket');
 
 const router = Router();
@@ -10,7 +11,11 @@ const router = Router();
 router.get('/rooms', authenticate, asyncHandler(async (req, res) => {
   const r = await query(
     `SELECT cr.*, crp.unread_count, crp.last_read_at, s.name AS shop_name,
-            (SELECT COUNT(*) FROM chat_room_participants WHERE room_id = cr.id) AS participant_count
+            (SELECT COUNT(*) FROM chat_room_participants WHERE room_id = cr.id) AS participant_count,
+            (SELECT u.full_name FROM chat_room_participants p2
+               JOIN users u ON u.id = p2.user_id
+              WHERE p2.room_id = cr.id AND p2.user_id <> crp.user_id
+              LIMIT 1) AS other_user_name
      FROM chat_rooms cr
      JOIN chat_room_participants crp ON cr.id = crp.room_id
      LEFT JOIN shops s ON s.id = cr.shop_id
@@ -26,7 +31,7 @@ router.post('/rooms', authenticate, asyncHandler(async (req, res) => {
   const roomType = type || 'customer_merchant';
 
   // Try to find if a direct room already exists
-  if (['customer_merchant', 'driver_merchant', 'driver_customer'].includes(roomType)) {
+  if (['customer_merchant', 'driver_merchant', 'driver_customer', 'customer_customer'].includes(roomType)) {
     let targetUserId = other_user_id;
     if (shop_id && !targetUserId) {
       const shopOwnerRes = await query('SELECT user_id FROM shops WHERE id = $1', [shop_id]);
@@ -88,7 +93,19 @@ router.post('/rooms', authenticate, asyncHandler(async (req, res) => {
   return successResponse(res, roomR.rows[0], null, 201);
 }));
 
+// Vérifie que l'utilisateur courant participe bien à la room avant de lire ou
+// d'écrire : sans ce garde-fou, connaître un id de room suffisait pour lire ou
+// poster dans la conversation d'autrui.
+async function assertParticipant(roomId, userId) {
+  const r = await query(
+    'SELECT 1 FROM chat_room_participants WHERE room_id = $1 AND user_id = $2',
+    [roomId, userId]
+  );
+  if (r.rows.length === 0) throw new ForbiddenError("Vous ne participez pas à cette conversation");
+}
+
 router.get('/rooms/:id/messages', authenticate, asyncHandler(async (req, res) => {
+  await assertParticipant(req.params.id, req.user.userId);
   const limit = Math.min(parseInt(req.query.limit) || 50, 100);
   const offset = parseInt(req.query.offset) || 0;
   const r = await query(
@@ -104,6 +121,7 @@ router.get('/rooms/:id/messages', authenticate, asyncHandler(async (req, res) =>
 }));
 
 router.post('/rooms/:id/messages', authenticate, asyncHandler(async (req, res) => {
+  await assertParticipant(req.params.id, req.user.userId);
   const { content, content_type } = req.body;
   const r = await query(
     `INSERT INTO chat_messages (room_id, sender_id, content, content_type)

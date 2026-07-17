@@ -152,7 +152,7 @@ router.get('/my', authenticate, asyncHandler(async (req, res) => {
   if (driverRes.rows.length === 0) throw new NotFoundError('Profil livreur introuvable');
   const driverId = driverRes.rows[0].id;
   const r = await query(
-    `SELECT d.id, d.status, d.pickup_address, d.delivery_address, d.delivery_fee_xof, d.distance_km, d.driver_notes, o.order_number, o.customer_name, o.customer_phone, o.total_amount_xof, s.name AS shop_name, s.address AS shop_address, s.phone_number AS shop_phone FROM deliveries d JOIN orders o ON o.id = d.order_id JOIN shops s ON s.id = d.shop_id WHERE d.driver_id = $1 AND d.status NOT IN ('delivered','cancelled_by_client','cancelled_by_driver','cancelled_by_system') ORDER BY d.created_at DESC`,
+    `SELECT d.id, d.status, d.pickup_address, d.delivery_address, d.delivery_fee_xof, d.distance_km, d.driver_notes, d.shop_id, o.order_number, o.customer_name, o.customer_phone, o.customer_user_id, o.total_amount_xof, s.name AS shop_name, s.address AS shop_address, s.phone_number AS shop_phone FROM deliveries d JOIN orders o ON o.id = d.order_id JOIN shops s ON s.id = d.shop_id WHERE d.driver_id = $1 AND d.status NOT IN ('delivered','cancelled_by_client','cancelled_by_driver','cancelled_by_system') ORDER BY d.created_at DESC`,
     [driverId]
   );
   return successResponse(res, r.rows);

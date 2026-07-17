@@ -29,6 +29,7 @@ interface ActiveDelivery {
   order_number: string;
   customer_name: string;
   customer_phone: string;
+  customer_user_id: string | null;
   shop_name: string;
   shop_id: string;
   status: string;
@@ -211,6 +212,10 @@ export default function DriverChatPage() {
   };
 
   const startChatWithDelivery = async (delivery: ActiveDelivery, chatType: 'driver_merchant' | 'driver_customer') => {
+    if (chatType === 'driver_customer' && !delivery.customer_user_id) {
+      setError("Ce client a commandé sans compte : impossible de démarrer un chat. Utilisez son téléphone.");
+      return;
+    }
     try {
       const payload: Record<string, string> = {
         type: chatType,
@@ -219,6 +224,7 @@ export default function DriverChatPage() {
           : `Livraison #${delivery.order_number} — Client`,
       };
       if (chatType === 'driver_merchant') payload.shop_id = delivery.shop_id;
+      if (chatType === 'driver_customer') payload.other_user_id = delivery.customer_user_id as string;
 
       const res = await api.post('/chat/rooms', payload);
       if (res.data.success) {
