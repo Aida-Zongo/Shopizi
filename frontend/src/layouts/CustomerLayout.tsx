@@ -197,7 +197,7 @@ export default function CustomerLayout() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
                   <span className="material-symbols-outlined text-sm mt-0.5" style={{ color: '#FDBA74' }}>location_on</span>
-                  <span className="text-white/60 text-sm">Ouagadougou, Burkina Faso</span>
+                  <span className="text-white/60 text-sm">Koudougou, Burkina Faso</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-sm" style={{ color: '#FDBA74' }}>mail</span>
