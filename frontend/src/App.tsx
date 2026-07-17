@@ -19,6 +19,7 @@ import UpgradePage from './pages/subscription/UpgradePage'
 import AdsPage from './pages/ads/AdsPage'
 import ChatPage from './pages/chat/ChatPage'
 import ReviewsPage from './pages/reviews/ReviewsPage'
+import AnnouncementsPage from './pages/announcements/AnnouncementsPage'
 import SettingsPage from './pages/settings/SettingsPage'
 import DriverDashboardPage from './pages/driver/DriverDashboardPage'
 import DriverDeliveriesPage from './pages/driver/DriverDeliveriesPage'
@@ -96,6 +97,7 @@ function MerchantRoutes() {
         <Route path="ads" element={<AdsPage />} />
         <Route path="chat" element={<ChatPage />} />
         <Route path="reviews" element={<ReviewsPage />} />
+        <Route path="announcements" element={<AnnouncementsPage />} />
         <Route path="digital" element={<MerchantDigitalPage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="*" element={<NotFound />} />

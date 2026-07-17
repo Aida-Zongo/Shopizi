@@ -12,6 +12,7 @@ const navItems = [
   { to: '/digital', icon: 'cloud_download', label: 'Produits Digitaux' },
   { to: '/chat', icon: 'chat', label: 'Messages' },
   { to: '/reviews', icon: 'star', label: 'Avis' },
+  { to: '/announcements', icon: 'notifications_active', label: 'Annonces' },
   { to: '/ads', icon: 'campaign', label: 'Publicités' },
   { to: '/subscription', icon: 'loyalty', label: 'Abonnement' },
   { to: '/settings', icon: 'settings', label: 'Paramètres' },

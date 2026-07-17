@@ -58,6 +58,20 @@ interface Reply {
   created_at: string;
 }
 
+interface Announcement {
+  id: string;
+  type: 'promo' | 'price' | 'arrival';
+  title: string;
+  message: string;
+  created_at: string;
+}
+
+const ANNOUNCEMENT_ICONS: Record<Announcement['type'], string> = {
+  promo: 'sell',
+  price: 'payments',
+  arrival: 'inventory_2',
+};
+
 export default function CustomerShopPage() {
   const { subdomain } = useParams<{ subdomain: string }>();
   const navigate = useNavigate();
@@ -106,6 +120,9 @@ export default function CustomerShopPage() {
   const [repliesByReview, setRepliesByReview] = useState<Record<string, Reply[]>>({});
   const [replyText, setReplyText] = useState('');
   const [isSubmittingReply, setIsSubmittingReply] = useState(false);
+
+  // Annonces du marchand (bandeau)
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
 
   useEffect(() => {
     if (subdomain) {
@@ -170,6 +187,13 @@ export default function CustomerShopPage() {
     if (!data?.shop.id) return;
     api.get(`/digital/shop/${data.shop.id}`)
       .then(res => { if (res.data.success) setDigitalProducts(res.data.data || []); })
+      .catch(() => {});
+  }, [data?.shop.id]);
+
+  useEffect(() => {
+    if (!data?.shop.id) return;
+    api.get(`/announcements/shop/${data.shop.id}`)
+      .then(res => { if (res.data.success) setAnnouncements(res.data.data || []); })
       .catch(() => {});
   }, [data?.shop.id]);
 
@@ -449,6 +473,22 @@ export default function CustomerShopPage() {
           </div>
         </div>
       </div>
+
+      {announcements.length > 0 && (
+        <div className="max-w-6xl mx-auto px-4 pt-6">
+          <div className="space-y-2">
+            {announcements.map(a => (
+              <div key={a.id} className="flex items-start gap-3 p-4 rounded-xl bg-secondary-container/40 border border-secondary-container">
+                <span className="material-symbols-outlined text-on-secondary-container mt-0.5">{ANNOUNCEMENT_ICONS[a.type]}</span>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-text-main">{a.title}</p>
+                  <p className="text-sm text-text-main/90 mt-0.5 whitespace-pre-wrap">{a.message}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex flex-col lg:flex-row gap-6">
