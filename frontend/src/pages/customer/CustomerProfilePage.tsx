@@ -33,7 +33,7 @@ export default function CustomerProfilePage() {
       <h1 className="text-headline-sm font-headline-sm text-text-main mb-6">Mon profil</h1>
 
       {success && (
-        <div className="p-3 bg-tertiary-container/30 border border-burkina-green-deep/20 rounded-xl text-tertiary-dark text-body-sm mb-4">{success}</div>
+        <div className="p-3 bg-burkina-green-light border border-burkina-green-deep/20 rounded-xl text-burkina-green-deep text-body-sm mb-4">{success}</div>
       )}
       {error && (
         <div className="p-3 bg-error-container border border-error/20 rounded-xl text-error text-body-sm mb-4">{error}</div>

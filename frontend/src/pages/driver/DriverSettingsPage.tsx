@@ -158,7 +158,7 @@ export default function DriverSettingsPage() {
       </div>
 
       {success && (
-        <div className="p-3 bg-tertiary-container/30 border border-burkina-green-deep/20 rounded-xl text-tertiary-dark text-body-sm">{success}</div>
+        <div className="p-3 bg-burkina-green-light border border-burkina-green-deep/20 rounded-xl text-burkina-green-deep text-body-sm">{success}</div>
       )}
       {error && (
         <div className="p-3 bg-error-container border border-error/20 rounded-xl text-error text-sm">{error}</div>
