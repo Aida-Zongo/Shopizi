@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /admin
+Disallow: /driver
+
+Sitemap: https://shopizi-bf.vercel.app/sitemap.xml
