@@ -41,6 +41,7 @@ interface Product {
 export default function DashboardPage() {
   const { user } = useAuthStore();
   const [publishing, setPublishing] = useState(false);
+  const [exporting, setExporting] = useState(false);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['dashboard', 'merchant'],
@@ -57,6 +58,41 @@ export default function DashboardPage() {
       };
     },
   });
+
+  // Export CSV du catalogue produits. Genere le fichier cote navigateur a partir
+  // des donnees du marchand : aucun envoi vers un tiers, simple telechargement.
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      const res = await api.get('/products');
+      const list = (res.data.data as Product[]) || [];
+      if (list.length === 0) {
+        alert('Aucun produit a exporter.');
+        return;
+      }
+      const escape = (v: unknown) => {
+        const s = String(v ?? '');
+        return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+      };
+      const header = ['Nom', 'Prix (XOF)', 'Stock'];
+      const rows = list.map(p => [p.name, p.price_xof, p.stock_quantity]);
+      // BOM UTF-8 pour qu'Excel ouvre correctement les accents.
+      const csv = '﻿' + [header, ...rows].map(r => r.map(escape).join(',')).join('\r\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `produits-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("Erreur lors de l'export du catalogue.");
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const handlePublish = async () => {
     if (!data?.shop) return;
@@ -113,9 +149,15 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="flex gap-3">
-            <button className="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant text-text-main px-4 py-2.5 rounded-lg text-label-lg hover:bg-surface-container-low transition-all">
-              <span className="material-symbols-outlined text-[20px]">ios_share</span>
-              Exporter
+            <button
+              onClick={handleExport}
+              disabled={exporting}
+              className="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant text-text-main px-4 py-2.5 rounded-lg text-label-lg hover:bg-surface-container-low transition-all disabled:opacity-50"
+            >
+              {exporting
+                ? <Loader2 className="w-5 h-5 animate-spin" />
+                : <span className="material-symbols-outlined text-[20px]">ios_share</span>}
+              {exporting ? 'Export...' : 'Exporter'}
             </button>
             <Link
               to="/products"
