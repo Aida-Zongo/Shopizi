@@ -17,6 +17,10 @@ const router = Router();
 const COMMISSION_RATE = 0.05;
 // Durée de validité du lien de téléchargement après achat.
 const DOWNLOAD_TTL_HOURS = 48;
+// Nombre de téléchargements autorisés par achat. Passé cette limite, le lien
+// n'est plus utilisable : évite qu'un client partage son lien à volonté.
+// 2 (et non 1) laisse une seconde tentative si le premier échoue (réseau mobile).
+const MAX_DOWNLOADS = 2;
 
 /**
  * multer expose une API callback ; asyncHandler attend une promesse.
@@ -294,7 +298,7 @@ router.get('/purchase/:token', asyncHandler(async (req, res) => {
 // Téléchargement via le token d'achat (le token EST le secret : pas d'auth)
 router.get('/download/:token', asyncHandler(async (req, res) => {
   const result = await query(
-    `SELECT pu.id, pu.payment_status, pu.download_expires_at,
+    `SELECT pu.id, pu.payment_status, pu.download_expires_at, pu.download_count,
             dp.file_public_id, dp.file_resource_type, dp.name
      FROM digital_purchases pu
      JOIN digital_products dp ON dp.id = pu.digital_product_id
@@ -309,6 +313,9 @@ router.get('/download/:token', asyncHandler(async (req, res) => {
   }
   if (new Date(purchase.download_expires_at) < new Date()) {
     throw new AppError('Ce lien de téléchargement a expiré', 410);
+  }
+  if (purchase.download_count >= MAX_DOWNLOADS) {
+    throw new AppError('Ce lien a atteint le nombre de téléchargements autorisé et n\'est plus utilisable.', 410);
   }
 
   // Lien Cloudinary signé, valable 1h : même si l'URL fuite, elle périme vite.
