@@ -155,7 +155,7 @@ export default function DigitalMarketplacePage() {
                 <h3 className="font-bold text-text-main line-clamp-2">{p.name}</h3>
                 <p className="text-sm text-text-muted mt-1">{p.shop_name}</p>
                 <p className="text-xs text-text-muted mt-2">
-                  {p.total_sales} {p.total_sales > 1 ? 'ventes' : 'vente'}
+                  {p.total_sales > 0 ? `${p.total_sales} ${p.total_sales > 1 ? 'ventes' : 'vente'}` : 'Nouveau'}
                 </p>
 
                 <div className="mt-auto pt-4">
