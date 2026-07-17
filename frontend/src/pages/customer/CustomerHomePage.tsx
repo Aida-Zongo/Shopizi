@@ -449,7 +449,7 @@ export default function CustomerHomePage() {
             { icon: 'storefront', value: `${stats.shops}+`, label: 'Boutiques actives' },
             { icon: 'inventory_2', value: `${stats.products}+`, label: 'Produits disponibles' },
             { icon: 'local_shipping', value: '500 FCFA', label: 'Livraison dès' },
-            { icon: 'percent', value: '0%', label: 'Commission sur ventes' },
+            { icon: 'percent', value: '0%', label: 'Sur produits physiques' },
           ].map((item, i) => (
             <div key={i} className="text-center">
               <span className="material-symbols-outlined text-[32px] mb-2" style={{ color: '#A2E4B8' }}>
