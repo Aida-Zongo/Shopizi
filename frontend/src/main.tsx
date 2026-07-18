@@ -24,6 +24,16 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
+// Retire l'ecran de demarrage (visible seulement en mode app installe) une fois
+// React monte, avec un court fondu. On evite requestAnimationFrame (throttle a 0
+// dans un onglet cache) : setTimeout se declenche toujours, donc le splash ne
+// peut pas rester bloque a l'ecran.
+const splash = document.getElementById('app-splash')
+if (splash) {
+  splash.style.opacity = '0'
+  setTimeout(() => splash.remove(), 400)
+}
+
 // Enregistrement du service worker (PWA installable + cache hors-ligne).
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

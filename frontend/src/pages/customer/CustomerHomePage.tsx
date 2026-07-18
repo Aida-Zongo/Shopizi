@@ -193,6 +193,13 @@ export default function CustomerHomePage() {
   const [stats, setStats] = useState({ shops: 0, products: 0 });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  // Mode app installee (PWA standalone) : on affiche une version compacte facon
+  // application (recherche + catalogue), sans les sections vitrine marketing.
+  const [isApp] = useState(() =>
+    typeof window !== 'undefined' &&
+    (window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as unknown as { standalone?: boolean }).standalone === true)
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -268,7 +275,21 @@ export default function CustomerHomePage() {
 
   return (
     <div>
-      {/* Hero avec carrousel d'images */}
+      {/* Hero : compact facon app en mode installe, vitrine complete sur le web */}
+      {isApp ? (
+        <section className="px-4 pt-5 pb-5" style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)' }}>
+          <div className="flex items-center gap-2 bg-white rounded-2xl px-4 py-3 shadow-lg">
+            <span className="material-symbols-outlined text-gray-400">search</span>
+            <input
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && navigate(`/marketplace?q=${encodeURIComponent(searchQuery)}`)}
+              placeholder="Rechercher un produit, une boutique..."
+              className="flex-1 outline-none text-gray-700 bg-transparent"
+            />
+          </div>
+        </section>
+      ) : (
       <section className="relative min-h-[600px] flex items-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0A504A 0%, #00A86B 100%)' }}>
         {/* Images carrousel */}
         {heroSlides.map((slide, i) => (
@@ -379,8 +400,10 @@ export default function CustomerHomePage() {
           ))}
         </div>
       </section>
+      )}
 
-      {/* Bande défilante moyens de paiement */}
+      {/* Bande défilante moyens de paiement (vitrine web uniquement) */}
+      {!isApp && (
       <div className="bg-white border-y border-gray-100 py-4 overflow-hidden">
         <div className="flex items-center gap-3 mb-2">
           <div className="w-px h-6 bg-gray-200 mx-4" />
@@ -420,6 +443,7 @@ export default function CustomerHomePage() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Catégories de produits */}
       <section className="max-w-6xl mx-auto px-4 py-8">
@@ -442,7 +466,9 @@ export default function CustomerHomePage() {
         </div>
       </section>
 
-      {/* Stats band */}
+      {/* Sections vitrine (web uniquement) */}
+      {!isApp && (
+      <>
       <section className="py-10 px-4" style={{ backgroundColor: '#0A504A' }}>
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
@@ -535,6 +561,8 @@ export default function CustomerHomePage() {
           ))}
         </div>
       </section>
+      </>
+      )}
 
       {/* Produits en vedette */}
       {featuredProducts.length > 0 && (
@@ -674,7 +702,9 @@ export default function CustomerHomePage() {
         )}
       </section>
 
-      {/* Pourquoi Shopizi (FAQ visuelle) */}
+      {/* Sections vitrine bas de page (web uniquement) */}
+      {!isApp && (
+      <>
       <section className="max-w-6xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <span className="text-sm font-bold uppercase tracking-widest" style={{ color: '#00A86B' }}>
@@ -860,6 +890,8 @@ export default function CustomerHomePage() {
           </div>
         </div>
       </section>
+      </>
+      )}
     </div>
   );
 }
