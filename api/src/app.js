@@ -33,6 +33,9 @@ const adsRoutes = require('./modules/ads/ads.routes');
 const digitalRoutes = require('./modules/digital/digital.routes');
 const announcementsRoutes = require('./modules/announcements/announcements.routes');
 
+// Date de demarrage du processus, exposee par /health.
+const STARTED_AT = new Date().toISOString();
+
 /**
  * Create and configure the Express application.
  */
@@ -82,9 +85,17 @@ function createApp() {
   // Passport initialization
   app.use(passport.initialize());
 
-  // Health check
+  // Health check.
+  // `commit` et `startedAt` permettent de verifier qu'un deploiement a bien
+  // pris : sans eux, une instance qui n'a jamais redemarre est indiscernable
+  // d'une instance a jour. RENDER_GIT_COMMIT est fourni par Render.
   app.get('/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    res.json({
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      commit: (process.env.RENDER_GIT_COMMIT || 'local').slice(0, 7),
+      startedAt: STARTED_AT,
+    });
   });
 
   // API Routes
