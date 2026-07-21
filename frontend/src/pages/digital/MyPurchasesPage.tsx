@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../lib/api';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface Purchase {
   id: string;
@@ -39,7 +40,7 @@ export default function MyPurchasesPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-burkina-green-deep border-t-transparent rounded-full animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

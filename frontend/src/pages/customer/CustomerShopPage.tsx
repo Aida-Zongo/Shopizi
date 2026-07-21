@@ -6,6 +6,7 @@ import SandboxPaymentModal from '../../components/SandboxPaymentModal';
 import { getCategoryLabel, getCategoryGradient, getShopBannerStyle } from '../../lib/categories';
 import { useAuthStore } from '../../store/authStore';
 import StarRating from '../../components/StarRating';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface ShopData {
   shop: {
@@ -413,7 +414,7 @@ export default function CustomerShopPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-2 border-burkina-green-deep border-t-transparent rounded-full animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

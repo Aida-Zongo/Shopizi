@@ -4,6 +4,7 @@ import api, { getApiError } from '../../lib/api';
 import { useAuthStore } from '../../store/authStore';
 import { getSocket } from '../../lib/socket';
 import { MessageCircle, Send, Store, MapPin, ArrowLeft } from 'lucide-react';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface ChatMessage {
   id: string;
@@ -120,7 +121,7 @@ export default function CustomerMessagesPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-burkina-green-deep border-t-transparent rounded-full animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

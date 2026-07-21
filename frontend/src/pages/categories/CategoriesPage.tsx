@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import api, { getApiError } from '../../lib/api';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface Category {
   id: string;
@@ -97,7 +98,7 @@ export default function CategoriesPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-burkina-green-deep border-t-transparent rounded-full animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

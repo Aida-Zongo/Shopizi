@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { TrendingUp, Plus, Loader2 } from 'lucide-react';
+import { TrendingUp, Plus } from 'lucide-react';
 import api, { getApiError } from '../../lib/api';
 import SandboxPaymentModal from '../../components/SandboxPaymentModal';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface Ad {
   id: string;
@@ -112,7 +113,7 @@ export default function AdsPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 text-burkina-green-deep animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

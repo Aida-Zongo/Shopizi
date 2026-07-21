@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import api from '../../lib/api';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface Shop {
   id: string;
@@ -113,7 +114,7 @@ export default function DashboardPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full min-h-[400px]">
-        <Loader2 className="w-8 h-8 text-burkina-green-deep animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

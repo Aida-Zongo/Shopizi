@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api, { getApiError } from '../../lib/api';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface PurchaseInfo {
   payment_status: string;
@@ -67,7 +68,7 @@ export default function DownloadPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-burkina-green-deep border-t-transparent rounded-full animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

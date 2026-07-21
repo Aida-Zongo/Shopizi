@@ -43,6 +43,7 @@ import DownloadPage from './pages/digital/DownloadPage'
 import MerchantDigitalPage from './pages/digital/MerchantDigitalPage'
 import MyPurchasesPage from './pages/digital/MyPurchasesPage'
 import NotFound from './pages/NotFound'
+import ShopiziLoader from './components/ShopiziLoader';
 
 function AuthGuard() {
   const { isAuthenticated, isLoading } = useAuthStore()
@@ -50,7 +51,7 @@ function AuthGuard() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col gap-2 text-text-muted">
-        <div className="w-8 h-8 border-2 border-burkina-green-deep border-t-transparent rounded-full animate-spin" />
+        <ShopiziLoader />
         Chargement...
       </div>
     )
@@ -141,7 +142,7 @@ function AppContent() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col gap-2 text-text-muted">
-        <div className="w-8 h-8 border-2 border-burkina-green-deep border-t-transparent rounded-full animate-spin" />
+        <ShopiziLoader />
         Chargement...
       </div>
     )

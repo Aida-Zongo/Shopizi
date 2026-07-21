@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import api, { getApiError } from '../../lib/api';
-import { Loader2, MapPin, Calendar, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { MapPin, Calendar, CheckCircle, XCircle, Clock } from 'lucide-react';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface DeliveryHistory {
   id: string;
@@ -50,7 +51,7 @@ export default function DriverHistoryPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 text-burkina-green-deep animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

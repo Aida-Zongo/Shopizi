@@ -12,6 +12,7 @@ import {
   QrCode,
   X,
 } from "lucide-react";
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface LiveOrder {
   order_id: string;
@@ -262,7 +263,7 @@ export default function DriverDashboardPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full min-h-[400px]">
-        <Loader2 className="w-8 h-8 text-burkina-green-deep animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }

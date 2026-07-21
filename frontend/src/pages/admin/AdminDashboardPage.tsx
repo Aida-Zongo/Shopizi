@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api, { getApiError } from '../../lib/api';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 type Tab = 'overview' | 'shops' | 'users' | 'orders' | 'finances';
 
@@ -40,7 +41,7 @@ function Money({ xof }: { xof: number }) {
 function Spinner() {
   return (
     <div className="flex items-center justify-center h-40">
-      <div className="w-8 h-8 border-2 border-burkina-green-deep border-t-transparent rounded-full animate-spin" />
+      <ShopiziLoader />
     </div>
   );
 }

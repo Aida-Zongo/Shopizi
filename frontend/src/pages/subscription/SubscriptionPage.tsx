@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Check, AlertCircle, Loader2 } from 'lucide-react';
+import { Check, AlertCircle } from 'lucide-react';
 import api, { getApiError } from '../../lib/api';
+import ShopiziLoader from '../../components/ShopiziLoader';
 
 interface Plan {
   id: string;
@@ -70,7 +71,7 @@ export default function SubscriptionPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 text-burkina-green-deep animate-spin" />
+        <ShopiziLoader />
       </div>
     );
   }
