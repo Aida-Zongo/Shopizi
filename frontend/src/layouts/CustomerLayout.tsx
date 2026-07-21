@@ -156,11 +156,11 @@ export default function CustomerLayout() {
               </p>
               <div className="flex items-center gap-3 mt-4">
                 <a
-                  href="https://wa.me/22666869010"
+                  href="https://wa.me/22666869010?text=Bonjour%20Shopizi%20!%20J%27ai%20besoin%20d%27aide."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all hover:opacity-80"
-                  style={{ backgroundColor: '#F97316', color: 'white' }}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-all hover:opacity-80"
+                  style={{ backgroundColor: '#00A86B', color: 'white' }}
                 >
                   <span className="material-symbols-outlined text-sm">chat</span>
                   WhatsApp

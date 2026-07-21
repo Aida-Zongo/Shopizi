@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../../lib/api';
 import { getCategoryLabel, getCategoryGradient, getShopBannerStyle } from '../../lib/categories';
@@ -182,6 +182,40 @@ const DIFFERENTIATORS = [
   },
 ];
 
+// Revele les cartes d'une section une par une quand elle entre dans l'ecran.
+// L'observer se detache apres le premier passage : l'animation ne rejoue pas
+// si l'utilisateur remonte puis redescend.
+function useRevealOnScroll(cardClass: string, stepMs: number) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const timers: number[] = [];
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.querySelectorAll(`.${cardClass}`).forEach((card, i) => {
+            timers.push(window.setTimeout(() => card.classList.add('visible'), i * stepMs));
+          });
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      timers.forEach(clearTimeout);
+    };
+  }, [cardClass, stepMs]);
+
+  return ref;
+}
+
 export default function CustomerHomePage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -200,6 +234,10 @@ export default function CustomerHomePage() {
     (window.matchMedia('(display-mode: standalone)').matches ||
       (window.navigator as unknown as { standalone?: boolean }).standalone === true)
   );
+
+  const faqRef = useRevealOnScroll('faq-card', 150);
+  const featuresRef = useRevealOnScroll('feature-card', 120);
+  const testimonialsRef = useRevealOnScroll('testimonial-card', 120);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -718,9 +756,9 @@ export default function CustomerHomePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div ref={faqRef} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {FAQ_ITEMS.map((faq, i) => (
-            <div key={i} className="bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 group cursor-pointer">
+            <div key={i} className="faq-card bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 group cursor-pointer">
               <div className="flex items-start gap-4">
                 <div
                   className="w-12 h-12 rounded-2xl flex-shrink-0 flex items-center justify-center transition-all group-hover:scale-110"
@@ -756,9 +794,9 @@ export default function CustomerHomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {DIFFERENTIATORS.map((item, i) => (
-              <div key={i} className="relative group">
+              <div key={i} className="feature-card relative group">
                 <div className="absolute top-4 right-4 text-5xl font-black opacity-5 text-white select-none">
                   {item.highlight}
                 </div>
@@ -791,7 +829,7 @@ export default function CustomerHomePage() {
             Ce que disent nos marchands et clients
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div ref={testimonialsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 name: 'Aminata Ouédraogo',
@@ -812,7 +850,7 @@ export default function CustomerHomePage() {
                 photo: 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=160&q=70&auto=format&fit=crop',
               },
             ].map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all border border-gray-100">
+              <div key={i} className="testimonial-card bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all border border-gray-100">
                 <div className="flex items-center gap-1 mb-4">
                   {[1, 2, 3, 4, 5].map(s => (
                     <span key={s} className="material-symbols-outlined" style={{ fontSize: '18px', color: '#ca8a04', fontVariationSettings: "'FILL' 1" }}>
