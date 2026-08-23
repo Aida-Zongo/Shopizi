@@ -3,8 +3,48 @@ const path = require('path');
 // Load .env from the api/ directory root
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
+const env = process.env.NODE_ENV || 'development';
+const isProduction = env === 'production';
+
+let accessSecret = process.env.JWT_ACCESS_SECRET;
+let refreshSecret = process.env.JWT_REFRESH_SECRET;
+let internalApiKey = process.env.INTERNAL_API_KEY;
+
+if (isProduction) {
+  if (!accessSecret || accessSecret.includes('change-in-production') || accessSecret.includes('change-me')) {
+    throw new Error('FATAL: JWT_ACCESS_SECRET is missing or contains fallback default values ("change-in-production" / "change-me") in production environment');
+  }
+  if (!refreshSecret || refreshSecret.includes('change-in-production') || refreshSecret.includes('change-me')) {
+    throw new Error('FATAL: JWT_REFRESH_SECRET is missing or contains fallback default values ("change-in-production" / "change-me") in production environment');
+  }
+  if (!internalApiKey || internalApiKey.includes('change-in-production') || internalApiKey.includes('change-me')) {
+    throw new Error('FATAL: INTERNAL_API_KEY is missing or contains fallback default values ("change-in-production" / "change-me") in production environment');
+  }
+} else {
+  if (!accessSecret) {
+    accessSecret = 'dev-access-secret-change-in-production';
+    console.warn('⚠️ WARNING: Using default JWT_ACCESS_SECRET. Change it in production!');
+  } else if (accessSecret.includes('change-in-production')) {
+    console.warn('⚠️ WARNING: JWT_ACCESS_SECRET contains a placeholder or default value. Change it in production!');
+  }
+
+  if (!refreshSecret) {
+    refreshSecret = 'dev-refresh-secret-change-in-production';
+    console.warn('⚠️ WARNING: Using default JWT_REFRESH_SECRET. Change it in production!');
+  } else if (refreshSecret.includes('change-in-production')) {
+    console.warn('⚠️ WARNING: JWT_REFRESH_SECRET contains a placeholder or default value. Change it in production!');
+  }
+
+  if (!internalApiKey) {
+    internalApiKey = 'dev-internal-key-change-in-production';
+    console.warn('⚠️ WARNING: Using default INTERNAL_API_KEY. Change it in production!');
+  } else if (internalApiKey.includes('change-in-production')) {
+    console.warn('⚠️ WARNING: INTERNAL_API_KEY contains a placeholder or default value. Change it in production!');
+  }
+}
+
 const config = {
-  env: process.env.NODE_ENV || 'development',
+  env,
   server: {
     port: parseInt(process.env.PORT, 10) || 3000,
     host: process.env.HOST || '0.0.0.0',
@@ -26,12 +66,12 @@ const config = {
     port: parseInt(process.env.REDIS_PORT, 10) || 6379,
   },
   jwt: {
-    accessSecret: process.env.JWT_ACCESS_SECRET || 'dev-access-secret-change-in-production',
-    refreshSecret: process.env.JWT_REFRESH_SECRET || 'dev-refresh-secret-change-in-production',
+    accessSecret,
+    refreshSecret,
     accessExpiresIn: process.env.JWT_ACCESS_EXPIRES_IN || '15m',
     refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
   },
-  internalApiKey: process.env.INTERNAL_API_KEY || 'dev-internal-key-change-in-production',
+  internalApiKey,
   smtp: {
     host: process.env.SMTP_HOST || 'localhost',
     port: parseInt(process.env.SMTP_PORT, 10) || 587,
