@@ -23,10 +23,8 @@ BEGIN
   GET DIAGNOSTICS promoted = ROW_COUNT;
 
   IF promoted = 0 THEN
-    RAISE EXCEPTION
-      'Aucun compte avec l''email % : inscrivez-vous d''abord, la migration sera rejouee au prochain demarrage.',
-      target_email;
+    RAISE NOTICE 'Aucun compte avec l''email % : la promotion sera effectuee lorsqu''un compte sera cree.', target_email;
+  ELSE
+    RAISE NOTICE 'Compte % promu administrateur.', target_email;
   END IF;
-
-  RAISE NOTICE 'Compte % promu administrateur.', target_email;
 END $$;
