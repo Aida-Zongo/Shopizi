@@ -71,7 +71,10 @@ function createApp() {
   app.use(compression());
 
   // Body parsing
-  app.use(express.json({ limit: '1mb' }));
+  app.use(express.json({
+    limit: '1mb',
+    verify: (req, _res, buf) => { req.rawBody = buf.toString('utf8'); },
+  }));
   // extended:true (qs) pour parser les IPN PayDunya en form-urlencoded imbriqué
   // (ex: data[custom_data][transaction_id]).
   app.use(express.urlencoded({ extended: true }));

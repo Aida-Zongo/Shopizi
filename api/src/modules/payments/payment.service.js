@@ -10,13 +10,20 @@ const PAYMENT_TYPES = ['order', 'subscription', 'ads', 'digital_product'];
 
 /**
  * Mode courant, sans changement de code :
- * - 'cinetpay' dès que CINETPAY_API_KEY ET CINETPAY_SITE_ID sont de vraies
- *   valeurs (le Site ID est obligatoire pour l'API CinetPay — une clé seule
- *   ne suffit pas, tous les appels seraient rejetés) ;
+ * - 'geniuspay' dès que GENIUSPAY_API_KEY, GENIUSPAY_API_SECRET et GENIUSPAY_WEBHOOK_SECRET sont valides ;
+ * - 'cinetpay' dès que CINETPAY_API_KEY ET CINETPAY_SITE_ID sont de vraies valeurs ;
  * - sinon 'paydunya' si une vraie clé Master PayDunya est présente ;
  * - sinon 'sandbox'.
  */
 function getMode() {
+  const gpKey = process.env.GENIUSPAY_API_KEY;
+  const gpSec = process.env.GENIUSPAY_API_SECRET;
+  const gpWh = process.env.GENIUSPAY_WEBHOOK_SECRET;
+  if (gpKey && !gpKey.startsWith('change-me') &&
+      gpSec && !gpSec.startsWith('change-me') &&
+      gpWh && !gpWh.startsWith('change-me')) {
+    return 'geniuspay';
+  }
   const cpKey = process.env.CINETPAY_API_KEY;
   const cpSite = process.env.CINETPAY_SITE_ID;
   if (cpKey && !cpKey.startsWith('change-me') &&
@@ -39,6 +46,7 @@ async function initiatePayment({ type, amount, customerId, shopId, metadata }) {
   if (!amount || amount <= 0) throw new BadRequestError('Montant invalide');
 
   const mode = getMode();
+  if (mode === 'geniuspay') return initiateGeniuspay({ type, amount, customerId, shopId, metadata });
   if (mode === 'cinetpay') return initiateCinetpay({ type, amount, customerId, shopId, metadata });
   if (mode === 'paydunya') return initiatePaydunya({ type, amount, customerId, shopId, metadata });
   return initiateSandbox({ type, amount, customerId, shopId, metadata });
@@ -372,10 +380,44 @@ async function processDigitalPurchase(tx, metadata) {
   });
 }
 
+/**
+ * Démarre un paiement via GeniusPay.
+ * GeniusPay génère lui-même sa référence (ex: MTX-...), qu'on utilise comme
+ * transaction_id dans payment_transactions ('pending').
+ */
+async function initiateGeniuspay({ type, amount, customerId, shopId, metadata }) {
+  const geniuspay = require('./gateways/geniuspay.gateway');
+
+  const result = await geniuspay.initiatePayment({
+    amount,
+    phoneNumber: metadata?.customer_phone || '',
+    description: `Shopizi - ${type} (${amount} F CFA)`,
+  });
+
+  if (!result.success || !result.gatewayTransactionId) {
+    throw new PaymentError(result.error || "Échec de l'initialisation du paiement GeniusPay");
+  }
+
+  const transactionId = result.gatewayTransactionId;
+
+  await query(
+    `INSERT INTO payment_transactions (transaction_id, type, amount, customer_id, shop_id, status, metadata)
+     VALUES ($1,$2,$3,$4,$5,'pending',$6)`,
+    [transactionId, type, amount, customerId || null, shopId || null, metadata ? JSON.stringify(metadata) : null]
+  );
+
+  return {
+    mode: 'geniuspay',
+    transaction_id: transactionId,
+    payment_url: result.paymentUrl,
+  };
+}
+
 module.exports = {
   getMode,
   initiatePayment,
   initiateSandbox,
+  initiateGeniuspay,
   initiateCinetpay,
   initiatePaydunya,
   processConfirmedPayment,

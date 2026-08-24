@@ -141,6 +141,35 @@ router.post('/webhook/cinetpay', asyncHandler(async (req, res) => {
   return successResponse(res, { received: true, status: check.status || null });
 }));
 
+// Webhook GeniusPay. Vérifie la signature HMAC-SHA256 et le timestamp anti-rejeu,
+// puis re-vérifie le statut réel via l'API GeniusPay avant de créditer.
+router.post('/webhook/geniuspay', asyncHandler(async (req, res) => {
+  const geniuspayGateway = require('./gateways/geniuspay.gateway');
+  const signature = req.headers['x-webhook-signature'] || req.headers['X-Webhook-Signature'];
+  const timestamp = req.headers['x-webhook-timestamp'] || req.headers['X-Webhook-Timestamp'];
+
+  const rawBody = req.rawBody || (typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {}));
+
+  const webhookResult = geniuspayGateway.processWebhook(rawBody, { signature, timestamp });
+  if (!webhookResult.success) {
+    return res.status(401).json({ success: false, error: webhookResult.error });
+  }
+
+  const transactionId = webhookResult.transactionId;
+  if (!transactionId) {
+    return res.status(400).json({ success: false, error: 'Reference transaction manquante' });
+  }
+
+  const check = await geniuspayGateway.verifyPayment(transactionId);
+  if (check.status === 'completed') {
+    await paymentService.processConfirmedPayment(transactionId, 'completed');
+  } else if (check.status === 'failed' || check.status === 'expired') {
+    await paymentService.processConfirmedPayment(transactionId, 'failed');
+  }
+
+  return successResponse(res, { received: true, status: check.status || null });
+}));
+
 // Statut d'une transaction (utilisé par le dashboard marchand).
 router.get('/status/:transactionId', authenticate, asyncHandler(async (req, res) => {
   const r = await query('SELECT * FROM payment_transactions WHERE transaction_id = $1', [req.params.transactionId]);

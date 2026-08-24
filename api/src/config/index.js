@@ -92,6 +92,16 @@ const config = {
     returnUrl: process.env.CINETPAY_RETURN_URL ||
       (process.env.FRONTEND_URL ? process.env.FRONTEND_URL + '/payment/success' : ''),
   },
+  geniuspay: {
+    apiKey: process.env.GENIUSPAY_API_KEY || '',
+    apiSecret: process.env.GENIUSPAY_API_SECRET || '',
+    webhookSecret: process.env.GENIUSPAY_WEBHOOK_SECRET || '',
+    baseUrl: process.env.GENIUSPAY_BASE_URL || 'https://geniuspay.ci/api/v1/merchant',
+    successUrl: process.env.GENIUSPAY_SUCCESS_URL ||
+      (process.env.FRONTEND_URL ? process.env.FRONTEND_URL + '/payment/success' : ''),
+    errorUrl: process.env.GENIUSPAY_ERROR_URL ||
+      (process.env.FRONTEND_URL ? process.env.FRONTEND_URL + '/payment/cancel' : ''),
+  },
   upload: {
     dir: path.resolve(__dirname, '../../', process.env.UPLOAD_DIR || './uploads'),
     maxFileSizeMb: parseInt(process.env.MAX_FILE_SIZE_MB, 10) || 10,
