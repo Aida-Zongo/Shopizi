@@ -124,6 +124,41 @@ async function customerCreateOrder(req, res) {
       [order.id, shop_id, shopizi_commission, merchant_amount, driver_amount]
     );
 
+    // Auto-create a pending_driver delivery record so drivers see the job
+    // via GET /delivery/available (HTTP polling) even if they missed the
+    // real-time Socket.io broadcast.
+    const shopFullRes = await client.query(
+      'SELECT address, city_id, latitude, longitude FROM shops WHERE id = $1',
+      [shop_id]
+    );
+    const shopFull = shopFullRes.rows[0] || {};
+    const deliveryR = await client.query(
+      `INSERT INTO deliveries
+         (order_id, shop_id, city_id,
+          pickup_address,   pickup_latitude,  pickup_longitude,
+          delivery_address, delivery_latitude, delivery_longitude,
+          delivery_fee_xof, distance_km, status)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'pending_driver')
+       RETURNING id`,
+      [
+        order.id, shop_id,
+        delivery_city_id || shopFull.city_id || null,
+        shopFull.address || '',
+        shopFull.latitude  != null ? Number(shopFull.latitude)  : null,
+        shopFull.longitude != null ? Number(shopFull.longitude) : null,
+        delivery_address || '',
+        client_latitude  != null ? Number(client_latitude)  : null,
+        client_longitude != null ? Number(client_longitude) : null,
+        deliveryFee,
+        distanceKm != null ? distanceKm : null,
+      ]
+    );
+    // Link the delivery back to the order
+    await client.query(
+      'UPDATE orders SET delivery_id = $1 WHERE id = $2',
+      [deliveryR.rows[0].id, order.id]
+    );
+
     await client.query('COMMIT');
 
     eventBus.emit('order:created', { shopId: shop_id, orderId: order.id });

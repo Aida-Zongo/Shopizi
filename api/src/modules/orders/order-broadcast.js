@@ -63,6 +63,7 @@ async function broadcastNewOrder(order, productName) {
         `SELECT dd.id FROM delivery_drivers dd
          JOIN users u ON u.id = dd.user_id
          WHERE u.is_online = true
+           AND dd.status = 'approved'
            AND (dd.city_id = ANY($1::uuid[]) OR dd.city_name ILIKE ANY($2::text[]))`,
         [cityIds, cityNames]
       );
