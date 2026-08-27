@@ -194,7 +194,7 @@ export default function SettingsPage() {
                 onClick={handleGetLocation}
                 className="text-xs text-burkina-green-deep font-bold hover:underline flex items-center gap-1"
               >
-                Détecter ma position
+                📍 Détecter ma position GPS
               </button>
             </div>
             <input
@@ -204,9 +204,13 @@ export default function SettingsPage() {
               value={form.address || ''}
               onChange={e => setForm({ ...form, address: e.target.value })}
             />
-            {form.latitude && form.longitude && (
-              <p className="text-xs text-text-muted mt-1">
-                📍 Coordonnées enregistrées ({form.latitude.toFixed(5)}, {form.longitude.toFixed(5)})
+            {form.latitude && form.longitude ? (
+              <p className="text-xs text-burkina-green-deep mt-1 font-medium">
+                ✅ Position GPS enregistrée ({form.latitude.toFixed(5)}, {form.longitude.toFixed(5)}) — les frais de livraison seront calculés précisément.
+              </p>
+            ) : (
+              <p className="text-xs mt-1 p-2 bg-amber-50 border border-amber-300 rounded-lg text-amber-800 font-medium">
+                ⚠️ Position GPS non configurée. Les frais de livraison affichés aux clients seront estimés (tarif minimum). Cliquez sur "Détecter ma position GPS" puis enregistrez.
               </p>
             )}
           </div>

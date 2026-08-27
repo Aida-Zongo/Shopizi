@@ -105,17 +105,48 @@ async function calculateDeliveryFee(lat1, lng1, lat2, lng2) {
 async function calculateShopDeliveryFee(shop, clientLat, clientLng) {
   const hasCoords = !!(Number(shop.latitude) && Number(shop.longitude));
   const cityCenter = getCityCenter(shop.city_name);
-  const origin = hasCoords
-    ? { lat: Number(shop.latitude), lng: Number(shop.longitude) }
-    : (cityCenter || CITY_CENTERS['ouagadougou']);
   const estimated = !hasCoords;
+
+  // Boutique sans coordonnées GPS : impossible de calculer une vraie distance.
+  // On retourne le tarif minimum (première zone) comme estimation, sans
+  // inventer une distance depuis le centre-ville qui serait fausse et trompeuse
+  // (le centre d'Ouagadougou est à ~12km d'une position réelle en ville,
+  // ce qui génère une fausse distance et des frais incorrects).
+  if (!hasCoords) {
+    // Vérifier quand même que le client est dans la même ville que la boutique.
+    const clientNearest = findNearestCity(Number(clientLat), Number(clientLng));
+    const clientSlug = clientNearest && clientNearest.distance <= SAME_CITY_RADIUS_KM
+      ? clientNearest.slug
+      : null;
+    const shopSlug = cityCenter ? shop.city_name.toLowerCase().trim() : null;
+    const sameCity = (shopSlug && clientSlug) ? shopSlug === clientSlug : true;
+
+    if (!sameCity) {
+      return { fee: null, distance: null, estimated: true, same_city: false, shop_city: shop.city_name || null };
+    }
+
+    const minZoneRes = await query(
+      'SELECT price_fcfa FROM delivery_zones ORDER BY min_km ASC LIMIT 1'
+    );
+    const minFee = minZoneRes.rows.length > 0 ? Number(minZoneRes.rows[0].price_fcfa) : 500;
+    return {
+      fee: Math.min(minFee, DELIVERY_FEE_CAP_FCFA),
+      distance: null,
+      estimated: true,
+      same_city: true,
+      shop_city: shop.city_name || null,
+      no_gps: true,
+    };
+  }
+
+  const origin = { lat: Number(shop.latitude), lng: Number(shop.longitude) };
 
   // Ville de la boutique : sa ville declaree si connue, sinon la ville la
   // plus proche de ses coordonnees reelles.
   let shopSlug = null;
   if (cityCenter) {
     shopSlug = shop.city_name.toLowerCase().trim();
-  } else if (hasCoords) {
+  } else {
     const nearest = findNearestCity(origin.lat, origin.lng);
     if (nearest && nearest.distance <= SAME_CITY_RADIUS_KM) shopSlug = nearest.slug;
   }
