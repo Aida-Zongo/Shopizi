@@ -58,7 +58,7 @@ export default function ProductsPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const data = { name: form.name.trim(), description: form.description.trim() || null, price_xof: Number(form.price), stock_quantity: Number(form.stock), category_id: form.category_id || null };
+    const data = { name: form.name.trim(), description: form.description.trim() || null, price_xof: Math.round(Number(form.price)), stock_quantity: Math.round(Number(form.stock)), category_id: form.category_id || null };
     if (editing) { updateMut.mutate({ id: editing.id, data }); } else { createMut.mutate(data); }
   };
 
