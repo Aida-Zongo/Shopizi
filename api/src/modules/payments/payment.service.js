@@ -235,6 +235,15 @@ async function processOrderPayment(tx, metadata) {
       [merchantEarnings, order.shop_id]
     );
 
+    // Point 4: Decrement stock for physical products
+    const itemsRes = await client.query('SELECT product_id, quantity FROM order_items WHERE order_id = $1', [orderId]);
+    for (const item of itemsRes.rows) {
+      await client.query(
+        'UPDATE products SET stock_quantity = GREATEST(0, stock_quantity - $1) WHERE id = $2',
+        [item.quantity, item.product_id]
+      );
+    }
+
     await client.query('COMMIT');
   } catch (err) {
     await client.query('ROLLBACK');

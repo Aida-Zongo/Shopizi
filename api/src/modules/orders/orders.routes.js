@@ -211,8 +211,9 @@ router.get('/', authenticate, asyncHandler(async (req, res) => {
 router.get('/stats', authenticate, asyncHandler(async (req, res) => {
   const [byStatus, revenue] = await Promise.all([
     query(`SELECT status, COUNT(*)::int AS count FROM orders WHERE shop_id = $1 GROUP BY status`, [req.user.shopId]),
-    query(`SELECT COALESCE(SUM(total_amount_xof), 0)::int AS revenue_month_xof FROM orders
-           WHERE shop_id = $1 AND payment_status = 'paid' AND created_at >= date_trunc('month', now())`, [req.user.shopId]),
+    query(`SELECT COALESCE(SUM(f.merchant_earnings_xof), 0)::int AS revenue_month_xof FROM orders o
+           JOIN order_financials f ON f.order_id = o.id
+           WHERE o.shop_id = $1 AND o.payment_status = 'paid' AND o.created_at >= date_trunc('month', now())`, [req.user.shopId]),
   ]);
   const stats = { revenue_month_xof: revenue.rows[0].revenue_month_xof };
   byStatus.rows.forEach(row => { stats[row.status] = row.count; });
@@ -345,8 +346,7 @@ router.put('/:id/status', authenticate, validate({ body: z.object({ status: z.en
 
   const { status } = req.body;
   if (status === 'picked_up' && order.status !== 'pickup') throw new BadRequestError('La commande doit être en route vers la boutique avant ce statut');
-  if (status === 'delivered' && order.status !== 'picked_up') throw new BadRequestError('Le produit doit être récupéré avant de marquer la livraison');
-
+  if (status === 'delivered') throw new BadRequestError('Vous devez scanner le code QR du client pour valider la livraison. La validation manuelle est désactivée.');
   const client = await getClient();
   let updated;
   try {

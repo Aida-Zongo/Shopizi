@@ -34,10 +34,9 @@ interface MyLiveOrder extends LiveOrder {
   customer_user_id?: string | null;
 }
 
-const DRIVER_STATUS_FLOW: Record<MyLiveOrder["status"], { next: "pickup" | "picked_up" | "delivered"; label: string }> = {
+const DRIVER_STATUS_FLOW: Record<string, { next: "pickup" | "picked_up"; label: string }> = {
   accepted: { next: "pickup", label: "En route vers boutique" },
   pickup: { next: "picked_up", label: "Produit récupéré" },
-  picked_up: { next: "delivered", label: "Livré au client" },
 };
 
 interface DriverStats {
@@ -63,6 +62,10 @@ interface AvailableOrder {
   created_at: string;
   distance_km?: number;
   estimated_price?: number;
+  pickup_latitude?: number;
+  pickup_longitude?: number;
+  delivery_latitude?: number;
+  delivery_longitude?: number;
 }
 
 interface HistoryItem {
@@ -165,7 +168,7 @@ export default function DriverDashboardPage() {
         other_user_id: order.customer_user_id,
         title: `Livraison — ${order.product_name}`,
       });
-      if (res.data.success) navigate(`/driver/chat?room=${res.data.data.id}`);
+      if (res.data.success) navigate(`/chat?room=${res.data.data.id}`);
     } catch (err: any) {
       setError(getApiError(err));
     } finally {
@@ -173,17 +176,12 @@ export default function DriverDashboardPage() {
     }
   };
 
-  const handleDriverStatus = async (orderId: string, nextStatus: "pickup" | "picked_up" | "delivered") => {
+  const handleDriverStatus = async (orderId: string, nextStatus: "pickup" | "picked_up") => {
     setUpdatingStatusId(orderId);
     try {
       const res = await api.put(`/orders/${orderId}/status`, { status: nextStatus });
       if (res.data.success) {
-        if (nextStatus === "delivered") {
-          setMyLiveOrders((prev) => prev.filter((o) => o.order_id !== orderId));
-          fetchData();
-        } else {
-          setMyLiveOrders((prev) => prev.map((o) => (o.order_id === orderId ? { ...o, status: nextStatus } : o)));
-        }
+        setMyLiveOrders((prev) => prev.map((o) => (o.order_id === orderId ? { ...o, status: nextStatus } : o)));
       }
     } catch (err: any) {
       setError(getApiError(err));
@@ -429,13 +427,15 @@ export default function DriverDashboardPage() {
                           Afficher QR Code livraison
                         </button>
                       )}
-                      <button
-                        onClick={() => handleDriverStatus(order.order_id, DRIVER_STATUS_FLOW[order.status].next)}
-                        disabled={updatingStatusId === order.order_id}
-                        className="px-4 py-2 bg-burkina-green-deep text-white rounded-lg text-label-md font-label-md active:scale-95 disabled:opacity-50"
-                      >
-                        {updatingStatusId === order.order_id ? "..." : DRIVER_STATUS_FLOW[order.status].label}
-                      </button>
+                      {DRIVER_STATUS_FLOW[order.status] && (
+                        <button
+                          onClick={() => handleDriverStatus(order.order_id, DRIVER_STATUS_FLOW[order.status].next)}
+                          disabled={updatingStatusId === order.order_id}
+                          className="px-4 py-2 bg-burkina-green-deep text-white rounded-lg text-label-md font-label-md active:scale-95 disabled:opacity-50"
+                        >
+                          {updatingStatusId === order.order_id ? "..." : DRIVER_STATUS_FLOW[order.status].label}
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -543,13 +543,34 @@ export default function DriverDashboardPage() {
                     </div>
                   </div>
                 </div>
-                <div className="w-full md:w-64 h-48 md:h-auto rounded-lg overflow-hidden relative border border-outline-variant/20 bg-surface-container-low flex flex-col items-center justify-center">
-                  <span className="material-symbols-outlined text-burkina-green-deep text-[32px] animate-bounce">
-                    location_on
+                <div className="w-full md:w-64 h-48 md:h-auto rounded-lg overflow-hidden relative border border-outline-variant/20 bg-surface-container-low flex flex-col items-center justify-center p-4 text-center">
+                  <span className="material-symbols-outlined text-burkina-green-deep text-[32px] mb-2">
+                    map
                   </span>
-                  <p className="text-[10px] uppercase tracking-wider font-bold mt-2">
-                    Aperçu Carte
-                  </p>
+                  <div className="flex flex-col gap-2 w-full mt-2 mb-12">
+                    {order.pickup_latitude != null && order.pickup_longitude != null && (
+                      <a
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${order.pickup_latitude},${order.pickup_longitude}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[12px] bg-white border border-outline-variant/30 py-2 rounded-lg text-burkina-green-deep hover:bg-burkina-green-light transition-colors flex items-center justify-center gap-1"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">navigation</span>
+                        Aller au Ramassage
+                      </a>
+                    )}
+                    {order.delivery_latitude != null && order.delivery_longitude != null && (
+                      <a
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${order.delivery_latitude},${order.delivery_longitude}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[12px] bg-white border border-outline-variant/30 py-2 rounded-lg text-secondary hover:bg-saffron-glow/20 transition-colors flex items-center justify-center gap-1"
+                      >
+                        <span className="material-symbols-outlined text-[14px]">navigation</span>
+                        Aller au Client
+                      </a>
+                    )}
+                  </div>
                   <button
                     onClick={() => handleAccept(order.id)}
                     disabled={acceptingId === order.id}

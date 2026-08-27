@@ -116,13 +116,14 @@ async function getShopBySubdomain(subdomain) {
 
 async function getShopStats(userId) {
   const shop = await getMyShop(userId);
-  const [products, orders, categories] = await Promise.all([
+  const [products, orders, categories, digitalProducts] = await Promise.all([
     query('SELECT COUNT(*)::int AS count FROM products WHERE shop_id = $1', [shop.id]),
     query('SELECT COUNT(*)::int AS count FROM orders WHERE shop_id = $1', [shop.id]),
     query('SELECT COUNT(*)::int AS count FROM categories WHERE shop_id = $1', [shop.id]),
+    query('SELECT COUNT(*)::int AS count FROM digital_products WHERE shop_id = $1', [shop.id]),
   ]);
   return {
-    productCount: products.rows[0].count,
+    productCount: products.rows[0].count + digitalProducts.rows[0].count,
     orderCount: orders.rows[0].count,
     categoryCount: categories.rows[0].count,
     isPublished: shop.is_published,

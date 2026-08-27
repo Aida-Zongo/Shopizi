@@ -65,7 +65,7 @@ router.get('/calculate-fee', asyncHandler(async (req, res) => {
 // List available delivery jobs (for drivers)
 router.get('/available', authenticate, asyncHandler(async (req, res) => {
   const cityId = req.query.city_id;
-  let sql = `SELECT d.id, d.order_id, d.status, d.pickup_address, d.delivery_address, d.delivery_fee_xof, d.distance_km, d.created_at, o.customer_name, o.customer_phone, o.total_amount_xof, s.name AS shop_name, s.address AS shop_address, s.phone_number AS shop_phone FROM deliveries d JOIN orders o ON o.id = d.order_id JOIN shops s ON s.id = d.shop_id WHERE d.status = 'pending_driver' AND d.driver_id IS NULL`;
+  let sql = `SELECT d.id, d.order_id, d.status, d.pickup_address, d.delivery_address, d.delivery_fee_xof, d.distance_km, d.created_at, d.pickup_latitude, d.pickup_longitude, d.delivery_latitude, d.delivery_longitude, o.customer_name, o.customer_phone, o.total_amount_xof, s.name AS shop_name, s.address AS shop_address, s.phone_number AS shop_phone FROM deliveries d JOIN orders o ON o.id = d.order_id JOIN shops s ON s.id = d.shop_id WHERE d.status = 'pending_driver' AND d.driver_id IS NULL`;
   const params = [];
   if (cityId) { sql += ' AND d.city_id = $1'; params.push(cityId); }
   const r = await query(sql + ' ORDER BY d.created_at DESC', params);
