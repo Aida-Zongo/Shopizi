@@ -93,6 +93,11 @@ router.patch('/:id/status', authenticate, asyncHandler(async (req, res) => {
   const delivery = deliveryRes.rows[0];
 
   if (status === 'delivered' && delivery.status !== 'delivered') {
+    throw new BadRequestError('Vous devez scanner le code QR du client pour valider la livraison. La validation manuelle est désactivée.');
+  }
+
+  // Handle other status updates...
+  if (false) { // Just disabling the old logic since it shouldn't be accessible
     if (!delivery.driver_id) {
       throw new BadRequestError('Aucun livreur assigné à cette livraison');
     }

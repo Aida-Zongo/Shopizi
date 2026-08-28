@@ -428,6 +428,10 @@ router.post('/:id/confirm-delivery', validate({ body: z.object({ token: z.string
       `UPDATE orders SET status = 'delivered', payment_status = 'paid', delivered_at = NOW(), delivery_confirm_token = NULL WHERE id = $1`,
       [req.params.id]
     );
+    await client.query(
+      `UPDATE deliveries SET status = 'delivered', delivered_at = NOW() WHERE order_id = $1`,
+      [req.params.id]
+    );
 
     // Same crediting flow as the manual 'delivered' status update
     if (order.driver_id) {
