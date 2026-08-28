@@ -21,20 +21,21 @@ CREATE UNIQUE INDEX idx_cities_slug ON cities(slug);
 CREATE INDEX idx_cities_name ON cities(name);
 
 -- Insertion des principales villes du Burkina Faso
+-- Régions mises à jour selon la réforme administrative du 2 juillet 2025
 INSERT INTO cities (name, slug, region) VALUES
-  ('Ouagadougou', 'ouagadougou', 'Centre'),
-  ('Bobo-Dioulasso', 'bobo-dioulasso', 'Hauts-Bassins'),
-  ('Koudougou', 'koudougou', 'Centre-Ouest'),
-  ('Banfora', 'banfora', 'Cascades'),
-  ('Ouahigouya', 'ouahigouya', 'Nord'),
-  ('Pouytenga', 'pouytenga', 'Centre-Est'),
-  ('Manga', 'manga', 'Centre-Sud'),
-  ('Kaya', 'kaya', 'Centre-Nord'),
-  ('Fada N''Gourma', 'fada-ngourma', 'Est'),
-  ('Tenkodogo', 'tenkodogo', 'Centre-Est'),
-  ('Dédougou', 'dedougou', 'Boucle du Mouhoun'),
-  ('Houndé', 'hounde', 'Tuy'),
-  ('Zorgo', 'zorgo', 'Ganzourgou'),
-  ('Koupéla', 'koupela', 'Centre-Est'),
-  ('Gorom-Gorom', 'gorom-gorom', 'Sahel')
+  ('Ouagadougou',  'ouagadougou',   'Kadiogo'),
+  ('Bobo-Dioulasso','bobo-dioulasso','Guiriko'),
+  ('Koudougou',    'koudougou',     'Nando'),
+  ('Banfora',      'banfora',       'Tannounyan'),
+  ('Ouahigouya',   'ouahigouya',    'Yaadga'),
+  ('Pouytenga',    'pouytenga',     'Nakambé'),
+  ('Manga',        'manga',         'Nazinon'),
+  ('Kaya',         'kaya',          'Kuilsé'),
+  ('Fada N''Gourma','fada-ngourma', 'Goulmou'),
+  ('Tenkodogo',    'tenkodogo',     'Nakambé'),
+  ('Dédougou',     'dedougou',      'Bankui'),
+  ('Houndé',       'hounde',        'Guiriko'),
+  ('Zorgo',        'zorgo',         'Oubri'),
+  ('Koupéla',      'koupela',       'Nakambé'),
+  ('Gorom-Gorom',  'gorom-gorom',   'Liptako')
   ON CONFLICT DO NOTHING;
