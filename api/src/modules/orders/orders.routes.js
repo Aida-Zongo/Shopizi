@@ -324,6 +324,10 @@ router.put('/:id/accept', authenticate, asyncHandler(async (req, res) => {
     [driverId, req.params.id]
   );
   if (r.rows.length === 0) throw new BadRequestError('Commande déjà prise en charge ou introuvable');
+  
+  const { getIO } = require('../../realtime/socket');
+  getIO().emit('order:taken', { order_id: req.params.id });
+
   return successResponse(res, r.rows[0]);
 }));
 

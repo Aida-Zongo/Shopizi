@@ -20,9 +20,13 @@ interface LiveOrder {
   shop_name?: string | null;
   shop_city?: string | null;
   shop_address?: string | null;
+  shop_latitude?: number | null;
+  shop_longitude?: number | null;
   customer_name?: string | null;
   customer_city?: string | null;
   delivery_address: string | null;
+  client_latitude?: number | null;
+  client_longitude?: number | null;
   driver_amount: number;
   distance_km?: number | null;
   estimated_minutes?: number | null;
@@ -107,18 +111,26 @@ export default function DriverDashboardPage() {
     const socket = getSocket();
     if (user?.driver_id) socket.emit("driver:join", user.driver_id);
     const handleNewOrder = (payload: LiveOrder) => {
-      setIncomingOrders((prev) => [payload, ...prev]);
+      setIncomingOrders((prev) => [payload, ...prev.filter((o) => o.order_id !== payload.order_id)]);
     };
-    const handleDeliveryConfirmed = (payload: { order_id: string }) => {
+    const handleDeliveryConfirmed = (payload: { order_id: string; message?: string }) => {
       setMyLiveOrders((prev) => prev.filter((o) => o.order_id !== payload.order_id));
       setQrModal((prev) => (prev && prev.orderId === payload.order_id ? null : prev));
+      if (payload.message) alert(payload.message);
       fetchData();
     };
+    const handleOrderTaken = (payload: { order_id: string }) => {
+      setIncomingOrders((prev) => prev.filter((o) => o.order_id !== payload.order_id));
+      setAvailableOrders((prev) => prev.filter((o) => o.order_id !== payload.order_id && o.id !== payload.order_id));
+    };
+
     socket.on("new:order", handleNewOrder);
     socket.on("delivery:confirmed", handleDeliveryConfirmed);
+    socket.on("order:taken", handleOrderTaken);
     return () => {
       socket.off("new:order", handleNewOrder);
       socket.off("delivery:confirmed", handleDeliveryConfirmed);
+      socket.off("order:taken", handleOrderTaken);
     };
   }, [user?.driver_id]);
 
@@ -395,6 +407,30 @@ export default function DriverDashboardPage() {
                         )}
                         {order.estimated_minutes != null && (
                           <span className="text-[11px] text-text-muted">· ~{order.estimated_minutes} min</span>
+                        )}
+                      </div>
+                      <div className="flex gap-2 mt-3">
+                        {order.shop_latitude != null && order.shop_longitude != null && (
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${order.shop_latitude},${order.shop_longitude}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[11px] bg-secondary-container/50 border border-outline-variant/30 px-3 py-1.5 rounded-lg text-burkina-green-deep hover:bg-burkina-green-light transition-colors flex items-center justify-center gap-1"
+                          >
+                            <span className="material-symbols-outlined text-[14px]">navigation</span>
+                            Aller au Ramassage
+                          </a>
+                        )}
+                        {order.client_latitude != null && order.client_longitude != null && (
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${order.client_latitude},${order.client_longitude}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[11px] bg-secondary-container/50 border border-outline-variant/30 px-3 py-1.5 rounded-lg text-secondary hover:bg-saffron-glow/20 transition-colors flex items-center justify-center gap-1"
+                          >
+                            <span className="material-symbols-outlined text-[14px]">navigation</span>
+                            Aller à la Livraison
+                          </a>
                         )}
                       </div>
                     </div>
