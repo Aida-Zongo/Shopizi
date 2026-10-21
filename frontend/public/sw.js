@@ -1,10 +1,22 @@
-/* Service Worker Shopizi — cache offline + notifications push.
-   Strategie : ne jamais mettre en cache l'API (onrender) ni les medias
-   Cloudinary (assets signes/temporaires) ; navigation en network-first avec
-   repli hors-ligne ; assets statiques en cache-first. */
+/* Service Worker Shopizi — cache offline + PWA installabilité.
+   Stratégie :
+   - Réseau d'abord pour les pages (navigation) et les données.
+   - Cache d'abord pour les assets statiques (scripts, styles, images, polices).
+   - Ne JAMAIS mettre en cache l'API (shopizi-api.onrender.com),
+     les requêtes d'authentification, de paiement, de chat temps réel (Socket.io),
+     ni les médias Cloudinary.
+*/
 
-const CACHE_NAME = 'shopizi-v1';
-const STATIC_ASSETS = ['/', '/manifest.json', '/logo-shopizi.png', '/offline.html'];
+const CACHE_NAME = 'shopizi-v2';
+const STATIC_ASSETS = [
+  '/',
+  '/manifest.json',
+  '/offline.html',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/icon-512-maskable.png',
+  '/apple-touch-icon.png'
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -28,13 +40,22 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
 
-  // Ne jamais intercepter l'API ni les medias distants : on laisse le reseau
-  // gerer (auth, urls signees, temps reel).
-  if (url.hostname.includes('onrender.com') || url.hostname.includes('cloudinary.com')) {
+  // 1. Exclusions strictes : API Render, Cloudinary, auth, paiements, chat Socket.io
+  const isExcluded =
+    url.hostname.includes('onrender.com') ||
+    url.hostname.includes('cloudinary.com') ||
+    url.pathname.includes('/socket.io') ||
+    url.pathname.includes('/api/') ||
+    url.pathname.includes('/auth') ||
+    url.pathname.includes('/payments') ||
+    url.pathname.includes('/checkout') ||
+    url.pathname.includes('/webhook');
+
+  if (isExcluded) {
     return;
   }
 
-  // Navigation (pages) : reseau d'abord, repli hors-ligne.
+  // 2. Navigation (pages) : réseau d'abord, repli hors-ligne
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request).catch(() =>
@@ -44,7 +65,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Images / styles / scripts : cache d'abord.
+  // 3. Assets statiques (images, styles, scripts, polices) : cache d'abord
   if (['image', 'style', 'script', 'font'].includes(request.destination)) {
     event.respondWith(
       caches.match(request).then((cached) => {
@@ -61,22 +82,24 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Reste : reseau d'abord, repli cache.
-  event.respondWith(fetch(request).catch(() => caches.match(request)));
+  // 4. Autres requêtes GET : réseau d'abord, repli cache
+  event.respondWith(
+    fetch(request).catch(() => caches.match(request))
+  );
 });
 
-// Notification push (necessite un serveur push cote back ; le handler est prêt).
+// Notifications push
 self.addEventListener('push', (event) => {
   let data = { title: 'Shopizi', body: 'Vous avez une nouvelle notification.', url: '/' };
   try {
     if (event.data) data = { ...data, ...event.data.json() };
-  } catch (e) { /* payload texte simple */ }
+  } catch (e) { /* payload texte */ }
 
   event.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-      icon: '/logo-shopizi.png',
-      badge: '/logo-shopizi.png',
+      icon: '/icon-192.png',
+      badge: '/icon-192.png',
       data: { url: data.url || '/' },
     })
   );

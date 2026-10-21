@@ -29,7 +29,7 @@ import DriverChatPage from './pages/driver/DriverChatPage'
 import DriverSettingsPage from './pages/driver/DriverSettingsPage'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 
-import PWAInstallBanner from './components/PWAInstallBanner'
+import InstallPrompt from './components/InstallPrompt'
 import PushNotificationListener from './components/PushNotificationListener'
 import CustomerLayout from './layouts/CustomerLayout'
 import CustomerHomePage from './pages/customer/CustomerHomePage'
@@ -224,7 +224,7 @@ export default function App() {
       <AppInit />
       <AppContent />
       <PushNotificationListener />
-      <PWAInstallBanner />
+      <InstallPrompt />
     </>
   )
 }
