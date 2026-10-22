@@ -12,6 +12,18 @@ export default function CustomerLayout() {
   const isHomepage = location.pathname === '/' || location.pathname === '/marketplace';
   const [menuOpen, setMenuOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [isStandalone, setIsStandalone] = useState(false);
+
+  useEffect(() => {
+    const checkStandalone = () => {
+      const standalone =
+        window.matchMedia('(display-mode: standalone)').matches ||
+        (window.navigator as unknown as { standalone?: boolean }).standalone === true ||
+        document.referrer.includes('android-app://');
+      setIsStandalone(standalone);
+    };
+    checkStandalone();
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -75,20 +87,22 @@ export default function CustomerLayout() {
               Produits Digitaux
             </Link>
 
-            <button
-              type="button"
-              onClick={() => {
-                if (window.__openShopiziInstall) {
-                  window.__openShopiziInstall();
-                }
-              }}
-              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg shadow-sm transition-all active:scale-95 text-white"
-              style={{ backgroundColor: '#00A86B' }}
-              title="Installer l'application Shopizi"
-            >
-              <span className="material-symbols-outlined text-[16px]">download</span>
-              <span>Installer l'app</span>
-            </button>
+            {!isStandalone && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.__openShopiziInstall) {
+                    window.__openShopiziInstall();
+                  }
+                }}
+                className="pwa-hide-standalone flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg shadow-sm transition-all active:scale-95 text-white"
+                style={{ backgroundColor: '#00A86B' }}
+                title="Installer l'application Shopizi"
+              >
+                <span className="material-symbols-outlined text-[16px]">download</span>
+                <span>Installer l'app</span>
+              </button>
+            )}
 
             {user ? (
               <div className="relative">

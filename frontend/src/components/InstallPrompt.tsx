@@ -89,7 +89,7 @@ export default function InstallPrompt() {
     <div
       role="region"
       aria-label="Installation de l'application Shopizi"
-      className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md animate-in fade-in slide-in-from-bottom-5 duration-300"
+      className="pwa-hide-standalone fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md animate-in fade-in slide-in-from-bottom-5 duration-300"
     >
       <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl">
         <img

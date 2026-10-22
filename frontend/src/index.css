@@ -328,3 +328,13 @@ html {
   }
   .shopizi-loader-dot { opacity: 0.6; }
 }
+
+/* ── PWA Standalone Mode ───────────────────────────────
+   Cache automatiquement tous les boutons ou bandeaux d'installation
+   lorsque l'application est ouverte depuis l'écran d'accueil. */
+@media (display-mode: standalone) {
+  .pwa-hide-standalone {
+    display: none !important;
+  }
+}
+
