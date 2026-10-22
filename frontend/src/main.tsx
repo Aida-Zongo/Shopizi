@@ -36,9 +36,15 @@ if (splash) {
 
 // Enregistrement du service worker (PWA installable + cache hors-ligne).
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  const registerSW = () => {
     navigator.serviceWorker.register('/sw.js').catch((err) => {
       console.error('Echec enregistrement service worker:', err)
     })
-  })
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    registerSW()
+  } else {
+    window.addEventListener('load', registerSW)
+  }
 }
