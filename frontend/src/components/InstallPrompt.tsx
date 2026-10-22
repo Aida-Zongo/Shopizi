@@ -5,20 +5,27 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
+declare global {
+  interface Window {
+    __openShopiziInstall?: () => void;
+  }
+}
+
 export default function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isIOS, setIsIOS] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [showManualGuide, setShowManualGuide] = useState(false);
 
   useEffect(() => {
     // 1. Détection du mode standalone (déjà installé)
     const checkStandalone = () => {
-      const isStandaloneMode =
+      const standalone =
         window.matchMedia('(display-mode: standalone)').matches ||
         (window.navigator as unknown as { standalone?: boolean }).standalone === true ||
         document.referrer.includes('android-app://');
-      setIsStandalone(isStandaloneMode);
+      setIsStandalone(standalone);
     };
 
     checkStandalone();
@@ -31,7 +38,7 @@ export default function InstallPrompt() {
       setIsIOS(true);
     }
 
-    // 3. Écoute de l'événement beforeinstallprompt (Android / Chrome / Edge)
+    // 3. Écoute de l'événement natif beforeinstallprompt
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
@@ -40,33 +47,41 @@ export default function InstallPrompt() {
     const handleAppInstalled = () => {
       setDeferredPrompt(null);
       setIsStandalone(true);
+      setShowManualGuide(false);
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     window.addEventListener('appinstalled', handleAppInstalled);
 
+    // Permet d'ouvrir la boîte d'installation depuis n'importe quel bouton de l'app
+    window.__openShopiziInstall = () => {
+      setDismissed(false);
+      setShowManualGuide(true);
+    };
+
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.removeEventListener('appinstalled', handleAppInstalled);
+      delete window.__openShopiziInstall;
     };
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
-    await deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
-    if (choice.outcome === 'accepted') {
-      setDeferredPrompt(null);
+    if (deferredPrompt) {
+      await deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        setDeferredPrompt(null);
+        setDismissed(true);
+      }
+    } else {
+      // Si le navigateur n'a pas encore émis l'événement natif ou ne le supporte pas directement
+      setShowManualGuide(true);
     }
   };
 
-  // Ne rien afficher si l'app est déjà installée en mode standalone ou masquée par l'utilisateur
+  // Ne rien afficher si l'application est déjà lancée en mode standalone ou masquée
   if (isStandalone || dismissed) {
-    return null;
-  }
-
-  // Ne rien afficher si pas sur iOS et qu'aucun événement d'installation natif n'est disponible
-  if (!deferredPrompt && !isIOS) {
     return null;
   }
 
@@ -76,52 +91,65 @@ export default function InstallPrompt() {
       aria-label="Installation de l'application Shopizi"
       className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md animate-in fade-in slide-in-from-bottom-5 duration-300"
     >
-      <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl">
+      <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl">
         <img
           src="/icon-192.png"
           alt="Logo Shopizi"
-          className="h-12 w-12 flex-shrink-0 rounded-xl object-contain border border-slate-100"
+          className="h-12 w-12 flex-shrink-0 rounded-xl object-contain border border-slate-100 shadow-sm"
         />
 
         <div className="flex-1 min-w-0">
-          <h2 className="text-sm font-bold text-slate-900 tracking-tight">Shopizi</h2>
+          <div className="flex items-center gap-1.5">
+            <h2 className="text-sm font-bold text-slate-900 tracking-tight">Shopizi</h2>
+            <span className="text-[10px] uppercase font-semibold tracking-wider text-[#00A86B] bg-[#00A86B]/10 px-1.5 py-0.5 rounded">
+              PWA
+            </span>
+          </div>
 
-          {deferredPrompt && (
-            <>
-              <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
-                Installez l'application sur votre écran d'accueil pour un accès rapide et une utilisation hors ligne.
-              </p>
-              <div className="mt-3 flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleInstallClick}
-                  className="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition-transform active:scale-95"
-                  style={{ backgroundColor: '#00A86B' }}
-                >
-                  <span className="material-symbols-outlined text-[16px]">download</span>
-                  Installer l'application
-                </button>
-              </div>
-            </>
-          )}
+          <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+            Installez l'application sur votre écran d'accueil pour un accès ultra-rapide et sécurisé.
+          </p>
 
-          {!deferredPrompt && isIOS && (
-            <div className="mt-1 text-xs text-slate-600 leading-relaxed space-y-1">
-              <p>Pour installer Shopizi sur votre iPhone ou iPad :</p>
-              <ol className="list-decimal list-inside space-y-0.5 text-slate-700 font-medium">
-                <li>
-                  Appuyez sur Partager{' '}
-                  <span className="material-symbols-outlined align-middle text-[15px] text-slate-900">
-                    ios_share
-                  </span>
-                </li>
-                <li>
-                  Sélectionnez Sur l'écran d'accueil{' '}
-                  <span className="material-symbols-outlined align-middle text-[15px] text-slate-900">
-                    add_box
-                  </span>
-                </li>
-              </ol>
+          <div className="mt-3 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleInstallClick}
+              className="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition-transform active:scale-95 hover:opacity-95"
+              style={{ backgroundColor: '#00A86B' }}
+            >
+              <span className="material-symbols-outlined text-[16px]">download</span>
+              Installer l'application
+            </button>
+          </div>
+
+          {/* Guide manuel si le prompt natif n'est pas supporté (iOS ou attente navigateur) */}
+          {showManualGuide && (
+            <div className="mt-3 rounded-lg bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-700 space-y-1.5">
+              {isIOS ? (
+                <>
+                  <p className="font-semibold text-slate-900">Installation sur iPhone / iPad :</p>
+                  <ol className="list-decimal list-inside space-y-1 text-slate-600">
+                    <li>
+                      Appuyez sur <span className="material-symbols-outlined align-middle text-[15px] text-slate-900">ios_share</span> (Partager).
+                    </li>
+                    <li>
+                      Sélectionnez <span className="material-symbols-outlined align-middle text-[15px] text-slate-900">add_box</span> « Sur l'écran d'accueil ».
+                    </li>
+                  </ol>
+                </>
+              ) : (
+                <>
+                  <p className="font-semibold text-slate-900">Installation sur Android / Navigateur :</p>
+                  <ol className="list-decimal list-inside space-y-1 text-slate-600">
+                    <li>
+                      Ouvrez le menu du navigateur <span className="material-symbols-outlined align-middle text-[15px] text-slate-900">more_vert</span> (les 3 points en haut).
+                    </li>
+                    <li>
+                      Appuyez sur <span className="material-symbols-outlined align-middle text-[15px] text-slate-900">add_to_home_screen</span> « Installer l'application » ou « Ajouter à l'écran d'accueil ».
+                    </li>
+                  </ol>
+                </>
+              )}
             </div>
           )}
         </div>
