@@ -46,13 +46,7 @@ services:
         sync: false
       - key: CLOUDINARY_API_SECRET
         sync: false
-      # Connexion à la base Render (sinon pas de DATABASE_URL en prod).
+      # Connexion à la base Render : valeur saisie dans le dashboard Render (sync: false),
+      # jamais commitée pour protéger les identifiants.
       - key: DATABASE_URL
-        fromDatabase:
-          name: shopizi-db
-          property: connectionString
-
-databases:
-  - name: shopizi-db
-    plan: free
-    region: frankfurt
+        sync: false
